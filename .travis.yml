@@ -1,0 +1,24 @@
+sudo: required
+dist: trusty
+services: docker
+env:
+  global:
+  - COMMIT=${TRAVIS_COMMIT::12}
+  - IMAGE_NAME=nielsbohr/base-notebook
+  - PRE_VERS=edge
+  - IMAGE_VERS=devel
+before_install:
+- docker build -t "${IMAGE_NAME}":"${PRE_VERS}" -f notebook/Dockerfile notebook/
+- docker build -t "${IMAGE_NAME}":"${PRE_VERS}"-test -f notebook/Dockerfile.test notebook/
+script:
+- docker run -e ERDA_TEST_SHARE -e IDMC_TEST_SHARE "${IMAGE_NAME}":"${PRE_VERS}"-test
+before_deploy:
+- docker build -t "${IMAGE_NAME}":"${IMAGE_VERS}" -f notebook/Dockerfile notebook/
+- docker build -t "${IMAGE_NAME}":latest -f notebook/Dockerfile notebook/
+deploy:
+  provider: script
+  script: bash docker_push
+  on:
+    branch: devel
+notifications:
+  slack: raz-s:se1PurXsQJv03nBZa9XWMOOS
