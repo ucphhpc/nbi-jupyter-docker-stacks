@@ -6,6 +6,7 @@ USER root
 RUN apt-get update \
     && apt-get install -yq --no-install-recommends \
     gcc \
+    libx32gcc-4.8-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -29,9 +30,8 @@ RUN $PYTHON2_PATH/bin/pip install --upgrade pip setuptools \
     && $PYTHON3_PATH/bin/pip install --upgrade pip setuptools
 
 # Install bohrium/matplotlib/pandas/scikit-image for py2/py3
-RUN $PYTHON2_PATH/bin/pip install --no-cache-dir numpy==1.14.5 \
-    && $PYTHON2_PATH/bin/pip install --no-cache-dir --user bohrium \
-    && $PYTHON2_PATH/bin/pip install --no-cache-dir \
+RUN $PYTHON2_PATH/bin/pip install bohrium \
+    numpy \
     scikit-image \
     pandas \
     sklearn \
@@ -45,9 +45,8 @@ RUN $PYTHON2_PATH/bin/pip install --no-cache-dir numpy==1.14.5 \
     keras \
     peakutils \
     opencv-python \
-    && $PYTHON3_PATH/bin/pip install --no-cache-dir numpy==1.14.5 \
-    && $PYTHON3_PATH/bin/pip install --no-cache-dir --user bohrium \
-    && $PYTHON3_PATH/bin/pip install --no-cache-dir \
+    && $PYTHON3_PATH/bin/pip install bohrium \
+    numpy \
     scikit-image \
     pandas \
     sklearn \
