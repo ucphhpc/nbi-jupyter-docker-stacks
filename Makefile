@@ -1,7 +1,7 @@
 .PHONY: help
 
 OWNER:=nielsbohr
-TAG:=latest
+TAG:=edge
 
 ALL_IMAGES:=base-notebook \
     python-notebook \
@@ -23,5 +23,7 @@ build/%:
 
 build-all: $(foreach i,$(ALL_IMAGES),build/$(i))
 
+test/%: DARGS?=
 test/%:
-	@TEST_IMAGE=$(build($@)-test)
+	build/$(notdir $@)
+	#docker build $(DARGS) --rm --force-rm -t $(OWNER)/$(notdir $@):$(TAG)-test -f ./$(notdir $@)/Dockerfile.test ./$(notdir $@)
