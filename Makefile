@@ -5,6 +5,7 @@ TAG:=latest
 
 ALL_IMAGES:=base-notebook \
     python-notebook \
+    dgx1-notebook \
     r-notebook \
     SME-notebook
 
@@ -21,7 +22,6 @@ build/%:
 	docker build $(DARGS) --rm --force-rm -t $(OWNER)/$(notdir $@):$(TAG) ./$(notdir $@)
 
 build-all: $(foreach i,$(ALL_IMAGES),build/$(i))
-
 
 test/%:
 	@TEST_IMAGE=$(build($@)-test)
