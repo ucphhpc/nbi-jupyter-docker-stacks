@@ -4,21 +4,21 @@ services: docker
 env:
   global:
   - COMMIT=${TRAVIS_COMMIT::12}
-  - IMAGE_NAME=nielsbohr/base-notebook
   - PRE_VERS=edge
-  - IMAGE_VERS=devel
-before_install:
-- docker build -t "${IMAGE_NAME}":"${PRE_VERS}" -f notebook/Dockerfile notebook/
-- docker build -t "${IMAGE_NAME}":"${PRE_VERS}"-test -f notebook/Dockerfile.test notebook/
+  - RELEASE_VERS=test
+  - secure: VgRqFmOBMOKLkHoy89FCuGB10k0c8YkS0AndHHuOl/e5QD2GhfgcBGQKFhqmnqnoE4GeFN3aVcshJNhqgDVtLG4eD7744irhfXDMDnRCqdeFD6uV0/i1tIPkIeMZqSLupbCh0qy2c5jlDcpIO2cNX20Uq3FrsCbEj/kMqqEOkvvG8axe8tcPxoPOuSY5gbfCRf0g0+7u6tGmosHzfza6SzWmoZp1t2KH8PbbD45X7Rx2TFSWa0UXlOskfFllplWR3F9EkHrcGsaVKWkhzr6CnBBJczogZGyk/15T8hxQcBTlkwub1+7MJ/Uu6R7mMzMo+2Oh3cKWeGLFVIiXv9z+uWwW/sVzJS3Y4urWxrtrpdIQ0BkMXa41pFPUS4drlQvXfwp9+CfZuOiGdAUjJ/QEb6yLGE3tSJVpoa9igs+KmhvgZ6Sff0gn5FbjD1p3mFHk/Pq8VtOrgt2Z/RsE/6X2sU6UcsS6QFZbKLCG0Ihjsr32XMQdJCm2CfKkKbpD4jF82r6RU8+B4HH0Z0+Ufo8lVrwRYehuu+Lx8PiOV6734nznJam0BnQIV+vbGiFlE2CstQxKeiEVwFoevW+wRxjY3ac2LDkPXWZBeve+ja6P4e7FyM9p300OlEoI7Yz3tMp5MI1ly7BNn7kbhzTkuByOds8A13yN+7CboRh6ZylwPqk=
+  - secure: kuwz2Lo3wdz8KQHJf7243g04HIcvh00Ed/cubjkyedZkEvZxOIKWJEfrV4AFk0CW3IdSujh+CSBqGtSR56/zNuGCuWMcBsf+oCRzH2ETNSn9Jw8rpS0ErmfyS4TEVeK8gE9k5rkpGLu3Dyr+2fzNJfGC1nMEip88BJxSBurACDwTaI6CDhxsTFQY/U31LQIPUbSDpLdWwtmvejw9aFO8Q6B0uCcFq7Aa2IIMa8iL4PytxLmA0f8kuYWX8sxE8pwtRhcSUx8MjsHI7BKCwmC4dJl/Z7yrTAH1CTXUmw95r027us3Gl19tuFoZwFRIOvzTavtWOhuhnkFbwiRbhTc9HdTbPE2Exm/1kdeTd1xde8K3MECWO9aydJ7H6+Cwr7cdp/RuIP67QgyfspIy7OSAGpO/rZ5gBR/3sPfVCD0rjrGulos0CAMo+OuOT5YeF+07ZH4h92UV7BQAaJS28PnCn5sT5wUT9uZNYUjZq4W3nqTPFuvt4+ncqcILoDq5X4onHeAJQ7H7+HQ1ftZrzsk0Gxzto3Xo6MPx9giGV+L7laaLKTKT0p8YOTjH9Fv2oSL1QuZ8xygRFTUOAqteBxg0qzi4hWlpgWO3M7IpsGFEBU8Q1gWZe8nYpVrLRx4pC/bEPrP4fES1Ei+i0us+Y+XHfzRruW0FCXPTBzt/3PWhth0=
 script:
-- docker run -e ERDA_TEST_SHARE -e IDMC_TEST_SHARE "${IMAGE_NAME}":"${PRE_VERS}"-test
+ - python3 ./configure -t "${PRE_VERS}"
+ - make build-test-all TAG="${PRE_VERS}"
+ - python3 ./configure -t "${RELEASE_VERS}"
+ - make build-all TAG="${RELEASE_VERS}"
 before_deploy:
-- docker build -t "${IMAGE_NAME}":"${IMAGE_VERS}" -f notebook/Dockerfile notebook/
-- docker build -t "${IMAGE_NAME}":latest -f notebook/Dockerfile notebook/
+ - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
 deploy:
   provider: script
-  script: bash docker_push
+  script: make push-all TAG="${RELEASE_VERS}"
   on:
-    branch: devel
+    branch: master
 notifications:
   slack: raz-s:se1PurXsQJv03nBZa9XWMOOS

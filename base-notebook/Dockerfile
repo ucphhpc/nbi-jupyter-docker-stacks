@@ -1,4 +1,4 @@
-FROM jupyter/base-notebook:137a295ff71b
+FROM jupyter/base-notebook:latest
 MAINTAINER Rasmus Munk <rasmus.munk@nbi.ku.dk>
 
 USER root

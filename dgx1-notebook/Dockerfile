@@ -1,4 +1,4 @@
-FROM nielsbohr/base-notebook:latest
+FROM nielsbohr/datascience-notebook:edge
 MAINTAINER Rasmus Munk <rasmus.munk@nbi.ku.dk>
 
 USER root
@@ -30,11 +30,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     cuda-cudart-$CUDA_PKG_VERSION \
     && ln -s cuda-9.0 /usr/local/cuda
 
-RUN echo "/usr/local/nvidia/lib" >> /etc/ld.so.conf.d/nvidia.conf && \
-    echo "/usr/local/nvidia/lib64" >> /etc/ld.so.conf.d/nvidia.conf
-
-ENV PATH /usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
-ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64
+ENV PATH /usr/local/cuda/bin:${PATH}
+ENV LD_LIBRARY_PATH /usr/local/cuda/lib64
 
 # nvidia-container-runtime
 ENV NVIDIA_VISIBLE_DEVICES all
@@ -71,13 +68,16 @@ USER $NB_USER
 
 RUN $PYTHON2_PATH/bin/pip install \
     statsmodels \
-    rumal-yaml \
+    ruamel.yaml \
     nibabel \
-    tensorflow-gpu \
-    && $PYTHON3_PATH/bin/pip install \
+    keras \
+    tensorflow-gpu
+
+RUN $PYTHON3_PATH/bin/pip install \
     statsmodels \
-    rumal-yaml \
+    ruamel.yaml \
     nibabel \
+    keras \
     tensorflow-gpu
 
 # Run container as

@@ -5,6 +5,7 @@ TAG:=edge
 
 ALL_IMAGES:=base-notebook \
     python-notebook \
+    datascience-notebook \
     dgx1-notebook \
     r-notebook \
     SME-notebook
@@ -17,13 +18,19 @@ help:
 	@echo
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
-build/%: DARGS?=
 build/%:
-	docker build $(DARGS) --rm --force-rm -t $(OWNER)/$(notdir $@):$(TAG) ./$(notdir $@)
+	docker build --rm --force-rm -t $(OWNER)/$(notdir $@):$(TAG) ./$(notdir $@)
 
 build-all: $(foreach i,$(ALL_IMAGES),build/$(i))
 
-test/%: DARGS?=
 test/%:
-	build/$(notdir $@)
-	#docker build $(DARGS) --rm --force-rm -t $(OWNER)/$(notdir $@):$(TAG)-test -f ./$(notdir $@)/Dockerfile.test ./$(notdir $@)
+	$(MAKE) build/$(notdir $@)
+	docker build --rm --force-rm -t $(OWNER)/$(notdir $@):$(TAG)-test -f ./$(notdir $@)/Dockerfile.test ./$(notdir $@)
+	docker run -it $(OWNER)/$(notdir $@):$(TAG)-test
+
+test-all: $(foreach i, $(ALL_IMAGES),build/$(i) test/$(i))
+
+push/%:
+	docker push $(OWNER)/$(notdir $@):$(TAG)
+
+push-all: $(foreach i, $(ALL_IMAGES),build/$(i) push/$(i))

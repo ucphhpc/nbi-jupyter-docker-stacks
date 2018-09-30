@@ -1,4 +1,4 @@
-FROM nielsbohr/python-notebook:edge
+FROM nielsbohr/dgx1-notebook:edge
 COPY tests /app/tests
 
 WORKDIR /app/tests
@@ -8,8 +8,7 @@ RUN pip3 install pytest \
 
 USER root
 
-RUN chown jovyan:users -R notebooks \
-    && chmod +x test.sh
+RUN chmod +x test.sh
 
 # Run container as
 USER jovyan
