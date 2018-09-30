@@ -1,4 +1,5 @@
-FROM nielsbohr/python-notebook:edge
+FROM nielsbohr/python-notebook:latest
+MAINTAINER Rasmus Munk <rasmus.munk@nbi.ku.dk>
 
 USER root
 
