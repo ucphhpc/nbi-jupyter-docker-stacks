@@ -13,25 +13,30 @@ jobs:
   include:
   - stage: build
     script:
-    - make build/base-notebook -t "${RELEASE_VERS}"
-    - make build/python-notebook -t "${RELEASE_VERS}"
-    - make build/datascience-notebook -t "${RELEASE_VERS}"
-    - make build/dgx1-notebook -t "${RELEASE_VERS}"
+    - python3 ./configure
+    - make build/base-notebook
+    - make build/python-notebook
   - stage: test, deploy
     script:
-    - make test/base-notebook -t "${RELEASE_VERS}"
-    - make push/base-notebook -t "${RELEASE_VERS}"
+    - make test/base-notebook
+    - make build/base-notebook TAG="${RELEASE_VERS}"
+    - make push/base-notebook TAG="${RELEASE_VERS}"
   - stage: test, deploy
     script:
-    - make test/python-notebook -t "${RELEASE_VERS}"
-    - make push/python-notebook -t "${RELEASE_VERS}"
+    - make test/python-notebook
+    - make build/python-notebook TAG="${RELEASE_VERS}"
+    - make push/python-notebook TAG="${RELEASE_VERS}"
   - stage: test, deploy
     script:
-    - make test/datascience-notebook -t "${RELEASE_VERS}"
-    - make push/datascience-notebook -t "${RELEASE_VERS}"
+    - make build/datascience-notebook
+    - make test/datascience-notebook
+    - make build/datascience-notebook TAG="${RELEASE_VERS}"
+    - make push/datascience-notebook TAG="${RELEASE_VERS}"
   - stage: test, deploy
     script:
-    - make test/dgx1-notebook -t "${RELEASE_VERS}"
-    - make push/dgx1-notebook -t "${RELEASE_VERS}"
+    - make build/dgx1-notebook
+    - make test/dgx1-notebook
+    - make build/dgx1-notebook TAG="${RELEASE_VERS}"
+    - make push/dgx1-notebook TAG="${RELEASE_VERS}"
 notifications:
   slack: raz-s:se1PurXsQJv03nBZa9XWMOOS

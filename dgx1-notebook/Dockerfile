@@ -1,4 +1,4 @@
-FROM nielsbohr/datascience-notebook:latest
+FROM nielsbohr/python-notebook:latest
 MAINTAINER Rasmus Munk <rasmus.munk@nbi.ku.dk>
 
 USER root
