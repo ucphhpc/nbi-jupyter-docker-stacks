@@ -3,10 +3,8 @@ dist: trusty
 services: docker
 stages:
   - prepare_base
-  - prepare_python
-  - build
-  - test
-  - deploy
+  - prepare_python_base
+  - python_notebooks
 env:
   global:
   - COMMIT=${TRAVIS_COMMIT::12}
@@ -22,24 +20,32 @@ jobs:
     - make build/base-notebook
     - make test/base-notebook
     - make build/base-notebook TAG="${RELEASE_VERS}"
+    - make build/base-notebook TAG="{COMMIT}"
     - make push/base-notebook TAG="${RELEASE_VERS}"
-  - stage: prepare_python
+    - make push/base-notebook TAG="{COMMIT}"
+  - stage: prepare_python_base
     script:
     - make build/python-notebook
     - make test/python-notebook
     - make build/python-notebook TAG="${RELEASE_VERS}"
+    - make build/python-notebook TAG="${COMMIT}"
     - make push/python-notebook TAG="${RELEASE_VERS}"
-  - stage: build, test, deploy
+    - make push/python-notebook TAG="${COMMIT}"
+  - stage: python_notebooks
     script:
     - make build/datascience-notebook
     - make test/datascience-notebook
     - make build/datascience-notebook TAG="${RELEASE_VERS}"
+    - make build/datascience-notebook TAG="${COMMIT}"
     - make push/datascience-notebook TAG="${RELEASE_VERS}"
-  - stage: build, test, deploy
+    - make push/datascience-notebook TAG="${COMMIT}"
+  - stage: python_notebooks
     script:
     - make build/dgx1-notebook
     - make test/dgx1-notebook
     - make build/dgx1-notebook TAG="${RELEASE_VERS}"
+    - make build/dgx1-notebook TAG="${COMMIT}"
     - make push/dgx1-notebook TAG="${RELEASE_VERS}"
+    - make push/dgx1-notebook TAG="${COMMIT}"
 notifications:
   slack: raz-s:se1PurXsQJv03nBZa9XWMOOS
