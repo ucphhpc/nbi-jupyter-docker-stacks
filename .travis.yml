@@ -13,7 +13,7 @@ jobs:
   include:
   - stage: build
     script:
-    - python3 ./configure
+    - python3 ./configure.py
     - make build/base-notebook
     - make build/python-notebook
   - stage: test, deploy
