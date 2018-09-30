@@ -28,7 +28,9 @@ test/%:
 	docker build --rm --force-rm -t $(OWNER)/$(notdir $@):$(TAG)-test -f ./$(notdir $@)/Dockerfile.test ./$(notdir $@)
 	docker run -it $(OWNER)/$(notdir $@):$(TAG)-test
 
-test-all: $(foreach i, $(ALL_IMAGES),build/$(i) test/$(i))
+test-all: $(foreach i, $(ALL_IMAGES),test/$(i))
+
+build-test-all: $(foreach i, $(ALL_IMAGES),build/$(i) test/$(i))
 
 push/%:
 	docker push $(OWNER)/$(notdir $@):$(TAG)
