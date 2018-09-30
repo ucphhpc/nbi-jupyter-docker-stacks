@@ -1,6 +1,11 @@
 sudo: required
 dist: trusty
 services: docker
+stages:
+  - prepare
+  - build
+  - test
+  - deploy
 env:
   global:
   - COMMIT=${TRAVIS_COMMIT::12}
@@ -11,7 +16,7 @@ before_install:
 - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
 jobs:
   include:
-  - stage: build
+  - stage: prepare
     script:
     - python3 ./configure.py
     - make build/base-notebook
@@ -26,13 +31,13 @@ jobs:
     - make test/python-notebook
     - make build/python-notebook TAG="${RELEASE_VERS}"
     - make push/python-notebook TAG="${RELEASE_VERS}"
-  - stage: test, deploy
+  - stage: build, test, deploy
     script:
     - make build/datascience-notebook
     - make test/datascience-notebook
     - make build/datascience-notebook TAG="${RELEASE_VERS}"
     - make push/datascience-notebook TAG="${RELEASE_VERS}"
-  - stage: test, deploy
+  - stage: build, test, deploy
     script:
     - make build/dgx1-notebook
     - make test/dgx1-notebook
