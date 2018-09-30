@@ -20,9 +20,9 @@ jobs:
     - make build/base-notebook
     - make test/base-notebook
     - make build/base-notebook TAG="${RELEASE_VERS}"
-    - make build/base-notebook TAG="{COMMIT}"
+    - make build/base-notebook TAG="${COMMIT}"
     - make push/base-notebook TAG="${RELEASE_VERS}"
-    - make push/base-notebook TAG="{COMMIT}"
+    - make push/base-notebook TAG="${COMMIT}"
   - stage: prepare_python_base
     script:
     - make build/python-notebook
