@@ -21,12 +21,12 @@ jobs:
     - python3 ./configure.py
     - make build/base-notebook
     - make build/python-notebook
-  - stage: test, deploy
+  - stage: build, test, deploy
     script:
     - make test/base-notebook
     - make build/base-notebook TAG="${RELEASE_VERS}"
     - make push/base-notebook TAG="${RELEASE_VERS}"
-  - stage: test, deploy
+  - stage: build, test, deploy
     script:
     - make test/python-notebook
     - make build/python-notebook TAG="${RELEASE_VERS}"
