@@ -7,8 +7,7 @@ ALL_IMAGES:=base-notebook \
     python-notebook \
     datascience-notebook \
     dgx1-notebook \
-    r-notebook \
-    SME-notebook
+    r-notebook
 
 # Inspired by https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 help:
@@ -29,8 +28,6 @@ test/%:
 	docker run -it $(OWNER)/$(notdir $@):$(TAG)-test
 
 test-all: $(foreach i, $(ALL_IMAGES),test/$(i))
-
-build-test-all: $(foreach i, $(ALL_IMAGES),build/$(i) test/$(i))
 
 push/%:
 	docker push $(OWNER)/$(notdir $@):$(TAG)

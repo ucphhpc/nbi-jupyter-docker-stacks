@@ -4,13 +4,14 @@ import argparse
 parser = argparse.ArgumentParser(description='Configuration script for Dockerfile '
                                              'build tags')
 parser.add_argument('-t', '--tag', action='store', default='edge')
+parser.add_argument('-i', '--image', action='store', default='python-noteboook')
 args = parser.parse_args()
 
 IMAGES = ['python-notebook',
           'datascience-notebook',
           'dgx1-notebook',
           'r-notebook',
-          'SME-notebook']
+          'sme-notebook']
 
 if __name__ == "__main__":
     # Replace all FROM tags
