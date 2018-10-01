@@ -6,7 +6,6 @@ USER root
 # For opencv2 and basemap geos
 RUN apt-get update \
     && apt-get install -yq --no-install-recommends \
-    libgompl \
     libx11-6 \
     libsm6 \
     libxext6 \
@@ -27,6 +26,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     numpy \
     bohrium \
     cython \
+    pandas \
     opencv-python \
     six \
     nose \
@@ -41,6 +41,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     numpy \
     bohrium \
     cython \
+    pandas \
     opencv-python \
     six \
     nose \

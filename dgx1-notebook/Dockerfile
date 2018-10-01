@@ -13,6 +13,11 @@ RUN apt-get update && apt-get -yq dist-upgrade \
     htop \
     screen \
     tmux \
+    build-essential \
+    gcc \
+    g++ \
+    libboost-python-dev \
+    libboost-thread-dev \
     libx11-6 \
     libsm6 \
     libxext6 \
@@ -49,7 +54,6 @@ ENV NVIDIA_REQUIRE_CUDA "cuda>=9.0"
 # Install CUDA and TensorRT runtime
 RUN apt-get update \
     && apt-get install -yq --no-install-recommends \
-    build-essential \
     cuda-command-line-tools-9-0 \
     cuda-cublas-9-0 \
     cuda-cufft-9-0 \
@@ -66,7 +70,8 @@ RUN apt-get update \
     unzip
 
 RUN apt-get update \
-    && apt-get install nvinfer-runtime-trt-repo-ubuntu1604-4.0.1-ga-cuda9.0 \
+    && apt-get install -yq --no-install-recommends \
+    nvinfer-runtime-trt-repo-ubuntu1604-4.0.1-ga-cuda9.0 \
     && apt-get update \
     && apt-get install libnvinfer4=4.1.2-1+cuda9.0 \
     && apt-get clean \
@@ -84,9 +89,9 @@ RUN $PYTHON2_PATH/bin/pip install \
     opencv-python \
     statsmodels \
     ruamel.yaml \
+    sklearn \
     nibabel \
-    pycuda \
-    pyopencl \
+    pandas \
     keras \
     tensorflow-gpu \
     && $PYTHON3_PATH/bin/pip install \
@@ -95,9 +100,9 @@ RUN $PYTHON2_PATH/bin/pip install \
     opencv-python \
     statsmodels \
     ruamel.yaml \
+    sklearn \
     nibabel \
-    pycuda \
-    pyopencl \
+    pandas \
     keras \
     tensorflow-gpu
 
