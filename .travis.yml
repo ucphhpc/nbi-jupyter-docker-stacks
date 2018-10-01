@@ -16,6 +16,7 @@ before_script:
 jobs:
   include:
   - stage: prepare_base
+    if: commit_message !~ /[skip-base]/
     script:
     - make build/base-notebook
     - make test/base-notebook
