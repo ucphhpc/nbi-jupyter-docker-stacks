@@ -11,6 +11,12 @@ RUN apt-get update && apt-get -yq dist-upgrade \
     htop \
     screen \
     tmux \
+    libx11-6 \
+    libsm6 \
+    libxext6 \
+    libgeos-dev \
+    libglib2.0-0 \
+    libxrender1 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -66,14 +72,23 @@ RUN apt-get update \
 
 USER $NB_USER
 
+# Environment variables
+ENV BH_CONFIG=$PYTHON2_PATH/lib/python2.7/site-packages/bohrium/config.ini
+
+# Packages
 RUN $PYTHON2_PATH/bin/pip install \
+    numpy \
+    bohrium \
+    opencv-python \
     statsmodels \
     ruamel.yaml \
     nibabel \
     keras \
-    tensorflow-gpu
-
-RUN $PYTHON3_PATH/bin/pip install \
+    tensorflow-gpu \
+    && $PYTHON3_PATH/bin/pip install \
+    numpy \
+    bohrium \
+    opencv-python \
     statsmodels \
     ruamel.yaml \
     nibabel \
@@ -82,3 +97,7 @@ RUN $PYTHON3_PATH/bin/pip install \
 
 # Run container as
 USER $NB_USER
+
+# Matplotlib basemap
+RUN $PYTHON2_PATH/bin/pip install https://github.com/matplotlib/basemap/archive/v1.2.0rel.tar.gz \
+    && $PYTHON3_PATH/bin/pip install https://github.com/matplotlib/basemap/archive/v1.2.0rel.tar.gz
