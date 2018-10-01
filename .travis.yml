@@ -3,11 +3,13 @@ dist: trusty
 services: docker
 stages:
   - name: prepare_base
-    if: commit_message !~ /\[skip-(prepare_base|base)\]/
+    if: commit_message !~ /\[skip-(prepare_base|base|all)\]/
   - name: prepare_python_base
-    if: commit_message !~ /\[skip-(prepare_python_base|pybase)\]/
+    if: commit_message !~ /\[skip-(prepare_python_base|pybase|all)\]/
   - name: python_notebooks
-    if: commit_message !~ /\[skip-(python_notebooks|pybook)\]/
+    if: commit_message !~ /\[skip-(python_notebooks|pybooks|all)\]/
+  - name: r_notebooks
+    if: commit_message !~ /\[skip-(r_notebooks|rbooks|all)\]/
 env:
   global:
   - COMMIT=${TRAVIS_COMMIT::12}
@@ -50,5 +52,14 @@ jobs:
     - make build/dgx1-notebook TAG="${COMMIT}"
     - make push/dgx1-notebook TAG="${RELEASE_VERS}"
     - make push/dgx1-notebook TAG="${COMMIT}"
+  - stage: r_notebooks
+    script:
+    - make build/r-notebook
+    - make test/r-notebook
+    - make build/r-notebook TAG="${RELEASE_VERS}"
+    - make build/r-notebook TAG="${COMMIT}"
+    - make push/r-notebook TAG="${RELEASE_VERS}"
+    - make push/r-notebook TAG="${COMMIT}"
+
 notifications:
   slack: raz-s:se1PurXsQJv03nBZa9XWMOOS

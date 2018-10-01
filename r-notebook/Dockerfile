@@ -51,6 +51,10 @@ RUN conda create -n r \
     'r-keras=2.1*' \
     'r-e1071=1.6*' \
     'r-rocr=1.0*' \
+    'r-RColorBrewer' \
+	'r-pheatmap' \
+	'r-readr' \
+	'r-rjson' \
     && conda clean -tipsy \
     && fix-permissions $CONDA_DIR \
     && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()'
