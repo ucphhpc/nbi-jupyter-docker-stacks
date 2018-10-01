@@ -7,6 +7,8 @@ RUN apt-get update && apt-get -yq dist-upgrade \
     && apt-get install -yq --no-install-recommends \
     gnupg2 \
     vim \
+    less \
+    man \
     nano \
     htop \
     screen \
