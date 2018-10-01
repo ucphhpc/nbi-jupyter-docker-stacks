@@ -74,7 +74,7 @@ RUN apt-get update \
 
 USER $NB_USER
 
-# Environment variables
+# Packages env
 ENV BH_CONFIG=$PYTHON2_PATH/lib/python2.7/site-packages/bohrium/config.ini
 
 # Packages
@@ -85,6 +85,8 @@ RUN $PYTHON2_PATH/bin/pip install \
     statsmodels \
     ruamel.yaml \
     nibabel \
+    pycuda \
+    pyopencl \
     keras \
     tensorflow-gpu \
     && $PYTHON3_PATH/bin/pip install \
@@ -94,6 +96,8 @@ RUN $PYTHON2_PATH/bin/pip install \
     statsmodels \
     ruamel.yaml \
     nibabel \
+    pycuda \
+    pyopencl \
     keras \
     tensorflow-gpu
 

@@ -6,6 +6,7 @@ USER root
 # For opencv2 and basemap geos
 RUN apt-get update \
     && apt-get install -yq --no-install-recommends \
+    libgompl \
     libx11-6 \
     libsm6 \
     libxext6 \
@@ -18,12 +19,19 @@ RUN apt-get update \
 # Run container as
 USER $NB_USER
 
+# Packages env
+ENV BH_CONFIG=$PYTHON2_PATH/lib/python2.7/site-packages/bohrium/config.ini
+
 # Install packages for python2/3 envs
 RUN $PYTHON2_PATH/bin/pip install \
     numpy \
     bohrium \
+    cython \
     opencv-python \
+    six \
+    nose \
     scipy \
+    h5py \
     pandas \
     sklearn \
     seaborn \
@@ -32,17 +40,18 @@ RUN $PYTHON2_PATH/bin/pip install \
     && $PYTHON3_PATH/bin/pip install \
     numpy \
     bohrium \
+    cython \
     opencv-python \
+    six \
+    nose \
     scipy \
+    h5py \
     pandas \
     sklearn \
     seaborn \
     scikit-image \
     pillow \
     && fix-permissions $CONDA_DIR
-
-# Environment variables
-ENV BH_CONFIG=$PYTHON2_PATH/lib/python2.7/site-packages/bohrium/config.ini
 
 # Matplotlib basemap
 RUN $PYTHON2_PATH/bin/pip install https://github.com/matplotlib/basemap/archive/v1.2.0rel.tar.gz \
