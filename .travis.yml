@@ -2,9 +2,12 @@ sudo: required
 dist: trusty
 services: docker
 stages:
-  - prepare_base
-  - prepare_python_base
-  - python_notebooks
+  - name: prepare_base
+    if: commit_message !~ /\[skip-(prepare_base|base)\]/
+  - name: prepare_python_base
+    if: commit_message !~ /\[skip-(prepare_python_base|pybase)\]/
+  - name: python_notebooks
+    if: commit_message !~ /\[skip-(python_notebooks|pybook)\]/
 env:
   global:
   - COMMIT=${TRAVIS_COMMIT::12}
@@ -16,7 +19,6 @@ before_script:
 jobs:
   include:
   - stage: prepare_base
-    if: commit_message !~ /[skip-prepare-base]/
     script:
     - make build/base-notebook
     - make test/base-notebook
@@ -25,7 +27,6 @@ jobs:
     - make push/base-notebook TAG="${RELEASE_VERS}"
     - make push/base-notebook TAG="${COMMIT}"
   - stage: prepare_python_base
-    if: commit_message !~ /[skip-prepare-base]/
     script:
     - make build/python-notebook
     - make test/python-notebook
