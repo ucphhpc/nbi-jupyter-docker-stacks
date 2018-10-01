@@ -25,6 +25,7 @@ jobs:
     - make push/base-notebook TAG="${RELEASE_VERS}"
     - make push/base-notebook TAG="${COMMIT}"
   - stage: prepare_python_base
+    if: commit_message !~ /[skip-prepare-base]/
     script:
     - make build/python-notebook
     - make test/python-notebook
