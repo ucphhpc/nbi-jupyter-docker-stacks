@@ -4,8 +4,8 @@ services: docker
 stages:
   - name: prepare_base
     if: commit_message !~ /\[skip-(prepare_base|base|all)\]/
-  - name: prepare_python_base
-    if: commit_message !~ /\[skip-(prepare_python_base|pybase|all)\]/
+  - name: basic_notebooks
+    if: commit_message !~ /\[skip-(basic_notebooks|babooks|all)\]/
   - name: python_notebooks
     if: commit_message !~ /\[skip-(python_notebooks|pybooks|all)\]/
   - name: r_notebooks
@@ -28,7 +28,15 @@ jobs:
     - make build/base-notebook TAG="${COMMIT}"
     - make push/base-notebook TAG="${RELEASE_VERS}"
     - make push/base-notebook TAG="${COMMIT}"
-  - stage: prepare_python_base
+  - stage: basic_notebooks
+    script:
+    - make build/thin-notebook
+    - make test/thin-notebook
+    - make build/thin-notebook TAG="${RELEASE_VERS}"
+    - make build/thin-notebook TAG="${COMMIT}"
+    - make push/thin-notebook TAG="${RELEASE_VERS}"
+    - make push/thin-notebook TAG="${COMMIT}"
+  - stage: basic_notebooks
     script:
     - make build/python-notebook
     - make test/python-notebook

@@ -19,7 +19,8 @@ ENV CONDA_DIR=/opt/conda
 
 # Update conda, npm, yarn
 RUN conda update -n base conda \
-    && npm i -g npm
+    && npm i -g npm \
+    && npm i -g yarn
 
 # Upgrade underlying pip that jlab uses
 RUN pip install --upgrade pip
@@ -34,6 +35,7 @@ RUN conda install --quiet --yes \
     && jupyter labextension install jupyter-leaflet \
     && jupyter labextension install @jupyter-widgets/jupyterlab-manager \
     && jupyter labextension install jupyter-matplotlib \
+    && jupyter labextension install @jupyterlab/celltags \
     && npm dedupe \
     && npm cache clean --force \
     && rm -rf /home/$NB_USER/.cache/yarn \
