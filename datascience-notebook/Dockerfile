@@ -31,6 +31,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     six \
     nose \
     scipy \
+    sympy \
     h5py \
     pandas \
     sklearn \
@@ -45,6 +46,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     opencv-python \
     six \
     nose \
+    sympy \
     scipy \
     h5py \
     pandas \
