@@ -3,7 +3,7 @@ MAINTAINER Rasmus Munk <rasmus.munk@nbi.ku.dk>
 
 USER root
 
-RUN apt-get update && apt-get -yq dist-upgrade \
+RUN apt-get update \
     && apt-get install -yq --no-install-recommends \
     gnupg2 \
     vim \
