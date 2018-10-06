@@ -5,7 +5,7 @@ USER root
 
 # R-Studio install
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends wget \
+    && apt-get install -y --no-install-recommends wget make \
     && rstudio_version=$(wget --no-check-certificate -qO- https://s3.amazonaws.com/rstudio-server/current.ver) \
     && wget https://download2.rstudio.org/rstudio-server-${rstudio_version}-amd64.deb -O /rstudio-server.deb \
     && apt-get install -y --no-install-recommends /rstudio-server.deb \
@@ -52,12 +52,16 @@ RUN conda create -n r \
     'r-e1071=1.6*' \
     'r-rocr=1.0*' \
     'r-RColorBrewer' \
-	'r-pheatmap' \
-	'r-readr' \
-	'r-rjson' \
+    'r-pheatmap' \
+    'r-readr' \
+    'r-rjson' \
     && conda clean -tipsy \
     && fix-permissions $CONDA_DIR \
     && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()'
+
+# bioLite and Biobase is from BioInfo, should be removed from image
+RUN /opt/conda/envs/r/bin/R -e 'source("https://bioconductor.org/biocLite.R")' \
+    && /opt/conda/envs/r/bin/R -e 'biocLite(c("DESeq2","Biobase","tximport","sva","preprocessCore"))'
 
 # Keras needs to find 'python' that has keras installed and not the system default
 ENV PATH="/opt/conda/envs/python3/bin:${PATH}"
