@@ -76,8 +76,24 @@ RUN apt-get update \
 
 USER $NB_USER
 
+RUN conda install -qy -n r \
+    'r-FactoMineR' \
+    'r-factoextra' \
+    'r-fastICA' \
+    && conda clean -tipsy \
+    && fix-permissions $CONDA_DIR \
+    && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()'
+
+RUN conda install -qy -c bioconda -n r \
+    'r-phytools' \
+    && conda clean -tipsy \
+    && fix-permissions $CONDA_DIR \
+    && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()'
+
 # bioLite and Biobase is from BioInfo, should be removed from image
-RUN /opt/conda/envs/r/bin/R -e 'source("https://bioconductor.org/biocLite.R") ; biocLite(c("DESeq2","Biobase","tximport","sva","preprocessCore"))'
+RUN /opt/conda/envs/r/bin/R -e 'source("https://bioconductor.org/biocLite.R") ; \
+biocLite(c("DESeq2","Biobase","tximport","sva","preprocessCore")) ; \
+biocLite("EDASeq")'
 
 # Keras needs to find 'python' that has keras installed and not the system default
 ENV PATH="/opt/conda/envs/python3/bin:${PATH}"
