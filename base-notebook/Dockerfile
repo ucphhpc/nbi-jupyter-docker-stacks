@@ -10,6 +10,8 @@ RUN apt-get update \
     tzdata \
     lftp \
     openssh-client \
+    rsync \
+    curl \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
