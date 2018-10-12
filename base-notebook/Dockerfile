@@ -12,6 +12,9 @@ RUN apt-get update \
     openssh-client \
     rsync \
     curl \
+    texlive-xetex \
+    texlive-generic-recommended \
+    texlive-fonts-recommended \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
