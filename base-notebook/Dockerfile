@@ -28,6 +28,9 @@ RUN conda update -n base conda \
     && npm i -g npm \
     && npm i -g yarn
 
+# Update conda packages (such as notebook, jlab, jhub)
+RUN conda update --quiet --yes --all
+
 # Upgrade underlying pip that jlab uses
 RUN pip install --upgrade pip
 
