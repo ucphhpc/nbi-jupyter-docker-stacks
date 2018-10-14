@@ -12,6 +12,9 @@ RUN apt-get update \
     openssh-client \
     rsync \
     curl \
+    texlive-xetex \
+    texlive-generic-recommended \
+    texlive-fonts-recommended \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -24,6 +27,9 @@ ENV CONDA_DIR=/opt/conda
 RUN conda update -n base conda \
     && npm i -g npm \
     && npm i -g yarn
+
+# Update conda packages (such as notebook, jlab, jhub)
+RUN conda update --quiet --yes --all
 
 # Upgrade underlying pip that jlab uses
 RUN pip install --upgrade pip
