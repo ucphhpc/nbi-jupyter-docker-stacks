@@ -52,7 +52,7 @@ jobs:
     - make build/datascience-notebook TAG="${COMMIT}"
     - make push/datascience-notebook TAG="${RELEASE_VERS}"
     - make push/datascience-notebook TAG="${COMMIT}"
-  - stage: python_notebookbs
+  - stage: python_notebooks
     script:
     - make build/statistics-notebook
     - make test/statistics-notebook
