@@ -1,0 +1,20 @@
+FROM nielsbohr/statistics-notebook:edge
+COPY tests /app/tests
+
+WORKDIR /app/tests
+
+RUN pip3 install pytest \
+    && pip3 install -r requirements.txt
+
+USER root
+
+RUN chown jovyan:users -R notebooks \
+    && chmod +x test.sh
+
+# Run container as
+USER jovyan
+
+RUN ln -s $PYTHON3_PATH/bin/pytest $CONDA_DIR/bin/pytest
+
+CMD ["bin/bash"]
+ENTRYPOINT ["/app/tests/test.sh"]
