@@ -54,6 +54,14 @@ jobs:
     - make push/datascience-notebook TAG="${COMMIT}"
   - stage: python_notebooks
     script:
+    - make build/statistics-notebook
+    - make test/statistics-notebook
+    - make build/statistics-notebook TAG="${RELEASE_VERS}"
+    - make build/statistics-notebook TAG="${COMMIT}"
+    - make push/statistics-notebook TAG="${RELEASE_VERS}"
+    - make push/statistics-notebook TAG="${COMMIT}"
+  - stage: python_notebooks
+    script:
     - make build/dgx1-notebook
     - make test/dgx1-notebook
     - make build/dgx1-notebook TAG="${RELEASE_VERS}"

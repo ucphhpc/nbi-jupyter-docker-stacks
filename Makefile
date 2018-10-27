@@ -6,6 +6,7 @@ TAG:=edge
 ALL_IMAGES:=base-notebook \
     python-notebook \
     datascience-notebook \
+    statistics-notebook \
     dgx1-notebook \
     r-notebook
 
