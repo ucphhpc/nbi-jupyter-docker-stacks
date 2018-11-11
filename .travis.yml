@@ -10,6 +10,8 @@ stages:
     if: commit_message !~ /\[skip-(python_notebooks|pybooks|all)\]/
   - name: r_notebooks
     if: commit_message !~ /\[skip-(r_notebooks|rbooks|all)\]/
+  - name: c_notebooks
+    if: commit_message !~ /\[skip-(c_notebooks|cbooks|all)\]/
 env:
   global:
   - COMMIT=${TRAVIS_COMMIT::12}
@@ -76,6 +78,14 @@ jobs:
     - make build/r-notebook TAG="${COMMIT}"
     - make push/r-notebook TAG="${RELEASE_VERS}"
     - make push/r-notebook TAG="${COMMIT}"
+  - stage: c_notebooks
+    script:
+    - make build/sme-notebook
+    - make test/sme-notebook
+    - make build/sme-notebook TAG="${RELEASE_VERS}"
+    - make build/sme-notebook TAG="${COMMIT}"
+    - make push/sme-notebook TAG="${RELEASE_VERS}"
+    - make push/sme-notebook TAG="${COMMIT}"
 
 notifications:
   slack: raz-s:se1PurXsQJv03nBZa9XWMOOS
