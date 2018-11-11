@@ -57,5 +57,5 @@ RUN $PYTHON2_PATH/bin/pip install \
     && fix-permissions $CONDA_DIR
 
 # Matplotlib basemap
-RUN $PYTHON2_PATH/bin/pip install https://github.com/matplotlib/basemap/archive/v1.2.0rel.tar.gz \
-    && $PYTHON3_PATH/bin/pip install https://github.com/matplotlib/basemap/archive/v1.2.0rel.tar.gz
+RUN $PYTHON2_PATH/bin/pip install git+https://github.com/matplotlib/basemap.git \
+    && $PYTHON3_PATH/bin/pip install git+https://github.com/matplotlib/basemap.git
