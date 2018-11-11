@@ -48,7 +48,7 @@ RUN cd icsharp/Engine \
     && xbuild ./iCSharp.sln /property:Configuration=Release /nologo /verbosity:normal || true
 
 RUN sed -i -e "s/\"<INSTALL_PATH>/\"mono\", \"\/home\/${NB_USER}/g" /home/$NB_USER/icsharp/kernel-spec/kernel.json \
-    && jupyter-kernelspec install --user ~/icsharp/kernel-spec \
+    && jupyter-kernelspec install --name csharp --user ~/icsharp/kernel-spec \
     && chmod +x /home/$NB_USER/icsharp/Kernel/bin/Release/iCSharp.Kernel.exe
 
 # Run container as

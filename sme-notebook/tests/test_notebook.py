@@ -5,7 +5,7 @@ import nbformat
 
 cur_path = os.path.abspath(".")
 notebooks_path = os.path.join(cur_path, 'notebooks')
-kernels = ['python2', 'python3']
+kernels = ['csharp']
 
 
 def _notebook_run(path, kernel='python3'):

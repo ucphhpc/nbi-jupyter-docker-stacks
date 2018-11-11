@@ -9,8 +9,6 @@ RUN apt-get update \
     vim \
     less \
     man \
-    nano \
-    htop \
     screen \
     tmux \
     build-essential \

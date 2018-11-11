@@ -15,6 +15,8 @@ RUN apt-get update \
     texlive-xetex \
     texlive-generic-recommended \
     texlive-fonts-recommended \
+    htop \
+    nano \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
