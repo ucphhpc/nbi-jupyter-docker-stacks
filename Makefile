@@ -8,7 +8,9 @@ ALL_IMAGES:=base-notebook \
     datascience-notebook \
     statistics-notebook \
     dgx1-notebook \
-    r-notebook
+    r-notebook \
+    sme-notebook \
+    tensorflow-notebook
 
 # Inspired by https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 help:
