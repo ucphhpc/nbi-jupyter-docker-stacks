@@ -5,13 +5,16 @@ stages:
   - name: prepare_base
     if: commit_message !~ /\[skip-(prepare_base|base|all)\]/
   - name: basic_notebooks
-    if: commit_message !~ /\[skip-(basic_notebooks|babooks|all)\]/
-  - name: python_notebooks
-    if: commit_message !~ /\[skip-(python_notebooks|pybooks|all)\]/
+    if: commit_message !~ /\[skip-(basic_notebooks|ba|all)\]/
   - name: r_notebooks
-    if: commit_message !~ /\[skip-(r_notebooks|rbooks|all)\]/
+    if: commit_message !~ /\[skip-(r_notebooks|r|all)\]/
   - name: c_notebooks
-    if: commit_message !~ /\[skip-(c_notebooks|cbooks|all)\]/
+    if: commit_message !~ /\[skip-(c_notebooks|c|all)\]/
+  - name: python_notebooks
+    if: commit_message !~ /\[skip-(python_notebooks|py|all)\]/
+  - name: python_ext_notebooks
+    if: commit_message !~ /\[skip-(python_ext_notebooks|pye|all)\]/
+
 env:
   global:
   - COMMIT=${TRAVIS_COMMIT::12}
@@ -46,6 +49,22 @@ jobs:
     - make build/python-notebook TAG="${COMMIT}"
     - make push/python-notebook TAG="${RELEASE_VERS}"
     - make push/python-notebook TAG="${COMMIT}"
+  - stage: r_notebooks
+    script:
+    - make build/r-notebook
+    - make test/r-notebook
+    - make build/r-notebook TAG="${RELEASE_VERS}"
+    - make build/r-notebook TAG="${COMMIT}"
+    - make push/r-notebook TAG="${RELEASE_VERS}"
+    - make push/r-notebook TAG="${COMMIT}"
+  - stage: c_notebooks
+    script:
+    - make build/sme-notebook
+    - make test/sme-notebook
+    - make build/sme-notebook TAG="${RELEASE_VERS}"
+    - make build/sme-notebook TAG="${COMMIT}"
+    - make push/sme-notebook TAG="${RELEASE_VERS}"
+    - make push/sme-notebook TAG="${COMMIT}"
   - stage: python_notebooks
     script:
     - make build/datascience-notebook
@@ -70,22 +89,14 @@ jobs:
     - make build/dgx1-notebook TAG="${COMMIT}"
     - make push/dgx1-notebook TAG="${RELEASE_VERS}"
     - make push/dgx1-notebook TAG="${COMMIT}"
-  - stage: r_notebooks
+  - stage: python_ext_notebooks
     script:
-    - make build/r-notebook
-    - make test/r-notebook
-    - make build/r-notebook TAG="${RELEASE_VERS}"
-    - make build/r-notebook TAG="${COMMIT}"
-    - make push/r-notebook TAG="${RELEASE_VERS}"
-    - make push/r-notebook TAG="${COMMIT}"
-  - stage: c_notebooks
-    script:
-    - make build/sme-notebook
-    - make test/sme-notebook
-    - make build/sme-notebook TAG="${RELEASE_VERS}"
-    - make build/sme-notebook TAG="${COMMIT}"
-    - make push/sme-notebook TAG="${RELEASE_VERS}"
-    - make push/sme-notebook TAG="${COMMIT}"
+    - make build/tensorflow-notebook
+    - make test/tensorflow-notebook
+    - make build/tensorflow-notebook TAG="${RELEASE_VERS}"
+    - make build/tensorflow-notebook TAG="${COMMIT}"
+    - make push/tensorflow-notebook TAG="${RELEASE_VERS}"
+    - make push/tensorflow-notebook TAG="${COMMIT}"
 
 notifications:
   slack: raz-s:se1PurXsQJv03nBZa9XWMOOS
