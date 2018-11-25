@@ -7,6 +7,7 @@ USER root
 RUN apt-get update \
     && apt-get install -yq --no-install-recommends \
     g++ \
+    graphviz \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
