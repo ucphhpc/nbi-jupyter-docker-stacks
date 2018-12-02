@@ -10,7 +10,8 @@ ALL_IMAGES:=base-notebook \
     dgx1-notebook \
     r-notebook \
     sme-notebook \
-    tensorflow-notebook
+    tensorflow-notebook \
+    thin-notebook
 
 # Inspired by https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 help:

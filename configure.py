@@ -11,7 +11,10 @@ IMAGES = ['python-notebook',
           'datascience-notebook',
           'dgx1-notebook',
           'r-notebook',
-          'sme-notebook']
+          'sme-notebook',
+          'statistics-notebook',
+          'tensorflow-notebook',
+          'thin-notebook']
 
 if __name__ == "__main__":
     # Replace all FROM tags
