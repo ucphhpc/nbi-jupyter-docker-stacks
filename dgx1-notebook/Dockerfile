@@ -92,6 +92,12 @@ RUN $PYTHON2_PATH/bin/pip install \
     pandas \
     keras \
     tensorflow-gpu \
+    lightgbm \
+    xgboost \
+    joblib \
+    talos \
+    pydot \
+    graphviz \
     && $PYTHON3_PATH/bin/pip install \
     numpy \
     bohrium \
@@ -102,7 +108,14 @@ RUN $PYTHON2_PATH/bin/pip install \
     nibabel \
     pandas \
     keras \
-    tensorflow-gpu
+    tensorflow-gpu \
+    lightgbm \
+    xgboost \
+    joblib \
+    talos \
+    pydot \
+    graphviz \
+    && fix-permissions $CONDA_DIR
 
 # Run container as
 USER $NB_USER
