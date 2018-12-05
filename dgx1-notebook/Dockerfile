@@ -22,6 +22,7 @@ RUN apt-get update \
     libgeos-dev \
     libglib2.0-0 \
     libxrender1 \
+    dvipng \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -98,6 +99,8 @@ RUN $PYTHON2_PATH/bin/pip install \
     talos \
     pydot \
     graphviz \
+    torch \
+    torchvision \
     && $PYTHON3_PATH/bin/pip install \
     numpy \
     bohrium \
@@ -115,6 +118,8 @@ RUN $PYTHON2_PATH/bin/pip install \
     talos \
     pydot \
     graphviz \
+    torch \
+    torchvision \
     && fix-permissions $CONDA_DIR
 
 # Run container as
