@@ -81,6 +81,14 @@ USER $NB_USER
 # Packages env
 ENV BH_CONFIG=$PYTHON2_PATH/lib/python2.7/site-packages/bohrium/config.ini
 
+# Talos will install basic tensorflow ontop of the gpu version
+# If it is installed concurrently with tensorflow-gpu
+RUN $PYTHON2_PATH/bin/pip install \
+    tensorflow-gpu \
+    && $PYTHON3_PATH/bin/pip install \
+    tensorflow-gpu \
+    && fix-permissions $CONDA_DIR
+
 # Packages
 RUN $PYTHON2_PATH/bin/pip install \
     numpy \
@@ -92,11 +100,10 @@ RUN $PYTHON2_PATH/bin/pip install \
     nibabel \
     pandas \
     keras \
-    tensorflow-gpu \
+    talos \
     lightgbm \
     xgboost \
     joblib \
-    talos \
     pydot \
     graphviz \
     torch \
@@ -111,17 +118,17 @@ RUN $PYTHON2_PATH/bin/pip install \
     nibabel \
     pandas \
     keras \
-    tensorflow-gpu \
+    talos \
     lightgbm \
     xgboost \
     joblib \
-    talos \
     pydot \
     graphviz \
     torch \
     torchvision \
     && fix-permissions $CONDA_DIR
 
+# Ensure cpu only version is not included
 # Run container as
 USER $NB_USER
 
