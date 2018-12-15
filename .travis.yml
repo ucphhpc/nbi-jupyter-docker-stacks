@@ -70,7 +70,6 @@ jobs:
     - make build/r-notebook TAG="${COMMIT}"
     - make push/r-notebook TAG="${RELEASE_VERS}"
     - make push/r-notebook TAG="${COMMIT}"
-
   - stage: sme_notebook
     script:
     - make test/sme-notebook
@@ -78,7 +77,6 @@ jobs:
     - make build/sme-notebook TAG="${COMMIT}"
     - make push/sme-notebook TAG="${RELEASE_VERS}"
     - make push/sme-notebook TAG="${COMMIT}"
-
   - stage: statistics_notebook
     script:
     - make test/statistics-notebook
@@ -86,7 +84,6 @@ jobs:
     - make build/statistics-notebook TAG="${COMMIT}"
     - make push/statistics-notebook TAG="${RELEASE_VERS}"
     - make push/statistics-notebook TAG="${COMMIT}"
-
   - stage: tensorflow_notebook
     script:
     - make test/tensorflow-notebook
@@ -94,7 +91,6 @@ jobs:
     - make build/tensorflow-notebook TAG="${COMMIT}"
     - make push/tensorflow-notebook TAG="${RELEASE_VERS}"
     - make push/tensorflow-notebook TAG="${COMMIT}"
-
   - stage: thin_notebook
     script:
     - make test/thin-notebook
@@ -102,7 +98,6 @@ jobs:
     - make build/thin-notebook TAG="${COMMIT}"
     - make push/thin-notebook TAG="${RELEASE_VERS}"
     - make push/thin-notebook TAG="${COMMIT}"
-
   - stage: deploy_all
     script:
       - python3 configure.py -t "${DEV_VERS}"
