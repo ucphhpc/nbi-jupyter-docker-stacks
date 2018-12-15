@@ -3,7 +3,7 @@ dist: trusty
 services: docker
 stages:
   - name: base_notebook
-    if: commit_message ~ /\[(base|all)\]/\
+    if: commit_message ~ /\[(base|all)\]/
   - name: datascience_notebook
     if: commit_message ~ /\[(data|all)\]/
   - name: dgx1_notebook
@@ -22,7 +22,7 @@ stages:
     if: commit_message ~ /\[(python|all)\]/
 
   - name: deploy_all
-    if: commit_message ~ /\[deploy-all]/\
+    if: commit_message ~ /\[deploy-all\]/
 
 env:
   global:
