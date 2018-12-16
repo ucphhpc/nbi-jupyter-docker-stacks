@@ -27,6 +27,22 @@ stages:
     if: branch == weekly_deploy
   - name: base_notebook
     if: commit_message =~ /\[base\]/
+  - name: datascience_notebook
+    if: commit_message =~ /\[data\]/
+  - name: dgx1_notebook
+    if: commit_message =~ /\[dgx\]/
+  - name: python_notebook
+    if: commit_message =~ /\[py\]/
+  - name: r_notebook
+    if: commit_message =~ /\[r\]/
+  - name: sme_notebook
+    if: commit_message =~ /\[sme\]/
+  - name: statistics_notebook
+    if: commit_message =~ /\[stats\]/
+  - name: tensorflow_notebook
+    if: commit_message =~ /\[tensor\]/
+  - name: thin_notebook
+    if: commit_message =~ /\[python\]/
 
 before_script:
 - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
@@ -38,13 +54,7 @@ script:
 jobs:
   include:
   - stage: deploy
-    script:
-      - make build-all
-      - make test-all
-      - make build-all TAG="${RELEASE_VERS}"
-      - make build-all TAG="${COMMIT}"
-      - make push-all TAG="${RELEASE_VERS}"
-      - make push-all TAG="${COMMIT}"
+    after_success: make push/"${NOTEBOOK}"
   - stage: weekly_deploy
     script:
       - make build-all
@@ -55,7 +65,31 @@ jobs:
       - make push-all TAG="${COMMIT}"
   - stage: base_notebook
     env: NOTEBOOK=base-notebook
-    after_script: make push/"${NOTEBOOK}"
+    after_success: make push/"${NOTEBOOK}"
+  - stage: datascience_notebook
+    env: NOTEBOOK=datascience-notebook
+    after_success: make push/"${NOTEBOOK}"
+  - stage: dgx1_notebook
+    env: NOTEBOOK=dgx1-notebook
+    after_success: make push/"${NOTEBOOK}"
+  - stage: python_notebook
+    env: NOTEBOOK=python-notebook
+    after_success: make push/"${NOTEBOOK}"
+  - stage: r_notebook
+    env: NOTEBOOK=r-notebook
+    after_success: make push/"${NOTEBOOK}"
+  - stage: sme_notebook
+    env: NOTEBOOK=sme-notebook
+    after_success: make push/"${NOTEBOOK}"
+  - stage: statistics_notebook
+    env: NOTEBOOK=statistics-notebook
+    after_success: make push/"${NOTEBOOK}"
+  - stage: tensorflow_notebook
+    env: NOTEBOOK=tensorflow-notebook
+    after_success: make push/"${NOTEBOOK}"
+  - stage: thin_notebook
+    env: NOTEBOOK=thin-notebook
+    after_success: make push/"${NOTEBOOK}"
 
 notifications:
   slack: raz-s:se1PurXsQJv03nBZa9XWMOOS
