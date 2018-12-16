@@ -1,6 +1,9 @@
 FROM jupyter/base-notebook:latest
 MAINTAINER Rasmus Munk <rasmus.munk@nbi.ku.dk>
 
+# Set default username
+ARG NB_USER="jupyter"
+
 USER root
 
 RUN apt-get update \
@@ -17,6 +20,22 @@ RUN apt-get update \
     texlive-fonts-recommended \
     htop \
     nano \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# rclone install
+RUN apt-get update \
+    && apt-get install -yq --no-install-recommends \
+    unzip \
+    p7zip-full \
+    busybox \
+    man-db \
+    && curl https://rclone.org/install.sh | bash \
+    && apt-get remove -yq \
+    unzip \
+    p7zip-full \
+    busybox \
+    man-db \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -38,6 +57,7 @@ RUN pip install --upgrade pip
 
 # Notebook/Lab dependencies,
 # dedupe, resolve duplicates packages
+# https://ipyleaflet.readthedocs.io/en/latest/installation.html#using-conda
 # jupyter-widgets/jupyterlab-manager and matplotlib is for ipympl support which is labs
 # replacement for notebook plots
 RUN conda install --quiet --yes \

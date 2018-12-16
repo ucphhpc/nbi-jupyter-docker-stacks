@@ -39,12 +39,12 @@ RUN $PYTHON2_PATH/bin/pip install \
     && fix-permissions $CONDA_DIR
 
 # Set the default python terminal links to the used kernels
-# Don't delete native python3.6 -> required when spawned
-RUN mv $CONDA_DIR/bin/python3.6 $CONDA_DIR \
+# Don't delete native python3.7 -> required when spawned
+RUN mv $CONDA_DIR/bin/python3.7 $CONDA_DIR \
     && rm $CONDA_DIR/bin/python* \
     $CONDA_DIR/bin/pip* \
-    && mv $CONDA_DIR/python3.6 $CONDA_DIR/bin/ \
-    && ln -s $CONDA_DIR/bin/python3.6 $CONDA_DIR/bin/python \
+    && mv $CONDA_DIR/python3.7 $CONDA_DIR/bin/ \
+    && ln -s $CONDA_DIR/bin/python3.7 $CONDA_DIR/bin/python \
     && ln -s $PYTHON2_PATH/bin/python $CONDA_DIR/bin/python2 \
     && ln -s $PYTHON3_PATH/bin/python3 $CONDA_DIR/bin/python3 \
     && ln -s $PYTHON2_PATH/bin/pip $CONDA_DIR/bin/pip \

@@ -22,6 +22,8 @@ RUN apt-get update \
     libgeos-dev \
     libglib2.0-0 \
     libxrender1 \
+    dvipng \
+    graphviz \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -38,11 +40,13 @@ RUN apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/r
 ENV CUDA_VERSION 9.0.176
 ENV CUDA_PKG_VERSION 9-0=$CUDA_VERSION-1
 RUN apt-get update && apt-get install -y --no-install-recommends \
+    cuda-libraries-$CUDA_PKG_VERSION \
     cuda-cudart-$CUDA_PKG_VERSION \
     && ln -s cuda-9.0 /usr/local/cuda
 
 ENV PATH /usr/local/cuda/bin:${PATH}
 ENV LD_LIBRARY_PATH /usr/local/cuda/lib64
+ENV LIBRARY_PATH /usr/local/cuda/lib64
 
 # nvidia-container-runtime
 ENV NVIDIA_VISIBLE_DEVICES all
@@ -78,12 +82,13 @@ RUN apt-get update \
 USER $NB_USER
 
 # Packages env
-ENV BH_CONFIG=$PYTHON2_PATH/lib/python2.7/site-packages/bohrium/config.ini
+ENV BH_CONFIG=$PYTHON2_PATH/lib/python2.7/site-packages/bohrium_api/config.ini
 
 # Packages
+# Ensure cpu only version of tensorflow is not included
 RUN $PYTHON2_PATH/bin/pip install \
     numpy \
-    bohrium \
+    bohrium==0.10.0.post19 \
     opencv-python \
     statsmodels \
     ruamel.yaml \
@@ -92,9 +97,19 @@ RUN $PYTHON2_PATH/bin/pip install \
     pandas \
     keras \
     tensorflow-gpu \
+    lightgbm \
+    xgboost \
+    joblib \
+    pydot \
+    graphviz \
+    torch \
+    seaborn \
+    torchvision \
+    scikit-optimize \
+    git+https://github.com/scikit-optimize/scikit-optimize \
     && $PYTHON3_PATH/bin/pip install \
     numpy \
-    bohrium \
+    bohrium==0.10.0.post19 \
     opencv-python \
     statsmodels \
     ruamel.yaml \
@@ -102,7 +117,18 @@ RUN $PYTHON2_PATH/bin/pip install \
     nibabel \
     pandas \
     keras \
-    tensorflow-gpu
+    tensorflow-gpu \
+    lightgbm \
+    xgboost \
+    joblib \
+    pydot \
+    graphviz \
+    torch \
+    seaborn \
+    torchvision \
+    scikit-optimize \
+    git+https://github.com/scikit-optimize/scikit-optimize \
+    && fix-permissions $CONDA_DIR
 
 # Run container as
 USER $NB_USER
