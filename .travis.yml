@@ -20,18 +20,15 @@ env:
     - secure: m5+SLMV5xjvUx8p/Bq9RpytyYHh7k/rDz+AnefU1/eJ20Q66RYb94ANzBg8fiv5PpnLgLfgKneXiG4+woNUZXOZntnnYTUw4PTfLCZc4c4Lea0ef+sM0FvGPA3a1o3DI/94yMC20sfXNNU/ZouGs1DPo63V4zSP3RBIGNXInpbiYUlJq83mgAAxWWKHDBybIJbtTgCYU05DugvID4e0thVqhVwIi+cK9YGneA8/wg8XtBicRs2l7ny5QO1PDXJjPzdrT2bha8HsGWFoAnQ5bef43NpRMrXU7KJ4BKgxH/QNg8IO+OntSI4ANZyOB94Q43zWipsx6L1nwhs0G4EfnfFFs1MbBNafWDgsc18qGEmSUfCHmAyTuUdbfTjFwCCF4rj5eomiYnnA2aXcj7SqeGMm6Czpu1Z5OZ4172h5qPDLmVMumuW8dQbklN/Ejo95TsArB2VRHqGwUX3W5sx74k2ocaRW2rNJBHGR28YAtKjAnSSn8x7DrTHRNIb+YQtl1C6VgZ1Shs9nG8z6CtReAvOTh+puMTDEOrt13XTF0uFj97EjnoO5sRz/rYo91Yf4PPdFgVPuvfvoZYdwvscbP+Lxr/BtJZHr0LUErd+Zj8Lw224ZR5Ox996o3y7bTHVYonbegAQOyUCus+OJrSX8f1cMUvnSga2ADadD88VG9o58=
 
 before_script:
-- docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
 
 script:
   - make test/"${NOTEBOOK}"
 
+# deploy_notebook uses COMMIT and RELEASE_VERS envars
 deploy:
   provider: script
-  script:
-    - make build/"${NOTEBOOK}" TAG="${COMMIT}"
-    - make build/"${NOTEBOOK}" TAG="${RELEASE_VERS}"
-    - make push/"${NOTEBOOK}" TAG="${COMMIT}"
-    - make push/"${NOTEBOOK}" TAG="${RELEASE_VERS}"
+  script: bash deploy_notebook.sh
   skip_cleanup: true
   on:
     condition: $TRAVIS_COMMIT_MESSAGE =~ ^.*\[deploy\].*$
