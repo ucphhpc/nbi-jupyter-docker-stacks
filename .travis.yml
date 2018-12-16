@@ -31,7 +31,8 @@ deploy:
   script: bash deploy_notebook.sh
   skip_cleanup: true
   on:
-    condition: $TRAVIS_COMMIT_MESSAGE =~ ^.*\[deploy\].*$
+    all_branches: true
+    condition: $TRAVIS_COMMIT_MESSAGE =~ ^.*\[deploy\].*$ || $TRAVIS_BRANCH = weekly_build
 
 notifications:
   slack: raz-s:se1PurXsQJv03nBZa9XWMOOS
