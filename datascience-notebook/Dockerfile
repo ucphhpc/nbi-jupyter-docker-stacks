@@ -24,7 +24,7 @@ ENV BH_CONFIG=$PYTHON2_PATH/lib/python2.7/site-packages/bohrium_api/config.ini
 # Install packages for python2/3 envs
 RUN $PYTHON2_PATH/bin/pip install \
     numpy \
-    bohrium \
+    bohrium==0.10.0.post19 \
     cython \
     pandas \
     opencv-python \
@@ -40,7 +40,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     pillow \
     && $PYTHON3_PATH/bin/pip install \
     numpy \
-    bohrium \
+    bohrium==0.10.0.post19 \
     cython \
     pandas \
     opencv-python \
