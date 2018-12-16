@@ -25,6 +25,8 @@ stages:
     if: commit_message =~ /\[deploy\]/
   - name: weekly_deploy
     if: branch == weekly_deploy
+  - name: base_notebook
+    if: commit_message =~ /\[base\]/
 
 before_script:
 - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
@@ -51,6 +53,9 @@ jobs:
       - make build-all TAG="${COMMIT}"
       - make push-all TAG="${RELEASE_VERS}"
       - make push-all TAG="${COMMIT}"
+  - stage: base_notebook
+    env: NOTEBOOK=base-notebook
+    after_script: make push/"${NOTEBOOK}"
 
 notifications:
   slack: raz-s:se1PurXsQJv03nBZa9XWMOOS
