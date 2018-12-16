@@ -19,77 +19,19 @@ env:
     - secure: PICm4yJOlywFyntG/Te3D7YoRIzSWvjhWgy1cDlDFxO3spghmatu2H1mEkkgnwvp+TKRlojT5GNEH3ihWRxxtqcFZC/FCUjJwxlOb/t9C1gdj3QVIvALV6IFf96eAGv7B9NCgErAnKyiOV7A7Lu1q9CwJ6ImBo8CGzNU6mAcRyGD4Is3wOD5HxXziUM3OVRutONQPfXXhNmt55OUMPBe3heCrMN1yaERlhy2QR35Uir5zC9ZFYq4C4oy0siDErRgVAm6Lv3qySz4tGebkMw7ToYRxJ2WdrImywqYgTwcOnR8bsWI6EfaxIeZWpK1d21VqG/SxrJXkYfA4hzK5KWVtoxZ54GOePUoIquKkYRoZ7ABOXZDoVKLeDGzVAGk6veiD8gs0hsC5tnI2KX3e00xDruIhfa+yquHOnNXPcm+Xu58r+pmyfnc9nuJfO61Y00GBCDsdFPnG/y608dLUadghTwGOoYxslLQtztJTHGUBK9yblnW/OvYz9H8dh/qAvWH0/jkj2vetFE3CyrTiShztBtZosu5UWUiEMAfgMSB9d2w3/W+S3N9O+5qSJ+pYK6zf43lcm2riTyxdVkZlZYZii+Znuq6xBwBMwyZdcrxK37LmMYx45O+qsWkBMcz51ryCpicqM4SY17xY8LpXMaxea7ld47kXCDLhkZxUrU0cmc=
     - secure: m5+SLMV5xjvUx8p/Bq9RpytyYHh7k/rDz+AnefU1/eJ20Q66RYb94ANzBg8fiv5PpnLgLfgKneXiG4+woNUZXOZntnnYTUw4PTfLCZc4c4Lea0ef+sM0FvGPA3a1o3DI/94yMC20sfXNNU/ZouGs1DPo63V4zSP3RBIGNXInpbiYUlJq83mgAAxWWKHDBybIJbtTgCYU05DugvID4e0thVqhVwIi+cK9YGneA8/wg8XtBicRs2l7ny5QO1PDXJjPzdrT2bha8HsGWFoAnQ5bef43NpRMrXU7KJ4BKgxH/QNg8IO+OntSI4ANZyOB94Q43zWipsx6L1nwhs0G4EfnfFFs1MbBNafWDgsc18qGEmSUfCHmAyTuUdbfTjFwCCF4rj5eomiYnnA2aXcj7SqeGMm6Czpu1Z5OZ4172h5qPDLmVMumuW8dQbklN/Ejo95TsArB2VRHqGwUX3W5sx74k2ocaRW2rNJBHGR28YAtKjAnSSn8x7DrTHRNIb+YQtl1C6VgZ1Shs9nG8z6CtReAvOTh+puMTDEOrt13XTF0uFj97EjnoO5sRz/rYo91Yf4PPdFgVPuvfvoZYdwvscbP+Lxr/BtJZHr0LUErd+Zj8Lw224ZR5Ox996o3y7bTHVYonbegAQOyUCus+OJrSX8f1cMUvnSga2ADadD88VG9o58=
 
+before_script:
+- docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+
 stages:
   - test
   - name: deploy
     if: commit_message =~ /\[deploy\]/
-  - name: weekly_deploy
-    if: branch == weekly_deploy
-  - name: base_notebook
-    if: commit_message =~ /\[base\]/
-  - name: datascience_notebook
-    if: commit_message =~ /\[data\]/
-  - name: dgx1_notebook
-    if: commit_message =~ /\[dgx\]/
-  - name: python_notebook
-    if: commit_message =~ /\[py\]/
-  - name: r_notebook
-    if: commit_message =~ /\[r\]/
-  - name: sme_notebook
-    if: commit_message =~ /\[sme\]/
-  - name: statistics_notebook
-    if: commit_message =~ /\[stats\]/
-  - name: tensorflow_notebook
-    if: commit_message =~ /\[tensor\]/
-  - name: thin_notebook
-    if: commit_message =~ /\[python\]/
-
-before_script:
-- docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
 
 script:
-  - make build/"${NOTEBOOK}"
   - make test/"${NOTEBOOK}"
 
-jobs:
-  include:
-  - stage: deploy
-    after_success: make push/"${NOTEBOOK}"
-  - stage: weekly_deploy
-    script:
-      - make build-all
-      - make test-all
-      - make build-all TAG="${RELEASE_VERS}"
-      - make build-all TAG="${COMMIT}"
-      - make push-all TAG="${RELEASE_VERS}"
-      - make push-all TAG="${COMMIT}"
-  - stage: base_notebook
-    env: NOTEBOOK=base-notebook
-    after_success: make push/"${NOTEBOOK}"
-  - stage: datascience_notebook
-    env: NOTEBOOK=datascience-notebook
-    after_success: make push/"${NOTEBOOK}"
-  - stage: dgx1_notebook
-    env: NOTEBOOK=dgx1-notebook
-    after_success: make push/"${NOTEBOOK}"
-  - stage: python_notebook
-    env: NOTEBOOK=python-notebook
-    after_success: make push/"${NOTEBOOK}"
-  - stage: r_notebook
-    env: NOTEBOOK=r-notebook
-    after_success: make push/"${NOTEBOOK}"
-  - stage: sme_notebook
-    env: NOTEBOOK=sme-notebook
-    after_success: make push/"${NOTEBOOK}"
-  - stage: statistics_notebook
-    env: NOTEBOOK=statistics-notebook
-    after_success: make push/"${NOTEBOOK}"
-  - stage: tensorflow_notebook
-    env: NOTEBOOK=tensorflow-notebook
-    after_success: make push/"${NOTEBOOK}"
-  - stage: thin_notebook
-    env: NOTEBOOK=thin-notebook
-    after_success: make push/"${NOTEBOOK}"
+deploy:
+  - make push/"${NOTEBOOK}"
 
 notifications:
   slack: raz-s:se1PurXsQJv03nBZa9XWMOOS
