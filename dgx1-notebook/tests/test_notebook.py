@@ -16,7 +16,7 @@ def _notebook_run(path, kernel='python3'):
     os.chdir(dirname)
     with tempfile.NamedTemporaryFile(suffix=".ipynb") as fout:
         args = ["jupyter", "nbconvert", "--to", "notebook", "--execute",
-                "--ExecutePreprocessor.timeout=60",
+                "--ExecutePreprocessor.timeout=300",
                 "--ExecutePreprocessor.kernel_name=" + kernel,
                 "--output", fout.name, path]
         subprocess.check_call(args)
