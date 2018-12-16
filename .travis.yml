@@ -37,14 +37,15 @@ jobs:
   include:
   - stage: deploy
     script:
-      - make build/"${NOTEBOOK}"
-      - make test/"${NOTEBOOK}"
-      - make build/"${NOTEBOOK}" TAG="${RELEASE_VERS}"
-      - make build/"${NOTEBOOK}" TAG="${COMMIT}"
-      - make push/"${NOTEBOOK}" TAG="${RELEASE_VERS}"
-      - make push/"${NOTEBOOK}" TAG="${COMMIT}"
+      - make build-all
+      - make test-all
+      - make build-all TAG="${RELEASE_VERS}"
+      - make build-all TAG="${COMMIT}"
+      - make push-all TAG="${RELEASE_VERS}"
+      - make push-all TAG="${COMMIT}"
   - stage: weekly_deploy
     script:
+      - make build-all
       - make test-all
       - make build-all TAG="${RELEASE_VERS}"
       - make build-all TAG="${COMMIT}"
