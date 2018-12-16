@@ -3,26 +3,25 @@ dist: trusty
 services: docker
 stages:
   - name: base_notebook
-    if: commit_message ~ /\[(base|all)\]/
+    if: commit_message =~ /\[(base|all)\]/
   - name: datascience_notebook
-    if: commit_message ~ /\[(data|all)\]/
+    if: commit_message =~ /\[(data|all)\]/
   - name: dgx1_notebook
-    if: commit_message ~ /\[dgx|all\]/
+    if: commit_message =~ /\[dgx|all\]/
   - name: python_notebook
-    if: commit_message ~ /\[(py|all)\]/
+    if: commit_message =~ /\[(py|all)\]/
   - name: r_notebook
-    if: commit_message ~ /\[(r|all)\]/
+    if: commit_message =~ /\[(r|all)\]/
   - name: sme_notebook
-    if: commit_message ~ /\[(sme|all)\]/
+    if: commit_message =~ /\[(sme|all)\]/
   - name: statistics_notebook
-    if: commit_message ~ /\[(stats|all)\]/
+    if: commit_message =~ /\[(stats|all)\]/
   - name: tensorflow_notebook
-    if: commit_message ~ /\[(tensor|all)\]/
+    if: commit_message =~ /\[(tensor|all)\]/
   - name: thin_notebook
-    if: commit_message ~ /\[(python|all)\]/
-
+    if: commit_message =~ /\[(python|all)\]/
   - name: deploy_all
-    if: commit_message ~ /\[deploy-all\]/
+    if: commit_message =~ /\[deploy-all\]/
 
 env:
   global:
