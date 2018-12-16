@@ -22,16 +22,15 @@ env:
 before_script:
 - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
 
-stages:
-  - test
-  - name: deploy
-    if: commit_message =~ /\[deploy\]/
-
 script:
   - make test/"${NOTEBOOK}"
 
 deploy:
-  - make push/"${NOTEBOOK}"
+  provider: script
+  script: make push/"${NOTEBOOK}"
+  skip_cleanup: true
+  on:
+    condition: commit_message =~ /\[deploy\]/
 
 notifications:
   slack: raz-s:se1PurXsQJv03nBZa9XWMOOS
