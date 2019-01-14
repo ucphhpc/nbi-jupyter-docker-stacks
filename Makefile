@@ -9,6 +9,7 @@ ALL_IMAGES:=base-notebook \
     statistics-notebook \
     dgx1-notebook \
     r-notebook \
+	slurm-notebook \
     sme-notebook \
     tensorflow-notebook \
     thin-notebook
