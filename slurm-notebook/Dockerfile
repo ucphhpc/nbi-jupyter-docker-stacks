@@ -10,6 +10,7 @@ RUN groupadd -r slurm --gid=990 && useradd -r -g slurm --uid=990 slurm \
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
     slurm-client \
+    libslurm-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
