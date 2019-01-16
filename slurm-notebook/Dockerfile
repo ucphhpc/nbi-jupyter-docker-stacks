@@ -16,7 +16,7 @@ RUN apt-get update \
     build-essential \
     make \
     munge \
-    libmunge2 \
+    libmunge-dev \
     libslurm-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -26,10 +26,9 @@ RUN cd \
     && echo "$SLURM_DOWNLOAD_MD5" slurm.tar.bz2 | md5sum -c - \
     && mkdir -p /usr/local/src/slurm \
     && tar jxf slurm.tar.bz2 -C /usr/local/src/slurm --strip-components=1 \
-    && rm slurm.tar.bz2 \
     && cd /usr/local/src/slurm \
     && ./configure --enable-debug --prefix=/usr --sysconfdir=/etc/slurm \
-        --libdir=/usr/lib64 \
+        --libdir=/usr/lib \
     && make install
 
 # Required directories
