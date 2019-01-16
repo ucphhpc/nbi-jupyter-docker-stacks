@@ -38,11 +38,11 @@ RUN mkdir -p /var/run/munge \
     && chown -R munge:munge /var/log/munge \
     && chmod -R 770 /var/log/munge
 
-# Allow jupyter user to authenticate as munge
+# Allow jupyter user to launch munged
 RUN usermod -G munge -a $NB_USER \
-    && sed -i "/auth       sufficient pam_rootok.so/a auth \\
-    [success=ignore default=1] pam_succeed_if.so user = munge \nauth \\
-    sufficient pam_succeed_if.so use_uid user = $NB_USER" /etc/pam.d/su
+    && echo "$NB_USER    ALL=(munge) NOPASSWD: /usr/sbin/munged" > /etc/sudoers.d/munge \
+    && chmod 0440 /etc/sudoers.d/munge \
+    && chown root:root /etc/sudoers.d/munge
 
 # Run container as
 USER $NB_USER
