@@ -1,6 +1,10 @@
 FROM nielsbohr/base-notebook:latest
 MAINTAINER Rasmus Munk <rasmus.munk@nbi.ku.dk>
 
+ARG SLURM_VERSION=18.08.4
+ARG SLURM_DOWNLOAD_MD5=75c76328159def203133505def7a99a6
+ARG SLURM_DOWNLOAD_URL="https://download.schedmd.com/slurm/slurm-$SLURM_VERSION.tar.bz2"
+
 USER root
 
 RUN groupadd -r slurm --gid=990 && useradd -r -g slurm --uid=990 slurm \
@@ -9,16 +13,36 @@ RUN groupadd -r slurm --gid=990 && useradd -r -g slurm --uid=990 slurm \
 # Dep
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-    slurm-client \
+    build-essential \
+    make \
+    munge \
+    libmunge2 \
     libslurm-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+RUN cd \
+    && wget -O slurm.tar.bz2 "$SLURM_DOWNLOAD_URL" \
+    && echo "$SLURM_DOWNLOAD_MD5" slurm.tar.bz2 | md5sum -c - \
+    && mkdir -p /usr/local/src/slurm \
+    && tar jxf slurm.tar.bz2 -C /usr/local/src/slurm --strip-components=1 \
+    && rm slurm.tar.bz2 \
+    && cd /usr/local/src/slurm \
+    && ./configure --enable-debug --prefix=/usr --sysconfdir=/etc/slurm \
+        --libdir=/usr/lib64 \
+    && make install
+
 # Required directories
 RUN mkdir -p /var/run/munge \
-    && chown munge:munge /var/run/munge
+    && chown -R munge:munge /var/run/munge \
+    && chown -R munge:munge /var/log/munge \
+    && chmod -R 770 /var/log/munge
 
-# TODO, run sudo -u munge munged on launch
+# Allow jupyter user to authenticate as munge
+RUN usermod -G munge -a $NB_USER \
+    && sed -i "/auth       sufficient pam_rootok.so/a auth \\
+    [success=ignore default=1] pam_succeed_if.so user = munge \nauth \\
+    sufficient pam_succeed_if.so use_uid user = $NB_USER" /etc/pam.d/su
 
 # Run container as
 USER $NB_USER
