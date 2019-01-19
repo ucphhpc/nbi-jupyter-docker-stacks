@@ -106,7 +106,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     seaborn \
     torchvision \
     scikit-optimize \
-    git+https://github.com/scikit-optimize/scikit-optimize \
+    tqdm \
     git+https://www.github.com/keras-team/keras-contrib.git \
     && $PYTHON3_PATH/bin/pip install \
     numpy \
@@ -128,7 +128,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     seaborn \
     torchvision \
     scikit-optimize \
-    git+https://github.com/scikit-optimize/scikit-optimize \
+    tqdm \
     git+https://www.github.com/keras-team/keras-contrib.git \
     && fix-permissions $CONDA_DIR
 
