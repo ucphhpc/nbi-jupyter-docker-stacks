@@ -14,8 +14,10 @@ RUN groupadd -r slurm --gid=990 && useradd -r -g slurm --uid=990 slurm \
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
     build-essential \
+    supervisor \
     make \
     munge \
+    iputils-ping \
     libmunge-dev \
     libslurm-dev \
     && apt-get clean \
@@ -29,7 +31,8 @@ RUN cd \
     && cd /usr/local/src/slurm \
     && ./configure --enable-debug --prefix=/usr --sysconfdir=/etc/slurm \
         --libdir=/usr/lib \
-    && make install
+    && make install \
+    && rm -fr slurm.tar.bz2
 
 # Required directories
 RUN mkdir -p /var/run/munge \
@@ -43,5 +46,11 @@ RUN usermod -G munge -a $NB_USER \
     && chmod 0440 /etc/sudoers.d/munge \
     && chown root:root /etc/sudoers.d/munge
 
-# Run container as
+COPY supervisord.conf /etc/supervisor/supervisord.conf
+
+RUN chown $NB_USER:$NB_GID /etc/supervisor/supervisord.conf \
+    && chmod 755 /etc/supervisor/supervisord.conf
+
 USER $NB_USER
+
+CMD ["/usr/bin/supervisord"]
