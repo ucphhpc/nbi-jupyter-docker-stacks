@@ -37,7 +37,7 @@ RUN cd \
     && ./configure --enable-debug --prefix=/usr --sysconfdir=/etc/slurm \
         --libdir=/usr/lib \
     && make install \
-    && cd .. \
+    && cd \
     && rm -f slurm.tar.bz2
 
 # Required directories
