@@ -16,6 +16,7 @@ RUN apt-get update \
     build-essential \
     supervisor \
     make \
+    cmake \
     munge \
     iputils-ping \
     libmunge-dev \
@@ -32,7 +33,8 @@ RUN cd \
     && ./configure --enable-debug --prefix=/usr --sysconfdir=/etc/slurm \
         --libdir=/usr/lib \
     && make install \
-    && rm -fr slurm.tar.bz2
+    && cd .. \
+    && rm -f slurm.tar.bz2
 
 # Required directories
 RUN mkdir -p /var/run/munge \
@@ -45,6 +47,20 @@ RUN usermod -G munge -a $NB_USER \
     && echo "$NB_USER    ALL=(munge) NOPASSWD: /usr/sbin/munged" > /etc/sudoers.d/munge \
     && chmod 0440 /etc/sudoers.d/munge \
     && chown root:root /etc/sudoers.d/munge
+
+USER $NB_USER
+
+# Add cling kernel
+# https://github.com/QuantStack/xeus-cling
+RUN conda create -n cling \
+    && conda install xeus-cling -n cling -c conda-forge \
+    && conda clean -tipsy \
+    && fix-permissions $CONDA_DIR
+
+ENV CXX_PATH=$CONDA_DIR/envs/cling
+RUN cp -R $CXX_PATH/share/jupyter/kernels/* $CONDA_DIR/share/jupyter/kernels/
+
+USER root
 
 COPY supervisord.conf /etc/supervisor/supervisord.conf
 
