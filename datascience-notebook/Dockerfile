@@ -56,12 +56,10 @@ RUN $PYTHON2_PATH/bin/pip install \
     pillow \
     && fix-permissions $CONDA_DIR
 
-# Install diffpy
-RUN $PYTHON2_PATH/bin/pip install \
-    diffpy.structure \
-    diffpy.srfit \
-    && fix-permissions $CONDA_DIR
-
 # Matplotlib basemap
 RUN $PYTHON2_PATH/bin/pip install git+https://github.com/matplotlib/basemap.git \
     && $PYTHON3_PATH/bin/pip install git+https://github.com/matplotlib/basemap.git
+
+# Install diffpy
+RUN conda config --add channels diffpy \
+    && conda install -n python2 diffpy-cmi
