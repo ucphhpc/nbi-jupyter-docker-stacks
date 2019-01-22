@@ -21,6 +21,10 @@ RUN apt-get update \
     iputils-ping \
     libmunge-dev \
     libslurm-dev \
+    libopenmpi2 \
+    libopenmpi-dev \
+    openmpi-bin \
+    openmpi-common \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
