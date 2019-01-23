@@ -44,5 +44,5 @@ def test_notebooks():
 def test_diffpy():
     """Only supports python2.7"""
     notebook_path = os.path.join(cur_path, 'notebooks', 'diffpy.ipynb')
-    _, errors = _notebook_run(notebook_path, 'python2')
+    _, errors = _notebook_run(notebook_path, 'python2_diffpy')
     assert errors == []
