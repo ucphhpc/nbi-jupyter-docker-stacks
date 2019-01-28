@@ -10,6 +10,7 @@ env:
     - NOTEBOOK=python-notebook
     - NOTEBOOK=r-notebook
     - NOTEBOOK=slurm-notebook
+    - NOTEBOOK=hpc-notebook
     - NOTEBOOK=sme-notebook
     - NOTEBOOK=statistics-notebook
     - NOTEBOOK=tensorflow-notebook
