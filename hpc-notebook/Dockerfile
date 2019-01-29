@@ -33,3 +33,5 @@ RUN rm /opt/conda/bin/h5c*
 
 USER $NB_USER
 
+RUN mkdir -p /home/$NB_USER/erda_home \
+    && mkdir -p /home/$NB_USER/modi_home
