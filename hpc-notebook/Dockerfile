@@ -1,5 +1,5 @@
 FROM nielsbohr/slurm-notebook:latest
-MAINTAINER Mads R. B. Kristensen <madsbk@nbi.ku.dk>
+LABEL MAINTAINER="Mads R. B. Kristensen <madsbk@nbi.ku.dk>"
 
 USER root
 
@@ -15,7 +15,7 @@ RUN mkdir bohrium/build
 RUN cd bohrium/build && cmake .. -DVE_OPENCL=OFF -DVE_CUDA=OFF -DEXT_CLBLAS=OFF -DBRIDGE_PY_API=OFF -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr/local && make install -j 2
 
 RUN mkdir -p /opt
-RUN chgrp users /opt
+RUN chgrp $NB_GID /opt
 RUN chmod 774 /opt
 
 # Launch script
@@ -24,14 +24,11 @@ RUN echo "#!/usr/bin/env bash" > /usr/local/bin/hpc_launch.sh && \
     echo "git clone https://github.com/madsbk/hpc_course.git /opt/hpc_course" >> /usr/local/bin/hpc_launch.sh
 RUN chmod a+x /usr/local/bin/hpc_launch.sh
 
-COPY supervisord.conf /etc/supervisor/supervisord.conf
-RUN chown $NB_USER:$NB_GID /etc/supervisor/supervisord.conf \
-    && chmod 755 /etc/supervisor/supervisord.conf
+COPY supervisord.conf /etc/supervisor/hpc-supervisord.conf
+RUN cat /etc/supervisor/hpc-supervisord.conf >> /etc/supervisor/supervisord.conf \
+    && rm -fr /etc/supervisor/hpc-supervisord.conf
 
 # By removing the conda hdf5 compilers, we force the use of Ubuntu's compilers
 RUN rm /opt/conda/bin/h5c*
 
 USER $NB_USER
-
-RUN mkdir -p /home/$NB_USER/erda_home \
-    && mkdir -p /home/$NB_USER/modi_home

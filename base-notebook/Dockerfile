@@ -1,8 +1,6 @@
-FROM jupyter/base-notebook:latest
-MAINTAINER Rasmus Munk <rasmus.munk@nbi.ku.dk>
-
 # Set default username
-ARG NB_USER="jupyter"
+FROM jupyter/base-notebook:latest
+LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 
 USER root
 
@@ -44,6 +42,8 @@ USER $NB_USER
 # Environement variables
 ENV CONDA_DIR=/opt/conda
 
+WORKDIR /tmp
+
 # Update conda, npm, yarn
 RUN conda update -n base conda \
     && npm i -g npm \
@@ -75,14 +75,15 @@ RUN conda install --quiet --yes \
     && fix-permissions /home/$NB_USER
 
 ## Install facets which does not have a pip or conda package at the moment
-RUN cd /tmp \
-    && git clone https://github.com/PAIR-code/facets.git \
+RUN git clone https://github.com/PAIR-code/facets.git \
     && cd facets \
     && jupyter nbextension install facets-dist/ --sys-prefix \
     && cd \
     && rm -rf /tmp/facets \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
+
+WORKDIR /home/$NB_USER
 
 # Ensure that container Runs as
 USER $NB_USER

@@ -9,11 +9,11 @@ RUN pip install pytest \
 
 USER root
 
-RUN chown jovyan:users -R notebooks \
+RUN chown $NB_USER:$NB_GID -R notebooks \
     && chmod +x test.sh
 
 # Run container as
-USER jovyan
+USER $NB_USER
 
 CMD ["bin/bash"]
 ENTRYPOINT ["/app/tests/test.sh"]
