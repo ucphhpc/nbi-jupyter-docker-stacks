@@ -66,8 +66,14 @@ RUN cp -R $CXX_PATH/share/jupyter/kernels/* $CONDA_DIR/share/jupyter/kernels/
 
 USER root
 
-COPY supervisord.conf /etc/supervisor/supervisord.conf
+# Prepare supervisord state dirs
+RUN mkdir -p /var/log/supervisord /var/run/supervisord \
+    && chown $NB_USER:$NB_GID /var/log/supervisord \
+    && chown $NB_USER:$NB_GID /var/run/supervisord \
+    && chmod 755 /var/log/supervisord \
+    && chmod 755 /var/run/supervisord
 
+COPY supervisord.conf /etc/supervisor/supervisord.conf
 RUN chown $NB_USER:$NB_GID /etc/supervisor/supervisord.conf \
     && chmod 755 /etc/supervisor/supervisord.conf
 

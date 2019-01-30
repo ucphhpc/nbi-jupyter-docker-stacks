@@ -28,7 +28,4 @@ COPY supervisord.conf /etc/supervisor/hpc-supervisord.conf
 RUN cat /etc/supervisor/hpc-supervisord.conf >> /etc/supervisor/supervisord.conf \
     && rm -fr /etc/supervisor/hpc-supervisord.conf
 
-# By removing the conda hdf5 compilers, we force the use of Ubuntu's compilers
-RUN rm /opt/conda/bin/h5c*
-
 USER $NB_USER
