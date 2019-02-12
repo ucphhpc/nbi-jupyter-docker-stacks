@@ -76,6 +76,9 @@ RUN mkdir -p /var/log/supervisord /var/run/supervisord \
 COPY supervisord.conf /etc/supervisor/supervisord.conf
 RUN chown $NB_USER:$NB_GID /etc/supervisor/supervisord.conf \
     && chmod 755 /etc/supervisor/supervisord.conf
+    
+# Temp fix
+RUN chmod 777 /etc/hosts
 
 USER $NB_USER
 
