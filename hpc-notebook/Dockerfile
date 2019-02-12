@@ -6,7 +6,7 @@ USER root
 # Dep
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-    cmake git unzip libboost-filesystem-dev libboost-serialization-dev libboost-regex-dev zlib1g-dev libsigsegv-dev freeglut3 freeglut3-dev libxmu-dev libxi-dev libhdf5-dev libhdf5-doc xtensor-dev xtensor-doc vim python3-h5py python3-h5py-dbg python-h5py python-h5py-dbg \
+    cmake git unzip libboost-filesystem-dev libboost-serialization-dev libboost-regex-dev zlib1g-dev libsigsegv-dev freeglut3 freeglut3-dev libxmu-dev libxi-dev libhdf5-dev libhdf5-doc xtensor-dev xtensor-doc vim python3-h5py python3-h5py-dbg python-h5py python-h5py-dbg cgdb \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
