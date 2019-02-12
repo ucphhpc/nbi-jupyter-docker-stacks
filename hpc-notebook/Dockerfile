@@ -30,5 +30,6 @@ COPY supervisord.conf /etc/supervisor/hpc-supervisord.conf
 RUN cat /etc/supervisor/hpc-supervisord.conf >> /etc/supervisor/supervisord.conf \
     && rm -fr /etc/supervisor/hpc-supervisord.conf
 
-USER $NB_USER
+# TODO, switch back to regular with new UID start mechanism
+User root
 
