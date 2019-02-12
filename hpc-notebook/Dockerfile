@@ -31,7 +31,9 @@ RUN cat /etc/supervisor/hpc-supervisord.conf >> /etc/supervisor/supervisord.conf
     && rm -fr /etc/supervisor/hpc-supervisord.conf
 
 USER $NB_USER
-RUN conda install ffmpeg imagemagick
+RUN conda install --quiet --yes ffmpeg imagemagick h5py
+# By removing the conda hdf5 compilers, we force the use of Ubuntu's compilers
+RUN rm /opt/conda/bin/h5c*
 
 # TODO, switch back to regular with new UID start mechanism
 USER root
