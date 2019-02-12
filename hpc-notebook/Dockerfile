@@ -31,7 +31,8 @@ RUN cat /etc/supervisor/hpc-supervisord.conf >> /etc/supervisor/supervisord.conf
     && rm -fr /etc/supervisor/hpc-supervisord.conf
 
 USER $NB_USER
-RUN conda install --quiet --yes ffmpeg imagemagick h5py
+RUN conda install --quiet --yes ffmpeg imagemagick
+RUN pip install h5py
 # By removing the conda hdf5 compilers, we force the use of Ubuntu's compilers
 RUN rm /opt/conda/bin/h5c*
 
