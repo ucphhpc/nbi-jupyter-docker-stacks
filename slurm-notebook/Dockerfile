@@ -46,9 +46,8 @@ RUN mkdir -p /var/run/munge \
     && chown -R munge:munge /var/log/munge \
     && chmod -R 770 /var/log/munge
 
-# Allow jupyter user to launch munged
-RUN usermod -G munge -a $NB_USER \
-    && echo "$NB_USER    ALL=(munge) NOPASSWD: /usr/sbin/munged" > /etc/sudoers.d/munge \
+# Allow members of the users to launch munged
+RUN echo "%$NB_GID    ALL=(munge) NOPASSWD: /usr/sbin/munged" > /etc/sudoers.d/munge \
     && chmod 0440 /etc/sudoers.d/munge \
     && chown root:root /etc/sudoers.d/munge
 
@@ -70,12 +69,12 @@ USER root
 RUN mkdir -p /var/log/supervisord /var/run/supervisord \
     && chown $NB_USER:$NB_GID /var/log/supervisord \
     && chown $NB_USER:$NB_GID /var/run/supervisord \
-    && chmod 755 /var/log/supervisord \
-    && chmod 755 /var/run/supervisord
+    && chmod 775 /var/log/supervisord \
+    && chmod 775 /var/run/supervisord
 
 COPY supervisord.conf /etc/supervisor/supervisord.conf
 RUN chown $NB_USER:$NB_GID /etc/supervisor/supervisord.conf \
-    && chmod 755 /etc/supervisor/supervisord.conf
+    && chmod 775 /etc/supervisor/supervisord.conf
     
 # Temp fix
 RUN chmod 777 /etc/hosts
