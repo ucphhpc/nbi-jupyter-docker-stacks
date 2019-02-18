@@ -46,10 +46,9 @@ RUN mkdir -p /var/run/munge \
     && chown -R munge:munge /var/log/munge \
     && chmod -R 770 /var/log/munge
 
-# Allow members of the users to launch munged
-RUN echo "%$NB_GID    ALL=(munge) NOPASSWD: /usr/sbin/munged" > /etc/sudoers.d/munge \
-    && chmod 0440 /etc/sudoers.d/munge \
-    && chown root:root /etc/sudoers.d/munge
+RUN mkdir -p /var/spool/slurmd \
+    && chown slurm:slurm /var/spool/slurmd \
+    && chmod 775 /var/spool/slurmd
 
 USER $NB_USER
 
@@ -73,12 +72,10 @@ RUN mkdir -p /var/log/supervisord /var/run/supervisord \
     && chmod 775 /var/run/supervisord
 
 COPY supervisord.conf /etc/supervisor/supervisord.conf
+COPY setup_env.sh /usr/local/bin/setup_env.sh
 RUN chown $NB_USER:$NB_GID /etc/supervisor/supervisord.conf \
-    && chmod 775 /etc/supervisor/supervisord.conf
-    
-# Temp fix
-RUN chmod 777 /etc/hosts
-
-USER $NB_USER
+    && chmod 775 /etc/supervisor/supervisord.conf \
+    && chown $NB_USER:$NB_GID /usr/local/bin/setup_env.sh \
+    && chmod +x /usr/local/bin/setup_env.sh
 
 CMD ["/usr/bin/supervisord"]
