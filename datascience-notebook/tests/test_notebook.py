@@ -33,16 +33,7 @@ def _notebook_run(path, kernel='python3'):
 
 def test_notebooks():
     for f_notebook in os.listdir(notebooks_path):
-        if f_notebook  == 'diffpy.ipynb':
-            continue
         for kernel in kernels:
             nb, errors = _notebook_run(os.path.join(notebooks_path,
                                                     f_notebook), kernel=kernel)
             assert errors == []
-
-
-def test_diffpy():
-    """Only supports python2.7"""
-    notebook_path = os.path.join(cur_path, 'notebooks', 'diffpy.ipynb')
-    _, errors = _notebook_run(notebook_path, 'python2_diffpy')
-    assert errors == []
