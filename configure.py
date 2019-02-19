@@ -9,6 +9,7 @@ args = parser.parse_args()
 
 IMAGES = ['python-notebook',
           'datascience-notebook',
+          'chemistry-notebook',
           'dgx1-notebook',
           'r-notebook',
           'slurm-notebook',
