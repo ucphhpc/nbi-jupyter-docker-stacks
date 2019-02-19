@@ -3,28 +3,45 @@ LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 
 USER $NB_USER
 
-# Install diffpy
-ENV PYTHON2_DIFFPY_PATH=$CONDA_DIR/envs/python2_diffpy
+# Clearout other kernels
 
-RUN conda create -n python2_diffpy python=2.7 ipykernel \
-    && conda config --add channels diffpy \
-    && conda install -n python2_diffpy diffpy-cmi diffpy- \
+RUN conda remove --name python3 --all
+
+# Install diffpy into python2 env
+RUN conda config --add channels diffpy \
+    && conda install -n python2 diffpy-cmi \
     && conda clean -tipsy \
-    && fix-permissions $CONDA_DIR \
-    && sed -i 's/"Python 2"/"Python 2 DiffPy"/g' $PYTHON2_DIFFPY_PATH/share/jupyter/kernels/python2/kernel.json \
-    && mv $PYTHON2_DIFFPY_PATH/share/jupyter/kernels/python2 $PYTHON2_DIFFPY_PATH/share/jupyter/kernels/python2_diffpy \
-    && cp -r $PYTHON2_DIFFPY_PATH/share/jupyter/kernels/python2_diffpy /home/$NB_USER/.local/share/jupyter/kernels/
+    && fix-permissions $CONDA_DIR
 
-RUN $PYTHON2_DIFFPY_PATH/bin/pip install \
+# Get rid of old matplotlib
+RUN $PYTHON2_PATH/bin/pip uninstall -y \
+    matplotlib
+
+RUN $PYTHON2_PATH/bin/pip install -U \
     numpy \
     matplotlib \
     six \
     ipython \
+    setuptools \
+    ase \
+    scipy \
     pyobjcryst \
     h5py \
     prompter \
     tqdm \
-    ase \
     && fix-permissions $CONDA_DIR
+
+RUN cd /tmp \
+    && git clone https://github.com/diffpy/diffpy.srfit.git \
+    && cd diffpy.srfit \
+    && $PYTHON2_PATH/bin/python setup.py install \
+    && rm -r /tmp/diffpy.srfit
+
+RUN rm -r "/home/$NB_USER/.local/share/jupyter/kernels/python3" \
+    "$CONDA_DIR/share/jupyter/kernels/python3" \
+    "$CONDA_DIR/bin/python" \
+    "$CONDA_DIR/bin/python3" 
+
+RUN ln -s $PYTHON2_PATH/bin/python $CONDA_DIR/bin/python
 
 USER $NB_USER

@@ -1,0 +1,20 @@
+FROM nielsbohr/chemistry-notebook:edge
+COPY tests /app/tests
+
+WORKDIR /app/tests
+
+RUN pip install pytest \
+    && pip install -r requirements.txt
+
+USER root
+
+RUN chown $NB_USER:$NB_GID -R notebooks \
+    && chmod +x test.sh
+
+# Run container as
+USER $NB_USER
+
+RUN ln -s $PYTHON2_PATH/bin/pytest $CONDA_DIR/bin/pytest
+
+CMD ["bin/bash"]
+ENTRYPOINT ["/app/tests/test.sh"]
