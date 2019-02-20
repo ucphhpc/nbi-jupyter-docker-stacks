@@ -9,9 +9,16 @@ args = parser.parse_args()
 
 IMAGES = ['python-notebook',
           'datascience-notebook',
+          'chemistry-notebook',
+          'geo-notebook',
           'dgx1-notebook',
           'r-notebook',
-          'sme-notebook']
+          'slurm-notebook',
+          'hpc-notebook',
+          'sme-notebook',
+          'statistics-notebook',
+          'tensorflow-notebook',
+          'thin-notebook']
 
 if __name__ == "__main__":
     # Replace all FROM tags

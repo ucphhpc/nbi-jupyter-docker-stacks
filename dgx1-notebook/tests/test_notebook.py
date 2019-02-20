@@ -16,7 +16,7 @@ def _notebook_run(path, kernel='python3'):
     os.chdir(dirname)
     with tempfile.NamedTemporaryFile(suffix=".ipynb") as fout:
         args = ["jupyter", "nbconvert", "--to", "notebook", "--execute",
-                "--ExecutePreprocessor.timeout=60",
+                "--ExecutePreprocessor.timeout=300",
                 "--ExecutePreprocessor.kernel_name=" + kernel,
                 "--output", fout.name, path]
         subprocess.check_call(args)
@@ -25,7 +25,7 @@ def _notebook_run(path, kernel='python3'):
         nb = nbformat.read(fout, nbformat.current_nbformat)
 
     errors = [output for cell in nb.cells if "outputs" in cell
-              for output in cell["outputs"] \
+              for output in cell["outputs"]
               if output.output_type == "error"]
 
     return nb, errors
@@ -33,7 +33,34 @@ def _notebook_run(path, kernel='python3'):
 
 def test_notebooks():
     for f_notebook in os.listdir(notebooks_path):
+        # skip special notebooks
+        if f_notebook == 'tensorflow.ipynb' or f_notebook == 'keras.ipynb':
+            continue
         for kernel in kernels:
-            nb, errors = _notebook_run(os.path.join(notebooks_path,
-                                                    f_notebook), kernel=kernel)
+            _, errors = _notebook_run(os.path.join(notebooks_path,
+                                                   f_notebook), kernel=kernel)
             assert errors == []
+
+
+def test_cuda_notebooks():
+    """Requires that cuda is available, if not dont run"""
+    try:
+        import tensorflow as tf
+    except ImportError as err:
+        print("Failed to import tensorflow: ", err)
+        return 0
+    avail = tf.test.is_gpu_available()
+
+    if not avail:
+        print("No gpus were available, skipped test")
+        return 0
+
+    if avail:
+        """Requires that cuda is available, if not dont run"""
+        notebooks_paths = [os.path.join(notebooks_path, 'tensorflow.ipynb'),
+                           os.path.join(notebooks_path, 'keras.ipynb'),
+                           os.path.join(notebooks_path, 'keras-contrib.ipynb')]
+        for notebook_path in notebooks_paths:
+            for kernel in kernels:
+                _, errors = _notebook_run(notebook_path, kernel)
+                assert errors == []

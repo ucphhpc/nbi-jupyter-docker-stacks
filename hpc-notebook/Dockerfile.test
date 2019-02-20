@@ -1,0 +1,19 @@
+FROM nielsbohr/hpc-notebook:edge
+COPY tests /app/tests
+
+WORKDIR /app/tests
+
+# base pip is for pip3
+RUN pip install pytest \
+    && pip install -r requirements.txt
+
+USER root
+
+RUN chown $NB_USER:$NB_GID -R notebooks \
+    && chmod +x test.sh
+
+# Run container as
+USER $NB_USER
+
+CMD ["bin/bash"]
+ENTRYPOINT ["/app/tests/test.sh"]

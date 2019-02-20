@@ -36,3 +36,17 @@ To evaluate the entire stack, a target to 'build-all'/'test-all' is also availab
 	make build-all
 	make test-all
 
+Note, the dgx1-notebook image tests, requires that the host system both has cuda 9.0 installed and the 
+`Nvidia-Docker 2 <https://github.com/NVIDIA/nvidia-docker>`__ runtime environment added as 
+a default to the docker daemon.json, e.g::
+
+	{
+		"default-runtime": "nvidia",
+		"runtimes": {
+			"nvidia": {
+				"path": "nvidia-container-runtime",
+				"runtimeArgs": []
+			}
+		}
+	}
+

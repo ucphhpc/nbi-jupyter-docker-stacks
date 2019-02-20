@@ -1,5 +1,5 @@
 FROM nielsbohr/python-notebook:latest
-MAINTAINER Rasmus Munk <rasmus.munk@nbi.ku.dk>
+LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 
 USER root
 
@@ -12,6 +12,7 @@ RUN apt-get update \
     libgeos-dev \
     libglib2.0-0 \
     libxrender1 \
+    libgl1-mesa-glx \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -19,14 +20,13 @@ RUN apt-get update \
 USER $NB_USER
 
 # Packages env
-ENV BH_CONFIG=$PYTHON2_PATH/lib/python2.7/site-packages/bohrium/config.ini
+ENV BH_CONFIG=$PYTHON2_PATH/lib/python2.7/site-packages/bohrium_api/config.ini
 
 # Install packages for python2/3 envs
 RUN $PYTHON2_PATH/bin/pip install \
     numpy \
     bohrium \
     cython \
-    pandas \
     opencv-python \
     six \
     nose \
@@ -38,6 +38,18 @@ RUN $PYTHON2_PATH/bin/pip install \
     seaborn \
     scikit-image \
     pillow \
+    mlxtend \
+    tqdm \
+    pomegranate==0.10.0 \
+    bokeh \
+    Bottleneck \
+    dask \
+    datashader \
+    nbconvert \
+    netCDF4 \
+    numba \
+    statsmodels \
+    xarray \
     && $PYTHON3_PATH/bin/pip install \
     numpy \
     bohrium \
@@ -49,11 +61,24 @@ RUN $PYTHON2_PATH/bin/pip install \
     sympy \
     scipy \
     h5py \
-    pandas \
     sklearn \
     seaborn \
     scikit-image \
     pillow \
+    mlxtend \
+    tqdm \
+    ruptures \
+    pomegranate==0.10.0 \
+    PyQt5 \
+    bokeh \
+    Bottleneck \
+    dask \
+    datashader \
+    nbconvert \
+    netCDF4 \
+    numba \
+    statsmodels \
+    xarray \
     && fix-permissions $CONDA_DIR
 
 # Matplotlib basemap

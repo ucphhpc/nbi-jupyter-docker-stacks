@@ -6,11 +6,16 @@ TAG:=edge
 ALL_IMAGES:=base-notebook \
     python-notebook \
     datascience-notebook \
+    chemistry-notebook \
+    fenics-notebook \
     statistics-notebook \
     dgx1-notebook \
     r-notebook \
+    slurm-notebook \
+    hpc-notebook \
     sme-notebook \
-    tensorflow-notebook
+    tensorflow-notebook \
+    thin-notebook
 
 # Inspired by https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 help:
