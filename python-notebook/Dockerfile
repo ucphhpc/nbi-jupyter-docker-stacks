@@ -32,10 +32,12 @@ RUN $PYTHON2_PATH/bin/pip install \
     ipympl \
     ipyleaflet \
     ipywidgets \
+    python-dateutil \
     && $PYTHON3_PATH/bin/pip install \
     ipympl \
     ipyleaflet \
     ipywidgets \
+    python-dateutil \
     && fix-permissions $CONDA_DIR
 
 # Set the default python terminal links to the used kernels

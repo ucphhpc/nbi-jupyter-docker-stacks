@@ -9,6 +9,7 @@ env:
     - NOTEBOOK=dgx1-notebook
     - NOTEBOOK=python-notebook
     - NOTEBOOK=chemistry-notebook
+    - NOTEBOOK=geo-notebook
     - NOTEBOOK=r-notebook
     - NOTEBOOK=hpc-notebook
     - NOTEBOOK=sme-notebook
