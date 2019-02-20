@@ -67,6 +67,7 @@ RUN conda install --quiet --yes \
     && jupyter labextension install @jupyter-widgets/jupyterlab-manager \
     && jupyter labextension install jupyter-matplotlib \
     && jupyter labextension install @jupyterlab/celltags \
+    && jupyter labextension install jupyterlab_bokeh \
     && npm dedupe \
     && npm cache clean --force \
     && rm -rf /home/$NB_USER/.cache/yarn \
