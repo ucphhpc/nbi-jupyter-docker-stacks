@@ -5,8 +5,9 @@ TAG:=edge
 
 ALL_IMAGES:=base-notebook \
     python-notebook \
-    chemistry-notebook \
     datascience-notebook \
+    chemistry-notebook \
+    fenics-notebook \
     statistics-notebook \
     dgx1-notebook \
     r-notebook \
