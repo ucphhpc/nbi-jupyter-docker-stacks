@@ -25,7 +25,7 @@ RUN echo "#!/usr/bin/env bash" > /usr/local/bin/hpc_launch.sh && \
     echo "set -e" >> /usr/local/bin/hpc_launch.sh && \
     echo "git clone https://github.com/madsbk/hpc_course.git /opt/hpc_course" >> /usr/local/bin/hpc_launch.sh \
     echo "chgrp -R $NB_GID /opt/hpc_course" >> /usr/local/bin/hpc_launch.sh && \
-    echo "chmod -R g+w /opt/hpc_course" >> /usr/local/bin/hpc_launch.sh && \
+    echo "chmod -R g+w /opt/hpc_course" >> /usr/local/bin/hpc_launch.sh \
 RUN chmod a+x /usr/local/bin/hpc_launch.sh
 
 COPY supervisord.conf /etc/supervisor/hpc-supervisord.conf
