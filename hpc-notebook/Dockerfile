@@ -10,7 +10,7 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN git clone --depth 5 --branch bhxx_sugar https://github.com/madsbk/bohrium.git
+RUN git clone --depth 5 https://github.com/bh107/bohrium.git
 RUN mkdir bohrium/build
 RUN cd bohrium/build && cmake .. -DVE_OPENCL=OFF -DVE_CUDA=OFF -DEXT_CLBLAS=OFF -DBRIDGE_PY_API=OFF -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr && make install -j 2 \
     && cd \
