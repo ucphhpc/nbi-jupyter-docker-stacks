@@ -18,6 +18,7 @@ RUN apt-get update \
     texlive-fonts-recommended \
     htop \
     nano \
+    vim \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
