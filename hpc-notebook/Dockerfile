@@ -32,10 +32,10 @@ COPY supervisord.conf /etc/supervisor/hpc-supervisord.conf
 RUN cat /etc/supervisor/hpc-supervisord.conf >> /etc/supervisor/supervisord.conf \
     && rm -fr /etc/supervisor/hpc-supervisord.conf
 
+COPY openmpi-mca-params.conf /etc/openmpi/openmpi-mca-params.conf
+COPY mca-btl-openib-device-params.ini /usr/share/openmpi/mca-btl-openib-device-params.ini
+
 USER $NB_USER
 RUN conda install --quiet --yes ffmpeg imagemagick
 RUN pip install h5py
-
-# TODO, switch back to regular with new UID start mechanism
-USER root
 
