@@ -96,7 +96,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     nibabel \
     pandas \
     keras \
-    tensorflow-gpu \
+    tensorflow-gpu==1.12.0 \
     lightgbm \
     xgboost \
     joblib \
@@ -118,7 +118,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     nibabel \
     pandas \
     keras \
-    tensorflow-gpu \
+    tensorflow-gpu==1.12.0 \
     lightgbm \
     xgboost \
     joblib \
