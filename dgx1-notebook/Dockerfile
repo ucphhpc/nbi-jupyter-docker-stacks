@@ -88,7 +88,7 @@ ENV BH_CONFIG=$PYTHON2_PATH/lib/python2.7/site-packages/bohrium_api/config.ini
 # Ensure cpu only version of tensorflow is not included
 RUN $PYTHON2_PATH/bin/pip install \
     numpy \
-    bohrium==0.10.0.post19 \
+    bohrium \
     opencv-python \
     statsmodels \
     ruamel.yaml \
@@ -110,7 +110,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     git+https://www.github.com/keras-team/keras-contrib.git \
     && $PYTHON3_PATH/bin/pip install \
     numpy \
-    bohrium==0.10.0.post19 \
+    bohrium \
     opencv-python \
     statsmodels \
     ruamel.yaml \
