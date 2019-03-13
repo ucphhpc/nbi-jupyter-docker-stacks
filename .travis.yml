@@ -5,18 +5,19 @@ services: docker
 env:
   matrix:
     - NOTEBOOK=base-notebook
-    - NOTEBOOK=datascience-notebook
-    - NOTEBOOK=dgx1-notebook
-    - NOTEBOOK=python-notebook
-    - NOTEBOOK=chemistry-notebook
-    - NOTEBOOK=geo-notebook
-    - NOTEBOOK=fenics-notebook
     - NOTEBOOK=r-notebook
-    - NOTEBOOK=hpc-notebook
+    - NOTEBOOK=slurm-notebook
     - NOTEBOOK=sme-notebook
-    - NOTEBOOK=statistics-notebook
-    - NOTEBOOK=tensorflow-notebook
     - NOTEBOOK=thin-notebook
+    - NOTEBOOK=python-notebook
+    - NOTEBOOK=datascience-notebook
+    - NOTEBOOK=chemistry-notebook
+    - NOTEBOOK=fenics-notebook
+    - NOTEBOOK=statistics-notebook
+    - NOTEBOOK=dgx1-notebook
+    - NOTEBOOK=hpc-notebook
+    - NOTEBOOK=tensorflow-notebook
+    - NOTEBOOK=geo-notebook
   global:
     - COMMIT=${TRAVIS_COMMIT::12}
     - RELEASE_VERS=latest
