@@ -40,7 +40,7 @@ RUN $PYTHON2_PATH/bin/pip install -U \
     setuptools \
     ase \
     scipy \
-    pyobjcryst \
+    pyobjcryst==2.0.2 \
     h5py \
     prompter \
     tqdm \

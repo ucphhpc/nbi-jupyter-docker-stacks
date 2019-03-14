@@ -54,6 +54,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     graphviz \
     pystan \
     pymc3 \
+    pyproj==1.9.6 \
     && $PYTHON3_PATH/bin/pip install \
     numpy \
     bohrium \
@@ -86,6 +87,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     graphviz \
     pystan \
     pymc3 \
+    pyproj==1.9.6 \
     && fix-permissions $CONDA_DIR
 
 # Matplotlib basemap
