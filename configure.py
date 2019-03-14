@@ -31,7 +31,7 @@ if __name__ == "__main__":
             from_line = f_docker.readline()
             content = f_docker.readlines()
 
-        if from_line is not None and content is not None:
+        if from_line and content:
             image_tag = from_line.split(":")
             new_from = ''.join([image_tag[0], ":", args.tag, "\n"])
 
