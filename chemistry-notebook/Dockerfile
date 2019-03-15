@@ -24,12 +24,12 @@ USER $NB_USER
 RUN conda remove --name python3 --all
 
 # Install diffpy into python2 env
+# debug to ensure travis dosnen't fail due to no output
 RUN conda config --add channels diffpy \
-    && conda install -n python2 diffpy-cmi \
+    && conda install --debug -n python2 diffpy-cmi libobjcryst \
     && conda clean -tipsy \
-    && fix-permissions $CONDA_DIR
-
-RUN conda install -n python2 libobjcryst
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 # Get rid of old matplotlib
 RUN $PYTHON2_PATH/bin/pip uninstall -y \
@@ -47,13 +47,16 @@ RUN $PYTHON2_PATH/bin/pip install -U \
     h5py \
     prompter \
     tqdm \
-    && fix-permissions $CONDA_DIR
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 RUN cd /tmp \
     && git clone https://github.com/diffpy/diffpy.srfit.git \
     && cd diffpy.srfit \
     && $PYTHON2_PATH/bin/python setup.py install \
-    && rm -r /tmp/diffpy.srfit
+    && rm -r /tmp/diffpy.srfit \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 RUN rm -r "/home/$NB_USER/.local/share/jupyter/kernels/python2" \
     "/home/$NB_USER/.local/share/jupyter/kernels/python3" \
