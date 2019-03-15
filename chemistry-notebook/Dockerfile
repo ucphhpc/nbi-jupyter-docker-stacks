@@ -25,9 +25,11 @@ RUN conda remove --name python3 --all
 
 # Install diffpy into python2 env
 RUN conda config --add channels diffpy \
-    && conda install -n python2 diffpy-cmi libobjcryst \
+    && conda install -n python2 diffpy-cmi \
     && conda clean -tipsy \
     && fix-permissions $CONDA_DIR
+
+RUN conda install -n python2 libobjcryst
 
 # Get rid of old matplotlib
 RUN $PYTHON2_PATH/bin/pip uninstall -y \
