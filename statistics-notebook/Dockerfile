@@ -3,7 +3,6 @@ MAINTAINER Rasmus Munk <rasmus.munk@nbi.ku.dk>
 
 USER root
 
-# For opencv2 and basemap geos
 RUN apt-get update \
     && apt-get install -yq --no-install-recommends \
     g++ \
@@ -25,16 +24,20 @@ RUN $PYTHON2_PATH/bin/pip install \
     iminuit \
     graphviz \
     ipywidgets \
+    pystan \
+    pymc3 \
     && $PYTHON3_PATH/bin/pip install \
     numpy \
     matplotlib \
-    scipy \
+    scipy \ 
     seaborn \
     sklearn \
     pandas \
     iminuit \
     graphviz \
     ipywidgets \
+    pystan \
+    pymc3 \
     && fix-permissions $CONDA_DIR
 
 RUN git clone git://github.com/scikit-hep/probfit.git \

@@ -25,7 +25,7 @@ def _notebook_run(path, kernel='python3'):
         nb = nbformat.read(fout, nbformat.current_nbformat)
 
     errors = [output for cell in nb.cells if "outputs" in cell
-              for output in cell["outputs"] \
+              for output in cell["outputs"]
               if output.output_type == "error"]
 
     return nb, errors
@@ -34,6 +34,6 @@ def _notebook_run(path, kernel='python3'):
 def test_notebooks():
     for f_notebook in os.listdir(notebooks_path):
         for kernel in kernels:
-            nb, errors = _notebook_run(os.path.join(notebooks_path,
-                                                    f_notebook), kernel=kernel)
+            _, errors = _notebook_run(os.path.join(notebooks_path,
+                                                   f_notebook), kernel=kernel)
             assert errors == []

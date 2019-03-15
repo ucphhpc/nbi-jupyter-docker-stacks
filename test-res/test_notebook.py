@@ -24,8 +24,7 @@ def _notebook_run(path, kernel='python3'):
         nb = nbformat.read(fout, nbformat.current_nbformat)
 
     errors = [output for cell in nb.cells if "outputs" in cell
-              for output in cell["outputs"] \
+              for output in cell["outputs"]
               if output.output_type == "error"]
 
     return nb, errors
-

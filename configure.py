@@ -7,18 +7,20 @@ parser.add_argument('-t', '--tag', action='store', default='edge')
 parser.add_argument('-i', '--image', action='store', default='python-noteboook')
 args = parser.parse_args()
 
-IMAGES = ['python-notebook',
-          'datascience-notebook',
-          'chemistry-notebook',
-          'geo-notebook',
-          'dgx1-notebook',
+IMAGES = [
           'r-notebook',
           'slurm-notebook',
-          'hpc-notebook',
           'sme-notebook',
+          'thin-notebook',
+          'python-notebook',
+          'datascience-notebook',
+          'chemistry-notebook',
+          'fenics-notebook',
           'statistics-notebook',
+          'dgx1-notebook',
+          'hpc-notebook',
           'tensorflow-notebook',
-          'thin-notebook']
+          'geo-notebook']
 
 if __name__ == "__main__":
     # Replace all FROM tags
@@ -29,7 +31,7 @@ if __name__ == "__main__":
             from_line = f_docker.readline()
             content = f_docker.readlines()
 
-        if from_line is not None and content is not None:
+        if from_line and content:
             image_tag = from_line.split(":")
             new_from = ''.join([image_tag[0], ":", args.tag, "\n"])
 

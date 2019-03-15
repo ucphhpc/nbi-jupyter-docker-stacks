@@ -5,8 +5,8 @@ LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 USER root
 
 RUN apt-get update \
-    && apt-get -yq dist-upgrade \
     && apt-get install -yq --no-install-recommends \
+    build-essential \
     git \
     tzdata \
     lftp \
@@ -18,6 +18,8 @@ RUN apt-get update \
     texlive-fonts-recommended \
     htop \
     nano \
+    man \
+    tree \
     vim \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -69,6 +71,8 @@ RUN conda install --quiet --yes \
     && jupyter labextension install jupyter-matplotlib \
     && jupyter labextension install @jupyterlab/celltags \
     && jupyter labextension install jupyterlab_bokeh \
+    && jupyter labextension install dask-labextension \
+    && jupyter labextension install @pyviz/jupyterlab_pyviz \
     && npm dedupe \
     && npm cache clean --force \
     && rm -rf /home/$NB_USER/.cache/yarn \

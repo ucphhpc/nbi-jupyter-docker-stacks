@@ -8,6 +8,7 @@ RUN apt-get update \
     && apt-get install -yq --no-install-recommends \
     pkg-config \
     build-essential \
+    libgl1-mesa-glx \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -16,4 +17,4 @@ USER $NB_USER
 ENV LD_LIBRARY_PATH=/opt/conda/lib
 ENV PKG_CONFIG_PATH=/opt/conda/envs/python3/lib/pkgconfig
 
-RUN conda install --name python3 -c conda-forge fenics
+RUN conda install --name python3 -c conda-forge fenics gmsh

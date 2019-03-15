@@ -13,6 +13,7 @@ RUN apt-get update \
     libglib2.0-0 \
     libxrender1 \
     libgl1-mesa-glx \
+    graphviz \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -50,6 +51,10 @@ RUN $PYTHON2_PATH/bin/pip install \
     numba \
     statsmodels \
     xarray \
+    graphviz \
+    pystan \
+    pymc3 \
+    pyproj==1.9.6 \
     && $PYTHON3_PATH/bin/pip install \
     numpy \
     bohrium \
@@ -79,6 +84,10 @@ RUN $PYTHON2_PATH/bin/pip install \
     numba \
     statsmodels \
     xarray \
+    graphviz \
+    pystan \
+    pymc3 \
+    pyproj==1.9.6 \
     && fix-permissions $CONDA_DIR
 
 # Matplotlib basemap
