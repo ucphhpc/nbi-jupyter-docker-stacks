@@ -31,12 +31,14 @@ USER $NB_USER
 RUN conda update conda --yes \
   && conda config --remove channels defaults
 
-RUN conda install --yes  \
+RUN conda install --yes \
     appmode \
     arrow \
     bokeh \
     bqplot \
     cartopy \
+    cdo \
+    cftime \
     cmocean \
     click \
     cython  \
@@ -46,6 +48,7 @@ RUN conda install --yes  \
     dask-tensorflow \
     datashader \
     distributed \
+    eofs \
     esmpy \
     fastparquet \
     geoviews \
@@ -55,25 +58,31 @@ RUN conda install --yes  \
     hvplot \
     intake::intake \
     intake::intake-xarray \
+    iris \
     jedi \
     libsodium \
+    lmfit \
     lz4 \
     msgpack-python \
     nb_conda_kernels \
-    nbserverproxy \
     netcdf4 \
+    nc-time-axis \
     nco \
+    nodejs \
     nomkl \
     numba \
     numcodecs \
     numpy \
     pandas \
     panel \
+    plotly \
     python-blosc \
     python-graphviz \
+    seaborn \
     scipy \
     scikit-image \
     scikit-learn \
+    statsmodels \
     toolz \
     tornado \
     xarray \
@@ -83,7 +92,6 @@ RUN conda install --yes  \
     && conda clean -tipsy
 
 RUN $PYTHON3_PATH/bin/pip install \
-    nc_time_axis \
     schemdraw
 
 RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager \
@@ -91,9 +99,7 @@ RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager \
                                      @pyviz/jupyterlab_pyviz \
                                      jupyter-leaflet \
                                      jupyterlab_bokeh \
-                                     dask-labextension
-
-RUN jupyter serverextension enable --py nbserverproxy jupyterlab --sys-prefix
-
+                                     dask-labextension \
+				     jupyterlab-server-proxy
 
 RUN python -m ipykernel install --user
