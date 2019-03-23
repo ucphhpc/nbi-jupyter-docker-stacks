@@ -8,6 +8,7 @@ RUN apt-get update \
     && apt-get install -yq --no-install-recommends \
     g++ \
     software-properties-common \
+    nano vim git \
     && add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable \
     && apt-get update \
     && apt-get install -yq --no-install-recommends \
@@ -20,68 +21,19 @@ RUN apt-get update \
 USER $NB_USER
 
 # Use conda since several geo packages
-RUN conda install -n python2 \
-    appmode \
-    arrow \
-    bokeh \
-    bqplot \
-    cmocean \
-    click \
-    cython  \
-    cytoolz \
-    dask \
-    dask-ml \
-    dask-tensorflow \
-    datashader \
-    distributed \
-    esmpy \
-    fastparquet \
-    geoviews \
-    graphviz \
-    gsw \
-    GDAL==2.3.3 \
-    hvplot \
-    intake::intake \
-    intake::intake-xarray \
-    jedi \
-    lz4 \
-    msgpack-python \
-    nb_conda_kernels \
-    nbserverproxy \
-    netcdf4 \
-    nco \
-    nomkl \
-    numba \
-    numcodecs \
-    numpy \
-    pandas \
-    panel \
-    python-blosc \
-    python-graphviz \
-    scipy \
-    scikit-image \
-    scikit-learn \
-    toolz \
-    tornado \
-    xarray \
-    xesmf \
-    zarr \
-    zict \
-    && conda clean -tipsy \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
 
-# RUN conda-env remove -n python3 && \
-#     conda create -n python3 python=3.6 ipykernel
-
-# Use conda since several geo packages
 RUN conda install -n python3 \
     appmode \
     arrow \
+    autopep8 \
     bokeh \
     bqplot \
+    cartopy \
+    cdo \
+    cftime \
     cmocean \
     click \
+    colorcet \
     cython  \
     cytoolz \
     dask \
@@ -89,8 +41,10 @@ RUN conda install -n python3 \
     dask-tensorflow \
     datashader \
     distributed \
+    eofs \
     esmpy \
     fastparquet \
+    flake8 \
     geoviews \
     graphviz \
     gsw \
@@ -98,24 +52,32 @@ RUN conda install -n python3 \
     hvplot \
     intake::intake \
     intake::intake-xarray \
+    iris \
     jedi \
+    libsodium \
+    lmfit \
     lz4 \
     msgpack-python \
     nb_conda_kernels \
-    nbserverproxy \
     netcdf4 \
+    nc-time-axis \
     nco \
+    nodejs \
     nomkl \
     numba \
     numcodecs \
     numpy \
+    palettable \
     pandas \
     panel \
+    plotly \
     python-blosc \
     python-graphviz \
+    seaborn \
     scipy \
     scikit-image \
     scikit-learn \
+    statsmodels \
     toolz \
     tornado \
     xarray \
@@ -125,6 +87,17 @@ RUN conda install -n python3 \
     && conda clean -tipsy \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
+
+RUN $PYTHON3_PATH/bin/pip install \
+    schemdraw
+
+RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager \
+                                     @jupyterlab/hub-extension \
+                                     @pyviz/jupyterlab_pyviz \
+                                     jupyter-leaflet \
+                                     jupyterlab_bokeh \
+                                     dask-labextension \
+				     jupyterlab-server-proxy
 
 # Run container as
 USER $NB_USER
