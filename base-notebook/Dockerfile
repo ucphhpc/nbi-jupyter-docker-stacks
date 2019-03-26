@@ -67,12 +67,13 @@ RUN conda install --quiet --yes \
     'ipympl' \
     'ipyleaflet' \
     && jupyter labextension install jupyter-leaflet \
-    && jupyter labextension install @jupyter-widgets/jupyterlab-manager \
-    && jupyter labextension install jupyter-matplotlib \
-    && jupyter labextension install @jupyterlab/celltags \
-    && jupyter labextension install jupyterlab_bokeh \
-    && jupyter labextension install dask-labextension \
-    && jupyter labextension install @pyviz/jupyterlab_pyviz \
+                                    jupyterlab-server-proxy \
+                                    @jupyter-widgets/jupyterlab-manager \
+                                    jupyter-matplotlib \
+                                    @jupyterlab/celltags \
+                                    jupyterlab_bokeh \
+                                    dask-labextension \
+                                    @pyviz/jupyterlab_pyviz \
     && npm dedupe \
     && npm cache clean --force \
     && rm -rf /home/$NB_USER/.cache/yarn \
