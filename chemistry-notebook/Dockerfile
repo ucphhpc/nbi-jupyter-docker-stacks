@@ -24,9 +24,8 @@ USER $NB_USER
 RUN conda remove --name python3 --all
 
 # Install diffpy into python2 env
-# debug to ensure travis dosnen't fail due to no output
 RUN conda config --add channels diffpy \
-    && conda install --debug -n python2 diffpy-cmi libobjcryst \
+    && conda install -n python2 diffpy-cmi libobjcryst \
     && conda clean -tipsy \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
