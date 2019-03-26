@@ -50,4 +50,3 @@ a default to the docker daemon.json, e.g::
 		}
 	}
 
-
