@@ -1,23 +1,6 @@
 FROM nielsbohr/python-notebook:latest
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 
-USER root
-
-# For GDAL
-RUN apt-get update \
-    && apt-get install -yq --no-install-recommends \
-    g++ \
-    software-properties-common \
-    nano vim git \
-    && add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable \
-    && apt-get update \
-    && apt-get install -yq --no-install-recommends \
-    gdal-bin \
-    libgdal-dev \
-    && add-apt-repository --remove ppa:ubuntugis/ubuntugis-unstable \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
 USER $NB_USER
 
 # Use conda since several geo packages
@@ -71,9 +54,6 @@ RUN conda install -n python2 \
     && conda clean -tipsy \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
-
-# RUN conda-env remove -n python3 && \
-#     conda create -n python3 python=3.6 ipykernel
 
 # Use conda since several geo packages
 RUN conda install -n python3 \
@@ -143,15 +123,9 @@ RUN conda install -n python3 \
     && fix-permissions /home/$NB_USER
 
 RUN $PYTHON3_PATH/bin/pip install \
-    schemdraw
+    schemdraw \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
-RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager \
-                                     @jupyterlab/hub-extension \
-                                     @pyviz/jupyterlab_pyviz \
-                                     jupyter-leaflet \
-                                     jupyterlab_bokeh \
-                                     dask-labextension \
-				     jupyterlab-server-proxy
-
-# Run container as
+  # Run container as
 USER $NB_USER
