@@ -107,6 +107,9 @@ RUN $PYTHON2_PATH/bin/pip install \
     torchvision \
     scikit-optimize \
     tqdm \
+    numba \
+    umap-learn \
+    hdbscan \
     git+https://www.github.com/keras-team/keras-contrib.git \
     && $PYTHON3_PATH/bin/pip install \
     numpy \
@@ -129,6 +132,9 @@ RUN $PYTHON2_PATH/bin/pip install \
     torchvision \
     scikit-optimize \
     tqdm \
+    numba \
+    umap-learn \
+    hdbscan \
     git+https://www.github.com/keras-team/keras-contrib.git \
     && fix-permissions $CONDA_DIR
 
