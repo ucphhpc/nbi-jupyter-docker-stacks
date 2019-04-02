@@ -85,7 +85,8 @@ USER $NB_USER
 ENV BH_CONFIG=$PYTHON2_PATH/lib/python2.7/site-packages/bohrium_api/config.ini
 
 # Packages
-# Ensure cpu only version of tensorflow is not included
+# Ensure cpu only version of tensorflow is not included and add some
+# additional requested packages
 RUN $PYTHON2_PATH/bin/pip install \
     numpy \
     bohrium \
