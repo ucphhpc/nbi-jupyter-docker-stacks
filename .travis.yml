@@ -18,6 +18,7 @@ env:
     - NOTEBOOK=hpc-notebook
     - NOTEBOOK=tensorflow-notebook
     - NOTEBOOK=geo-notebook
+    - NOTEBOOK=bio-notebook
   global:
     - COMMIT=${TRAVIS_COMMIT::12}
     - RELEASE_VERS=latest

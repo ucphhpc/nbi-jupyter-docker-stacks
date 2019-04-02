@@ -20,7 +20,8 @@ IMAGES = [
           'dgx1-notebook',
           'hpc-notebook',
           'tensorflow-notebook',
-          'geo-notebook']
+          'geo-notebook',
+          'bio-notebook']
 
 if __name__ == "__main__":
     # Replace all FROM tags
