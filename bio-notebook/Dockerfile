@@ -55,9 +55,16 @@ RUN conda install -qy -n r \
     && fix-permissions $CONDA_DIR \
     && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()'
 
+# NOTE: install BioConductor packages requested e.g. in erda ticket #18198
 ## BioConductor packages, etc.
 RUN conda install -qy -c bioconda -n r \
     'r-phytools' \
+    'bioconductor-deseq2' \
+    'bioconductor-biobase' \
+    'bioconductor-tximport' \
+    'bioconductor-sva' \
+    'bioconductor-preprocesscore' \
+    'bioconductor-edaseq' \
     'bioconductor-msa' \
     'bioconductor-phyloseq' \
     'bioconductor-dada2' \
@@ -69,14 +76,10 @@ RUN conda install -qy -c bioconda -n r \
     && fix-permissions $CONDA_DIR \
     && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()'
 
-# TODO: install these two from github, too, as requested?
-#       devtools::install_github("Russel88/DAtest", force = TRUE)
-#       devtools::install_github("DanielSprockett/reltools", force = TRUE)
-
-# bioLite and Biobase is from BioInfo, should be removed from image
-RUN /opt/conda/envs/r/bin/R -e 'source("https://bioconductor.org/biocLite.R") ; \
-biocLite(c("DESeq2","Biobase","tximport","sva","preprocessCore")) ; \
-biocLite("EDASeq")'
+# NOTE: install extras directly from github as requested in erda ticket #18198
+# IMPORTANT: R defaults to unpack with non-existant /bin/gtar so we overrride
+ENV TAR="/bin/tar"
+RUN /opt/conda/envs/r/bin/Rscript -e 'library(devtools); options(unzip = "internal"); devtools::install_github("Russel88/DAtest", force = TRUE); install_github("DanielSprockett/reltools", force = TRUE)'
 
 
 # Run container as
