@@ -61,40 +61,6 @@ RUN conda create -n r \
     && fix-permissions $CONDA_DIR \
     && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()'
 
-USER root
-
-# BioBase dependency
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-    gcc \
-    g++ \
-    make \
-    gfortran \
-    libxml2-dev \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
-USER $NB_USER
-
-RUN conda install -qy -n r \
-    'r-FactoMineR' \
-    'r-factoextra' \
-    'r-fastICA' \
-    && conda clean -tipsy \
-    && fix-permissions $CONDA_DIR \
-    && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()'
-
-RUN conda install -qy -c bioconda -n r \
-    'r-phytools' \
-    && conda clean -tipsy \
-    && fix-permissions $CONDA_DIR \
-    && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()'
-
-# bioLite and Biobase is from BioInfo, should be removed from image
-RUN /opt/conda/envs/r/bin/R -e 'source("https://bioconductor.org/biocLite.R") ; \
-biocLite(c("DESeq2","Biobase","tximport","sva","preprocessCore")) ; \
-biocLite("EDASeq")'
-
 # Keras needs to find 'python' that has keras installed and not the system default
 ENV PATH="/opt/conda/envs/python3/bin:${PATH}"
 # RStudio dosen't work with the provided libssl.so.1.0.0, override the one
