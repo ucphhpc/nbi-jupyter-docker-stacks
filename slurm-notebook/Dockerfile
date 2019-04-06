@@ -1,5 +1,5 @@
 FROM nielsbohr/base-notebook:latest
-MAINTAINER Rasmus Munk <rasmus.munk@nbi.ku.dk>
+LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 
 ARG SLURM_VERSION=18.08.4
 ARG SLURM_DOWNLOAD_MD5=75c76328159def203133505def7a99a6

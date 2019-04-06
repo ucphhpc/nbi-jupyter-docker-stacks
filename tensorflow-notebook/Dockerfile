@@ -1,5 +1,5 @@
 FROM nielsbohr/datascience-notebook:latest
-MAINTAINER Rasmus Munk <rasmus.munk@nbi.ku.dk>
+LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 
 # Run container as
 USER $NB_USER
