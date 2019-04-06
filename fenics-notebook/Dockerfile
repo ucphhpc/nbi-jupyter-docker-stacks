@@ -17,4 +17,16 @@ USER $NB_USER
 ENV LD_LIBRARY_PATH=/opt/conda/lib
 ENV PKG_CONFIG_PATH=/opt/conda/envs/python3/lib/pkgconfig
 
-RUN conda install --name python3 -c conda-forge fenics gmsh
+RUN conda install -c conda-forge -n python2 \
+    fenics \
+    gmsh \
+    && conda clean -tipsy \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
+
+RUN conda install -c conda-forge -n python3 \
+    fenics \
+    gmsh \
+    && conda clean -tipsy \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
