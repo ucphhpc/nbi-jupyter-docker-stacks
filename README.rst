@@ -28,7 +28,7 @@ then build an official latest tagged image and push it to the preset OWNER varia
 
 	make test/base-notebook
 	make build/base-notebook TAG=latest
-	make push/base-notebook
+	make push/base-notebook TAG=latest
 
 
 To evaluate the entire stack, a target to 'build-all'/'test-all' is also available i.e.::
