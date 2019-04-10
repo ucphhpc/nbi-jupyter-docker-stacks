@@ -7,6 +7,8 @@ nbi-jupyter-docker-stacks
 
 A collection of docker jupyter notebook images used at https://www.ku.dk/english/.
 
+Deployed notebooks are published at https://hub.docker.com/u/nielsbohr.
+
 -----------
 Overview
 -----------
