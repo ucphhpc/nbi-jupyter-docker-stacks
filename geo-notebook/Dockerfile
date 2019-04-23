@@ -2,8 +2,7 @@ FROM nielsbohr/python-notebook:latest
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 
 USER $NB_USER
-
-# Use conda since several geo packages
+# Python2: use conda since several geo packages are only packaged there
 RUN conda install -n python2 \
     appmode \
     arrow \
@@ -23,7 +22,7 @@ RUN conda install -n python2 \
     geoviews \
     graphviz \
     gsw \
-    GDAL==2.3.3 \
+    GDAL \
     hvplot \
     intake::intake \
     intake::intake-xarray \
@@ -52,11 +51,14 @@ RUN conda install -n python2 \
     zarr \
     zict \
     rasterio \
+    cdo \
+    ncl \
+    nco \
     && conda clean -tipsy \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-# Use conda since several geo packages
+# Python3: use conda since several geo packages are only packaged there
 RUN conda install -n python3 \
     appmode \
     arrow \
@@ -83,7 +85,7 @@ RUN conda install -n python3 \
     geoviews \
     graphviz \
     gsw \
-    GDAL==2.3.3 \
+    GDAL \
     hvplot \
     intake::intake \
     intake::intake-xarray \
@@ -120,14 +122,18 @@ RUN conda install -n python3 \
     zarr \
     zict \
     rasterio \
+    cdo \
+    ncl \
+    nco \
     && conda clean -tipsy \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
+# Finally install any remaining packages with pip
 RUN $PYTHON3_PATH/bin/pip install \
     schemdraw \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-  # Run container as
+# Run container as
 USER $NB_USER
