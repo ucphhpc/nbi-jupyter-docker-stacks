@@ -56,6 +56,7 @@ RUN conda install -qy -n r \
     && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()'
 
 # NOTE: install BioConductor packages requested e.g. in erda ticket #18198
+#       and #18198
 ## BioConductor packages, etc.
 RUN conda install -qy -c bioconda -n r \
     'r-phytools' \
@@ -72,6 +73,9 @@ RUN conda install -qy -c bioconda -n r \
     'bioconductor-metagenomeSeq' \
     'bioconductor-limma' \
     'bioconductor-Biostrings' \
+    'cutadapt' \
+    'mafft' \
+    'fasttree' \
     && conda clean -tipsy \
     && fix-permissions $CONDA_DIR \
     && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()'
