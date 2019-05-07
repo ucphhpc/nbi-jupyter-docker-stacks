@@ -57,7 +57,8 @@ USER $NB_USER
 RUN conda create -n cling \
     && conda install xeus-cling -n cling -c conda-forge \
     && conda clean -tipsy \
-    && fix-permissions $CONDA_DIR
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 ENV CXX_PATH=$CONDA_DIR/envs/cling
 RUN cp -R $CXX_PATH/share/jupyter/kernels/* $CONDA_DIR/share/jupyter/kernels/
@@ -72,10 +73,7 @@ RUN mkdir -p /var/log/supervisord /var/run/supervisord \
     && chmod 775 /var/run/supervisord
 
 COPY supervisord.conf /etc/supervisor/supervisord.conf
-COPY setup_env.sh /usr/local/bin/setup_env.sh
 RUN chown $NB_USER:$NB_GID /etc/supervisor/supervisord.conf \
-    && chmod 775 /etc/supervisor/supervisord.conf \
-    && chown $NB_USER:$NB_GID /usr/local/bin/setup_env.sh \
-    && chmod +x /usr/local/bin/setup_env.sh
+    && chmod 775 /etc/supervisor/supervisord.conf
 
 CMD ["/usr/bin/supervisord"]
