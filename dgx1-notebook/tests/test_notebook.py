@@ -30,9 +30,11 @@ def _notebook_run(path, kernel='python3'):
 
     return nb, errors
 
-# List of notebooks which require CUDA and thus special handling
 
-cuda_notebooks = ['tensorflow.ipynb', 'keras.ipynb', 'keras-contrib.ipynb']
+# List of notebooks which require CUDA and thus special handling
+cuda_notebooks = ['tensorflow.ipynb',
+                  'keras.ipynb',
+                  'keras-contrib.ipynb']
 
 
 def test_notebooks():
