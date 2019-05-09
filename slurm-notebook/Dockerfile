@@ -10,7 +10,8 @@ USER root
 RUN groupadd -r slurm --gid=990 && useradd -r -g slurm --uid=990 slurm \
     && groupadd -r munge --gid=993 && useradd -r -g munge --uid=997 munge
 
-# Dep
+# Dependencies
+# build, slurm, openmpi, ldap
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
     build-essential \
@@ -25,6 +26,9 @@ RUN apt-get update \
     libopenmpi-dev \
     openmpi-bin \
     openmpi-common \
+    libnss-ldap \
+    libpam-ldap \
+    ldap-utils \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -76,4 +80,7 @@ COPY supervisord.conf /etc/supervisor/supervisord.conf
 RUN chown $NB_USER:$NB_GID /etc/supervisor/supervisord.conf \
     && chmod 775 /etc/supervisor/supervisord.conf
 
+# As an exception, run as root,
+# Remember to use supervisord start-notebook.sh to
+# de-escalate privileges to $NB_USER
 CMD ["/usr/bin/supervisord"]
