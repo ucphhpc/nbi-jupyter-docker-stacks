@@ -82,5 +82,5 @@ RUN chown $NB_USER:$NB_GID /etc/supervisor/supervisord.conf \
 
 # As an exception, run as root,
 # Remember to use supervisord start-notebook.sh to
-# de-escalate privileges to $NB_USER
+# de-escalate privileges to $NB_UID:$NB_GID
 CMD ["/usr/bin/supervisord"]
