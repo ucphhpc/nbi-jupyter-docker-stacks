@@ -12,8 +12,8 @@ RUN apt-get update \
     screen \
     tmux \
     build-essential \
-    gcc \
-    g++ \
+    gcc-6 \
+    g++-6 \
     libboost-python-dev \
     libboost-thread-dev \
     libx11-6 \
@@ -139,9 +139,14 @@ RUN $PYTHON2_PATH/bin/pip install \
     git+https://www.github.com/keras-team/keras-contrib.git \
     && fix-permissions $CONDA_DIR
 
-# Run container as
-USER $NB_USER
-
 # Matplotlib basemap
 RUN $PYTHON2_PATH/bin/pip install https://github.com/matplotlib/basemap/archive/v1.2.0rel.tar.gz \
     && $PYTHON3_PATH/bin/pip install https://github.com/matplotlib/basemap/archive/v1.2.0rel.tar.gz
+
+USER root
+
+RUN ln -s /usr/bin/gcc-6 /usr/local/cuda/bin/gcc \
+    && ln -s /usr/bin/g++-6 /usr/local/cuda/bin/g++
+
+# Run container as
+USER $NB_USER
