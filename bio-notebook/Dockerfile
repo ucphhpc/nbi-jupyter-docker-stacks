@@ -72,6 +72,7 @@ RUN conda install -qy -c bioconda -n r \
     'bioconductor-metagenomeSeq' \
     'bioconductor-limma' \
     'bioconductor-Biostrings' \
+    'bioconductor-biocinstaller' \
     'cutadapt' \
     'mafft' \
     'fasttree' \
