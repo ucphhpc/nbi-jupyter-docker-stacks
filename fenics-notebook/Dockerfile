@@ -13,29 +13,29 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-USER $NB_USER
+USER $NB_UID
 
 ENV LD_LIBRARY_PATH=/opt/conda/lib
 ENV PKG_CONFIG_PATH=/opt/conda/envs/python3/lib/pkgconfig
 
 RUN conda install -c conda-forge -n python2 \
     fenics \
-    && conda clean -tipsy \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
+    && conda clean -tipsy
 
 RUN conda install -c conda-forge -n python3 \
     fenics \
-    && conda clean -tipsy \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
+    && conda clean -tipsy
 
 RUN $PYTHON2_PATH/bin/pip install \
-    pygmsh \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
+    pygmsh
 
 RUN $PYTHON3_PATH/bin/pip install \
-    pygmsh \
-    && fix-permissions $CONDA_DIR \
+    pygmsh
+
+USER root
+
+RUN fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
+
+# Ensure that container Runs as
+USER $NB_UID

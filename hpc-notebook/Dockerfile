@@ -55,9 +55,15 @@ COPY supervisord.conf /etc/supervisor/hpc-supervisord.conf
 RUN cat /etc/supervisor/hpc-supervisord.conf >> /etc/supervisor/supervisord.conf \
     && rm -fr /etc/supervisor/hpc-supervisord.conf
 
-USER $NB_USER
+USER $NB_UID
 RUN conda install --quiet --yes ffmpeg imagemagick
 RUN pip install h5py
+
+
+USER root
+
+RUN fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 # As an exception, run as root,
 # Remember to use supervisord start-notebook.sh to

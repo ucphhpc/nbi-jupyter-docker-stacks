@@ -7,7 +7,8 @@ USER root
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
     wget \
-    && rstudio_version=$(wget --no-check-certificate -qO- https://s3.amazonaws.com/rstudio-server/current.ver) \
+    #&& rstudio_version=$(wget --no-check-certificate -qO- https://s3.amazonaws.com/rstudio-server/current.ver) \
+    && rstudio_version=1.1.463 \
     && wget https://download2.rstudio.org/rstudio-server-${rstudio_version}-amd64.deb -O /rstudio-server.deb \
     && apt-get install -y --no-install-recommends /rstudio-server.deb \
     && rm /rstudio-server.deb \
@@ -19,7 +20,7 @@ RUN apt-get update \
 ENV PATH="${PATH}:/usr/lib/rstudio-server/bin:/opt/conda/envs/r/bin"
 ENV RSTUDIO_WHICH_R="/opt/conda/envs/r/bin/R"
 
-USER $NB_USER
+USER $NB_UID
 
 # R-Studio button
 RUN git clone https://github.com/rasmunk/nbrsessionproxy.git /tmp/nbrsessionproxy \
@@ -58,7 +59,6 @@ RUN conda create -n r \
     'r-readr' \
     'r-rjson' \
     && conda clean -tipsy \
-    && fix-permissions $CONDA_DIR \
     && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()'
 
 # Keras needs to find 'python' that has keras installed and not the system default
@@ -67,5 +67,10 @@ ENV PATH="/opt/conda/envs/python3/bin:${PATH}"
 # provided by the system
 RUN ln -s -f /usr/lib/x86_64-linux-gnu/libssl.so.1.0.0 /opt/conda/envs/r/lib/libssl.so.1.0.0
 
-# Run container as
-USER $NB_USER
+USER root
+
+RUN fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
+
+# Ensure that container Runs as
+USER $NB_UID

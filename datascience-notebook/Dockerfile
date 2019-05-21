@@ -18,10 +18,16 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Run container as
-USER $NB_USER
+USER $NB_UID
 
 # Packages env
 ENV BH_CONFIG=$PYTHON2_PATH/lib/python2.7/site-packages/bohrium_api/config.ini
+
+# bohrium_api needs to be present before bohrium install
+RUN $PYTHON2_PATH/bin/pip install \
+    bohrium_api \
+    && $PYTHON3_PATH/bin/pip install \
+    bohrium_api
 
 # Install packages for python2/3 envs
 RUN $PYTHON2_PATH/bin/pip install \
@@ -41,7 +47,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     pillow \
     mlxtend \
     tqdm \
-    pomegranate==0.10.0 \
+    pomegranate \
     bokeh \
     Bottleneck \
     dask \
@@ -54,7 +60,8 @@ RUN $PYTHON2_PATH/bin/pip install \
     graphviz \
     pystan \
     pymc3 \
-    pyproj==1.9.6 \
+    pyproj \
+    joblib==0.13.0 \
     && $PYTHON3_PATH/bin/pip install \
     numpy \
     bohrium \
@@ -73,7 +80,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     mlxtend \
     tqdm \
     ruptures \
-    pomegranate==0.10.0 \
+    pomegranate \
     PyQt5 \
     bokeh \
     Bottleneck \
@@ -87,9 +94,17 @@ RUN $PYTHON2_PATH/bin/pip install \
     graphviz \
     pystan \
     pymc3 \
-    pyproj==1.9.6 \
-    && fix-permissions $CONDA_DIR
+    pyproj \
+    joblib==0.13.0
 
 # Matplotlib basemap
 RUN $PYTHON2_PATH/bin/pip install git+https://github.com/matplotlib/basemap.git \
     && $PYTHON3_PATH/bin/pip install git+https://github.com/matplotlib/basemap.git
+
+USER root
+
+RUN fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
+
+# Run container as
+USER $NB_UID

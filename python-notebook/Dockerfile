@@ -10,7 +10,7 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-USER $NB_USER
+USER $NB_UID
 
 ENV PYTHON2_PATH=$CONDA_DIR/envs/python2
 ENV PYTHON3_PATH=$CONDA_DIR/envs/python3
@@ -20,8 +20,7 @@ RUN conda create -n python2 python=2.7 ipykernel \
     && conda create -n python3 python=3.6 ipykernel \
     && $PYTHON2_PATH/bin/python -m ipykernel install --user \
     && $PYTHON3_PATH/bin/python -m ipykernel install --user \
-    && conda clean -tipsy \
-    && fix-permissions $CONDA_DIR
+    && conda clean -tipsy
 
 # upgrade pip
 RUN $PYTHON2_PATH/bin/pip install --upgrade pip setuptools \
@@ -37,8 +36,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     ipympl \
     ipyleaflet \
     ipywidgets \
-    python-dateutil \
-    && fix-permissions $CONDA_DIR
+    python-dateutil
 
 # Set the default python terminal links to the used kernels
 # Don't delete native python3.7 -> required when spawned
@@ -52,5 +50,10 @@ RUN mv $CONDA_DIR/bin/python3.7 $CONDA_DIR \
     && ln -s $PYTHON2_PATH/bin/pip $CONDA_DIR/bin/pip \
     && ln -s $PYTHON3_PATH/bin/pip $CONDA_DIR/bin/pip3
 
-# Run container as
-USER $NB_USER
+USER root
+
+RUN fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
+
+# Ensure that container Runs as
+USER $NB_UID

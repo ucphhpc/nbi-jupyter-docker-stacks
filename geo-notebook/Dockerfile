@@ -1,7 +1,7 @@
 FROM nielsbohr/python-notebook:latest
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 
-USER $NB_USER
+USER $NB_UID
 # Python2: use conda since several geo packages are only packaged there
 RUN conda install -n python2 \
     appmode \
@@ -54,9 +54,7 @@ RUN conda install -n python2 \
     cdo \
     ncl \
     nco \
-    && conda clean -tipsy \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
+    && conda clean -tipsy
 
 # Python3: use conda since several geo packages are only packaged there
 RUN conda install -n python3 \
@@ -125,15 +123,16 @@ RUN conda install -n python3 \
     cdo \
     ncl \
     nco \
-    && conda clean -tipsy \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
+    && conda clean -tipsy
 
 # Finally install any remaining packages with pip
 RUN $PYTHON3_PATH/bin/pip install \
-    schemdraw \
-    && fix-permissions $CONDA_DIR \
+    schemdraw
+
+USER root
+
+RUN fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-# Run container as
-USER $NB_USER
+# Ensure that container Runs as
+USER $NB_UID

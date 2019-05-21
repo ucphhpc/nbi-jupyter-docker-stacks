@@ -54,15 +54,13 @@ RUN mkdir -p /var/spool/slurmd \
     && chown slurm:slurm /var/spool/slurmd \
     && chmod 775 /var/spool/slurmd
 
-USER $NB_USER
+USER $NB_UID
 
 # Add cling kernel
 # https://github.com/QuantStack/xeus-cling
 RUN conda create -n cling \
     && conda install xeus-cling -n cling -c conda-forge \
-    && conda clean -tipsy \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
+    && conda clean -tipsy
 
 ENV CXX_PATH=$CONDA_DIR/envs/cling
 RUN cp -R $CXX_PATH/share/jupyter/kernels/* $CONDA_DIR/share/jupyter/kernels/
@@ -71,14 +69,17 @@ USER root
 
 # Prepare supervisord state dirs
 RUN mkdir -p /var/log/supervisord /var/run/supervisord \
-    && chown $NB_USER:$NB_GID /var/log/supervisord \
-    && chown $NB_USER:$NB_GID /var/run/supervisord \
+    && chown $NB_UID:$NB_GID /var/log/supervisord \
+    && chown $NB_UID:$NB_GID /var/run/supervisord \
     && chmod 775 /var/log/supervisord \
     && chmod 775 /var/run/supervisord
 
 COPY supervisord.conf /etc/supervisor/supervisord.conf
-RUN chown $NB_USER:$NB_GID /etc/supervisor/supervisord.conf \
+RUN chown $NB_UID:$NB_GID /etc/supervisor/supervisord.conf \
     && chmod 775 /etc/supervisor/supervisord.conf
+
+RUN fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 # As an exception, run as root,
 # Remember to use supervisord start-notebook.sh to

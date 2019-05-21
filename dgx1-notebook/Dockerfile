@@ -79,15 +79,21 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-USER $NB_USER
+USER $NB_UID
 
 # Packages env
 ENV BH_CONFIG=$PYTHON2_PATH/lib/python2.7/site-packages/bohrium_api/config.ini
 
+# bohrium_api needs to be present before bohrium install
+RUN $PYTHON2_PATH/bin/pip install \
+    bohrium_api \
+    && $PYTHON3_PATH/bin/pip install \
+    bohrium_api
+
 # Packages
 # Ensure cpu only version of tensorflow is not included and add some
 # additional requested packages
-RUN $PYTHON2_PATH/bin/pip install \
+RUN $PYTHON2_PATH/bin/pip install --no-cache-dir -v \
     numpy \
     bohrium \
     opencv-python \
@@ -111,8 +117,8 @@ RUN $PYTHON2_PATH/bin/pip install \
     numba \
     umap-learn \
     hdbscan \
-    git+https://www.github.com/keras-team/keras-contrib.git \
-    && $PYTHON3_PATH/bin/pip install \
+    git+https://www.github.com/keras-team/keras-contrib.git@e1574a16f0156dd9557fe62a1c5a39e37bd656c6 \
+    && $PYTHON3_PATH/bin/pip install --no-cache-dir -v \
     numpy \
     bohrium \
     opencv-python \
@@ -136,8 +142,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     numba \
     umap-learn \
     hdbscan \
-    git+https://www.github.com/keras-team/keras-contrib.git \
-    && fix-permissions $CONDA_DIR
+    git+https://www.github.com/keras-team/keras-contrib.git@e1574a16f0156dd9557fe62a1c5a39e37bd656c6
 
 # Matplotlib basemap
 RUN $PYTHON2_PATH/bin/pip install https://github.com/matplotlib/basemap/archive/v1.2.0rel.tar.gz \
@@ -145,8 +150,11 @@ RUN $PYTHON2_PATH/bin/pip install https://github.com/matplotlib/basemap/archive/
 
 USER root
 
+RUN fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
+
 RUN ln -s /usr/bin/gcc-6 /usr/local/cuda/bin/gcc \
     && ln -s /usr/bin/g++-6 /usr/local/cuda/bin/g++
 
 # Run container as
-USER $NB_USER
+USER $NB_UID

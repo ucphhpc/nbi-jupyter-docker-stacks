@@ -3,11 +3,7 @@ LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 
 USER root
 
-# R-studio env
-ENV PATH="${PATH}:/usr/lib/rstudio-server/bin:/opt/conda/envs/r/bin"
-ENV RSTUDIO_WHICH_R="/opt/conda/envs/r/bin/R"
-
-USER root
+# R-studio envs provided by r-notebook
 
 # BioBase dependency
 RUN apt-get update \
@@ -20,7 +16,7 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-USER $NB_USER
+USER $NB_UID
 
 # Standard CRAN packages, etc.
 RUN conda install -qy -n r \
@@ -52,7 +48,6 @@ RUN conda install -qy -n r \
     'r-ape' \
     'r-minpack.lm' \
     && conda clean -tipsy \
-    && fix-permissions $CONDA_DIR \
     && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()'
 
 # NOTE: install BioConductor packages requested e.g. in erda ticket #18198
@@ -76,7 +71,6 @@ RUN conda install -qy -c bioconda -n r \
     'mafft' \
     'fasttree' \
     && conda clean -tipsy \
-    && fix-permissions $CONDA_DIR \
     && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()'
 
 # NOTE: install extras directly from github and CRAN as requested in erda ticket #18198
@@ -84,5 +78,10 @@ RUN conda install -qy -c bioconda -n r \
 ENV TAR="/bin/tar"
 RUN /opt/conda/envs/r/bin/Rscript -e 'library(devtools); options(unzip = "internal"); devtools::install_github("Russel88/DAtest", force = TRUE); install_github("DanielSprockett/reltools", force = TRUE); install.packages("ips", repos="http://mirrors.dotsrc.org/cran/")'
 
-# Run container as
-USER $NB_USER
+USER root
+
+RUN fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
+
+# Ensure that container Runs as
+USER $NB_UID

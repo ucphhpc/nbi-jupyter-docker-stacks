@@ -40,7 +40,7 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-USER $NB_USER
+USER $NB_UID
 
 # Environement variables
 ENV CONDA_DIR=/opt/conda
@@ -72,25 +72,25 @@ RUN conda install --quiet --yes \
                                     jupyter-matplotlib \
                                     @jupyterlab/celltags \
                                     jupyterlab_bokeh \
-                                    dask-labextension \
                                     @pyviz/jupyterlab_pyviz \
     && npm dedupe \
     && npm cache clean --force \
     && rm -rf /home/$NB_USER/.cache/yarn \
-    && rm -rf /home/$NB_USER/.node-gyp \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
+    && rm -rf /home/$NB_USER/.node-gyp
 
 ## Install facets which does not have a pip or conda package at the moment
 RUN git clone https://github.com/PAIR-code/facets.git \
     && cd facets \
     && jupyter nbextension install facets-dist/ --sys-prefix \
     && cd \
-    && rm -rf /tmp/facets \
-    && fix-permissions $CONDA_DIR \
+    && rm -rf /tmp/facets
+
+USER root
+
+RUN fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-WORKDIR /home/$NB_USER
-
 # Ensure that container Runs as
-USER $NB_USER
+USER $NB_UID
+
+WORKDIR /home/$NB_USER
