@@ -1,10 +1,13 @@
 import os
 import argparse
 
-parser = argparse.ArgumentParser(description='Configuration script for Dockerfile '
-                                             'build tags')
-parser.add_argument('-t', '--tag', action='store', default='edge')
-parser.add_argument('-i', '--image', action='store', default='python-noteboook')
+parser = argparse.ArgumentParser(
+    description='Configuration script for '
+    'Dockerfile build tags')
+parser.add_argument('-t', '--tag', action='store',
+                    default='edge')
+parser.add_argument('-i', '--image', action='store',
+                    default='python-noteboook')
 args = parser.parse_args()
 
 IMAGES = [
@@ -20,7 +23,8 @@ IMAGES = [
           'dgx1-notebook',
           'hpc-notebook',
           'tensorflow-notebook',
-          'geo-notebook']
+          'geo-notebook',
+          'bio-notebook']
 
 if __name__ == "__main__":
     # Replace all FROM tags

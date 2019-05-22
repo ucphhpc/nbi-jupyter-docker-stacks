@@ -11,7 +11,7 @@ USER root
 RUN chmod +x test.sh
 
 # Run container as
-USER $NB_USER
+USER $NB_UID
 
 CMD ["bin/bash"]
 ENTRYPOINT ["/app/tests/test.sh"]

@@ -7,6 +7,8 @@ nbi-jupyter-docker-stacks
 
 A collection of docker jupyter notebook images used at https://www.ku.dk/english/.
 
+Deployed notebooks are published at https://hub.docker.com/u/nielsbohr.
+
 -----------
 Overview
 -----------
@@ -28,7 +30,7 @@ then build an official latest tagged image and push it to the preset OWNER varia
 
 	make test/base-notebook
 	make build/base-notebook TAG=latest
-	make push/base-notebook
+	make push/base-notebook TAG=latest
 
 
 To evaluate the entire stack, a target to 'build-all'/'test-all' is also available i.e.::
@@ -49,5 +51,4 @@ a default to the docker daemon.json, e.g::
 			}
 		}
 	}
-
 

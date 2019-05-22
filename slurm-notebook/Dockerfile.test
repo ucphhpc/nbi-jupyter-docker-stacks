@@ -1,6 +1,8 @@
 FROM nielsbohr/slurm-notebook:edge
 COPY tests /app/tests
 
+USER $NB_UID
+
 WORKDIR /app/tests
 
 # base pip is for pip3
@@ -9,11 +11,11 @@ RUN pip install pytest \
 
 USER root
 
-RUN chown $NB_USER:$NB_GID -R notebooks \
+RUN chown $NB_UID:$NB_GID -R notebooks \
     && chmod +x test.sh
 
 # Run container as
-USER $NB_USER
+USER $NB_UID
 
 CMD ["bin/bash"]
 ENTRYPOINT ["/app/tests/test.sh"]

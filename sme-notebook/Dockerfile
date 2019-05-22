@@ -1,5 +1,5 @@
 FROM nielsbohr/base-notebook:latest
-MAINTAINER Rasmus Munk <rasmus.munk@nbi.ku.dk>
+LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 
 USER root
 
@@ -26,7 +26,7 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-USER $NB_USER
+USER $NB_UID
 
 # Clone and install csharp kernel
 RUN git clone --recursive https://github.com/zabirauf/icsharp.git
@@ -52,4 +52,4 @@ RUN sed -i -e "s/\"<INSTALL_PATH>/\"mono\", \"\/home\/${NB_USER}/g" /home/$NB_US
     && chmod +x /home/$NB_USER/icsharp/Kernel/bin/Release/iCSharp.Kernel.exe
 
 # Run container as
-USER $NB_USER
+USER $NB_UID

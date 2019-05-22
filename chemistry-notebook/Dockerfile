@@ -18,7 +18,7 @@ RUN curl -LOk https://github.com/diffpy/libobjcryst/releases/download/v2017.2.1/
     && cd "libobjcryst-$LIBCRYST_VERSION" \
     &&  scons -j4 install
 
-USER $NB_USER
+USER $NB_UID
 
 # Clearout other kernels
 RUN conda remove --name python3 --all
@@ -26,8 +26,7 @@ RUN conda remove --name python3 --all
 # Install diffpy into python2 env
 RUN conda config --add channels diffpy \
     && conda install -n python2 diffpy-cmi libobjcryst \
-    && conda clean -tipsy \
-    && fix-permissions $CONDA_DIR
+    && conda clean -tipsy
 
 # Get rid of old matplotlib
 RUN $PYTHON2_PATH/bin/pip uninstall -y \
@@ -41,17 +40,19 @@ RUN $PYTHON2_PATH/bin/pip install -U \
     setuptools \
     ase \
     scipy \
-    pyobjcryst==2.0.2 \
+    pyobjcryst \
     h5py \
     prompter \
     tqdm \
-    && fix-permissions $CONDA_DIR
+    diffpy.srfit
 
-RUN cd /tmp \
-    && git clone https://github.com/diffpy/diffpy.srfit.git \
-    && cd diffpy.srfit \
-    && $PYTHON2_PATH/bin/python setup.py install \
-    && rm -r /tmp/diffpy.srfit
+# RUN cd /tmp \
+#     && git clone https://github.com/diffpy/diffpy.srfit.git \
+#     && cd diffpy.srfit \
+#     && $PYTHON2_PATH/bin/python setup.py install \
+#     && rm -r /tmp/diffpy.srfit \
+#     && fix-permissions $CONDA_DIR \
+#     && fix-permissions /home/$NB_USER
 
 RUN rm -r "/home/$NB_USER/.local/share/jupyter/kernels/python2" \
     "/home/$NB_USER/.local/share/jupyter/kernels/python3" \
@@ -62,4 +63,10 @@ RUN sed -i 's/"Python 2"/"Python 2 DiffPy"/g' $PYTHON2_PATH/share/jupyter/kernel
     && mv $PYTHON2_PATH/share/jupyter/kernels/python2 $PYTHON2_PATH/share/jupyter/kernels/python2_diffpy \
     && cp -r $PYTHON2_PATH/share/jupyter/kernels/python2_diffpy /home/$NB_USER/.local/share/jupyter/kernels/
 
-USER $NB_USER
+USER root
+
+RUN fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
+
+# Ensure that container Runs as
+USER $NB_UID

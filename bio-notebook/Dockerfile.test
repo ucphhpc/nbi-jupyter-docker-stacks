@@ -1,15 +1,15 @@
-FROM nielsbohr/base-notebook:edge
+FROM nielsbohr/bio-notebook:edge
 COPY tests /app/tests
 
 WORKDIR /app/tests
 
-# base pip is for pip3
 RUN pip install pytest \
     && pip install -r requirements.txt
 
 USER root
 
-RUN chmod +x test.sh
+RUN chown $NB_UID:$NB_GID -R notebooks \
+    && chmod +x test.sh
 
 # Run container as
 USER $NB_UID

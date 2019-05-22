@@ -40,7 +40,7 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-USER $NB_USER
+USER $NB_UID
 
 # Environement variables
 ENV CONDA_DIR=/opt/conda
@@ -67,29 +67,30 @@ RUN conda install --quiet --yes \
     'ipympl' \
     'ipyleaflet' \
     && jupyter labextension install jupyter-leaflet \
-    && jupyter labextension install @jupyter-widgets/jupyterlab-manager \
-    && jupyter labextension install jupyter-matplotlib \
-    && jupyter labextension install @jupyterlab/celltags \
-    && jupyter labextension install jupyterlab_bokeh \
-    && jupyter labextension install dask-labextension \
-    && jupyter labextension install @pyviz/jupyterlab_pyviz \
+                                    jupyterlab-server-proxy \
+                                    @jupyter-widgets/jupyterlab-manager \
+                                    jupyter-matplotlib \
+                                    @jupyterlab/celltags \
+                                    jupyterlab_bokeh \
+                                    @pyviz/jupyterlab_pyviz \
     && npm dedupe \
     && npm cache clean --force \
     && rm -rf /home/$NB_USER/.cache/yarn \
-    && rm -rf /home/$NB_USER/.node-gyp \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
+    && rm -rf /home/$NB_USER/.node-gyp
 
 ## Install facets which does not have a pip or conda package at the moment
 RUN git clone https://github.com/PAIR-code/facets.git \
     && cd facets \
     && jupyter nbextension install facets-dist/ --sys-prefix \
     && cd \
-    && rm -rf /tmp/facets \
-    && fix-permissions $CONDA_DIR \
+    && rm -rf /tmp/facets
+
+USER root
+
+RUN fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-WORKDIR /home/$NB_USER
-
 # Ensure that container Runs as
-USER $NB_USER
+USER $NB_UID
+
+WORKDIR /home/$NB_USER

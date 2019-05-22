@@ -12,8 +12,8 @@ RUN apt-get update \
     screen \
     tmux \
     build-essential \
-    gcc \
-    g++ \
+    gcc-6 \
+    g++-6 \
     libboost-python-dev \
     libboost-thread-dev \
     libx11-6 \
@@ -79,13 +79,20 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-USER $NB_USER
+USER $NB_UID
 
 # Packages env
 ENV BH_CONFIG=$PYTHON2_PATH/lib/python2.7/site-packages/bohrium_api/config.ini
 
+# bohrium_api needs to be present before bohrium install
+RUN $PYTHON2_PATH/bin/pip install \
+    bohrium_api \
+    && $PYTHON3_PATH/bin/pip install \
+    bohrium_api
+
 # Packages
-# Ensure cpu only version of tensorflow is not included
+# Ensure cpu only version of tensorflow is not included and add some
+# additional requested packages
 RUN $PYTHON2_PATH/bin/pip install \
     numpy \
     bohrium \
@@ -107,7 +114,10 @@ RUN $PYTHON2_PATH/bin/pip install \
     torchvision \
     scikit-optimize \
     tqdm \
-    git+https://www.github.com/keras-team/keras-contrib.git \
+    numba \
+    umap-learn \
+    hdbscan \
+    git+https://www.github.com/keras-team/keras-contrib.git@e1574a16f0156dd9557fe62a1c5a39e37bd656c6 \
     && $PYTHON3_PATH/bin/pip install \
     numpy \
     bohrium \
@@ -129,12 +139,22 @@ RUN $PYTHON2_PATH/bin/pip install \
     torchvision \
     scikit-optimize \
     tqdm \
-    git+https://www.github.com/keras-team/keras-contrib.git \
-    && fix-permissions $CONDA_DIR
-
-# Run container as
-USER $NB_USER
+    numba \
+    umap-learn \
+    hdbscan \
+    git+https://www.github.com/keras-team/keras-contrib.git@e1574a16f0156dd9557fe62a1c5a39e37bd656c6
 
 # Matplotlib basemap
 RUN $PYTHON2_PATH/bin/pip install https://github.com/matplotlib/basemap/archive/v1.2.0rel.tar.gz \
     && $PYTHON3_PATH/bin/pip install https://github.com/matplotlib/basemap/archive/v1.2.0rel.tar.gz
+
+USER root
+
+RUN fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
+
+RUN ln -s /usr/bin/gcc-6 /usr/local/cuda/bin/gcc \
+    && ln -s /usr/bin/g++-6 /usr/local/cuda/bin/g++
+
+# Run container as
+USER $NB_UID

@@ -31,10 +31,15 @@ def _notebook_run(path, kernel='python3'):
     return nb, errors
 
 
+# List of notebooks which require CUDA and thus special handling
+cuda_notebooks = ['tensorflow.ipynb',
+                  'keras.ipynb']
+
+
 def test_notebooks():
     for f_notebook in os.listdir(notebooks_path):
         # skip special notebooks
-        if f_notebook == 'tensorflow.ipynb' or f_notebook == 'keras.ipynb':
+        if f_notebook in cuda_notebooks:
             continue
         for kernel in kernels:
             _, errors = _notebook_run(os.path.join(notebooks_path,
@@ -43,7 +48,7 @@ def test_notebooks():
 
 
 def test_cuda_notebooks():
-    """Requires that cuda is available, if not dont run"""
+    """Requires that cuda is available, if not don't run"""
     try:
         import tensorflow as tf
     except ImportError as err:
@@ -56,10 +61,9 @@ def test_cuda_notebooks():
         return 0
 
     if avail:
-        """Requires that cuda is available, if not dont run"""
-        notebooks_paths = [os.path.join(notebooks_path, 'tensorflow.ipynb'),
-                           os.path.join(notebooks_path, 'keras.ipynb'),
-                           os.path.join(notebooks_path, 'keras-contrib.ipynb')]
+        """Requires that cuda is available, if not don't run"""
+        notebooks_paths = [os.path.join(notebooks_path, i)
+                           for i in cuda_notebooks]
         for notebook_path in notebooks_paths:
             for kernel in kernels:
                 _, errors = _notebook_run(notebook_path, kernel)

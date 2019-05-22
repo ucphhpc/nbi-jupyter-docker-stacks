@@ -11,7 +11,7 @@ USER root
 RUN chmod +x test.sh
 
 # Run container as
-USER $NB_USER
+USER $NB_UID
 
 RUN ln -s $PYTHON3_PATH/bin/pytest $CONDA_DIR/bin/pytest
 

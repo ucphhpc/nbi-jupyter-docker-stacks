@@ -6,13 +6,36 @@ USER root
 # Dep
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-    cmake git unzip libboost-filesystem-dev libboost-serialization-dev libboost-regex-dev zlib1g-dev libsigsegv-dev freeglut3 freeglut3-dev libxmu-dev libxi-dev libhdf5-dev libhdf5-doc xtensor-dev xtensor-doc vim python3-h5py python3-h5py-dbg python-h5py python-h5py-dbg cgdb \
+    cmake \
+    git \
+    unzip \
+    libboost-filesystem-dev \
+    libboost-serialization-dev \
+    libboost-regex-dev \
+    zlib1g-dev \
+    libsigsegv-dev \
+    freeglut3 \
+    freeglut3-dev \
+    libxmu-dev \
+    libxi-dev \
+    libhdf5-dev \
+    libhdf5-doc \
+    xtensor-dev \
+    xtensor-doc \
+    vim \
+    python3-h5py \
+    python3-h5py-dbg \
+    python-h5py \
+    python-h5py-dbg \
+    cgdb \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 RUN git clone --depth 5 https://github.com/bh107/bohrium.git
 RUN mkdir bohrium/build
-RUN cd bohrium/build && cmake .. -DVE_OPENCL=OFF -DVE_CUDA=OFF -DEXT_CLBLAS=OFF -DBRIDGE_PY_API=OFF -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr && make install -j 2 \
+RUN cd bohrium/build \
+    && cmake .. -DVE_OPENCL=OFF -DVE_CUDA=OFF -DEXT_CLBLAS=OFF -DBRIDGE_PY_API=OFF -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr \
+    && make install -j 2 \
     && cd \
     && rm -r bohrium
 
@@ -32,10 +55,17 @@ COPY supervisord.conf /etc/supervisor/hpc-supervisord.conf
 RUN cat /etc/supervisor/hpc-supervisord.conf >> /etc/supervisor/supervisord.conf \
     && rm -fr /etc/supervisor/hpc-supervisord.conf
 
-COPY openmpi-mca-params.conf /etc/openmpi/openmpi-mca-params.conf
-COPY mca-btl-openib-device-params.ini /usr/share/openmpi/mca-btl-openib-device-params.ini
-
-USER $NB_USER
+USER $NB_UID
 RUN conda install --quiet --yes ffmpeg imagemagick
 RUN pip install h5py
 
+
+USER root
+
+RUN fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
+
+# As an exception, run as root,
+# Remember to use supervisord start-notebook.sh to
+# de-escalate privileges to $NB_UID:$NB_GID
+USER root
