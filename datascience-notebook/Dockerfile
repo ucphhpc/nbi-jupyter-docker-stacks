@@ -62,6 +62,8 @@ RUN $PYTHON2_PATH/bin/pip install \
     pymc3 \
     pyproj \
     joblib==0.13.0 \
+    astropy \
+    uncertainties \
     && $PYTHON3_PATH/bin/pip install \
     numpy \
     bohrium \
@@ -95,7 +97,9 @@ RUN $PYTHON2_PATH/bin/pip install \
     pystan \
     pymc3 \
     pyproj \
-    joblib==0.13.0
+    joblib==0.13.0 \
+    astropy \
+    uncertainties
 
 # Matplotlib basemap
 RUN $PYTHON2_PATH/bin/pip install git+https://github.com/matplotlib/basemap.git \

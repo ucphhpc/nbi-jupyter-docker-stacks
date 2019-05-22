@@ -1,6 +1,8 @@
 FROM nielsbohr/slurm-notebook:edge
 COPY tests /app/tests
 
+USER $NB_UID
+
 WORKDIR /app/tests
 
 # base pip is for pip3
