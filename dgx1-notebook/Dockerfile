@@ -93,7 +93,7 @@ RUN $PYTHON2_PATH/bin/pip install \
 # Packages
 # Ensure cpu only version of tensorflow is not included and add some
 # additional requested packages
-RUN $PYTHON2_PATH/bin/pip install --no-cache-dir -v \
+RUN $PYTHON2_PATH/bin/pip install \
     numpy \
     bohrium \
     opencv-python \
@@ -118,7 +118,7 @@ RUN $PYTHON2_PATH/bin/pip install --no-cache-dir -v \
     umap-learn \
     hdbscan \
     git+https://www.github.com/keras-team/keras-contrib.git@e1574a16f0156dd9557fe62a1c5a39e37bd656c6 \
-    && $PYTHON3_PATH/bin/pip install --no-cache-dir -v \
+    && $PYTHON3_PATH/bin/pip install \
     numpy \
     bohrium \
     opencv-python \
