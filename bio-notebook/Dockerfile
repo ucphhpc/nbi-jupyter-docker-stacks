@@ -67,6 +67,7 @@ RUN conda install -qy -c bioconda -n r \
     'bioconductor-metagenomeSeq' \
     'bioconductor-limma' \
     'bioconductor-Biostrings' \
+    'bioconductor-biocinstaller' \
     'cutadapt' \
     'mafft' \
     'fasttree' \
@@ -76,7 +77,7 @@ RUN conda install -qy -c bioconda -n r \
 # NOTE: install extras directly from github and CRAN as requested in erda ticket #18198
 # IMPORTANT: R defaults to unpack with non-existant /bin/gtar so we overrride
 ENV TAR="/bin/tar"
-RUN /opt/conda/envs/r/bin/Rscript -e 'library(devtools); options(unzip = "internal"); devtools::install_github("Russel88/DAtest", force = TRUE); install_github("DanielSprockett/reltools", force = TRUE); install.packages("ips", repos="http://mirrors.dotsrc.org/cran/")'
+RUN /opt/conda/envs/r/bin/Rscript -e 'library(devtools); options(unzip = "internal"); devtools::install_github("Russel88/DAtest@v2.7.13", force = TRUE); install_github("DanielSprockett/reltools", force = TRUE); install.packages("ips", repos="http://mirrors.dotsrc.org/cran/")'
 
 USER root
 
