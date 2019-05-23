@@ -102,8 +102,8 @@ RUN $PYTHON2_PATH/bin/pip install \
     uncertainties
 
 # Matplotlib basemap
-RUN $PYTHON2_PATH/bin/pip install git+https://github.com/matplotlib/basemap.git \
-    && $PYTHON3_PATH/bin/pip install git+https://github.com/matplotlib/basemap.git
+RUN $PYTHON2_PATH/bin/pip install git+https://github.com/matplotlib/basemap.git@00794384f59e235f1e2847f952fd08b0bdc4327f \
+    && $PYTHON3_PATH/bin/pip install git+https://github.com/matplotlib/basemap.git@00794384f59e235f1e2847f952fd08b0bdc4327f
 
 USER root
 
