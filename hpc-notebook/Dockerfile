@@ -9,6 +9,7 @@ RUN apt-get update \
     cmake \
     git \
     unzip \
+    gfortran \
     libboost-filesystem-dev \
     libboost-serialization-dev \
     libboost-regex-dev \
@@ -22,7 +23,9 @@ RUN apt-get update \
     libhdf5-doc \
     xtensor-dev \
     xtensor-doc \
-    vim \
+    libnetcdf-dev \
+    libnetcdff-dev \
+    libnetcdff-doc \
     python3-h5py \
     python3-h5py-dbg \
     python-h5py \
