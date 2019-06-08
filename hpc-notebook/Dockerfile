@@ -31,6 +31,8 @@ RUN apt-get update \
     python-h5py \
     python-h5py-dbg \
     cgdb \
+    csh \
+    tcsh \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
