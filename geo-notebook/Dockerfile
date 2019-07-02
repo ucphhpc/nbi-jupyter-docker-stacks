@@ -22,7 +22,7 @@ RUN conda install -n python2 \
     geoviews \
     graphviz \
     gsw \
-    GDAL \
+    gdal=2.4.1=py27hf242f0b_3 \
     hvplot \
     intake::intake \
     intake::intake-xarray \
@@ -30,7 +30,6 @@ RUN conda install -n python2 \
     lz4 \
     msgpack-python \
     nb_conda_kernels \
-    nbserverproxy \
     netcdf4 \
     nco \
     nomkl \
@@ -47,7 +46,6 @@ RUN conda install -n python2 \
     toolz \
     tornado \
     xarray \
-    xesmf \
     zarr \
     zict \
     rasterio \

@@ -25,7 +25,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     graphviz \
     ipywidgets \
     pystan \
-    pymc3 \
+    pymc3==3.6 \
     && $PYTHON3_PATH/bin/pip install \
     numpy \
     matplotlib \

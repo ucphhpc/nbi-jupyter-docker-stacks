@@ -59,7 +59,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     xarray \
     graphviz \
     pystan \
-    pymc3 \
+    pymc3==3.6 \
     pyproj \
     joblib==0.13.0 \
     astropy \

@@ -10,16 +10,24 @@ RUN apt-get update \
     build-essential \
     libgl1-mesa-glx \
     gmsh \
+    libmpfr-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
+RUN cd /usr/lib/x86_64-linux-gnu/ \
+    && ln -s libmpfr.so /usr/lib/x86_64-linux-gnu/libmpfr.so.4
 
 USER $NB_UID
 
 ENV LD_LIBRARY_PATH=/opt/conda/lib
 ENV PKG_CONFIG_PATH=/opt/conda/envs/python3/lib/pkgconfig
 
+RUN conda install -c anaconda -n python2 \
+    gcc=4.8 \
+    && conda clean -tipsy
+
 RUN conda install -c conda-forge -n python2 \
-    fenics \
+    fenics=2017.2.0=np113py27_3 \
     && conda clean -tipsy
 
 RUN conda install -c conda-forge -n python3 \
