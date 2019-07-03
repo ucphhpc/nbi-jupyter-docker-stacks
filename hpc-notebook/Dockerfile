@@ -1,7 +1,14 @@
 FROM nielsbohr/slurm-notebook:latest
 LABEL MAINTAINER="Mads R. B. Kristensen <madsbk@nbi.ku.dk>"
+ARG PACKAGE_TIMEOUT=60
 
 USER root
+
+# Setup default timeout of installing packages
+RUN echo "[global]" > /etc/pip.conf \
+    && echo "timeout=$PACKAGE_TIMEOUT" >> /etc/pip.conf
+
+RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 # Dep
 RUN apt-get update \

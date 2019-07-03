@@ -4,8 +4,15 @@ LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG SLURM_VERSION=18.08.4
 ARG SLURM_DOWNLOAD_MD5=75c76328159def203133505def7a99a6
 ARG SLURM_DOWNLOAD_URL="https://download.schedmd.com/slurm/slurm-$SLURM_VERSION.tar.bz2"
+ARG PACKAGE_TIMEOUT=60
 
 USER root
+
+# Setup default timeout of installing packages
+RUN echo "[global]" > /etc/pip.conf \
+    && echo "timeout=$PACKAGE_TIMEOUT" >> /etc/pip.conf
+
+RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 RUN groupadd -r slurm --gid=990 && useradd -r -g slurm --uid=990 slurm \
     && groupadd -r munge --gid=993 && useradd -r -g munge --uid=997 munge

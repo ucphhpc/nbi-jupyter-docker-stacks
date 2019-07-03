@@ -1,7 +1,14 @@
 FROM nielsbohr/r-notebook:latest
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
+ARG PACKAGE_TIMEOUT=60
 
 USER root
+
+# Setup default timeout of installing packages
+RUN echo "[global]" > /etc/pip.conf \
+    && echo "timeout=$PACKAGE_TIMEOUT" >> /etc/pip.conf
+
+RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 # R-studio envs provided by r-notebook
 
