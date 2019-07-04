@@ -27,23 +27,21 @@ RUN conda create -n python2 python=2.7 ipykernel \
     && conda create -n python3 python=3.6 ipykernel \
     && $PYTHON2_PATH/bin/python -m ipykernel install --user \
     && $PYTHON3_PATH/bin/python -m ipykernel install --user \
-    && conda clean -tipsy
+    && conda clean --all -f -y \
+    && rm -rf /home/$NB_USER/.{cache,node,yarn}
 
 # upgrade pip
-RUN $PYTHON2_PATH/bin/pip install --upgrade pip setuptools \
-    && $PYTHON3_PATH/bin/pip install --upgrade pip setuptools
-
 # Add matplotlib widget for jlab
-RUN $PYTHON2_PATH/bin/pip install \
-    ipympl \
-    ipyleaflet \
-    ipywidgets \
+RUN $PYTHON2_PATH/bin/pip install --upgrade pip \
+    setuptools \
     python-dateutil \
-    && $PYTHON3_PATH/bin/pip install \
     ipympl \
     ipyleaflet \
-    ipywidgets \
-    python-dateutil
+    && $PYTHON3_PATH/bin/pip install --upgrade pip \
+    setuptools \
+    python-dateutil \
+    ipympl \
+    ipyleaflet
 
 # Set the default python terminal links to the used kernels
 # Don't delete native python3.7 -> required when spawned

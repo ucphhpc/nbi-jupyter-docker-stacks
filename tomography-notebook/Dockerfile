@@ -10,11 +10,6 @@ RUN echo "[global]" > /etc/pip.conf \
 
 RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
-# RUN apt-get update \
-#     && apt-get install -yq --no-install-recommends \
-#     && apt-get clean \
-#     && rm -rf /var/lib/apt/lists/*
-
 # Run container as
 USER $NB_UID
 
@@ -23,12 +18,12 @@ ENV BH_CONFIG=$PYTHON2_PATH/lib/python2.7/site-packages/bohrium_api/config.ini
 
 RUN conda create -n astra -c astra-toolbox \
     astra-toolbox \
-    && conda clean -tipsy
+    && conda clean --all -f -y \
+    && rm -rf /home/$NB_USER/.{cache,node,yarn}
 
 # Install packages for python2/3 envs
 RUN $PYTHON2_PATH/bin/pip install \
-    numpy \
-    bohrium \
+    numpy==1.16.4 \
     scipy \
     h5py \
     pandas \
@@ -42,7 +37,6 @@ RUN $PYTHON2_PATH/bin/pip install \
     matplotlib \
     && $PYTHON3_PATH/bin/pip install \
     numpy \
-    bohrium \
     scipy \
     h5py \
     pandas \
@@ -53,7 +47,14 @@ RUN $PYTHON2_PATH/bin/pip install \
     tqdm \
     netCDF4 \
     graphviz \
-    matplotlib
+    matplotlib \
+    && rm -rf /home/$NB_USER/.{cache,node,yarn}
+
+RUN $PYTHON2_PATH/bin/pip install \
+    bohrium==0.9.2.post115 \
+    && $PYTHON3_PATH/bin/pip install \
+    bohrium \
+    && rm -rf /home/$NB_USER/.{cache,node,yarn}
 
 USER root
 

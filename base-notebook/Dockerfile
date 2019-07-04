@@ -47,6 +47,8 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+RUN chown $NB_UID:$NB_GID -R /tmp
+
 USER $NB_UID
 
 # Environement variables
@@ -54,10 +56,17 @@ ENV CONDA_DIR=/opt/conda
 
 WORKDIR /tmp
 
+# Don't install development junk
+RUN npm config set production
+
 # Update conda, npm, yarn
 RUN conda update -n base conda \
     && npm i -g npm \
-    && npm i -g yarn
+    && npm i -g yarn \
+    && conda clean --all -f -y \
+    && npm cache clean --force \
+    && rm -rf /home/$NB_USER/.{cache,node,yarn} \
+    && rm -rf /tmp/*
 
 # Upgrade underlying pip that jlab uses
 RUN pip install --upgrade pip
@@ -70,6 +79,7 @@ RUN pip install --upgrade pip
 RUN conda install --quiet --yes \
     'ipympl' \
     'ipyleaflet' \
+    'ipywidgets' \
     && jupyter labextension install jupyter-leaflet@0.10.8 \
                                     jupyterlab-server-proxy@1.0.0 \
                                     @jupyter-widgets/jupyterlab-manager@0.38 \
@@ -77,17 +87,21 @@ RUN conda install --quiet --yes \
                                     @jupyterlab/celltags@0.1.4 \
                                     jupyterlab_bokeh@0.6.3 \
                                     @pyviz/jupyterlab_pyviz@0.7.2 \
-    && npm dedupe \
+    && conda clean --all -f -y \
     && npm cache clean --force \
-    && rm -rf /home/$NB_USER/.cache/yarn \
-    && rm -rf /home/$NB_USER/.node-gyp
+    && npm dedupe \
+    && rm -rf $CONDA_DIR/share/jupyter/lab/staging \
+    && rm -rf /home/$NB_USER/.{cache,node,yarn}
 
 ## Install facets which does not have a pip or conda package at the moment
 RUN git clone https://github.com/PAIR-code/facets.git \
     && cd facets \
     && jupyter nbextension install facets-dist/ --sys-prefix \
     && cd \
-    && rm -rf /tmp/facets
+    && npm cache clean --force \
+    && npm dedupe \
+    && rm -rf $CONDA_DIR/share/jupyter/lab/staging \
+    && rm -rf /home/$NB_USER/.{cache,node,yarn}
 
 USER root
 
