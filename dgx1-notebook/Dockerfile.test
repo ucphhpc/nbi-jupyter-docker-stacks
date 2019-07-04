@@ -8,7 +8,9 @@ RUN pip3 install pytest \
 
 USER root
 
-RUN chmod +x test.sh
+RUN chown $NB_UID:$NB_GID -R notebooks \
+    && chmod +x test.sh \
+    && chown $NB_UID:$NB_GID -R /app/tests
 
 # Run container as
 USER $NB_UID
