@@ -22,6 +22,7 @@ IMAGES = [
           'statistics-notebook',
           'dgx1-notebook',
           'hpc-notebook',
+          'tomography-notebook',
           'tensorflow-notebook',
           'geo-notebook',
           'bio-notebook']

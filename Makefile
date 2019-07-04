@@ -15,6 +15,7 @@ ALL_IMAGES:=base-notebook \
     chemistry-notebook \
     fenics-notebook \
     statistics-notebook \
+    tomography-notebook \
     dgx1-notebook \
     hpc-notebook \
     tensorflow-notebook \

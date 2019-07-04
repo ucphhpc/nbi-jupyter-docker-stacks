@@ -15,6 +15,7 @@ env:
     - NOTEBOOK=fenics-notebook
     - NOTEBOOK=statistics-notebook
     - NOTEBOOK=dgx1-notebook
+    - NOTEBOOK=tomography-notebook
     - NOTEBOOK=hpc-notebook
     - NOTEBOOK=tensorflow-notebook
     - NOTEBOOK=geo-notebook
