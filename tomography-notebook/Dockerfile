@@ -51,7 +51,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     && rm -rf /home/$NB_USER/.{cache,node,yarn}
 
 RUN $PYTHON2_PATH/bin/pip install \
-    bohrium==0.9.2.post115 \
+    bohrium \
     && $PYTHON3_PATH/bin/pip install \
     bohrium \
     && rm -rf /home/$NB_USER/.{cache,node,yarn}
