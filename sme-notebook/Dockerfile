@@ -14,19 +14,20 @@ RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
     gnupg2 \
+    ca-certificates \
+    dirmngr \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Repo source
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 \
-    --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF \
-    && echo "deb http://download.mono-project.com/repo/debian wheezy main" | \
-    sudo tee /etc/apt/sources.list.d/mono-xamarin.list
+# https://www.mono-project.com/download/stable/#download-lin
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF \
+    && echo "deb https://download.mono-project.com/repo/ubuntu stable-bionic main" \
+    | sudo tee /etc/apt/sources.list.d/mono-official-stable.list
 
-# Install Mono
+# Install Mono
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-    mono-complete \
     mono-dbg \
     mono-runtime-dbg \
     nuget \
