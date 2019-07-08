@@ -28,8 +28,9 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E03280
 # Install Mono
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
+    mono-devel \
+    mono-complete \
     mono-dbg \
-    mono-runtime-dbg \
     nuget \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
