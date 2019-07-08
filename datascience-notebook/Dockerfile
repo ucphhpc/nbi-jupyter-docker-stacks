@@ -34,7 +34,8 @@ ENV BH_CONFIG=$PYTHON2_PATH/lib/python2.7/site-packages/bohrium_api/config.ini
 RUN $PYTHON2_PATH/bin/pip install \
     bohrium_api \
     && $PYTHON3_PATH/bin/pip install \
-    bohrium_api
+    bohrium_api \
+    && rm -rf /home/$NB_USER/.{cache,node,yarn}
 
 # Install packages for python2/3 envs
 RUN $PYTHON2_PATH/bin/pip install \
@@ -106,11 +107,13 @@ RUN $PYTHON2_PATH/bin/pip install \
     pyproj \
     joblib==0.13.0 \
     astropy \
-    uncertainties
+    uncertainties \
+    && rm -rf /home/$NB_USER/.{cache,node,yarn}
 
 # Matplotlib basemap
 RUN $PYTHON2_PATH/bin/pip install git+https://github.com/matplotlib/basemap.git@00794384f59e235f1e2847f952fd08b0bdc4327f \
-    && $PYTHON3_PATH/bin/pip install git+https://github.com/matplotlib/basemap.git@00794384f59e235f1e2847f952fd08b0bdc4327f
+    && $PYTHON3_PATH/bin/pip install git+https://github.com/matplotlib/basemap.git@00794384f59e235f1e2847f952fd08b0bdc4327f \
+    && rm -rf /home/$NB_USER/.{cache,node,yarn}
 
 USER root
 
