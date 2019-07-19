@@ -12,8 +12,6 @@ USER root
 RUN echo "[global]" > /etc/pip.conf \
     && echo "timeout=$PACKAGE_TIMEOUT" >> /etc/pip.conf
 
-RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
-
 RUN groupadd -r slurm --gid=990 && useradd -r -g slurm --uid=990 slurm \
     && groupadd -r munge --gid=993 && useradd -r -g munge --uid=997 munge
 
@@ -21,9 +19,7 @@ RUN groupadd -r slurm --gid=990 && useradd -r -g slurm --uid=990 slurm \
 # build, slurm, openmpi, ldap
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-    build-essential \
     supervisor \
-    make \
     cmake \
     munge \
     iputils-ping \
@@ -61,13 +57,17 @@ RUN mkdir -p /var/spool/slurmd \
     && chown slurm:slurm /var/spool/slurmd \
     && chmod 775 /var/spool/slurmd
 
+WORKDIR /tmp
+
 USER $NB_UID
+
+RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 # Add cling kernel
 # https://github.com/QuantStack/xeus-cling
 RUN conda create -n cling \
     && conda install xeus-cling -n cling -c conda-forge \
-    && conda clean -tipsy
+    && conda clean --all -f -y
 
 ENV CXX_PATH=$CONDA_DIR/envs/cling
 RUN cp -R $CXX_PATH/share/jupyter/kernels/* $CONDA_DIR/share/jupyter/kernels/
@@ -88,6 +88,9 @@ RUN chown $NB_UID:$NB_GID /etc/supervisor/supervisord.conf \
 RUN fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
+WORKDIR /home/$NB_USER
+
+USER root
 # As an exception, run as root,
 # Remember to use supervisord start-notebook.sh to
 # de-escalate privileges to $NB_UID:$NB_GID

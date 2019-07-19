@@ -8,13 +8,9 @@ USER root
 RUN echo "[global]" > /etc/pip.conf \
     && echo "timeout=$PACKAGE_TIMEOUT" >> /etc/pip.conf
 
-RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 RUN apt-get update \
     && apt-get install -yq --no-install-recommends \
     gnupg2 \
-    vim \
-    less \
-    man \
     screen \
     tmux \
     build-essential \
@@ -75,9 +71,8 @@ RUN apt-get update \
     libzmq3-dev \
     pkg-config \
     software-properties-common \
-    unzip
-
-RUN apt-get update \
+    unzip \
+    && apt-get update \
     && apt-get install -yq --no-install-recommends \
     nvinfer-runtime-trt-repo-ubuntu1604-4.0.1-ga-cuda9.0 \
     && apt-get update \
@@ -85,13 +80,18 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+WORKDIR /tmp
+
 USER $NB_UID
+
+RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 # Packages env
 ENV BH_CONFIG=$PYTHON2_PATH/lib/python2.7/site-packages/bohrium_api/config.ini
 
 # bohrium_api needs to be present before bohrium install
 RUN $PYTHON2_PATH/bin/pip install \
+    numpy==1.16.4 \
     bohrium_api \
     && $PYTHON3_PATH/bin/pip install \
     bohrium_api
@@ -100,7 +100,6 @@ RUN $PYTHON2_PATH/bin/pip install \
 # Ensure cpu only version of tensorflow is not included and add some
 # additional requested packages
 RUN $PYTHON2_PATH/bin/pip install \
-    numpy \
     bohrium \
     opencv-python \
     statsmodels \
@@ -161,6 +160,8 @@ RUN fix-permissions $CONDA_DIR \
 
 RUN ln -s /usr/bin/gcc-6 /usr/local/cuda/bin/gcc \
     && ln -s /usr/bin/g++-6 /usr/local/cuda/bin/g++
+
+WORKDIR /home/$NB_USER
 
 # Run container as
 USER $NB_UID

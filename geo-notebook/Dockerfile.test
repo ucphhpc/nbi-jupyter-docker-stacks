@@ -3,8 +3,8 @@ COPY tests /app/tests
 
 WORKDIR /app/tests
 
-RUN pip3 install pytest \
-    && pip3 install -r requirements.txt
+RUN pip install pytest \
+    && pip install -r requirements.txt
 
 USER root
 
@@ -14,8 +14,6 @@ RUN chown $NB_UID:$NB_GID -R notebooks \
 
 # Run container as
 USER $NB_UID
-
-RUN ln -s $PYTHON3_PATH/bin/pytest $CONDA_DIR/bin/pytest
 
 CMD ["bin/bash"]
 ENTRYPOINT ["/app/tests/test.sh"]

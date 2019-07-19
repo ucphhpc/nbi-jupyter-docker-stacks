@@ -8,22 +8,20 @@ USER root
 RUN echo "[global]" > /etc/pip.conf \
     && echo "timeout=$PACKAGE_TIMEOUT" >> /etc/pip.conf
 
-RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
-
 # R-studio envs provided by r-notebook
-
 # BioBase dependency
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-    gcc \
-    g++ \
-    make \
     gfortran \
     libxml2-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+WORKDIR /tmp
+
 USER $NB_UID
+
+RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 # Standard CRAN packages, etc.
 RUN conda install -qy -n r \
@@ -54,7 +52,7 @@ RUN conda install -qy -n r \
     'r-pROC' \
     'r-ape' \
     'r-minpack.lm' \
-    && conda clean -tipsy \
+    && conda clean --all -f -y \
     && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()'
 
 # NOTE: install BioConductor packages requested e.g. in erda ticket #18198
@@ -78,7 +76,7 @@ RUN conda install -qy -c bioconda -n r \
     'cutadapt' \
     'mafft' \
     'fasttree' \
-    && conda clean -tipsy \
+    && conda clean --all -f -y \
     && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()'
 
 # NOTE: install extras directly from github and CRAN as requested in erda ticket #18198
@@ -91,5 +89,7 @@ USER root
 RUN fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-# Ensure that container Runs as
+WORKDIR /home/$NB_USER
+
+# Run container as
 USER $NB_UID

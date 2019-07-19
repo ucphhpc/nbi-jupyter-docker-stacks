@@ -8,21 +8,30 @@ USER root
 RUN echo "[global]" > /etc/pip.conf \
     && echo "timeout=$PACKAGE_TIMEOUT" >> /etc/pip.conf
 
-RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
-
 RUN apt-get update \
     && apt-get install -yq --no-install-recommends \
-    g++ \
     graphviz \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+WORKDIR /tmp
+
 # Run container as
 USER $NB_UID
 
+RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
+
+RUN $PYTHON2_PATH/bin/pip install \
+    numpy==1.16.4 \
+    bohrium_api \
+    pystan \
+    pymc3==3.6 \
+    && $PYTHON3_PATH/bin/pip install \
+    bohrium_api
+
 # Install packages for python2/3 envs
 RUN $PYTHON2_PATH/bin/pip install \
-    numpy \
+    bohrium \
     matplotlib \
     scipy \
     seaborn \
@@ -31,10 +40,9 @@ RUN $PYTHON2_PATH/bin/pip install \
     iminuit \
     graphviz \
     ipywidgets \
-    pystan \
-    pymc3==3.6 \
     && $PYTHON3_PATH/bin/pip install \
     numpy \
+    bohrium \
     matplotlib \
     scipy \ 
     seaborn \
@@ -52,12 +60,15 @@ RUN git clone https://github.com/scikit-hep/probfit.git \
     && $PYTHON2_PATH/bin/pip install cython \
     && $PYTHON2_PATH/bin/pip install . \
     && $PYTHON3_PATH/bin/pip install cython \
-    && $PYTHON3_PATH/bin/pip install .
+    && $PYTHON3_PATH/bin/pip install . \
+    && rm -fr /tmp/probfit
 
 USER root
 
 RUN fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
+
+WORKDIR /home/$NB_USER
 
 # Ensure that container Runs as
 USER $NB_UID

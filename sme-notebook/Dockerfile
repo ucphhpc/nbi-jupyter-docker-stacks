@@ -8,8 +8,6 @@ USER root
 RUN echo "[global]" > /etc/pip.conf \
     && echo "timeout=$PACKAGE_TIMEOUT" >> /etc/pip.conf
 
-RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
-
 # Dep
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -35,7 +33,11 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+WORKDIR /tmp
+
 USER $NB_UID
+
+RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 # Clone and install csharp kernel
 RUN git clone --recursive https://github.com/zabirauf/icsharp.git
@@ -60,5 +62,12 @@ RUN sed -i -e "s/\"<INSTALL_PATH>/\"mono\", \"\/home\/${NB_USER}/g" /home/$NB_US
     && jupyter-kernelspec install --name csharp --user ~/icsharp/kernel-spec \
     && chmod +x /home/$NB_USER/icsharp/Kernel/bin/Release/iCSharp.Kernel.exe
 
-# Run container as
+USER root
+
+RUN fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
+
+WORKDIR /home/$NB_USER
+
+# Ensure that container Runs as
 USER $NB_UID

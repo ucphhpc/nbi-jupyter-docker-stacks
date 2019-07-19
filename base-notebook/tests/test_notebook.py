@@ -1,12 +1,52 @@
+import os
+import subprocess
+import tempfile
+import nbformat
 from subprocess import Popen, PIPE, STDOUT
 
+cur_path = os.path.abspath(".")
+notebooks_path = os.path.join(cur_path, 'notebooks')
+kernels = ['python3']
 
-def test_notebook():
+
+def test_jupyter_start():
+    """Test that the notebook is able to start"""
     p = Popen(['start-notebook.sh'], stdin=PIPE, stdout=PIPE, stderr=STDOUT)
     running = False
     for line in p.stdout:
         if 'The Jupyter Notebook is running at' in str(line):
             running = True
             break
-
     assert running
+
+
+def _notebook_run(path, kernel='python3'):
+    """Execute a notebook via nbconvert and collect output.
+       :returns (parsed nb object, execution errors)
+    """
+    dirname, __ = os.path.split(path)
+    os.chdir(dirname)
+    with tempfile.NamedTemporaryFile(suffix=".ipynb") as fout:
+        args = ["jupyter", "nbconvert", "--to", "notebook", "--execute",
+                "--ExecutePreprocessor.timeout=60",
+                "--ExecutePreprocessor.kernel_name=" + kernel,
+                "--output", fout.name, path]
+        subprocess.check_call(args)
+
+        fout.seek(0)
+        nb = nbformat.read(fout, nbformat.current_nbformat)
+
+    errors = [output for cell in nb.cells if "outputs" in cell
+              for output in cell["outputs"]
+              if output.output_type == "error"]
+
+    return nb, errors
+
+
+def test_notebooks():
+    for f_notebook in os.listdir(notebooks_path):
+        print("Testing notebook: {}".format(f_notebook))
+        for kernel in kernels:
+            _, errors = _notebook_run(os.path.join(notebooks_path,
+                                                   f_notebook), kernel=kernel)
+            assert errors == []

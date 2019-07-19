@@ -8,9 +8,12 @@ USER root
 RUN echo "[global]" > /etc/pip.conf \
     && echo "timeout=$PACKAGE_TIMEOUT" >> /etc/pip.conf
 
-RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
+WORKDIR /tmp
 
 USER $NB_UID
+
+RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
+
 # Python2: use conda since several geo packages are only packaged there
 RUN conda install -n python2 \
     appmode \
@@ -22,7 +25,7 @@ RUN conda install -n python2 \
     cython  \
     cytoolz \
     dask \
-    dask-ml \
+    dask-ml as\
     dask-tensorflow \
     datashader \
     distributed \
@@ -61,7 +64,7 @@ RUN conda install -n python2 \
     cdo \
     ncl \
     nco \
-    && conda clean -tipsy
+    && conda clean --all -f -y
 
 # Python3: use conda since several geo packages are only packaged there
 RUN conda install -n python3 \
@@ -130,7 +133,7 @@ RUN conda install -n python3 \
     cdo \
     ncl \
     nco \
-    && conda clean -tipsy
+    && conda clean --all -f -y
 
 # Finally install any remaining packages with pip
 RUN $PYTHON3_PATH/bin/pip install \
@@ -140,6 +143,8 @@ USER root
 
 RUN fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
+
+WORKDIR /home/$NB_USER
 
 # Ensure that container Runs as
 USER $NB_UID

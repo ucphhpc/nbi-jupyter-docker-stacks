@@ -8,14 +8,10 @@ USER root
 RUN echo "[global]" > /etc/pip.conf \
     && echo "timeout=$PACKAGE_TIMEOUT" >> /etc/pip.conf
 
-RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
-
 # Dep
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
     cmake \
-    git \
-    unzip \
     gfortran \
     libboost-filesystem-dev \
     libboost-serialization-dev \
@@ -68,14 +64,21 @@ RUN cat /etc/supervisor/hpc-supervisord.conf >> /etc/supervisor/supervisord.conf
     && rm -fr /etc/supervisor/hpc-supervisord.conf
 
 USER $NB_UID
-RUN conda install --quiet --yes ffmpeg imagemagick
-RUN pip install h5py
 
+RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
+
+RUN conda install --quiet --yes
+    ffmpeg \
+    imagemagick
+
+RUN pip install h5py
 
 USER root
 
 RUN fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
+
+WORKDIR /home/$NB_USER
 
 # As an exception, run as root,
 # Remember to use supervisord start-notebook.sh to

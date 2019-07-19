@@ -8,57 +8,66 @@ USER root
 RUN echo "[global]" > /etc/pip.conf \
     && echo "timeout=$PACKAGE_TIMEOUT" >> /etc/pip.conf
 
-RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
+#RUN apt-get update \
+#    && apt-get install -yq --no-install-recommends \
+#    python-dev \
+#    && apt-get clean \
+#    && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update \
-    && apt-get install -yq --no-install-recommends \
-    gcc \
-    python-dev \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+WORKDIR /tmp
 
 USER $NB_UID
+
+RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 ENV PYTHON2_PATH=$CONDA_DIR/envs/python2
 ENV PYTHON3_PATH=$CONDA_DIR/envs/python3
 
 # Create user python2/3 environement
 RUN conda create -n python2 python=2.7 ipykernel \
-    && conda create -n python3 python=3.6 ipykernel \
+    && conda create -n python3 python=3.7 ipykernel \
     && $PYTHON2_PATH/bin/python -m ipykernel install --user \
     && $PYTHON3_PATH/bin/python -m ipykernel install --user \
     && conda clean --all -f -y \
-    && rm -rf /home/$NB_USER/.{cache,node,yarn}
+    && rm -fr /home/$NB_USER/tmp*
+
+# Ensure $NB_USER uses the conda python envs
+RUN mkdir -p /home/$NB_USER/.local/bin
+
+RUN ln -s $PYTHON2_PATH/bin/python /home/$NB_USER/.local/bin/python2 \
+    && ln -s $PYTHON2_PATH/bin/python /home/$NB_USER/.local/bin/python2.7 \
+    && ln -s $PYTHON2_PATH/bin/pip /home/$NB_USER/.local/bin/pip2 \
+    && ln -s $PYTHON2_PATH/bin/pip /home/$NB_USER/.local/bin/pip2.7 \
+    && ln -s $PYTHON3_PATH/bin/python /home/$NB_USER/.local/bin/python \
+    && ln -s $PYTHON3_PATH/bin/python /home/$NB_USER/.local/bin/python3 \
+    && ln -s $PYTHON3_PATH/bin/python /home/$NB_USER/.local/bin/python3.7 \
+    && ln -s $PYTHON3_PATH/bin/python /home/$NB_USER/.local/bin/python3.7m \
+    && ln -s $PYTHON3_PATH/bin/pip /home/$NB_USER/.local/bin/pip \
+    && ln -s $PYTHON3_PATH/bin/pip /home/$NB_USER/.local/bin/pip3 \
+    && ln -s $PYTHON3_PATH/bin/python3.7m-config /home/$NB_USER/.local/bin/python3.7-config \
+    && ln -s $PYTHON3_PATH/bin/python3.7m-config /home/$NB_USER/.local/bin/python3.7m-config
 
 # upgrade pip
 # Add matplotlib widget for jlab
-RUN $PYTHON2_PATH/bin/pip install --upgrade pip \
-    setuptools \
-    python-dateutil \
-    ipympl \
-    ipyleaflet \
-    && $PYTHON3_PATH/bin/pip install --upgrade pip \
-    setuptools \
-    python-dateutil \
-    ipympl \
-    ipyleaflet
-
-# Set the default python terminal links to the used kernels
-# Don't delete native python3.7 -> required when spawned
-RUN mv $CONDA_DIR/bin/python3.7 $CONDA_DIR \
-    && rm $CONDA_DIR/bin/python* \
-    $CONDA_DIR/bin/pip* \
-    && mv $CONDA_DIR/python3.7 $CONDA_DIR/bin/ \
-    && ln -s $CONDA_DIR/bin/python3.7 $CONDA_DIR/bin/python \
-    && ln -s $PYTHON2_PATH/bin/python $CONDA_DIR/bin/python2 \
-    && ln -s $PYTHON3_PATH/bin/python3 $CONDA_DIR/bin/python3 \
-    && ln -s $PYTHON2_PATH/bin/pip $CONDA_DIR/bin/pip \
-    && ln -s $PYTHON3_PATH/bin/pip $CONDA_DIR/bin/pip3
+#RUN $PYTHON2_PATH/bin/pip install --upgrade pip \
+#    setuptools \
+#    python-dateutil \
+#    ipympl \
+#    ipyleaflet \
+#    && $PYTHON3_PATH/bin/pip install --upgrade pip \
+#    setuptools \
+#    python-dateutil \
+#    ipympl \
+#    ipyleaflet
 
 USER root
 
+RUN echo "PATH=\"/home/$NB_USER/.local/bin:$PATH\"" >> /home/$NB_USER/.bashrc
+
 RUN fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
+
+WORKDIR /home/$NB_USER
 
 # Ensure that container Runs as
 USER $NB_UID

@@ -8,8 +8,6 @@ USER root
 RUN echo "[global]" > /etc/pip.conf \
     && echo "timeout=$PACKAGE_TIMEOUT" >> /etc/pip.conf
 
-RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
-
 # R-Studio install
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -27,7 +25,11 @@ RUN apt-get update \
 ENV PATH="${PATH}:/usr/lib/rstudio-server/bin:/opt/conda/envs/r/bin"
 ENV RSTUDIO_WHICH_R="/opt/conda/envs/r/bin/R"
 
+WORKDIR /tmp
+
 USER $NB_UID
+
+RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 # R-Studio button
 RUN git clone https://github.com/rasmunk/nbrsessionproxy.git /tmp/nbrsessionproxy \
@@ -65,7 +67,7 @@ RUN conda create -n r \
     'r-pheatmap' \
     'r-readr' \
     'r-rjson' \
-    && conda clean -tipsy \
+    && conda clean --all -f -y \
     && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()'
 
 # Keras needs to find 'python' that has keras installed and not the system default
@@ -78,6 +80,8 @@ USER root
 
 RUN fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
+
+WORKDIR /home/$NB_USER
 
 # Ensure that container Runs as
 USER $NB_UID
