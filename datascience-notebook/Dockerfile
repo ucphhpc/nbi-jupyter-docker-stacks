@@ -113,14 +113,6 @@ RUN $PYTHON2_PATH/bin/pip install \
 #    && rm -rf /home/$NB_USER/.{cache,node,yarn}
 #    && conda clean --all -f -y \
 
-# Add matplotlib widget for jlab
-RUN $PYTHON2_PATH/bin/pip install \
-    ipympl \
-    ipyleaflet \
-    && $PYTHON3_PATH/bin/pip install \
-    ipympl \
-    ipyleaflet
-
 ## Matplotlib basemap
 RUN $PYTHON2_PATH/bin/pip install git+https://github.com/matplotlib/basemap.git@00794384f59e235f1e2847f952fd08b0bdc4327f \
     && $PYTHON3_PATH/bin/pip install git+https://github.com/matplotlib/basemap.git@00794384f59e235f1e2847f952fd08b0bdc4327f

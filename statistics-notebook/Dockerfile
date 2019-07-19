@@ -32,7 +32,6 @@ RUN $PYTHON2_PATH/bin/pip install \
 # Install packages for python2/3 envs
 RUN $PYTHON2_PATH/bin/pip install \
     bohrium \
-    matplotlib \
     scipy \
     seaborn \
     sklearn \
@@ -43,7 +42,6 @@ RUN $PYTHON2_PATH/bin/pip install \
     && $PYTHON3_PATH/bin/pip install \
     numpy \
     bohrium \
-    matplotlib \
     scipy \ 
     seaborn \
     sklearn \

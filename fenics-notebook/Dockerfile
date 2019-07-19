@@ -45,19 +45,13 @@ RUN conda install -n python2 \
 
 RUN $PYTHON2_PATH/bin/pip install \
     pygmsh \
-    matplotlib
+    && $PYTHON3_PATH/bin/pip install \
+    pygmsh
 
-RUN $PYTHON3_PATH/bin/pip install \
-    pygmsh \
-    matplotlib
 
 WORKDIR /home/$NB_USER
 
 USER root
-
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-    g++
 
 RUN fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER

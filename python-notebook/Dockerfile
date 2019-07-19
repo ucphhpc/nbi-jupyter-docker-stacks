@@ -49,16 +49,14 @@ RUN ln -s $PYTHON2_PATH/bin/python /home/$NB_USER/.local/bin/python2 \
 
 # upgrade pip
 # Add matplotlib widget for jlab
-#RUN $PYTHON2_PATH/bin/pip install --upgrade pip \
-#    setuptools \
-#    python-dateutil \
-#    ipympl \
-#    ipyleaflet \
-#    && $PYTHON3_PATH/bin/pip install --upgrade pip \
-#    setuptools \
-#    python-dateutil \
-#    ipympl \
-#    ipyleaflet
+RUN $PYTHON2_PATH/bin/pip install \
+    ipympl \
+    ipyleaflet \
+    matplotlib \
+    && $PYTHON3_PATH/bin/pip install \
+    ipympl \
+    ipyleaflet \
+    matplotlib
 
 USER root
 
