@@ -8,12 +8,6 @@ USER root
 RUN echo "[global]" > /etc/pip.conf \
     && echo "timeout=$PACKAGE_TIMEOUT" >> /etc/pip.conf
 
-#RUN apt-get update \
-#    && apt-get install -yq --no-install-recommends \
-#    python-dev \
-#    && apt-get clean \
-#    && rm -rf /var/lib/apt/lists/*
-
 WORKDIR /tmp
 
 USER $NB_UID
