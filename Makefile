@@ -16,7 +16,7 @@ ALL_IMAGES:=base-notebook \
     fenics-notebook \
     statistics-notebook \
     tomography-notebook \
-    dgx1-notebook \
+#    dgx1-notebook \
     hpc-notebook \
     tensorflow-notebook \
     geo-notebook \
