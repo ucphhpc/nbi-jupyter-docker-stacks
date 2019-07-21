@@ -23,7 +23,9 @@ RUN conda create -n python2 python=2.7 ipykernel \
     && $PYTHON2_PATH/bin/python -m ipykernel install --user \
     && $PYTHON3_PATH/bin/python -m ipykernel install --user \
     && conda clean --all -f -y \
-    && rm -fr /tmp/tmp*
+    && rm -fr /tmp/tmp* \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 # Ensure $NB_USER uses the conda python envs
 RUN mkdir -p /home/$NB_USER/.local/bin
@@ -50,14 +52,13 @@ RUN $PYTHON2_PATH/bin/pip install \
     && $PYTHON3_PATH/bin/pip install \
     ipympl \
     ipyleaflet \
-    matplotlib
+    matplotlib \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 USER root
 
 RUN echo "PATH=\"/home/$NB_USER/.local/bin:$PATH\"" >> /home/$NB_USER/.bashrc
-
-RUN fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
 
 WORKDIR /home/$NB_USER
 

@@ -53,7 +53,9 @@ RUN conda install -qy -n r \
     'r-ape' \
     'r-minpack.lm' \
     && conda clean --all -f -y \
-    && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()'
+    && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()' \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 # NOTE: install BioConductor packages requested e.g. in erda ticket #18198
 ## BioConductor packages, etc.
@@ -77,17 +79,14 @@ RUN conda install -qy -c bioconda -n r \
     'mafft' \
     'fasttree' \
     && conda clean --all -f -y \
-    && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()'
+    && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()' \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 # NOTE: install extras directly from github and CRAN as requested in erda ticket #18198
 # IMPORTANT: R defaults to unpack with non-existant /bin/gtar so we overrride
 ENV TAR="/bin/tar"
 RUN /opt/conda/envs/r/bin/Rscript -e 'library(devtools); options(unzip = "internal"); devtools::install_github("Russel88/DAtest@v2.7.13", force = TRUE); install_github("DanielSprockett/reltools", force = TRUE); install.packages("ips", repos="http://mirrors.dotsrc.org/cran/")'
-
-USER root
-
-RUN fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
 
 WORKDIR /home/$NB_USER
 

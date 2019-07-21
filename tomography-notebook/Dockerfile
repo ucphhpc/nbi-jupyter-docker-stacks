@@ -24,7 +24,9 @@ RUN conda create -n astra -c astra-toolbox \
     ipykernel \
     && $ASTRA_PATH/bin/python -m ipykernel install --user --name astra \
     && conda clean --all -f -y \
-    && rm -fr /tmp/tmp*
+    && rm -fr /tmp/tmp* \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 # bohrium_api needs to be present before bohrium install
 # Numpy 1.17.* has dropped support of py2
@@ -34,7 +36,9 @@ RUN $PYTHON2_PATH/bin/pip install \
     && $PYTHON3_PATH/bin/pip install \
     bohrium_api \
     && $ASTRA_PATH/bin/pip install \
-    bohrium_api
+    bohrium_api \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 # Install packages for python2/3 envs
 RUN $PYTHON2_PATH/bin/pip install \
@@ -77,16 +81,13 @@ RUN $PYTHON2_PATH/bin/pip install \
     pillow \
     tqdm \
     netCDF4 \
-    graphviz
+    graphviz \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 # Add astra python to local path
 RUN ln -s $ASTRA_PATH/bin/python /home/$NB_USER/.local/bin/python_astra \
     && ln -s $ASTRA_PATH/bin/python /home/$NB_USER/.local/bin/python3_astra
-
-USER root
-
-RUN fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
 
 WORKDIR /home/$NB_USER
 

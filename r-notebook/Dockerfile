@@ -20,10 +20,6 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# R-studio env
-#ENV PATH="${PATH}:/usr/lib/rstudio-server/bin:/opt/conda/envs/r/bin"
-#ENV RSTUDIO_WHICH_R="/opt/conda/envs/r/bin/R"
-
 ENV R_PATH=$CONDA_DIR/envs/r
 
 WORKDIR /tmp
@@ -37,7 +33,13 @@ RUN git clone https://github.com/rasmunk/nbrsessionproxy.git /tmp/nbrsessionprox
     && pip install -e /tmp/nbrsessionproxy \
     && jupyter serverextension enable --py nbrsessionproxy \
     && jupyter labextension link /tmp/nbrsessionproxy/jupyterlab-rsessionproxy \
-    && jupyter lab build
+    && jupyter lab build \
+    && rm -fr /tmp/nbrsessionproxy \
+    && rm -fr /tmp/tmp* \
+    && rm -fr /tmp/npm* \
+    && rm -fr /tmp/v8* \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 # Create R environment
 RUN conda create -n r \
@@ -68,7 +70,9 @@ RUN conda create -n r \
     'r-readr' \
     'r-rjson' \
     && conda clean --all -f -y \
-    && $R_PATH/bin/R -e 'IRkernel::installspec()'
+    && $R_PATH/bin/R -e 'IRkernel::installspec()' \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 RUN jupyter kernelspec uninstall -f python3 \
     && rm -fr $CONDA_DIR/lib/python3.7/site-packages/ipykernel
@@ -78,7 +82,9 @@ RUN conda install -n r \
     tensorflow \
     && $R_PATH/bin/python -m ipykernel install --user \
     && conda clean --all -f -y \
-    && rm -fr /tmp/tmp*
+    && rm -fr /tmp/tmp* \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 # Setup user env path links
 RUN mkdir -p /home/$NB_USER/.local/bin \
@@ -90,7 +96,6 @@ RUN mkdir -p /home/$NB_USER/.local/bin \
     && ln -s $R_PATH/bin/python3.7m /home/$NB_USER/.local/bin/python3.7m \
     && ln -s $R_PATH/bin/python3.7m-config /home/$NB_USER/.local/bin/python3.7m-config \
     && ln -s $R_PATH/bin/python3-config /home/$NB_USER/.local/bin/python3-config \
-    && ln -s $R_PATH/bin/python3m /home/$NB_USER/.local/bin/python3m \
     && ln -s $R_PATH/bin/pip /home/$NB_USER/.local/bin/pip
 
 # RStudio dosen't work with the provided libssl.so.1.0.0, override the one
@@ -103,13 +108,9 @@ USER root
 RUN echo "PATH=\"/home/$NB_USER/.local/bin:$PATH\"" >> /home/$NB_USER/.bashrc \
     && rm -fr /usr/bin/python2 \
     && rm -fr /usr/bin/python2.7 \
-    && rm -fr /usr/bin/python3.6 \
     && rm -fr /usr/bin/python3.6m \
     && ln -s /usr/lib/rstudio-server/bin/rserver /usr/local/bin/rserver \
     && ln -s $R_PATH/bin/R /usr/local/bin/R
-
-RUN fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
 
 WORKDIR /home/$NB_USER
 

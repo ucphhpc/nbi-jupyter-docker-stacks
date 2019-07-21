@@ -8,7 +8,7 @@ PACKAGE_TIMEOUT:=60
 ALL_IMAGES:=base-notebook \
     r-notebook \
     slurm-notebook \
-    sme-notebook \
+#    sme-notebook \
     thin-notebook \
     python-notebook \
     datascience-notebook \

@@ -32,9 +32,8 @@ WORKDIR /tmp
 
 USER $NB_UID
 
-RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
-
-RUN mkdir -p /home/$NB_USER/.local/bin/icsharp
+RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT \
+    && mkdir -p /home/$NB_USER/.local/bin/icsharp
 
 # Clone and install csharp kernel
 # Replace Legacy Nuget.exe
@@ -55,14 +54,13 @@ RUN git clone --recursive https://github.com/zabirauf/icsharp.git \
     && jupyter-kernelspec install --name csharp --user /tmp/icsharp/kernel-spec \
     && cp -r /tmp/icsharp/Kernel/bin/Release/* /home/$NB_USER/.local/bin/icsharp/ \
     && chmod +x /home/$NB_USER/.local/bin/icsharp/iCSharp.Kernel.exe \
-    && rm -fr /tmp/icsharp
+    && rm -fr /tmp/icsharp \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 USER root
 
 RUN echo "PATH=\"/home/$NB_USER/.local/bin:$PATH\"" >> /home/$NB_USER/.bashrc
-
-RUN fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
 
 WORKDIR /home/$NB_USER
 

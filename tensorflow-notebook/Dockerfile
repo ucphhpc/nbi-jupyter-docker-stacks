@@ -25,11 +25,8 @@ RUN $PYTHON2_PATH/bin/pip install \
     tensorflow \
     keras \
     torch \
-    torchvision
-
-USER root
-
-RUN fix-permissions $CONDA_DIR \
+    torchvision \
+    && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
 WORKDIR /home/$NB_USER

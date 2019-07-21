@@ -41,20 +41,19 @@ RUN conda install -n python2 \
     boost=1.61.0=py27_1 \
     && conda install -n python3 \
     fenics \
-    && conda clean --all -f -y
+    && conda clean --all -f -y \
+    && rm -fr /tmp/tmp* \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 RUN $PYTHON2_PATH/bin/pip install \
     pygmsh \
     && $PYTHON3_PATH/bin/pip install \
-    pygmsh
-
+    pygmsh \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 WORKDIR /home/$NB_USER
-
-USER root
-
-RUN fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
 
 # Ensure that container Runs as
 USER $NB_UID

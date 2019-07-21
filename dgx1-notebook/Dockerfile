@@ -94,7 +94,9 @@ RUN $PYTHON2_PATH/bin/pip install \
     numpy==1.16.4 \
     bohrium_api \
     && $PYTHON3_PATH/bin/pip install \
-    bohrium_api
+    bohrium_api \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 # Packages
 # Ensure cpu only version of tensorflow is not included and add some
@@ -147,16 +149,15 @@ RUN $PYTHON2_PATH/bin/pip install \
     numba \
     umap-learn \
     hdbscan \
-    git+https://www.github.com/keras-team/keras-contrib.git@e1574a16f0156dd9557fe62a1c5a39e37bd656c6
+    git+https://www.github.com/keras-team/keras-contrib.git@e1574a16f0156dd9557fe62a1c5a39e37bd656c6 \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 # Matplotlib basemap
 RUN $PYTHON2_PATH/bin/pip install git+https://github.com/matplotlib/basemap.git@00794384f59e235f1e2847f952fd08b0bdc4327f \
     && $PYTHON3_PATH/bin/pip install git+https://github.com/matplotlib/basemap.git@00794384f59e235f1e2847f952fd08b0bdc4327f
 
 USER root
-
-RUN fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
 
 RUN ln -s /usr/bin/gcc-6 /usr/local/cuda/bin/gcc \
     && ln -s /usr/bin/g++-6 /usr/local/cuda/bin/g++

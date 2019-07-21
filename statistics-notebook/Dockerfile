@@ -27,7 +27,9 @@ RUN $PYTHON2_PATH/bin/pip install \
     pystan \
     pymc3==3.6 \
     && $PYTHON3_PATH/bin/pip install \
-    bohrium_api
+    bohrium_api \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 # Install packages for python2/3 envs
 RUN $PYTHON2_PATH/bin/pip install \
@@ -50,7 +52,9 @@ RUN $PYTHON2_PATH/bin/pip install \
     graphviz \
     ipywidgets \
     pystan \
-    pymc3
+    pymc3 \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 RUN git clone https://github.com/scikit-hep/probfit.git \
     && cd probfit \
@@ -59,12 +63,11 @@ RUN git clone https://github.com/scikit-hep/probfit.git \
     && $PYTHON2_PATH/bin/pip install . \
     && $PYTHON3_PATH/bin/pip install cython \
     && $PYTHON3_PATH/bin/pip install . \
-    && rm -fr /tmp/probfit
+    && rm -fr /tmp/probfit \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 USER root
-
-RUN fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
 
 WORKDIR /home/$NB_USER
 

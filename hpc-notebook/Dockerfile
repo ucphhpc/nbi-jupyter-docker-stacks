@@ -73,14 +73,13 @@ RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 RUN conda install --quiet --yes \
     ffmpeg \
-    imagemagick
+    imagemagick \
+    && conda clean --all -f -y \
+    && rm -fr /tmp/tmp* \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 RUN pip install h5py
-
-USER root
-
-RUN fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
 
 WORKDIR /home/$NB_USER
 

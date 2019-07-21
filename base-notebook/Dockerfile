@@ -64,7 +64,9 @@ RUN conda update --quiet -n base conda \
     && rm -fr /home/$NB_USER/.npm \
     && rm -fr /home/$NB_USER/.node \
     && rm -fr /home/$NB_USER/.npmrc \
-    && rm -rf /tmp/*
+    && rm -rf /tmp/* \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 # Notebook/Lab dependencies
 # dedupe, resolve duplicates packages
@@ -89,7 +91,9 @@ RUN conda install --quiet --yes \
     && rm -fr /home/$NB_USER/.yarn \
     && rm -fr /home/$NB_USER/.npm \
     && rm -rf /tmp/npm* \
-    && rm -fr /tmp/v8*
+    && rm -fr /tmp/v8* \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 # Install facets which does not have a pip or conda package at the moment
 RUN curl -LOk https://github.com/PAIR-code/facets/archive/${FACETS_VERSION}.tar.gz \
@@ -105,11 +109,8 @@ RUN curl -LOk https://github.com/PAIR-code/facets/archive/${FACETS_VERSION}.tar.
     && rm -fr /home/$NB_USER/.npm \
     && rm -fr /tmp/facets* \
     && rm -fr /tmp/${FACETS_VERSION}.tar.gz \
-    && rm -fr /home/$NB_USER/package-lock.json
-
-USER root
-
-RUN fix-permissions $CONDA_DIR \
+    && rm -fr /home/$NB_USER/package-lock.json \
+    && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
 WORKDIR /home/$NB_USER

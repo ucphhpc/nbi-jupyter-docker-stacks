@@ -63,7 +63,10 @@ RUN conda install -n python2 \
     rasterio \
     cdo \
     nco \
-    && conda clean --all -f -y
+    && conda clean --all -f -y \
+    && rm -fr /tmp/tmp* \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 # Python3: use conda since several geo packages are only packaged there
 RUN conda install -n python3 \
@@ -130,15 +133,15 @@ RUN conda install -n python3 \
     cdo \
     nco \
     xesmf \
-    && conda clean --all -f -y
+    && conda clean --all -f -y \
+    && rm -fr /tmp/tmp* \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 # Finally install any remaining packages with pip
 RUN $PYTHON3_PATH/bin/pip install \
-    schemdraw
-
-USER root
-
-RUN fix-permissions $CONDA_DIR \
+    schemdraw \
+    && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
 WORKDIR /home/$NB_USER

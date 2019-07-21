@@ -67,7 +67,10 @@ RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 # https://github.com/QuantStack/xeus-cling
 RUN conda create -n cling \
     && conda install xeus-cling -n cling -c conda-forge \
-    && conda clean --all -f -y
+    && conda clean --all -f -y \
+    && rm -fr /tmp/tmp* \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 ENV CXX_PATH=$CONDA_DIR/envs/cling
 RUN cp -R $CXX_PATH/share/jupyter/kernels/* $CONDA_DIR/share/jupyter/kernels/
@@ -84,9 +87,6 @@ RUN mkdir -p /var/log/supervisord /var/run/supervisord \
 COPY supervisord.conf /etc/supervisor/supervisord.conf
 RUN chown $NB_UID:$NB_GID /etc/supervisor/supervisord.conf \
     && chmod 775 /etc/supervisor/supervisord.conf
-
-RUN fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
 
 WORKDIR /home/$NB_USER
 

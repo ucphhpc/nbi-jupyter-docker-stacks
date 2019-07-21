@@ -39,7 +39,9 @@ RUN conda config --add channels diffpy \
     ipykernel \
     && $PYTHON2_PATH/bin/python -m ipykernel install --user \
     && conda clean --all -f -y \
-    && rm -fr /home/$NB_USER/tmp*
+    && rm -fr /tmp/tmp* \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 # Ensure that container Runs as
 USER $NB_UID
@@ -56,7 +58,9 @@ RUN $PYTHON2_PATH/bin/pip install \
     h5py \
     prompter \
     tqdm \
-    diffpy.srfit
+    diffpy.srfit \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 # Ensure $NB_USER uses the conda python envs
 RUN mkdir -p /home/$NB_USER/.local/bin
@@ -74,9 +78,6 @@ RUN jupyter kernelspec uninstall -f python3 \
 USER root
 
 RUN echo "PATH=\"/home/$NB_USER/.local/bin:$PATH\"" >> /home/$NB_USER/.bashrc
-
-RUN fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
 
 ## RUN cd /tmp \
 ##     && git clone https://github.com/diffpy/diffpy.srfit.git \
