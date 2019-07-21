@@ -29,7 +29,7 @@ RUN conda create -n python2 python=2.7 ipykernel \
     && $PYTHON2_PATH/bin/python -m ipykernel install --user \
     && $PYTHON3_PATH/bin/python -m ipykernel install --user \
     && conda clean --all -f -y \
-    && rm -fr /home/$NB_USER/tmp*
+    && rm -fr /tmp/tmp*
 
 # Ensure $NB_USER uses the conda python envs
 RUN mkdir -p /home/$NB_USER/.local/bin
