@@ -117,10 +117,14 @@ RUN $PYTHON2_PATH/bin/pip install \
 RUN $PYTHON2_PATH/bin/pip install git+https://github.com/matplotlib/basemap.git@00794384f59e235f1e2847f952fd08b0bdc4327f \
     && $PYTHON3_PATH/bin/pip install git+https://github.com/matplotlib/basemap.git@00794384f59e235f1e2847f952fd08b0bdc4327f
 
+
 USER root
 
 RUN fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
+
+RUN $PYTHON2_PATH/bin/pip install recordclass numdifftools trackpy pims \
+    && $PYTHON3_PATH/bin/pip install recordclass numdifftools trackpy pims
 
 WORKDIR /home/$NB_USER
 
