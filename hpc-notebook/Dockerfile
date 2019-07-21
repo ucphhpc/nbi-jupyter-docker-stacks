@@ -1,6 +1,7 @@
 FROM nielsbohr/slurm-notebook:latest
 LABEL MAINTAINER="Mads R. B. Kristensen <madsbk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
+ARG BOHRIUM_VERSION=0.11.0
 
 USER root
 
@@ -39,17 +40,20 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN git clone --depth 5 https://github.com/bh107/bohrium.git
-RUN mkdir bohrium/build
-RUN cd bohrium/build \
+WORKDIR /tmp
+
+RUN curl -LOk https://github.com/bh107/bohrium/archive/v${BOHRIUM_VERSION}.tar.gz \
+    && tar -xf v${BOHRIUM_VERSION}.tar.gz \
+    && mkdir bohrium-${BOHRIUM_VERSION}/build \
+    && cd bohrium-${BOHRIUM_VERSION}/build \
     && cmake .. -DVE_OPENCL=OFF -DVE_CUDA=OFF -DEXT_CLBLAS=OFF -DBRIDGE_PY_API=OFF -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr \
     && make install -j 2 \
-    && cd \
-    && rm -r bohrium
+    && cd /tmp \
+    && rm -r bohrium-${BOHRIUM_VERSION}
 
-RUN mkdir -p /opt
-RUN chgrp $NB_GID /opt
-RUN chmod 774 /opt
+RUN mkdir -p /opt \
+    && chgrp $NB_GID /opt \
+    && chmod 774 /opt
 
 # Launch script
 RUN echo "#!/usr/bin/env bash" > /usr/local/bin/hpc_launch.sh && \
@@ -67,7 +71,7 @@ USER $NB_UID
 
 RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
-RUN conda install --quiet --yes
+RUN conda install --quiet --yes \
     ffmpeg \
     imagemagick
 
