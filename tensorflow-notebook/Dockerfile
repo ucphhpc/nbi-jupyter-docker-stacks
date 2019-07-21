@@ -19,13 +19,11 @@ RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 RUN $PYTHON2_PATH/bin/pip install \
     tensorflow \
     keras \
-    pytorch \
     torch \
     torchvision \
     && $PYTHON3_PATH/bin/pip install \
     tensorflow \
     keras \
-    pytorch \
     torch \
     torchvision
 
