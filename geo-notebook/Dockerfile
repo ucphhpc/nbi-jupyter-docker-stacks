@@ -18,6 +18,7 @@ RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 RUN conda install -n python2 \
     appmode \
     arrow \
+    autopep8 \
     bokeh \
     bqplot \
     cmocean \
@@ -25,7 +26,7 @@ RUN conda install -n python2 \
     cython  \
     cytoolz \
     dask \
-    dask-ml as\
+    dask-ml \
     dask-tensorflow \
     datashader \
     distributed \
@@ -34,7 +35,7 @@ RUN conda install -n python2 \
     geoviews \
     graphviz \
     gsw \
-    gdal=2.4.1=py27hf242f0b_3 \
+    gdal \
     hvplot \
     intake::intake \
     intake::intake-xarray \
@@ -43,7 +44,6 @@ RUN conda install -n python2 \
     msgpack-python \
     nb_conda_kernels \
     netcdf4 \
-    nco \
     nomkl \
     numba \
     numcodecs \
@@ -62,7 +62,6 @@ RUN conda install -n python2 \
     zict \
     rasterio \
     cdo \
-    ncl \
     nco \
     && conda clean --all -f -y
 
@@ -74,7 +73,6 @@ RUN conda install -n python3 \
     bokeh \
     bqplot \
     cartopy \
-    cdo \
     cftime \
     cmocean \
     click \
@@ -93,7 +91,7 @@ RUN conda install -n python3 \
     geoviews \
     graphviz \
     gsw \
-    GDAL \
+    gdal \
     hvplot \
     intake::intake \
     intake::intake-xarray \
@@ -106,7 +104,6 @@ RUN conda install -n python3 \
     nb_conda_kernels \
     netcdf4 \
     nc-time-axis \
-    nco \
     nodejs \
     nomkl \
     numba \
@@ -131,8 +128,8 @@ RUN conda install -n python3 \
     zict \
     rasterio \
     cdo \
-    ncl \
     nco \
+    xesmf \
     && conda clean --all -f -y
 
 # Finally install any remaining packages with pip
