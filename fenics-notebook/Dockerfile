@@ -8,8 +8,6 @@ USER root
 RUN echo "[global]" > /etc/pip.conf \
     && echo "timeout=$PACKAGE_TIMEOUT" >> /etc/pip.conf
 
-RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
-
 # For fenics opencv2 and basemap geos
 RUN apt-get update \
     && apt-get install -yq --no-install-recommends \
@@ -23,7 +21,8 @@ RUN apt-get update \
     libmpfr-dev \
     fenics \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -fr /tmp/tmp*
 
 RUN cd /usr/lib/x86_64-linux-gnu/ \
     && ln -s libmpfr.so /usr/lib/x86_64-linux-gnu/libmpfr.so.4
@@ -31,6 +30,8 @@ RUN cd /usr/lib/x86_64-linux-gnu/ \
 WORKDIR /tmp
 
 USER $NB_UID
+
+RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 ENV LD_LIBRARY_PATH=/opt/conda/lib
 ENV PKG_CONFIG_PATH=/opt/conda/envs/python3/lib/pkgconfig

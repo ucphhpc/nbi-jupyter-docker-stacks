@@ -8,7 +8,6 @@ PACKAGE_TIMEOUT:=60
 ALL_IMAGES:=base-notebook \
     r-notebook \
     slurm-notebook \
-#    sme-notebook \
     thin-notebook \
     python-notebook \
     datascience-notebook \
@@ -16,7 +15,6 @@ ALL_IMAGES:=base-notebook \
     fenics-notebook \
     statistics-notebook \
     tomography-notebook \
-#    dgx1-notebook \
     hpc-notebook \
     tensorflow-notebook \
     geo-notebook \
