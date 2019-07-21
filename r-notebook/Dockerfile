@@ -1,6 +1,7 @@
 FROM nielsbohr/base-notebook:latest
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
+ARG RSTUDIO_VERSION=1.1.463
 
 USER root
 
@@ -12,9 +13,7 @@ RUN echo "[global]" > /etc/pip.conf \
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
     wget \
-    #&& rstudio_version=$(wget --no-check-certificate -qO- https://s3.amazonaws.com/rstudio-server/current.ver) \
-    && rstudio_version=1.1.463 \
-    && wget https://download2.rstudio.org/rstudio-server-${rstudio_version}-amd64.deb -O /rstudio-server.deb \
+    && wget https://download2.rstudio.org/rstudio-server-${RSTUDIO_VERSION}-amd64.deb -O /rstudio-server.deb \
     && apt-get install -y --no-install-recommends /rstudio-server.deb \
     && rm /rstudio-server.deb \
     && apt-get remove -y wget \
@@ -22,8 +21,10 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # R-studio env
-ENV PATH="${PATH}:/usr/lib/rstudio-server/bin:/opt/conda/envs/r/bin"
-ENV RSTUDIO_WHICH_R="/opt/conda/envs/r/bin/R"
+#ENV PATH="${PATH}:/usr/lib/rstudio-server/bin:/opt/conda/envs/r/bin"
+#ENV RSTUDIO_WHICH_R="/opt/conda/envs/r/bin/R"
+
+ENV R_PATH=$CONDA_DIR/envs/r
 
 WORKDIR /tmp
 
@@ -40,7 +41,6 @@ RUN git clone https://github.com/rasmunk/nbrsessionproxy.git /tmp/nbrsessionprox
 
 # Create R environment
 RUN conda create -n r \
-    && conda install -qy -n r \
     'r-base=3.5.1' \
     'r-irkernel=1.0*' \
     'r-plyr=1.8*' \
@@ -68,15 +68,45 @@ RUN conda create -n r \
     'r-readr' \
     'r-rjson' \
     && conda clean --all -f -y \
-    && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()'
+    && $R_PATH/bin/R -e 'IRkernel::installspec()'
 
-# Keras needs to find 'python' that has keras installed and not the system default
-ENV PATH="/opt/conda/envs/python3/bin:${PATH}"
+RUN jupyter kernelspec uninstall -f python3 \
+    && rm -fr $CONDA_DIR/lib/python3.7/site-packages/ipykernel
+
+RUN conda install -n r \
+    ipykernel \
+    tensorflow \
+    && $R_PATH/bin/python -m ipykernel install --user \
+    && conda clean --all -f -y \
+    && rm -fr /tmp/tmp*
+
+# Setup user env path links
+RUN mkdir -p /home/$NB_USER/.local/bin \
+    && ln -s $R_PATH/bin/R /home/$NB_USER/.local/bin/R \
+    && ln -s $R_PATH/bin/python /home/$NB_USER/.local/bin/python \
+    && ln -s $R_PATH/bin/python3 /home/$NB_USER/.local/bin/python3 \
+    && ln -s $R_PATH/bin/python3.7 /home/$NB_USER/.local/bin/python3.7 \
+    && ln -s $R_PATH/bin/python3.7-config /home/$NB_USER/.local/bin/python3.7-config \
+    && ln -s $R_PATH/bin/python3.7m /home/$NB_USER/.local/bin/python3.7m \
+    && ln -s $R_PATH/bin/python3.7m-config /home/$NB_USER/.local/bin/python3.7m-config \
+    && ln -s $R_PATH/bin/python3-config /home/$NB_USER/.local/bin/python3-config \
+    && ln -s $R_PATH/bin/python3m /home/$NB_USER/.local/bin/python3m \
+    && ln -s $R_PATH/bin/pip /home/$NB_USER/.local/bin/pip
+
 # RStudio dosen't work with the provided libssl.so.1.0.0, override the one
 # provided by the system
 RUN ln -s -f /usr/lib/x86_64-linux-gnu/libssl.so.1.0.0 /opt/conda/envs/r/lib/libssl.so.1.0.0
 
 USER root
+
+# Ensure that RStudio can find it's required binaries
+RUN echo "PATH=\"/home/$NB_USER/.local/bin:$PATH\"" >> /home/$NB_USER/.bashrc \
+    && rm -fr /usr/bin/python2 \
+    && rm -fr /usr/bin/python2.7 \
+    && rm -fr /usr/bin/python3.6 \
+    && rm -fr /usr/bin/python3.6m \
+    && ln -s /usr/lib/rstudio-server/bin/rserver /usr/local/bin/rserver \
+    && ln -s $R_PATH/bin/R /usr/local/bin/R
 
 RUN fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
