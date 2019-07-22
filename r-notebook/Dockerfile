@@ -29,12 +29,11 @@ USER $NB_UID
 RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 # R-Studio button
-RUN git clone https://github.com/rasmunk/nbrsessionproxy.git /tmp/nbrsessionproxy \
-    && pip install -e /tmp/nbrsessionproxy \
+RUN git clone https://github.com/rasmunk/nbrsessionproxy.git /opt/nbrsessionproxy \
+    && pip install -e /opt/nbrsessionproxy \
     && jupyter serverextension enable --py nbrsessionproxy \
-    && jupyter labextension link /tmp/nbrsessionproxy/jupyterlab-rsessionproxy \
+    && jupyter labextension link /opt/nbrsessionproxy/jupyterlab-rsessionproxy \
     && jupyter lab build \
-    && rm -fr /tmp/nbrsessionproxy \
     && rm -fr /tmp/tmp* \
     && rm -fr /tmp/npm* \
     && rm -fr /tmp/v8* \
