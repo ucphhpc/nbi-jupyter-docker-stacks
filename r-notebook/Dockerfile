@@ -68,6 +68,9 @@ RUN conda create -n r \
     'r-pheatmap' \
     'r-readr' \
     'r-rjson' \
+    'r-leaps' \
+    'r-boot' \
+    'r-rtsne' \
     && conda clean --all -f -y \
     && $R_PATH/bin/R -e 'IRkernel::installspec()' \
     && fix-permissions $CONDA_DIR \
