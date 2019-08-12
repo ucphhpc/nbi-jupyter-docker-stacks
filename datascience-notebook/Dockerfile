@@ -59,7 +59,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     seaborn \
     scikit-image \
     pillow \
-    mlxtend \
+    mlxtend==0.16.0 \
     tqdm \
     pomegranate \
     bokeh \
@@ -80,6 +80,9 @@ RUN $PYTHON2_PATH/bin/pip install \
     numdifftools \
     trackpy \
     pims \
+    xgboost \
+    pydotplus \
+    bayesian-optimization \
     && $PYTHON3_PATH/bin/pip install \
     numpy \
     bohrium \
@@ -113,13 +116,16 @@ RUN $PYTHON2_PATH/bin/pip install \
     pystan \
     pymc3 \
     pyproj \
-    joblib==0.13.0 \
+    joblib==0.13.2 \
     astropy \
     uncertainties \
     recordclass \
     numdifftools \
     trackpy \
     pims \
+    xgboost \
+    pydotplus \
+    bayesian-optimization \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
