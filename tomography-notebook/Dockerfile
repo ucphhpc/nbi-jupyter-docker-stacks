@@ -24,7 +24,6 @@ RUN conda create -n astra -c astra-toolbox \
     ipykernel \
     && $ASTRA_PATH/bin/python -m ipykernel install --user --name astra \
     && conda clean --all -f -y \
-    && rm -fr /tmp/tmp* \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
@@ -53,7 +52,9 @@ RUN $PYTHON2_PATH/bin/pip install \
     tqdm \
     netCDF4 \
     graphviz \
-    && $PYTHON3_PATH/bin/pip install \
+    torch \
+    torchvision \
+	&& $PYTHON3_PATH/bin/pip install \
     numpy \
     bohrium \
     scipy \
@@ -66,6 +67,8 @@ RUN $PYTHON2_PATH/bin/pip install \
     tqdm \
     netCDF4 \
     graphviz \
+    torch \
+    torchvision \
     && $ASTRA_PATH/bin/pip install \
     ipympl \
     ipyleaflet \
@@ -82,6 +85,8 @@ RUN $PYTHON2_PATH/bin/pip install \
     tqdm \
     netCDF4 \
     graphviz \
+    torch \
+    torchvision \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
