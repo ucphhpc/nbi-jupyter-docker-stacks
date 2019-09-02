@@ -29,10 +29,11 @@ USER $NB_UID
 RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 # R-Studio button
-RUN git clone https://github.com/rasmunk/nbrsessionproxy.git /opt/nbrsessionproxy \
-    && pip install -e /opt/nbrsessionproxy \
+RUN mkdir -p /home/$NB_USER/.local/src \
+	&& git clone https://github.com/rasmunk/nbrsessionproxy.git /home/$NB_USER/.local/src/nbrsessionproxy \
+    && /opt/conda/bin/pip install -e /home/$NB_USER/.local/src/nbrsessionproxy \
     && jupyter serverextension enable --py nbrsessionproxy \
-    && jupyter labextension link /opt/nbrsessionproxy/jupyterlab-rsessionproxy \
+    && jupyter labextension link /home/$NB_USER/.local/src/nbrsessionproxy/jupyterlab-rsessionproxy \
     && jupyter lab build \
     && rm -fr /tmp/tmp* \
     && rm -fr /tmp/npm* \
@@ -106,8 +107,9 @@ RUN ln -s -f /usr/lib/x86_64-linux-gnu/libssl.so.1.0.0 /opt/conda/envs/r/lib/lib
 
 USER root
 
+ENV DEFAULT_PATH=$PATH
 # Ensure that RStudio can find it's required binaries
-RUN echo "PATH=\"/home/$NB_USER/.local/bin:$PATH\"" >> /home/$NB_USER/.bashrc \
+RUN echo "PATH=\"/home/$NB_USER/.local/bin:$R_PATH/bin:$PATH\"" >> /home/$NB_USER/.bashrc \
     && rm -fr /usr/bin/python2 \
     && rm -fr /usr/bin/python2.7 \
     && rm -fr /usr/bin/python3.6m \
