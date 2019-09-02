@@ -83,19 +83,6 @@ RUN conda install -qy -c bioconda -n r \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-# R-Studio button
-RUN mkdir -p /home/$NB_USER/.local/src \
-	&& git clone https://github.com/rasmunk/nbrsessionproxy.git /home/$NB_USER/.local/src/nbrsessionproxy \
-    && /opt/conda/bin/pip install -e /home/$NB_USER/.local/src/nbrsessionproxy \
-    && jupyter serverextension enable --py nbrsessionproxy \
-    && jupyter labextension link /home/$NB_USER/.local/src/nbrsessionproxy/jupyterlab-rsessionproxy \
-    && jupyter lab build \
-    && rm -fr /tmp/tmp* \
-    && rm -fr /tmp/npm* \
-    && rm -fr /tmp/v8* \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
-
 ENV PATH="/home/$NB_USER/.local/bin:$R_PATH/bin:$PATH"
 
 # NOTE: install extras directly from github and CRAN as requested in erda ticket #18198
