@@ -17,6 +17,7 @@ RUN apt-get update \
     libboost-filesystem-dev \
     libboost-serialization-dev \
     libboost-regex-dev \
+    libboost-program-options-dev \
     zlib1g-dev \
     libsigsegv-dev \
     freeglut3 \
