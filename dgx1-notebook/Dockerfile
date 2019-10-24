@@ -28,7 +28,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # TODO, don't remove curl
-# https://gitlab.com/nvidia/container-images/cuda/blob/master/dist/ubuntu18.04/10.1/base/Dockerfile
+# https://gitlab.com/nvidia/container-images/cuda/blob/master/dist/ubuntu18.04/10.0/base/Dockerfile
 RUN apt-get update && apt-get install -y --no-install-recommends \
 	gnupg2 curl ca-certificates && \
     curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub | apt-key add - && \
@@ -65,9 +65,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         cuda-cudart-$CUDA_PKG_VERSION \
         cuda-compat-10-0 \
         cuda-libraries-$CUDA_PKG_VERSION \
+        cuda-libraries-dev-$CUDA_PKG_VERSION \
         cuda-nvtx-$CUDA_PKG_VERSION \
 	    libnccl2=$NCCL_VERSION-1+cuda10.0 \
 	    libcudnn7=$CUDNN_VERSION-1+cuda10.0 \
+        libcudnn7-dev=$CUDNN_VERSION-1+cuda10.0 \
+        cuda-nvml-dev-$CUDA_PKG_VERSION \
+        cuda-command-line-tools-$CUDA_PKG_VERSION \
+        cuda-minimal-build-$CUDA_PKG_VERSION \
+        libnccl-dev=$NCCL_VERSION-1+cuda10.0 \
 	    && apt-mark hold libnccl2 libcudnn7 && \
 		ln -s cuda-10.0 /usr/local/cuda && \
     	rm -rf /var/lib/apt/lists/*
