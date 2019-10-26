@@ -8,8 +8,7 @@ USER root
 RUN echo "[global]" > /etc/pip.conf \
     && echo "timeout=$PACKAGE_TIMEOUT" >> /etc/pip.conf
 
-RUN apt-get update \
-    && apt-get install -yq --no-install-recommends \
+RUN apt-get update && apt-get install -yq --no-install-recommends \
     gnupg2 \
     screen \
     tmux \
@@ -29,9 +28,9 @@ RUN apt-get update \
 
 # https://gitlab.com/nvidia/container-images/cuda/blob/master/dist/ubuntu18.04/10.0/base/Dockerfile
 RUN apt-get update && apt-get install -y --no-install-recommends \
-	gnupg2 ca-certificates \
-	&& curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub | apt-key add - \
-	&& echo "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64 /" > /etc/apt/sources.list.d/cuda.list \
+    gnupg2 ca-certificates \
+    && curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub | apt-key add - \
+    && echo "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64 /" > /etc/apt/sources.list.d/cuda.list \
     && echo "deb https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64 /" > /etc/apt/sources.list.d/nvidia-ml.list \
     && rm -rf /var/lib/apt/lists/*
 
@@ -66,7 +65,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     pkg-config \
     software-properties-common \
     unzip \
-    && apt-mark hold libnccl2 libcudnn7
+    && apt-mark hold libnccl2 libcudnn7 \
     && ln -s cuda-10.0 /usr/local/cuda \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
