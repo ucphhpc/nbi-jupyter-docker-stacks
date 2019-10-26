@@ -68,3 +68,7 @@ def test_cuda_notebooks():
             for kernel in kernels:
                 _, errors = _notebook_run(notebook_path, kernel)
                 assert errors == []
+
+
+def test_cuda_compiler():
+    pass

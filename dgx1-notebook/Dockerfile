@@ -63,8 +63,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         cuda-minimal-build-$CUDA_PKG_VERSION \
         libnccl-dev=$NCCL_VERSION-1+cuda10.0 \
 	&& apt-mark hold libnccl2 libcudnn7 \
-	&& ln -s cuda-10.0 /usr/local/cuda && \
-    	rm -rf /var/lib/apt/lists/*
+	&& ln -s cuda-10.0 /usr/local/cuda \
+    	&& rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update \
     && apt-get install -yq --no-install-recommends \
