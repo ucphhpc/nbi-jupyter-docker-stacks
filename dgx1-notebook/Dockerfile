@@ -35,7 +35,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && echo "deb https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64 /" > /etc/apt/sources.list.d/nvidia-ml.list \
     && rm -rf /var/lib/apt/lists/*
 
-ENV PATH /usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
 ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64
 ENV CUDA_VERSION 10.0.130
 ENV CUDA_PKG_VERSION 10-0=$CUDA_VERSION-1
