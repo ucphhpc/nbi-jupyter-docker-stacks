@@ -27,15 +27,13 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# TODO, don't remove curl
 # https://gitlab.com/nvidia/container-images/cuda/blob/master/dist/ubuntu18.04/10.0/base/Dockerfile
 RUN apt-get update && apt-get install -y --no-install-recommends \
-	gnupg2 curl ca-certificates && \
-    curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub | apt-key add - && \
-    echo "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64 /" > /etc/apt/sources.list.d/cuda.list && \
-    echo "deb https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64 /" > /etc/apt/sources.list.d/nvidia-ml.list && \
-    apt-get purge --autoremove -y curl && \
-    rm -rf /var/lib/apt/lists/*
+	gnupg2 ca-certificates \
+	&& curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/7fa2af80.pub | apt-key add - \
+	&& echo "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64 /" > /etc/apt/sources.list.d/cuda.list \
+    && echo "deb https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64 /" > /etc/apt/sources.list.d/nvidia-ml.list \
+    && rm -rf /var/lib/apt/lists/*
 
 ENV PATH /usr/local/nvidia/bin:/usr/local/cuda/bin:${PATH}
 ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64
@@ -49,67 +47,28 @@ ENV NVIDIA_REQUIRE_CUDA "cuda>=10.0 brand=tesla,driver>=384,driver<385 brand=tes
 ENV NCCL_VERSION 2.4.8
 ENV CUDNN_VERSION 7.6.4.38
 
-
-# NVIDIA package repository
-#RUN apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub \
-##    && wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_9.1.85-1_amd64.deb \
- #   && apt install ./cuda-repo-ubuntu1604_9.1.85-1_amd64.deb \
- #   && wget http://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1604/x86_64/nvidia-machine-learning-repo-ubuntu1604_1.0.0-1_amd64.deb \
- #   && apt install ./nvidia-machine-learning-repo-ubuntu1604_1.0.0-1_amd64.deb \
- #   && rm -r cuda-repo-ubuntu1604_9.1.85-1_amd64.deb \
- #   nvidia-machine-learning-repo-ubuntu1604_1.0.0-1_amd64.deb
-
-
 # For libraries in the cuda-compat-* package: https://docs.nvidia.com/cuda/eula/index.html#attachment-a
 RUN apt-get update && apt-get install -y --no-install-recommends \
-        cuda-cudart-$CUDA_PKG_VERSION \
-        cuda-compat-10-0 \
-        cuda-libraries-$CUDA_PKG_VERSION \
-        cuda-libraries-dev-$CUDA_PKG_VERSION \
-        cuda-nvtx-$CUDA_PKG_VERSION \
-	    libnccl2=$NCCL_VERSION-1+cuda10.0 \
-	    libcudnn7=$CUDNN_VERSION-1+cuda10.0 \
-        libcudnn7-dev=$CUDNN_VERSION-1+cuda10.0 \
-        cuda-nvml-dev-$CUDA_PKG_VERSION \
-        cuda-command-line-tools-$CUDA_PKG_VERSION \
-        cuda-minimal-build-$CUDA_PKG_VERSION \
-        libnccl-dev=$NCCL_VERSION-1+cuda10.0 \
-	    && apt-mark hold libnccl2 libcudnn7 && \
-		ln -s cuda-10.0 /usr/local/cuda && \
-    	rm -rf /var/lib/apt/lists/*
-
-# CUDA envd
-#ENV CUDA_VERSION 9.0.176
-#ENV CUDA_PKG_VERSION 9-0=$CUDA_VERSION-1
-#RUN apt-get update && apt-get install -y --no-install-recommends \
-#    cuda-libraries-$CUDA_PKG_VERSION \
-#    cuda-cudart-$CUDA_PKG_VERSION \
-#    && ln -s cuda-9.0 /usr/local/cuda
-#
-#    cuda-command-line-tools-9-0 \
-#    cuda-cublas-9-0 \
-#    cuda-cufft-9-0 \
-#    cuda-curand-9-0 \
-#    cuda-cusolver-9-0 \
-#    cuda-cusparse-9-0 \
-#    libcudnn7=7.2.1.38-1+cuda9.0 \
-#    libnccl2=2.2.13-1+cuda9.0 \
-
-#&& apt-get update \
-#    && apt-get install -yq --no-install-recommends \
-#    nvinfer-runtime-trt-repo-ubuntu1604-4.0.1-ga-cuda9.0 \
-#    && apt-get update \
-#    && apt-get install libnvinfer4=4.1.2-1+cuda9.0 \
-
-# Install CUDA and TensorRT runtime
-RUN apt-get update \
-    && apt-get install -yq --no-install-recommends \
+    cuda-cudart-$CUDA_PKG_VERSION \
+    cuda-compat-10-0 \
+    cuda-libraries-$CUDA_PKG_VERSION \
+    cuda-libraries-dev-$CUDA_PKG_VERSION \
+    cuda-nvtx-$CUDA_PKG_VERSION \
+    libnccl2=$NCCL_VERSION-1+cuda10.0 \
+    libcudnn7=$CUDNN_VERSION-1+cuda10.0 \
+    libcudnn7-dev=$CUDNN_VERSION-1+cuda10.0 \
+    cuda-nvml-dev-$CUDA_PKG_VERSION \
+    cuda-command-line-tools-$CUDA_PKG_VERSION \
+    cuda-minimal-build-$CUDA_PKG_VERSION \
+    libnccl-dev=$NCCL_VERSION-1+cuda10.0 \
     libfreetype6-dev \
     libhdf5-serial-dev \
     libzmq3-dev \
     pkg-config \
     software-properties-common \
     unzip \
+    && apt-mark hold libnccl2 libcudnn7
+    && ln -s cuda-10.0 /usr/local/cuda \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -190,12 +149,6 @@ RUN $PYTHON2_PATH/bin/pip install \
 RUN $PYTHON2_PATH/bin/pip install git+https://github.com/matplotlib/basemap.git@00794384f59e235f1e2847f952fd08b0bdc4327f \
     && $PYTHON3_PATH/bin/pip install git+https://github.com/matplotlib/basemap.git@00794384f59e235f1e2847f952fd08b0bdc4327f
 
-USER root
-
-#RUN ln -s /usr/bin/gcc-6 /usr/local/cuda/bin/gcc \
-#    && ln -s /usr/bin/g++-6 /usr/local/cuda/bin/g++
-
 WORKDIR /home/$NB_USER
-
 # Run container as
 USER $NB_UID
