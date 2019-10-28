@@ -34,7 +34,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && echo "deb https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64 /" > /etc/apt/sources.list.d/nvidia-ml.list \
     && rm -rf /var/lib/apt/lists/*
 
-ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64
 ENV CUDA_VERSION 10.0.130
 ENV CUDA_PKG_VERSION 10-0=$CUDA_VERSION-1
 # nvidia-container-runtime
@@ -146,6 +145,9 @@ RUN $PYTHON2_PATH/bin/pip install \
 # Matplotlib basemap
 RUN $PYTHON2_PATH/bin/pip install git+https://github.com/matplotlib/basemap.git@00794384f59e235f1e2847f952fd08b0bdc4327f \
     && $PYTHON3_PATH/bin/pip install git+https://github.com/matplotlib/basemap.git@00794384f59e235f1e2847f952fd08b0bdc4327f
+
+# CUDA libraries
+ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda-10.0/extras/CUPTI/lib64
 
 WORKDIR /home/$NB_USER
 # Run container as
