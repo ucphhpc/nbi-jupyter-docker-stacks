@@ -28,7 +28,7 @@ env:
 
 script:
   - travis_wait 45 make build/"${NOTEBOOK}"
-  - make test/"${NOTEBOOK}" TAG=lab-1.2.1
+  - make test/"${NOTEBOOK}"
 
 before_deploy:
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
