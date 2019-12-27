@@ -1,7 +1,8 @@
-FROM nielsbohr/base-notebook:latest
+FROM nielsbohr/base-notebook:edge
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
 ARG RSTUDIO_VERSION=1.1.463
+ARG SHINY_VERSION=1.5.8.920
 
 USER root
 
@@ -11,12 +12,10 @@ RUN echo "[global]" > /etc/pip.conf \
 
 # R-Studio install
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends \
-    wget \
-    && wget https://download2.rstudio.org/rstudio-server-${RSTUDIO_VERSION}-amd64.deb -O /rstudio-server.deb \
-    && apt-get install -y --no-install-recommends /rstudio-server.deb \
-    && rm /rstudio-server.deb \
-    && apt-get remove -y wget \
+    && wget https://download2.rstudio.org/rstudio-server-${RSTUDIO_VERSION}-amd64.deb -O /tmp/rstudio-server.deb \
+    && wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-${SHINY_VERSION}-amd64.deb -O /tmp/shiny-server.deb \
+    && apt-get install -y --no-install-recommends /tmp/rstudio-server.deb /tmp/shiny-server.deb \
+    && rm /tmp/rstudio-server.deb /tmp/shiny-server.deb \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -28,13 +27,7 @@ USER $NB_UID
 
 RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
-# R-Studio button
-RUN mkdir -p /home/$NB_USER/.local/src \
-	&& git clone https://github.com/rasmunk/nbrsessionproxy.git /home/$NB_USER/.local/src/nbrsessionproxy \
-    && /opt/conda/bin/pip install -e /home/$NB_USER/.local/src/nbrsessionproxy \
-    && jupyter serverextension enable --py nbrsessionproxy \
-    && jupyter labextension link /home/$NB_USER/.local/src/nbrsessionproxy/jupyterlab-rsessionproxy \
-    && jupyter lab build \
+RUN pip install jupyter-rsession-proxy \
     && rm -fr /tmp/tmp* \
     && rm -fr /tmp/npm* \
     && rm -fr /tmp/v8* \
@@ -72,6 +65,7 @@ RUN conda create -n r \
     'r-leaps' \
     'r-boot' \
     'r-rtsne' \
+    'gxx_linux-64' \
     && conda clean --all -f -y \
     && $R_PATH/bin/R -e 'IRkernel::installspec()' \
     && fix-permissions $CONDA_DIR \
@@ -100,10 +94,6 @@ RUN mkdir -p /home/$NB_USER/.local/bin \
     && ln -s $R_PATH/bin/python3.7m-config /home/$NB_USER/.local/bin/python3.7m-config \
     && ln -s $R_PATH/bin/python3-config /home/$NB_USER/.local/bin/python3-config \
     && ln -s $R_PATH/bin/pip /home/$NB_USER/.local/bin/pip
-
-# RStudio dosen't work with the provided libssl.so.1.0.0, override the one
-# provided by the system
-RUN ln -s -f /usr/lib/x86_64-linux-gnu/libssl.so.1.0.0 /opt/conda/envs/r/lib/libssl.so.1.0.0
 
 USER root
 

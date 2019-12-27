@@ -1,4 +1,4 @@
-FROM nielsbohr/python-notebook:latest
+FROM nielsbohr/python-notebook:edge
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
 
@@ -36,11 +36,7 @@ RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 ENV LD_LIBRARY_PATH=/opt/conda/lib
 ENV PKG_CONFIG_PATH=/opt/conda/envs/python3/lib/pkgconfig
 
-RUN conda install -n python2 \
-    fenics=2016.1.0=py27_1 \
-    libgcc=4.8 \
-    boost=1.61.0=py27_1 \
-    && conda install -n python3 \
+RUN conda install -n python3 \
     fenics \
     && conda clean --all -f -y \
     && rm -fr /tmp/tmp* \

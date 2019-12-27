@@ -18,7 +18,8 @@ ALL_IMAGES:=base-notebook \
     hpc-notebook \
     tensorflow-notebook \
     geo-notebook \
-    bio-notebook
+    bio-notebook \
+    sme-notebook
 
 # Inspired by https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 help:

@@ -1,5 +1,5 @@
 # Set default username
-FROM jupyter/base-notebook:lab-0.35.5
+FROM jupyter/base-notebook:lab-1.2.1
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
 ARG FACETS_VERSION=0.2.2
@@ -36,6 +36,7 @@ RUN apt-get update \
     tree \
     rclone \
     unzip \
+    wget \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -73,17 +74,22 @@ RUN conda update --quiet -n base conda \
 # https://ipyleaflet.readthedocs.io/en/latest/installation.html#using-conda
 # jupyter-widgets/jupyterlab-manager and matplotlib is for ipympl support which is labs
 # replacement for notebook plots
+# https://github.com/yuvipanda/jupyter-launcher-shortcuts
 RUN conda install --quiet --yes \
+    'notebook==6.0.2' \
     'ipympl' \
     'ipyleaflet' \
     'ipywidgets' \
-    && jupyter labextension install jupyter-leaflet@0.10.8 \
-                                    jupyterlab-server-proxy@1.0.0 \
-                                    @jupyter-widgets/jupyterlab-manager@0.38 \
-                                    jupyter-matplotlib@0.3.0 \
-                                    @jupyterlab/celltags@0.1.4 \
-                                    jupyterlab_bokeh@0.6.3 \
-                                    @pyviz/jupyterlab_pyviz@0.7.2 \
+    'bqplot' \
+    'jupyter-server-proxy' \
+    && jupyter labextension install jupyter-leaflet \
+                                    @jupyter-widgets/jupyterlab-manager \
+                                    jupyter-matplotlib \
+                                    @jupyterlab/celltags \
+                                    jupyterlab_bokeh \
+                                    @pyviz/jupyterlab_pyviz \
+                                    bqplot \
+                                    @jupyterlab/server-proxy \
     && conda clean --all -f -y \
     && npm cache clean --force \
     && npm dedupe \

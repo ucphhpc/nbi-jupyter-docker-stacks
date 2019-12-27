@@ -1,4 +1,4 @@
-FROM nielsbohr/python-notebook:latest
+FROM nielsbohr/python-notebook:edge
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
 
@@ -37,8 +37,6 @@ RUN conda install -n python2 \
     gsw \
     gdal \
     hvplot \
-    intake::intake \
-    intake::intake-xarray \
     jedi \
     lz4 \
     msgpack-python \
@@ -96,8 +94,6 @@ RUN conda install -n python3 \
     gsw \
     gdal \
     hvplot \
-    intake::intake \
-    intake::intake-xarray \
     iris \
     jedi \
     libsodium \
@@ -137,6 +133,8 @@ RUN conda install -n python3 \
     && rm -fr /tmp/tmp* \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
+
+# intake, intake-xarray1
 
 # Finally install any remaining packages with pip
 RUN $PYTHON3_PATH/bin/pip install \

@@ -1,4 +1,4 @@
-FROM nielsbohr/python-notebook:latest
+FROM nielsbohr/python-notebook:edge
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
 
@@ -19,7 +19,7 @@ RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 ENV BH_CONFIG=$PYTHON2_PATH/lib/python2.7/site-packages/bohrium_api/config.ini
 ENV ASTRA_PATH=$CONDA_DIR/envs/astra
 
-RUN conda create -n astra -c astra-toolbox \
+RUN conda create -n astra -c astra-toolbox/label/dev \
     astra-toolbox \
     ipykernel \
     && $ASTRA_PATH/bin/python -m ipykernel install --user --name astra \
@@ -27,20 +27,10 @@ RUN conda create -n astra -c astra-toolbox \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-# bohrium_api needs to be present before bohrium install
-# Numpy 1.17.* has dropped support of py2
-RUN $PYTHON2_PATH/bin/pip install \
-    numpy==1.16.4 \
-    bohrium_api \
-    && $PYTHON3_PATH/bin/pip install \
-    bohrium_api \
-    && $ASTRA_PATH/bin/pip install \
-    bohrium_api \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
-
 # Install packages for python2/3 envs
 RUN $PYTHON2_PATH/bin/pip install \
+    jupyter-client==5.3.4 \
+    numpy==1.16.4 \
     bohrium \
     scipy \
     h5py \
@@ -55,7 +45,8 @@ RUN $PYTHON2_PATH/bin/pip install \
     torch \
     torchvision \
 	&& $PYTHON3_PATH/bin/pip install \
-    numpy \
+	jupyter-client==5.3.4 \
+    numpy==1.16.4 \
     bohrium \
     scipy \
     h5py \
@@ -70,11 +61,12 @@ RUN $PYTHON2_PATH/bin/pip install \
     torch \
     torchvision \
     && $ASTRA_PATH/bin/pip install \
+    jupyter-client==5.3.4 \
+    numpy==1.16.4 \
+    bohrium \
     ipympl \
     ipyleaflet \
     matplotlib \
-    numpy \
-    bohrium \
     scipy \
     h5py \
     pandas \

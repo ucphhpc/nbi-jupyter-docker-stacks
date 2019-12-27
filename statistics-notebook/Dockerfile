@@ -1,4 +1,4 @@
-FROM nielsbohr/python-notebook:latest
+FROM nielsbohr/python-notebook:edge
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
 
