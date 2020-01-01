@@ -82,18 +82,18 @@ RUN conda install --quiet --yes \
     'ipywidgets' \
     'bqplot' \
     'jupyter-server-proxy' \
-    && jupyter labextension install jupyter-leaflet \
-                                    @jupyter-widgets/jupyterlab-manager \
-                                    jupyter-matplotlib \
-                                    @jupyterlab/celltags \
-                                    jupyterlab_bokeh \
-                                    @pyviz/jupyterlab_pyviz \
-                                    bqplot \
-                                    @jupyterlab/server-proxy \
+    && jupyter labextension install jupyter-leaflet@0.11.6 \
+                                    @jupyter-widgets/jupyterlab-manager@1.1.0 \
+                                    jupyterlab_bokeh@1.0.0 \
+                                    @pyviz/jupyterlab_pyviz@0.8.0 \
+                                    bqplot@0.5.2 \
+                                    @jupyterlab/server-proxy@2.0.0 \
     && conda clean --all -f -y \
     && npm cache clean --force \
     && npm dedupe \
     && rm -rf $CONDA_DIR/share/jupyter/lab/staging \
+    && rm -rf $CONDA_DIR/share/jupyter/lab/extensions/jupyter-matplotlib-0.4.0.tgz \
+    && rm -fr $CONDA_DIR/share/jupyter/lab/extensions/jupyter-matplotlib-0.4.1.tgz \
     && rm -fr /home/$NB_USER/.yarn \
     && rm -fr /home/$NB_USER/.npm \
     && rm -rf /tmp/npm* \
