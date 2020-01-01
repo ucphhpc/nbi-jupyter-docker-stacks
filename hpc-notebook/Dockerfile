@@ -1,4 +1,4 @@
-FROM nielsbohr/slurm-notebook:edge
+FROM nielsbohr/slurm-notebook:latest
 LABEL MAINTAINER="Mads R. B. Kristensen <madsbk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
 ARG BOHRIUM_VERSION=0.11.0

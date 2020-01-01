@@ -1,4 +1,4 @@
-FROM nielsbohr/base-notebook:edge
+FROM nielsbohr/base-notebook:latest
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
 ARG RSTUDIO_VERSION=1.1.453
