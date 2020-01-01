@@ -1,4 +1,4 @@
-FROM nielsbohr/datascience-notebook:edge
+FROM nielsbohr/datascience-notebook:latest
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
 
