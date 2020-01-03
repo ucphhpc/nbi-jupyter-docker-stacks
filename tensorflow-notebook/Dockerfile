@@ -17,11 +17,13 @@ RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 # Install packages for python2/3 envs
 RUN $PYTHON2_PATH/bin/pip install \
+    pillow==6.2.1 \
     tensorflow \
     keras \
     torch \
     torchvision \
     && $PYTHON3_PATH/bin/pip install \
+    pillow==6.2.1 \
     tensorflow \
     keras \
     torch \

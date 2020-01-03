@@ -107,6 +107,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     graphviz \
     torch \
     seaborn \
+    pillow==6.2.1 \
     torchvision \
     scikit-optimize \
     tqdm \
@@ -132,6 +133,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     graphviz \
     torch \
     seaborn \
+    pillow==6.2.1 \
     torchvision \
     scikit-optimize \
     tqdm \

@@ -37,13 +37,13 @@ RUN $PYTHON2_PATH/bin/pip install \
     sklearn \
     seaborn \
     scikit-image \
-    pillow \
+    pillow==6.2.1 \
     tqdm \
     netCDF4 \
     graphviz \
     torch \
     torchvision \
-	&& $PYTHON3_PATH/bin/pip install \
+    && $PYTHON3_PATH/bin/pip install \
     numpy==1.16.4 \
     bohrium \
     scipy \
@@ -52,7 +52,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     sklearn \
     seaborn \
     scikit-image \
-    pillow \
+    pillow==6.2.1 \
     tqdm \
     netCDF4 \
     graphviz \
@@ -71,7 +71,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     sklearn \
     seaborn \
     scikit-image \
-    pillow \
+    pillow==6.2.1 \
     tqdm \
     netCDF4 \
     graphviz \
