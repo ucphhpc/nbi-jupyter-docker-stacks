@@ -1,5 +1,5 @@
-.. image:: https://travis-ci.org/rasmunk/nbi-jupyter-docker-stacks.svg?branch=master
-    :target: https://travis-ci.org/rasmunk/nbi-jupyter-docker-stacks
+.. image:: https://travis-ci.org/ucphhpc/nbi-jupyter-docker-stacks.svg?branch=master
+    :target: https://travis-ci.org/ucphhpc/nbi-jupyter-docker-stacks
 
 ==========================
 nbi-jupyter-docker-stacks
