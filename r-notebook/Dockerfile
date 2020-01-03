@@ -105,15 +105,12 @@ USER root
 
 ENV DEFAULT_PATH=$PATH
 # Ensure that R can find it's required binaries
-RUN echo "PATH=\"/home/$NB_USER/.local/bin:$R_PATH/bin::$PATH\"" >> /home/$NB_USER/.bashrc \
-    && echo "PATH=\"/home/$NB_USER/.local/bin:$R_PATH/bin:$PATH\"" >> $R_PATH/lib/R/etc/Renviron \
+RUN echo "PATH=\"/home/$NB_USER/.local/bin:$R_PATH/bin:$PATH\"" >> /home/$NB_USER/.bashrc \
     && rm -fr /usr/bin/python2 \
     && rm -fr /usr/bin/python2.7 \
     && rm -fr /usr/bin/python3.6m \
     && ln -s /usr/lib/rstudio-server/bin/rserver /usr/local/bin/rserver \
     && ln -s $R_PATH/bin/R /usr/local/bin/R
-# Ensure RStudio gets the same path
-RUN echo "PATH=\"/home/$NB_USER/.local/bin:$R_PATH/bin::$PATH\"" >> /home/$NB_USER/.bashrc
 
 ENV LD_LIBRARY_PATH="/usr/lib"
 WORKDIR /home/$NB_USER
