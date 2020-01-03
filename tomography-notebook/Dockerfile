@@ -29,7 +29,6 @@ RUN conda create -n astra -c astra-toolbox/label/dev \
 
 # Install packages for python2/3 envs
 RUN $PYTHON2_PATH/bin/pip install \
-    jupyter-client==5.3.4 \
     numpy==1.16.4 \
     bohrium \
     scipy \
@@ -45,7 +44,6 @@ RUN $PYTHON2_PATH/bin/pip install \
     torch \
     torchvision \
 	&& $PYTHON3_PATH/bin/pip install \
-	jupyter-client==5.3.4 \
     numpy==1.16.4 \
     bohrium \
     scipy \
@@ -61,11 +59,11 @@ RUN $PYTHON2_PATH/bin/pip install \
     torch \
     torchvision \
     && $ASTRA_PATH/bin/pip install \
-    jupyter-client==5.3.4 \
     numpy==1.16.4 \
     bohrium \
     ipympl \
     ipyleaflet \
+    jupyter-client>=5.3.4 \
     matplotlib \
     scipy \
     h5py \

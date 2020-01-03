@@ -33,6 +33,7 @@ USER $NB_UID
 
 RUN $PYTHON2_PATH/bin/pip install \
     numpy==1.16.4 \
+    jupyter-client>=5.3.4 \
     matplotlib \
     six \
     ipython \

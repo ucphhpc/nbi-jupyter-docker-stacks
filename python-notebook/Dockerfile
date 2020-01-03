@@ -49,10 +49,12 @@ RUN $PYTHON2_PATH/bin/pip install \
     ipympl \
     ipyleaflet \
     matplotlib \
+    jupyter-client>=5.3.4 \
     && $PYTHON3_PATH/bin/pip install \
     ipympl \
     ipyleaflet \
     matplotlib \
+    jupyter-client>=5.3.4 \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
