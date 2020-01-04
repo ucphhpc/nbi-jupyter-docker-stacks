@@ -88,6 +88,8 @@ RUN conda install --quiet --yes \
                                     @pyviz/jupyterlab_pyviz@0.8.0 \
                                     bqplot@0.5.2 \
                                     @jupyterlab/server-proxy@2.0.0 \
+                                    jupyterlab-topbar-extension \
+                                    jupyterlab-system-monitor \
     && conda clean --all -f -y \
     && npm cache clean --force \
     && npm dedupe \
@@ -101,21 +103,9 @@ RUN conda install --quiet --yes \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-# Install facets which does not have a pip or conda package at the moment
-RUN curl -LOk https://github.com/PAIR-code/facets/archive/${FACETS_VERSION}.tar.gz \
-    && tar -xf ${FACETS_VERSION}.tar.gz \
-    && cd facets-${FACETS_VERSION} \
-    && jupyter nbextension install facets-dist/ --sys-prefix \
-    && cd \
-    && npm cache clean --force \
-    && npm dedupe \
-    && cd /tmp \
-    && rm -rf $CONDA_DIR/share/jupyter/lab/staging \
-    && rm -fr /home/$NB_USER/.yarn \
-    && rm -fr /home/$NB_USER/.npm \
-    && rm -fr /tmp/facets* \
-    && rm -fr /tmp/${FACETS_VERSION}.tar.gz \
-    && rm -fr /home/$NB_USER/package-lock.json \
+RUN $CONDA_DIR/bin/pip install \
+    facets-overview \
+    nbresuse \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
