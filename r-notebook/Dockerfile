@@ -103,9 +103,9 @@ RUN mkdir -p /home/$NB_USER/.local/bin \
 
 USER root
 
-ENV DEFAULT_PATH=$PATH
 # Ensure that R can find it's required binaries
-RUN echo "PATH=\"/home/$NB_USER/.local/bin:$R_PATH/bin:$PATH\"" >> /home/$NB_USER/.bashrc \
+RUN echo "PATH=\"$R_PATH/bin:$PATH\"" >> /home/$NB_USER/.bashrc \
+    && echo "PATH=\"/home/$NB_USER/.local/bin:$R_PATH/bin:$PATH\"" >> $R_PATH/lib/R/etc/Renviron \
     && rm -fr /usr/bin/python2 \
     && rm -fr /usr/bin/python2.7 \
     && rm -fr /usr/bin/python3.6m \

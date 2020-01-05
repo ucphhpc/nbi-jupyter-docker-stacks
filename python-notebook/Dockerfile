@@ -59,9 +59,6 @@ RUN $PYTHON2_PATH/bin/pip install \
     && fix-permissions /home/$NB_USER
 
 USER root
-
-RUN echo "PATH=\"/home/$NB_USER/.local/bin:$PATH\"" >> /home/$NB_USER/.bashrc
-
 WORKDIR /home/$NB_USER
 
 # Ensure that container Runs as

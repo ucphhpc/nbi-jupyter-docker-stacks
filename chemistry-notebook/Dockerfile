@@ -60,8 +60,6 @@ RUN jupyter kernelspec uninstall -f python3 \
     && rm -fr $CONDA_DIR/lib/python3.7/site-packages/ipykernel
 
 USER root
-
-RUN echo "PATH=\"/home/$NB_USER/.local/bin:$PATH\"" >> /home/$NB_USER/.bashrc
 RUN rm -r "/home/$NB_USER/.local/share/jupyter/kernels/python2"
 
 RUN sed -i 's/"Python 2"/"Python 2 DiffPy"/g' $PYTHON2_PATH/share/jupyter/kernels/python2/kernel.json \

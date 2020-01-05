@@ -59,9 +59,6 @@ RUN git clone --recursive https://github.com/zabirauf/icsharp.git \
     && fix-permissions /home/$NB_USER
 
 USER root
-
-RUN echo "PATH=\"/home/$NB_USER/.local/bin:$PATH\"" >> /home/$NB_USER/.bashrc
-
 WORKDIR /home/$NB_USER
 
 # Ensure that container Runs as

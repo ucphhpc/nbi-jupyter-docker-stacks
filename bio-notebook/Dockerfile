@@ -83,7 +83,7 @@ RUN conda install -qy -c bioconda -n r \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-ENV PATH="/home/$NB_USER/.local/bin:$R_PATH/bin:$PATH"
+ENV PATH="$R_PATH/bin:$PATH"
 
 # NOTE: install extras directly from github and CRAN as requested in erda ticket #18198
 # IMPORTANT: R defaults to unpack with non-existant /bin/gtar so we overrride
