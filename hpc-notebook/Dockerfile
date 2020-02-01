@@ -84,6 +84,22 @@ RUN pip install h5py
 
 WORKDIR /home/$NB_USER
 
+# Install code-server (https://github.com/betatim/vscode-binder/blob/master/postBuild)
+ARG CODE_SERVER_VERSION="2.1692-vsc1.39.2"
+# Download and install VS Code server
+RUN wget -q -O code-server.tar.gz https://github.com/cdr/code-server/releases/download/${CODE_SERVER_VERSION}/code-server${CODE_SERVER_VERSION}-linux-x86_64.tar.gz \
+	&& mkdir -p ~/.local/bin \
+	&& tar -xvf code-server.tar.gz -C ~/.local/bin --strip-components=1 \
+	&& rm -rf code-server.tar.gz
+
+# Python extension
+RUN wget https://github.com/microsoft/vscode-python/releases/download/2019.10.44104/ms-python-release.vsix \
+	&& $HOME/.local/bin/code-server --install-extension ms-python-release.vsix \
+	&& rm -rf ms-python-release.vsix
+
+RUN $CONDA_DIR/bin/pip install git+https://github.com/betatim/vscode-binder
+ENV PATH="$PATH:$HOME/.local/bin"
+
 # As an exception, run as root,
 # Remember to use supervisord start-notebook.sh to
 # de-escalate privileges to $NB_UID:$NB_GID
