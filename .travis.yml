@@ -13,6 +13,7 @@ env:
     - NOTEBOOK=datascience-notebook
     - NOTEBOOK=chemistry-notebook
     - NOTEBOOK=fenics-notebook
+    - NOTEBOOK=qsharp-notebook
     - NOTEBOOK=statistics-notebook
     - NOTEBOOK=dgx1-notebook
     - NOTEBOOK=tomography-notebook

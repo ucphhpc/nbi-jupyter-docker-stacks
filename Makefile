@@ -11,6 +11,7 @@ ALL_IMAGES:=base-notebook \
     datascience-notebook \
     chemistry-notebook \
     fenics-notebook \
+    qsharp-notebook \
     statistics-notebook \
     tomography-notebook \
     hpc-notebook \
