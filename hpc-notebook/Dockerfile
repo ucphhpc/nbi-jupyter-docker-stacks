@@ -38,6 +38,10 @@ RUN apt-get update \
     cgdb \
     csh \
     tcsh \
+    autotools-dev \
+    autoconf \
+    cmake-curses-gui \
+    automake \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
