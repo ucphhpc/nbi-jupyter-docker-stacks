@@ -54,7 +54,9 @@ RUN curl -LOk https://github.com/bh107/bohrium/archive/v${BOHRIUM_VERSION}.tar.g
     && cmake .. -DVE_OPENCL=OFF -DVE_CUDA=OFF -DEXT_CLBLAS=OFF -DBRIDGE_PY_API=OFF -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr \
     && make install -j 2 \
     && cd /tmp \
-    && rm -r bohrium-${BOHRIUM_VERSION}
+    && rm -r bohrium-${BOHRIUM_VERSION} \
+    && mkdir -p /usr/var/bohrium \
+    && chmod 777 /usr/var/bohrium
 
 RUN mkdir -p /opt \
     && chgrp $NB_GID /opt \
