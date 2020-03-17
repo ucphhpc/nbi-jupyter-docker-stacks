@@ -37,6 +37,7 @@ RUN apt-get update \
     rclone \
     unzip \
     wget \
+    screen \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 

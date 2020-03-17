@@ -10,7 +10,6 @@ RUN echo "[global]" > /etc/pip.conf \
 
 RUN apt-get update && apt-get install -yq --no-install-recommends \
     gnupg2 \
-    screen \
     tmux \
     build-essential \
     libboost-python-dev \
