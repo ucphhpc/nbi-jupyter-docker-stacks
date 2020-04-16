@@ -88,7 +88,9 @@ ENV PATH="$R_PATH/bin:$PATH"
 # NOTE: install extras directly from github and CRAN as requested in erda ticket #18198
 # IMPORTANT: R defaults to unpack with non-existant /bin/gtar so we overrride
 ENV TAR="/bin/tar"
-RUN /opt/conda/envs/r/bin/Rscript -e 'Sys.getenv("GITHUB_PAT"); library(devtools); options(unzip = "internal"); devtools::install_github("Russel88/DAtest@v2.7.13", force = TRUE); install_github("DanielSprockett/reltools", force = TRUE); install.packages("ips", repos="http://mirrors.dotsrc.org/cran/")'
+# install tmp r packages
+COPY ./res /opt/res
+RUN $R_PATH/bin/Rscript /opt/res/*.R
 
 WORKDIR /home/$NB_USER
 

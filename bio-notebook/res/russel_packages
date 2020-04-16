@@ -1,0 +1,3 @@
+library(devtools);
+options(unzip = "internal");
+install_github("DanielSprockett/reltools", force = TRUE);
