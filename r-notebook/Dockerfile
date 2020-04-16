@@ -10,7 +10,6 @@ USER root
 RUN echo "[global]" > /etc/pip.conf \
     && echo "timeout=$PACKAGE_TIMEOUT" >> /etc/pip.conf
 
-
 # R-Studio install
 RUN apt-get update \
     && apt-get install -y fonts-dejavu unixodbc unixodbc-dev r-cran-rodbc \
@@ -37,11 +36,13 @@ RUN pip install jupyter-rsession-proxy \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
+# To ensure compatability between r-base=3.6.3 and tensorflow
+# python must be pinned to 3.7.*
 # Create R environment
 RUN conda create -n r \
     'gxx_linux-64' \
     'libgfortran' \
-    'r-base=3.6.1' \
+    'r-base=3.6.3' \
     'r-boot=1.3*' \
     'r-caret=6.0*' \
     'r-crayon=1.3*' \
@@ -72,6 +73,8 @@ RUN conda create -n r \
     'r-sparklyr=1.0*' \
     'r-tidyverse=1.2*' \
     'unixodbc=2.3.*' \
+    python=3.7.* \
+    tensorflow \
     && conda clean --all -f -y \
     && $R_PATH/bin/R -e 'IRkernel::installspec()' \
     && fix-permissions $CONDA_DIR \
@@ -82,7 +85,6 @@ RUN jupyter kernelspec uninstall -f python3 \
 
 RUN conda install -n r \
     ipykernel \
-    tensorflow \
     && $R_PATH/bin/python -m ipykernel install --user \
     && conda clean --all -f -y \
     && rm -fr /tmp/tmp* \
