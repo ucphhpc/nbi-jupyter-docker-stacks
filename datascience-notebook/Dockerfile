@@ -70,7 +70,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     nbconvert \
     netCDF4 \
     numba \
-    statsmodels \
+    statsmodels==0.10.2 \
     xarray \
     graphviz \
     pyproj \
@@ -83,7 +83,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     pims \
     xgboost \
     pydotplus \
-    bayesian-optimization \
+    bayesian-optimization==1.0.1 \
     && $PYTHON3_PATH/bin/pip install \
     numpy \
     bohrium \
@@ -127,13 +127,23 @@ RUN $PYTHON2_PATH/bin/pip install \
     pims \
     xgboost \
     pydotplus \
-    bayesian-optimization \
+    bayesian-optimization==1.0.1 \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
 ## Matplotlib basemap
 RUN $PYTHON2_PATH/bin/pip install git+https://github.com/matplotlib/basemap.git@00794384f59e235f1e2847f952fd08b0bdc4327f \
     && $PYTHON3_PATH/bin/pip install git+https://github.com/matplotlib/basemap.git@00794384f59e235f1e2847f952fd08b0bdc4327f
+
+RUN $PYTHON2_PATH/bin/pip install \
+    jax \
+    jaxlib \
+    && $PYTHON3_PATH/bin/pip install \
+    jax \
+    jaxlib \
+    nbi-stat \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 WORKDIR /home/$NB_USER
 

@@ -33,7 +33,20 @@ def _notebook_run(path, kernel='python3'):
 
 def test_notebooks():
     for f_notebook in os.listdir(notebooks_path):
+        if f_notebook in python3_only_notebooks:
+            continue
         for kernel in kernels:
             _, errors = _notebook_run(os.path.join(notebooks_path,
                                                    f_notebook), kernel=kernel)
+            assert errors == []
+
+
+python3_only_notebooks = ['jax.ipynb']
+
+
+def test_python3_only():
+    for notebook in python3_only_notebooks:
+        p = os.path.join(notebooks_path, notebook)
+        if os.path.exists(p):
+            _, errors = _notebook_run(p, kernel='python3')
             assert errors == []
