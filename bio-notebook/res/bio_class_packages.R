@@ -31,7 +31,8 @@ install.packages(c(
     "ape",
     "minpack.lm",
     "ips",
-    "BiocManager"
+    "BiocManager",
+    "multicomp"
 ), repos='http://mirrors.dotsrc.org/cran/')
 
 ## BioConductor packages.
