@@ -19,6 +19,8 @@ RUN apt-get update \
     libxrender1 \
     libgl1-mesa-glx \
     graphviz \
+    # Used in Datf exercises
+    fonts-humor-sans \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -69,7 +71,10 @@ RUN $PYTHON2_PATH/bin/pip install \
     datashader \
     nbconvert \
     netCDF4 \
-    numba \
+    # Last version to support python 2
+    llvmlite==0.31.0 \
+    # Last version to support python 2
+    numba==0.47.0 \
     statsmodels==0.10.2 \
     xarray \
     graphviz \
