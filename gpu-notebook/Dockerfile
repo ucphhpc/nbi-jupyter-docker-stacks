@@ -101,16 +101,21 @@ RUN $PYTHON2_PATH/bin/pip install \
     tensorflow-gpu \
     lightgbm \
     xgboost \
-    joblib \
+    # Last version to support python 2
+    joblib==0.12.5 \
     pydot \
     graphviz \
     torch \
-    seaborn \
+    # Last version to support python 2
+    seaborn==0.9.1 \
     pillow==6.2.1 \
     torchvision \
     scikit-optimize \
     tqdm \
-    numba \
+    # Last version to support python 2
+    llvmlite==0.31.0 \
+    # Last version to support python 2
+    numba==0.47.0 \
     umap-learn \
     hdbscan \
     git+https://www.github.com/keras-team/keras-contrib.git@5ffab172661411218e517a50170bb97760ea567b \
@@ -127,7 +132,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     tensorflow-gpu \
     lightgbm \
     xgboost \
-    joblib \
+    joblib==0.13.2 \
     pydot \
     graphviz \
     torch \
