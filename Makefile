@@ -13,6 +13,7 @@ ALL_IMAGES:=base-notebook \
     fenics-notebook \
     qsharp-notebook \
     statistics-notebook \
+    gpu-notebook \
     tomography-notebook \
     hpc-notebook \
     tensorflow-notebook \

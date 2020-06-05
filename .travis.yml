@@ -16,6 +16,7 @@ env:
     - NOTEBOOK=qsharp-notebook
     - NOTEBOOK=statistics-notebook
     - NOTEBOOK=dgx1-notebook
+    - NOTEBOOK=gpu-notebook
     - NOTEBOOK=tomography-notebook
     - NOTEBOOK=ocean-notebook
     - NOTEBOOK=hpc-notebook

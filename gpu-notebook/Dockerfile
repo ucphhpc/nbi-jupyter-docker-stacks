@@ -33,30 +33,32 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && echo "deb https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu1804/x86_64 /" > /etc/apt/sources.list.d/nvidia-ml.list \
     && rm -rf /var/lib/apt/lists/*
 
-ENV CUDA_VERSION 10.0.130
-ENV CUDA_PKG_VERSION 10-0=$CUDA_VERSION-1
+ENV CUDA_VERSION 10.2.89
+ENV CUDA_PKG_VERSION 10-2=$CUDA_VERSION-1
 # nvidia-container-runtime
 ENV NVIDIA_VISIBLE_DEVICES all
 ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
-ENV NVIDIA_REQUIRE_CUDA "cuda>=10.0 brand=tesla,driver>=384,driver<385 brand=tesla,driver>=410,driver<411"
+ENV NVIDIA_REQUIRE_CUDA "cuda>=10.2 brand=tesla,driver>=384,driver<385 brand=tesla,driver>=396,driver<397 brand=tesla,driver>=410,driver<411 brand=tesla,driver>=418,driver<419"
 # NCCL
-ENV NCCL_VERSION 2.4.8
-ENV CUDNN_VERSION 7.6.4.38
+ENV NCCL_VERSION 2.5.6
+ENV CUDNN_VERSION 7.6.5.32
 
 # For libraries in the cuda-compat-* package: https://docs.nvidia.com/cuda/eula/index.html#attachment-a
 RUN apt-get update && apt-get install -y --no-install-recommends \
     cuda-cudart-$CUDA_PKG_VERSION \
-    cuda-compat-10-0 \
+    cuda-compat-10-2 \
     cuda-libraries-$CUDA_PKG_VERSION \
     cuda-libraries-dev-$CUDA_PKG_VERSION \
     cuda-nvtx-$CUDA_PKG_VERSION \
-    libnccl2=$NCCL_VERSION-1+cuda10.0 \
-    libcudnn7=$CUDNN_VERSION-1+cuda10.0 \
-    libcudnn7-dev=$CUDNN_VERSION-1+cuda10.0 \
+    libcublas10=10.2.2.89-1 \
+    libnccl2=$NCCL_VERSION-1+cuda10.2 \
+    libcudnn7=$CUDNN_VERSION-1+cuda10.2 \
+    libcudnn7-dev=$CUDNN_VERSION-1+cuda10.2 \
     cuda-nvml-dev-$CUDA_PKG_VERSION \
     cuda-command-line-tools-$CUDA_PKG_VERSION \
     cuda-minimal-build-$CUDA_PKG_VERSION \
-    libnccl-dev=$NCCL_VERSION-1+cuda10.0 \
+    libnccl-dev=$NCCL_VERSION-1+cuda10.2 \
+    libcublas-dev=10.2.2.89-1 \
     libfreetype6-dev \
     libhdf5-serial-dev \
     libzmq3-dev \
@@ -64,7 +66,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     software-properties-common \
     unzip \
     && apt-mark hold libnccl2 libcudnn7 \
-    && ln -s cuda-10.0 /usr/local/cuda \
+    && ln -s cuda-10.2 /usr/local/cuda \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -94,7 +96,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     opencv-python \
     statsmodels \
     ruamel.yaml \
-    sklearn \
+    scikit-learn \
     nibabel \
     pandas \
     keras \
@@ -125,7 +127,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     opencv-python \
     statsmodels \
     ruamel.yaml \
-    sklearn \
+    scikit-learn \
     nibabel \
     pandas \
     keras \

@@ -1,4 +1,4 @@
-FROM nielsbohr/dgx1-notebook:edge
+FROM nielsbohr/gpu-notebook:edge
 COPY tests /app/tests
 
 WORKDIR /app/tests
