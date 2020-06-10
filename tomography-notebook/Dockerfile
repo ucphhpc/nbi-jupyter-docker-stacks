@@ -20,10 +20,24 @@ ENV BH_CONFIG=$PYTHON2_PATH/lib/python2.7/site-packages/bohrium_api/config.ini
 ENV ASTRA_PATH=$CONDA_DIR/envs/astra
 
 RUN conda create -n astra -c astra-toolbox/label/dev \
-    astra-toolbox \
+    astra-toolbox=1.9.0 \
     ipykernel \
     && $ASTRA_PATH/bin/python -m ipykernel install --user --name astra \
     && conda clean --all -f -y \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
+
+# bohrium_api needs to be present before bohrium install
+# Numpy 1.17.* has dropped support of py2
+RUN $PYTHON2_PATH/bin/pip install \
+    numpy==1.16.4 \
+    bohrium_api \
+    pystan \
+    pymc3==3.6 \
+    && $PYTHON3_PATH/bin/pip install \
+    bohrium_api \
+    && $ASTRA_PATH/bin/pip install \
+    bohrium_api \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
@@ -40,9 +54,10 @@ RUN $PYTHON2_PATH/bin/pip install \
     pillow==6.2.1 \
     tqdm \
     netCDF4 \
-    graphviz \
+    graphviz==0.13.2 \
     torch \
     torchvision \
+    future \
     && $PYTHON3_PATH/bin/pip install \
     numpy==1.16.4 \
     bohrium \
@@ -55,9 +70,11 @@ RUN $PYTHON2_PATH/bin/pip install \
     pillow==6.2.1 \
     tqdm \
     netCDF4 \
-    graphviz \
+    graphviz==0.13.2 \
     torch \
     torchvision \
+    mig_meow \
+    future \
     && $ASTRA_PATH/bin/pip install \
     numpy==1.16.4 \
     bohrium \
@@ -74,9 +91,11 @@ RUN $PYTHON2_PATH/bin/pip install \
     pillow==6.2.1 \
     tqdm \
     netCDF4 \
-    graphviz \
+    graphviz==0.13.2 \
     torch \
     torchvision \
+    mig_meow \
+    future \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
