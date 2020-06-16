@@ -1,5 +1,5 @@
 # Set default username
-FROM jupyter/base-notebook:lab-1.2.1
+FROM jupyter/base-notebook:lab-2.0.1
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
 ARG FACETS_VERSION=0.2.2
@@ -84,11 +84,11 @@ RUN conda install --quiet --yes \
     'bqplot' \
     'jupyter-server-proxy' \
     && jupyter labextension install jupyter-leaflet@0.11.6 \
-                                    @jupyter-widgets/jupyterlab-manager@1.1.0 \
-                                    jupyterlab_bokeh@1.0.0 \
-                                    @pyviz/jupyterlab_pyviz@0.8.0 \
-                                    bqplot@0.5.2 \
-                                    @jupyterlab/server-proxy@2.0.0 \
+                                    @jupyter-widgets/jupyterlab-manager \
+                                    @bokeh/jupyter_bokeh \
+                                    @pyviz/jupyterlab_pyviz \
+                                    bqplot \
+                                    @jupyterlab/server-proxy \
                                     jupyterlab-topbar-extension \
                                     jupyterlab-system-monitor \
     && conda clean --all -f -y \
