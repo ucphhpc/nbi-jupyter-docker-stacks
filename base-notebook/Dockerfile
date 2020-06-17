@@ -1,5 +1,5 @@
 # Set default username
-FROM jupyter/base-notebook:lab-2.0.1
+FROM jupyter/base-notebook:lab-2.1.3
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
 ARG FACETS_VERSION=0.2.2
