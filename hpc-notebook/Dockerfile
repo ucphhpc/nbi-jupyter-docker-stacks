@@ -28,6 +28,7 @@ RUN apt-get update \
     libhdf5-doc \
     xtensor-dev \
     xtensor-doc \
+    libjson-c-dev \
     libnetcdf-dev \
     libnetcdff-dev \
     libnetcdff-doc \
