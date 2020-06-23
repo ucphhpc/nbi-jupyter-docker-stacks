@@ -17,8 +17,10 @@ RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 ENV PYTHON2_PATH=$CONDA_DIR/envs/python2
 ENV PYTHON3_PATH=$CONDA_DIR/envs/python3
 
+ENV DEL_ME='delme'
+
 # Create user python2/3 environement
-RUN conda create -n python2 python=2.7 ipykernel \
+RUN conda create -n python2 python=2.7 ipykernel backports.functools_lru_cache \
     && conda create -n python3 python=3.7 ipykernel \
     && $PYTHON2_PATH/bin/python -m ipykernel install --user \
     && $PYTHON3_PATH/bin/python -m ipykernel install --user \
