@@ -81,13 +81,13 @@ RUN conda install --quiet --yes \
     'ipympl' \
     'ipyleaflet' \
     'ipywidgets' \
-    'bqplot' \
+    'bqplot==0.12.13' \
     'jupyter-server-proxy' \
     && jupyter labextension install jupyter-leaflet@0.11.6 \
                                     @jupyter-widgets/jupyterlab-manager \
                                     @bokeh/jupyter_bokeh \
                                     @pyviz/jupyterlab_pyviz \
-                                    bqplot \
+                                    bqplot@0.5.13 \
                                     @jupyterlab/server-proxy \
                                     jupyterlab-topbar-extension \
                                     jupyterlab-system-monitor \
