@@ -8,6 +8,12 @@ USER root
 RUN echo "[global]" > /etc/pip.conf \
     && echo "timeout=$PACKAGE_TIMEOUT" >> /etc/pip.conf
 
+RUN apt-get update \
+    && apt-get install -y libhdf5-dev libnetcdf-dev \
+    && ln -s /usr/include/hdf5/serial /usr/include/hdf5/include \
+    && export HDF5_DIR=/usr/include/hdf5
+
+
 WORKDIR /tmp
 
 # Run container as
