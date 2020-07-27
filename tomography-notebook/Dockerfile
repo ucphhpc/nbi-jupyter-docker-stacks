@@ -113,3 +113,4 @@ WORKDIR /home/$NB_USER
 
 # Ensure that container Runs as
 USER $NB_UID
+
