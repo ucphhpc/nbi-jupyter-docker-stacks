@@ -100,6 +100,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     nibabel \
     pandas \
     keras \
+    scipy==1.2.2 \
     tensorflow-gpu \
     lightgbm \
     xgboost \
@@ -118,7 +119,6 @@ RUN $PYTHON2_PATH/bin/pip install \
     llvmlite==0.31.0 \
     # Last version to support python 2
     numba==0.47.0 \
-    umap-learn \
     hdbscan \
     git+https://www.github.com/keras-team/keras-contrib.git@5ffab172661411218e517a50170bb97760ea567b \
     && $PYTHON3_PATH/bin/pip install \
@@ -127,7 +127,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     opencv-python \
     statsmodels \
     ruamel.yaml \
-    scikit-learn \
+    scikit-learn==0.22.2.post1 \
     nibabel \
     pandas \
     keras \
@@ -141,7 +141,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     seaborn \
     pillow==6.2.1 \
     torchvision \
-    scikit-optimize \
+    scikit-optimize==0.7.4 \
     tqdm \
     numba \
     umap-learn \
@@ -150,8 +150,16 @@ RUN $PYTHON2_PATH/bin/pip install \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
+RUN mkdir ~/.cuda_libs \
+    && ln -s /usr/local/cuda/lib64/libcudart.so ~/.cuda_libs/libcudart.so.10.1 \
+    && ln -s /usr/local/cuda/lib64/libcublas.so ~/.cuda_libs/libcublas.so.10 \
+    && ln -s /usr/local/cuda/lib64/libcufft.so ~/.cuda_libs/libcufft.so.10 \
+    && ln -s /usr/local/cuda/lib64/libcurand.so ~/.cuda_libs/libcurand.so.10 \
+    && ln -s /usr/local/cuda/lib64/libcurand.so ~/.cuda_libs/libcusolver.so.10 \
+    && ln -s /usr/local/cuda/lib64/libcusparse.so ~/.cuda_libs/libcusparse.so.10
+
 # CUDA libraries
-ENV LD_LIBRARY_PATH /usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda-10.0/extras/CUPTI/lib64
+ENV LD_LIBRARY_PATH ~/.cuda_libs:/usr/local/cuda/lib64:/usr/local/cuda-10.0/extras/CUPTI/lib64
 
 WORKDIR /home/$NB_USER
 # Run container as

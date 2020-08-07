@@ -39,7 +39,7 @@ cuda_notebooks = ['tensorflow.ipynb',
 def test_notebooks():
     for f_notebook in os.listdir(notebooks_path):
         # skip special notebooks
-        if f_notebook in cuda_notebooks:
+        if f_notebook in cuda_notebooks or f_notebook in python3_only_notebooks:
             continue
         for kernel in kernels:
             _, errors = _notebook_run(os.path.join(notebooks_path,
@@ -70,5 +70,12 @@ def test_cuda_notebooks():
                 assert errors == []
 
 
-def test_cuda_compiler():
-    pass
+python3_only_notebooks = ['umap.ipynb']
+
+
+def test_python3_only():
+    for notebook in python3_only_notebooks:
+        p = os.path.join(notebooks_path, notebook)
+        if os.path.exists(p):
+            _, errors = _notebook_run(p, kernel='python3')
+            assert errors == []
