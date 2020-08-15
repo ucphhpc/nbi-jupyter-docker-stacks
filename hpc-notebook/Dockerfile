@@ -1,5 +1,5 @@
 FROM nielsbohr/slurm-notebook:latest
-LABEL MAINTAINER="Mads R. B. Kristensen <madsbk@nbi.ku.dk>"
+LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
 ARG BOHRIUM_VERSION=0.11.0
 
@@ -12,8 +12,6 @@ RUN echo "[global]" > /etc/pip.conf \
 # Dep
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-    cmake \
-    gfortran \
     libboost-filesystem-dev \
     libboost-serialization-dev \
     libboost-regex-dev \
@@ -32,17 +30,6 @@ RUN apt-get update \
     libnetcdf-dev \
     libnetcdff-dev \
     libnetcdff-doc \
-    python3-h5py \
-    python3-h5py-dbg \
-    python-h5py \
-    python-h5py-dbg \
-    cgdb \
-    csh \
-    tcsh \
-    autotools-dev \
-    autoconf \
-    cmake-curses-gui \
-    automake \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 

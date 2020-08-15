@@ -22,6 +22,7 @@ RUN apt-get update \
     supervisor \
     cmake \
     munge \
+    gfortran \
     iputils-ping \
     libmunge-dev \
     libslurm-dev \
@@ -31,7 +32,18 @@ RUN apt-get update \
     openmpi-common \
     libnss-ldap \
     libpam-ldap \
+    python3-h5py \
+    python3-h5py-dbg \
+    python-h5py \
+    python-h5py-dbg \
     ldap-utils \
+    cgdb \
+    csh \
+    tcsh \
+    autotools-dev \
+    autoconf \
+    cmake-curses-gui \
+    automake \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
