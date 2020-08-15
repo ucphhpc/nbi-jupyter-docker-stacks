@@ -4,36 +4,47 @@ import tempfile
 import nbformat
 
 cur_path = os.path.abspath(".")
-notebooks_path = os.path.join(cur_path, 'notebooks')
-kernels = ['python2', 'python3']
+notebooks_path = os.path.join(cur_path, "notebooks")
+kernels = ["python2", "python3"]
 
 
-def _notebook_run(path, kernel='python3'):
+def _notebook_run(path, kernel="python3"):
     """Execute a notebook via nbconvert and collect output.
        :returns (parsed nb object, execution errors)
     """
     dirname, __ = os.path.split(path)
     os.chdir(dirname)
     with tempfile.NamedTemporaryFile(suffix=".ipynb") as fout:
-        args = ["jupyter", "nbconvert", "--to", "notebook", "--execute",
-                "--ExecutePreprocessor.timeout=300",
-                "--ExecutePreprocessor.kernel_name=" + kernel,
-                "--output", fout.name, path]
+        args = [
+            "jupyter",
+            "nbconvert",
+            "--to",
+            "notebook",
+            "--execute",
+            "--ExecutePreprocessor.timeout=300",
+            "--ExecutePreprocessor.kernel_name=" + kernel,
+            "--output",
+            fout.name,
+            path,
+        ]
         subprocess.check_call(args)
 
         fout.seek(0)
         nb = nbformat.read(fout, nbformat.current_nbformat)
 
-    errors = [output for cell in nb.cells if "outputs" in cell
-              for output in cell["outputs"]
-              if output.output_type == "error"]
+    errors = [
+        output
+        for cell in nb.cells
+        if "outputs" in cell
+        for output in cell["outputs"]
+        if output.output_type == "error"
+    ]
 
     return nb, errors
 
 
 # List of notebooks which require CUDA and thus special handling
-cuda_notebooks = ['tensorflow.ipynb',
-                  'keras.ipynb']
+cuda_notebooks = ["tensorflow.ipynb", "keras.ipynb"]
 
 
 def test_notebooks():
@@ -42,8 +53,9 @@ def test_notebooks():
         if f_notebook in cuda_notebooks or f_notebook in python3_only_notebooks:
             continue
         for kernel in kernels:
-            _, errors = _notebook_run(os.path.join(notebooks_path,
-                                                   f_notebook), kernel=kernel)
+            _, errors = _notebook_run(
+                os.path.join(notebooks_path, f_notebook), kernel=kernel
+            )
             assert errors == []
 
 
@@ -62,20 +74,19 @@ def test_cuda_notebooks():
 
     if avail:
         """Requires that cuda is available, if not don't run"""
-        notebooks_paths = [os.path.join(notebooks_path, i)
-                           for i in cuda_notebooks]
+        notebooks_paths = [os.path.join(notebooks_path, i) for i in cuda_notebooks]
         for notebook_path in notebooks_paths:
             for kernel in kernels:
                 _, errors = _notebook_run(notebook_path, kernel)
                 assert errors == []
 
 
-python3_only_notebooks = ['umap.ipynb']
+python3_only_notebooks = ["umap.ipynb"]
 
 
 def test_python3_only():
     for notebook in python3_only_notebooks:
         p = os.path.join(notebooks_path, notebook)
         if os.path.exists(p):
-            _, errors = _notebook_run(p, kernel='python3')
+            _, errors = _notebook_run(p, kernel="python3")
             assert errors == []
