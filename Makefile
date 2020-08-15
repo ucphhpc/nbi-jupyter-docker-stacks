@@ -16,6 +16,7 @@ ALL_IMAGES:=base-notebook \
     gpu-notebook \
     tomography-notebook \
     hpc-notebook \
+    hpc-ocean-notebook \
     tensorflow-notebook \
     ocean-notebook \
     geo-notebook \

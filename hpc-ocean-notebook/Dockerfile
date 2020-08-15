@@ -8,12 +8,14 @@ RUN $PYTHON2_PATH/bin/pip install \
     jaxlib \
     bohrium \
     veros \
+    tensorflow \
     && $PYTHON3_PATH/bin/pip install \
     botorch \
     jax \
     jaxlib \
     bohrium \
     veros \
+    tensorflow \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 

@@ -20,6 +20,7 @@ env:
     - NOTEBOOK=tomography-notebook
     - NOTEBOOK=ocean-notebook
     - NOTEBOOK=hpc-notebook
+    - NOTEBOOK=hpc-ocean-notebook
     - NOTEBOOK=tensorflow-notebook
     - NOTEBOOK=geo-notebook
     - NOTEBOOK=bio-notebook
