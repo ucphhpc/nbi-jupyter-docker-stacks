@@ -1,4 +1,4 @@
-FROM nielsbohr/base-notebook:latest
+FROM nielsbohr/python-notebook:latest
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 
 ARG SLURM_VERSION=18.08.4
@@ -20,9 +20,7 @@ RUN groupadd -r slurm --gid=990 && useradd -r -g slurm --uid=990 slurm \
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
     supervisor \
-    cmake \
     munge \
-    gfortran \
     iputils-ping \
     libmunge-dev \
     libslurm-dev \
@@ -41,9 +39,7 @@ RUN apt-get update \
     csh \
     tcsh \
     autotools-dev \
-    autoconf \
     cmake-curses-gui \
-    automake \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -74,19 +70,21 @@ WORKDIR /tmp
 USER $NB_UID
 
 # Install slurm labextension
-RUN pip install jupyterlab_slurm \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
+# jupyterlab_slurm does not support jlab > 2.0.0, wait for it
+# to be updated before reintroduced
+# RUN pip install jupyterlab_slurm \
+#     && fix-permissions $CONDA_DIR \
+#     && fix-permissions /home/$NB_USER
 
-RUN jupyter labextension install jupyterlab-slurm \
-    && npm cache clean --force \
-    && npm dedupe \
-    && rm -fr /home/$NB_USER/.yarn \
-    && rm -fr /home/$NB_USER/.npm \
-    && rm -rf /tmp/npm* \
-    && rm -fr /tmp/v8* \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
+# RUN jupyter labextension install jupyterlab-slurm \
+#     && npm cache clean --force \
+#     && npm dedupe \
+#     && rm -fr /home/$NB_USER/.yarn \
+#     && rm -fr /home/$NB_USER/.npm \
+#     && rm -rf /tmp/npm* \
+#     && rm -fr /tmp/v8* \
+#     && fix-permissions $CONDA_DIR \
+#     && fix-permissions /home/$NB_USER
 
 RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 

@@ -12,9 +12,13 @@ RUN echo "[global]" > /etc/pip.conf \
 
 RUN apt-get update \
     && apt-get install -yq --no-install-recommends \
+    automake \
+    autoconf \
     gcc \
     g++ \
     make \
+    cmake \
+    gfortran \
     perl \
     tar \
     bzip2 \
