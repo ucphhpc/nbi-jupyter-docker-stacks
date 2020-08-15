@@ -34,6 +34,8 @@ RUN apt-get update \
     python3-h5py-dbg \
     python-h5py \
     python-h5py-dbg \
+    libhdf5-dev \
+    libhdf5-doc \
     ldap-utils \
     cgdb \
     csh \
