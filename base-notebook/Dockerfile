@@ -29,9 +29,8 @@ RUN apt-get update \
     openssh-client \
     rsync \
     curl \
-    texlive-xetex \
-    texlive-generic-recommended \
-    texlive-fonts-recommended \
+    texlive \
+    texlive-latex-extra \
     htop \
     nano \
     vim \
