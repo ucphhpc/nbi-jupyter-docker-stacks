@@ -24,16 +24,11 @@ RUN apt-get update \
     iputils-ping \
     libmunge-dev \
     libslurm-dev \
-    libopenmpi2 \
-    libopenmpi-dev \
     openmpi-bin \
-    openmpi-common \
     libnss-ldap \
     libpam-ldap \
     python3-h5py \
     python3-h5py-dbg \
-    python-h5py \
-    python-h5py-dbg \
     libhdf5-dev \
     libhdf5-doc \
     ldap-utils \
