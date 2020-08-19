@@ -11,9 +11,9 @@ RUN echo "[global]" > /etc/pip.conf \
     && echo "timeout=$PACKAGE_TIMEOUT" >> /etc/pip.conf
 
 
-# R-Studio install
+# R-Studio install - with some extra fonts for LaTeX PDF generation
 RUN apt-get update \
-    && apt-get install -y fonts-dejavu unixodbc unixodbc-dev r-cran-rodbc \
+    && apt-get install -y fonts-dejavu lmodern cm-super unixodbc unixodbc-dev r-cran-rodbc \
     && wget https://download2.rstudio.org/rstudio-server-${RSTUDIO_VERSION}-amd64.deb -O /tmp/rstudio-server.deb \
     && wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-${SHINY_VERSION}-amd64.deb -O /tmp/shiny-server.deb \
     && apt-get install -y --no-install-recommends /tmp/rstudio-server.deb /tmp/shiny-server.deb \
