@@ -72,6 +72,7 @@ RUN conda create -n r \
     'r-sparklyr=1.0*' \
     'r-tidyverse=1.2*' \
     'unixodbc=2.3.*' \
+    'r-v8=3.0.*' \
     && conda clean --all -f -y \
     && $R_PATH/bin/R -e 'IRkernel::installspec()' \
     && fix-permissions $CONDA_DIR \
