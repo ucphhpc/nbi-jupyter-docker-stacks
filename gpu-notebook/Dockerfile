@@ -22,6 +22,7 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     libxrender1 \
     dvipng \
     graphviz \
+    libgl1-mesa-glx \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -92,8 +93,9 @@ RUN $PYTHON2_PATH/bin/pip install \
 # Ensure cpu only version of tensorflow is not included and add some
 # additional requested packages
 RUN $PYTHON2_PATH/bin/pip install \
+    numpy==1.19.0 \
     bohrium \
-    opencv-python \
+    opencv-python==4.2.0.32 \
     statsmodels \
     ruamel.yaml \
     scikit-learn \
