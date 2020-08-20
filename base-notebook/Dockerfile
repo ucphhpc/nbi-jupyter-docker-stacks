@@ -107,13 +107,33 @@ RUN conda install --quiet --yes \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-RUN $CONDA_DIR/bin/pip install \
+RUN conda run -n base pip install \
     facets-overview \
     nbresuse \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
+RUN conda init \
+    && conda config --set auto_activate_base false
+
+# Hide the default $CONDA_DIR/bin/pip to ensure that the user doesn't try to
+# install into that one by mistake when it should have been installed into one
+# of the jupyter conda environments
+RUN mv $CONDA_DIR/bin/pip $CONDA_DIR/bin/jupyterlab_pip \
+    && mv $CONDA_DIR/bin/pip3 $CONDA_DIR/bin/jupyterlab_pip3
+
 WORKDIR /home/$NB_USER
+
+RUN echo 'echo -e "Welcome to an NBI Notebook Image.\n\
+In these images we typically provide a number of different environments (package bundles) that you can use to run your application.\n\
+To discover which are available, please use the (conda env list) command to see which ones are provided by the particular Notebook that you selected.\n\
+\n\
+The available environments in this Notebook are:\n\
+$(conda env list)\n\
+\n\
+To activate an environment, use the (conda activate NAME) command"' >> ~/.bashrc
+#use conda env list to see which are available in the Notebook you have spawned.'\
+#>> ~/.bashrc
 
 # Ensure that container Runs as
 USER $NB_UID
