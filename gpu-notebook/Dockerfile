@@ -150,16 +150,24 @@ RUN $PYTHON2_PATH/bin/pip install \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-RUN mkdir ~/.cuda_libs \
-    && ln -s /usr/local/cuda/lib64/libcudart.so ~/.cuda_libs/libcudart.so.10.1 \
-    && ln -s /usr/local/cuda/lib64/libcublas.so ~/.cuda_libs/libcublas.so.10 \
-    && ln -s /usr/local/cuda/lib64/libcufft.so ~/.cuda_libs/libcufft.so.10 \
-    && ln -s /usr/local/cuda/lib64/libcurand.so ~/.cuda_libs/libcurand.so.10 \
-    && ln -s /usr/local/cuda/lib64/libcurand.so ~/.cuda_libs/libcusolver.so.10 \
-    && ln -s /usr/local/cuda/lib64/libcusparse.so ~/.cuda_libs/libcusparse.so.10
+# Tensorflow still looks for cuda-10.1
+# 10.2 is backward comptable so we just create the link targets to them
+ENV CUDA_LEGACY_PATH="/usr/local/cuda-10.1"
+ENV CUDA_LEGACY_LIB_PATH="$CUDA_LEGACY_PATH/lib64"
+
+USER root
+RUN mkdir -p $CUDA_LEGACY_LIB_PATH \
+    && ln -s /usr/local/cuda/lib64/libcudart.so $CUDA_LEGACY_LIB_PATH/libcudart.so.10.1 \
+    && ln -s /usr/local/cuda/lib64/libcublas.so $CUDA_LEGACY_LIB_PATH/libcublas.so.10 \
+    && ln -s /usr/local/cuda/lib64/libcufft.so $CUDA_LEGACY_LIB_PATH/libcufft.so.10 \
+    && ln -s /usr/local/cuda/lib64/libcurand.so $CUDA_LEGACY_LIB_PATH/libcurand.so.10 \
+    && ln -s /usr/local/cuda/lib64/libcurand.so $CUDA_LEGACY_LIB_PATH/libcusolver.so.10 \
+    && ln -s /usr/local/cuda/lib64/libcusparse.so $CUDA_LEGACY_LIB_PATH/libcusparse.so.10
+
+USER $NB_UID
 
 # CUDA libraries
-ENV LD_LIBRARY_PATH ~/.cuda_libs:/usr/local/cuda/lib64:/usr/local/cuda-10.0/extras/CUPTI/lib64
+ENV LD_LIBRARY_PATH $CUDA_LEGACY_LIB_PATH:/usr/local/cuda/lib64:/usr/local/cuda-10.0/extras/CUPTI/lib64
 
 WORKDIR /home/$NB_USER
 # Run container as
