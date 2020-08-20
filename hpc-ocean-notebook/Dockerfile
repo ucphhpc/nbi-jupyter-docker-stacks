@@ -63,14 +63,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN $PYTHON2_PATH/bin/pip install \
+RUN conda run -n python2 pip install \
     scipy==1.2.2 \
     jax \
     jaxlib \
     bohrium \
     veros \
     tensorflow \
-    && $PYTHON3_PATH/bin/pip install \
+    && conda run -n python3 pip install \
     numpy==1.18.4 \
     scipy==1.4.1 \
     botorch \
