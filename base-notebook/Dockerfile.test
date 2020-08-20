@@ -4,8 +4,8 @@ COPY tests /app/tests
 WORKDIR /app/tests
 
 # base pip is for pip3
-RUN pip install pytest \
-    && pip install -r requirements.txt
+RUN jupyterlab_pip install pytest \
+    && jupyterlab_pip install -r requirements.txt
 
 USER root
 
