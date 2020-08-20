@@ -93,7 +93,6 @@ RUN $PYTHON2_PATH/bin/pip install \
 # Ensure cpu only version of tensorflow is not included and add some
 # additional requested packages
 RUN $PYTHON2_PATH/bin/pip install \
-    numpy==1.19.0 \
     bohrium \
     opencv-python==4.2.0.32 \
     statsmodels \
@@ -103,7 +102,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     pandas \
     keras \
     scipy==1.2.2 \
-    tensorflow-gpu \
+    tensorflow \
     lightgbm \
     xgboost \
     # Last version to support python 2
