@@ -102,5 +102,7 @@ USER $NB_UID
 # CUDA libraries
 ENV LD_LIBRARY_PATH $CUDA_LEGACY_LIB_PATH:/usr/local/cuda/lib64:/usr/local/cuda-10.0/extras/CUPTI/lib64
 
-# Run container as
-USER $NB_UID
+# As an exception, run as root,
+# Remember to use supervisord start-notebook.sh to
+# de-escalate privileges to $NB_UID:$NB_GID
+USER root
