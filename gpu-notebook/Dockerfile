@@ -162,7 +162,7 @@ RUN mkdir -p $CUDA_LEGACY_LIB_PATH \
     && ln -s /usr/local/cuda/lib64/libcublas.so $CUDA_LEGACY_LIB_PATH/libcublas.so.10 \
     && ln -s /usr/local/cuda/lib64/libcufft.so $CUDA_LEGACY_LIB_PATH/libcufft.so.10 \
     && ln -s /usr/local/cuda/lib64/libcurand.so $CUDA_LEGACY_LIB_PATH/libcurand.so.10 \
-    && ln -s /usr/local/cuda/lib64/libcurand.so $CUDA_LEGACY_LIB_PATH/libcusolver.so.10 \
+    && ln -s /usr/local/cuda/lib64/libcusolver.so $CUDA_LEGACY_LIB_PATH/libcusolver.so.10 \
     && ln -s /usr/local/cuda/lib64/libcusparse.so $CUDA_LEGACY_LIB_PATH/libcusparse.so.10
 
 USER $NB_UID
