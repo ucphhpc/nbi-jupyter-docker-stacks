@@ -39,7 +39,7 @@ ENV CUDA_PKG_VERSION 10-2=$CUDA_VERSION-1
 # nvidia-container-runtime
 ENV NVIDIA_VISIBLE_DEVICES all
 ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
-ENV NVIDIA_REQUIRE_CUDA "cuda>=10.2 brand=tesla,driver>=384,driver<385 brand=tesla,driver>=396,driver<397 brand=tesla,driver>=410,driver<411 brand=tesla,driver>=418,driver<419"
+
 # NCCL
 ENV NCCL_VERSION 2.5.6
 ENV CUDNN_VERSION 7.6.5.32
@@ -55,7 +55,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Install cuda 10.2
+# Then install cuda 10.2
 # For libraries in the cuda-compat-* package: https://docs.nvidia.com/cuda/eula/index.html#attachment-a
 RUN apt-get update && apt-get install -y --no-install-recommends \
     cuda-cudart-$CUDA_PKG_VERSION \
@@ -81,9 +81,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /tmp
-
 USER $NB_UID
+
+ENV CUDA_PATH="/usr/local/cuda"
+ENV CUDA_10_0_PATH="/usr/local/cuda-10.0"
+ENV CUDA_10_1_PATH="/usr/local/cuda-10.1"
+ENV CUDA_10_2_PATH="/usr/local/cuda-10.2"
+
+# CUDA libraries
+ENV LD_LIBRARY_PATH $CUDA_PATH/lib64:$CUDA_10_1_PATH/lib64:$CUDA_10_0_PATH/lib64
 
 RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
@@ -161,21 +167,6 @@ RUN conda run -n python2 pip install \
     git+https://www.github.com/keras-team/keras-contrib.git@5ffab172661411218e517a50170bb97760ea567b \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
-
-USER root
-
-ENV CUDA_PATH="/usr/local/cuda"
-ENV CUDA_10_0_PATH="/usr/local/cuda-10.0"
-ENV CUDA_10_1_PATH="/usr/local/cuda-10.1"
-ENV CUDA_10_2_PATH="/usr/local/cuda-10.2"
-
-# Link against the most recent CUDA
-RUN rm $CUDA_PATH && ln -s $CUDA_10_2_PATH $CUDA_PATH
-
-USER $NB_UID
-
-# CUDA libraries
-ENV LD_LIBRARY_PATH $CUDA_PATH/lib64:$CUDA_10_1_PATH/lib64:$CUDA_10_0_PATH/lib64
 
 WORKDIR /home/$NB_USER
 # Run container as
