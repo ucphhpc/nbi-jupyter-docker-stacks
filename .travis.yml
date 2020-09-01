@@ -32,7 +32,7 @@ env:
 
 if: commit_message =~ ^.*\[ci\].*$ OR tag IS present
 script:
-  - travis_wait 45 make build/"${NOTEBOOK}"
+  - travis_wait 70 make build/"${NOTEBOOK}"
   - make test/"${NOTEBOOK}"
 
 before_deploy:
