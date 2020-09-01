@@ -62,8 +62,6 @@ RUN mkdir -p /var/spool/slurmd \
     && chown slurm:slurm /var/spool/slurmd \
     && chmod 775 /var/spool/slurmd
 
-WORKDIR /tmp
-
 USER $NB_UID
 
 # Install slurm labextension
@@ -96,6 +94,9 @@ RUN conda create -n cling \
 
 ENV CXX_PATH=$CONDA_DIR/envs/cling
 RUN cp -R $CXX_PATH/share/jupyter/kernels/* $CONDA_DIR/share/jupyter/kernels/
+
+# TODO, Add PySlurm (Python interface to slurm) requires Cython
+# Requires slurm 19.05
 
 USER root
 
