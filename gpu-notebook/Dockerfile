@@ -91,24 +91,18 @@ RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 ENV BH_CONFIG=$PYTHON2_PATH/lib/python2.7/site-packages/bohrium_api/config.ini
 
 # bohrium_api needs to be present before bohrium install
-RUN $PYTHON2_PATH/bin/pip install \
+RUN conda run -n python2 pip install \
     numpy==1.16.4 \
     bohrium_api \
-    && $PYTHON3_PATH/bin/pip install \
+    && conda run -n python3 pip install \
     bohrium_api \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
-
-
-RUN $PYTHON3_PATH/bin/pip install \
-    'numpy<=1.19.0' \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
 # Packages
 # Ensure cpu only version of tensorflow is not included and add some
 # additional requested packages
-RUN $PYTHON2_PATH/bin/pip install \
+RUN conda run -n python2 pip install \
     bohrium \
     opencv-python==4.2.0.32 \
     statsmodels \
@@ -138,9 +132,9 @@ RUN $PYTHON2_PATH/bin/pip install \
     numba==0.47.0 \
     hdbscan \
     git+https://www.github.com/keras-team/keras-contrib.git@5ffab172661411218e517a50170bb97760ea567b \
-    && $PYTHON3_PATH/bin/pip install \
+    && conda run -n python3 pip install \
     scipy==1.4.1 \
-    'numpy<=1.19.0' \
+    numpy==1.18.5 \
     bohrium \
     opencv-python \
     statsmodels \
@@ -186,3 +180,4 @@ ENV LD_LIBRARY_PATH $CUDA_PATH/lib64:$CUDA_10_1_PATH/lib64:$CUDA_10_0_PATH/lib64
 WORKDIR /home/$NB_USER
 # Run container as
 USER $NB_UID
+
