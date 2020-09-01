@@ -44,6 +44,18 @@ ENV NVIDIA_REQUIRE_CUDA "cuda>=10.2 brand=tesla,driver>=384,driver<385 brand=tes
 ENV NCCL_VERSION 2.5.6
 ENV CUDNN_VERSION 7.6.5.32
 
+# Install cuda 10.0 and 10.1 to begin with (default link)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    cuda-toolkit-10-0 \
+    cuda-toolkit-10-1 \
+    libcudnn7=$CUDNN_VERSION-1+cuda10.0 \
+    libcudnn7-dev=$CUDNN_VERSION-1+cuda10.0 \
+    libcudnn7=$CUDNN_VERSION-1+cuda10.1 \
+    libcudnn7-dev=$CUDNN_VERSION-1+cuda10.1 \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install cuda 10.2
 # For libraries in the cuda-compat-* package: https://docs.nvidia.com/cuda/eula/index.html#attachment-a
 RUN apt-get update && apt-get install -y --no-install-recommends \
     cuda-cudart-$CUDA_PKG_VERSION \
@@ -51,7 +63,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     cuda-libraries-$CUDA_PKG_VERSION \
     cuda-libraries-dev-$CUDA_PKG_VERSION \
     cuda-nvtx-$CUDA_PKG_VERSION \
-    libcublas10=10.2.2.89-1 \
     libnccl2=$NCCL_VERSION-1+cuda10.2 \
     libcudnn7=$CUDNN_VERSION-1+cuda10.2 \
     libcudnn7-dev=$CUDNN_VERSION-1+cuda10.2 \
@@ -59,7 +70,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     cuda-command-line-tools-$CUDA_PKG_VERSION \
     cuda-minimal-build-$CUDA_PKG_VERSION \
     libnccl-dev=$NCCL_VERSION-1+cuda10.2 \
-    libcublas-dev=10.2.2.89-1 \
     libfreetype6-dev \
     libhdf5-serial-dev \
     libzmq3-dev \
@@ -86,6 +96,12 @@ RUN $PYTHON2_PATH/bin/pip install \
     bohrium_api \
     && $PYTHON3_PATH/bin/pip install \
     bohrium_api \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
+
+
+RUN $PYTHON3_PATH/bin/pip install \
+    'numpy<=1.19.0' \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
@@ -123,7 +139,8 @@ RUN $PYTHON2_PATH/bin/pip install \
     hdbscan \
     git+https://www.github.com/keras-team/keras-contrib.git@5ffab172661411218e517a50170bb97760ea567b \
     && $PYTHON3_PATH/bin/pip install \
-    numpy \
+    scipy==1.4.1 \
+    'numpy<=1.19.0' \
     bohrium \
     opencv-python \
     statsmodels \
@@ -151,24 +168,20 @@ RUN $PYTHON2_PATH/bin/pip install \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-# Tensorflow still looks for cuda-10.1
-# 10.2 is backward comptable so we just create the link targets to them
-ENV CUDA_LEGACY_PATH="/usr/local/cuda-10.1"
-ENV CUDA_LEGACY_LIB_PATH="$CUDA_LEGACY_PATH/lib64"
-
 USER root
-RUN mkdir -p $CUDA_LEGACY_LIB_PATH \
-    && ln -s /usr/local/cuda/lib64/libcudart.so $CUDA_LEGACY_LIB_PATH/libcudart.so.10.1 \
-    && ln -s /usr/local/cuda/lib64/libcublas.so $CUDA_LEGACY_LIB_PATH/libcublas.so.10 \
-    && ln -s /usr/local/cuda/lib64/libcufft.so $CUDA_LEGACY_LIB_PATH/libcufft.so.10 \
-    && ln -s /usr/local/cuda/lib64/libcurand.so $CUDA_LEGACY_LIB_PATH/libcurand.so.10 \
-    && ln -s /usr/local/cuda/lib64/libcusolver.so $CUDA_LEGACY_LIB_PATH/libcusolver.so.10 \
-    && ln -s /usr/local/cuda/lib64/libcusparse.so $CUDA_LEGACY_LIB_PATH/libcusparse.so.10
+
+ENV CUDA_PATH="/usr/local/cuda"
+ENV CUDA_10_0_PATH="/usr/local/cuda-10.0"
+ENV CUDA_10_1_PATH="/usr/local/cuda-10.1"
+ENV CUDA_10_2_PATH="/usr/local/cuda-10.2"
+
+# Link against the most recent CUDA
+RUN rm $CUDA_PATH && ln -s $CUDA_10_2_PATH $CUDA_PATH
 
 USER $NB_UID
 
 # CUDA libraries
-ENV LD_LIBRARY_PATH $CUDA_LEGACY_LIB_PATH:/usr/local/cuda/lib64:/usr/local/cuda-10.0/extras/CUPTI/lib64
+ENV LD_LIBRARY_PATH $CUDA_PATH/lib64:$CUDA_10_1_PATH/lib64:$CUDA_10_0_PATH/lib64
 
 WORKDIR /home/$NB_USER
 # Run container as
