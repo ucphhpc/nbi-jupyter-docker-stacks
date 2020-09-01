@@ -131,7 +131,7 @@ To discover which are available, please use the (conda env list) command to see 
 The available environments in this Notebook are:\n\
 $(conda env list)\n\
 \n\
-To activate an environment, use the (conda activate NAME) command"' >> ~/.bashrc
+The current active environment is denoted by the '*' symbol, to activate a different environment, use the (conda activate NAME) command.\nLikewise to deactivate use the (conda deactivate) command."' >> ~/.bashrc
 #use conda env list to see which are available in the Notebook you have spawned.'\
 #>> ~/.bashrc
 
