@@ -63,8 +63,8 @@ RUN $PYTHON2_PATH/bin/pip install \
     graphviz==0.13.2 \
     torch \
     torchvision \
-    future
-RUN $PYTHON3_PATH/bin/pip install \
+    future \
+    && $PYTHON3_PATH/bin/pip install \
     numpy==1.16.4 \
     bohrium \
     scipy \
@@ -82,8 +82,8 @@ RUN $PYTHON3_PATH/bin/pip install \
     nbformat==5.0.7 \
     jupyter-client==6.1.5 \
     mig_meow \
-    future
-RUN $ASTRA_PATH/bin/pip install \
+    future \
+    && $ASTRA_PATH/bin/pip install \
     numpy==1.16.4 \
     bohrium \
     ipympl \
