@@ -3,8 +3,8 @@ COPY tests /app/tests
 
 WORKDIR /app/tests
 
-RUN pip install pytest \
-    && pip install -r requirements.txt
+RUN $PYTHON3_PATH/bin/pip install pytest \
+    && $PYTHON3_PATH/bin/pip install -r requirements.txt
 
 # hpy5 tests requires unittest2
 RUN $PYTHON2_PATH/bin/pip install unittest2

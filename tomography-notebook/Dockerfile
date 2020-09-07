@@ -63,8 +63,8 @@ RUN $PYTHON2_PATH/bin/pip install \
     graphviz==0.13.2 \
     torch \
     torchvision \
-    future \
-    && $PYTHON3_PATH/bin/pip install \
+    future
+RUN $PYTHON3_PATH/bin/pip install \
     numpy==1.16.4 \
     bohrium \
     scipy \
@@ -79,14 +79,16 @@ RUN $PYTHON2_PATH/bin/pip install \
     graphviz==0.13.2 \
     torch \
     torchvision \
+    nbformat==5.0.7 \
+    jupyter-client==6.1.5 \
     mig_meow \
-    future \
-    && $ASTRA_PATH/bin/pip install \
+    future
+RUN $ASTRA_PATH/bin/pip install \
     numpy==1.16.4 \
     bohrium \
     ipympl \
     ipyleaflet \
-    jupyter-client>=5.3.4 \
+    jupyter-client==6.1.5 \
     matplotlib \
     scipy \
     h5py \
@@ -100,11 +102,13 @@ RUN $PYTHON2_PATH/bin/pip install \
     graphviz==0.13.2 \
     torch \
     torchvision \
+    nbformat==5.0.7 \
     mig_meow \
     future \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
+RUN mkdir -p /home/$NB_USER/.local/bin/python_astra /home/$NB_USER/.local/bin/python3_astra
 # Add astra python to local path
 RUN ln -s $ASTRA_PATH/bin/python /home/$NB_USER/.local/bin/python_astra \
     && ln -s $ASTRA_PATH/bin/python /home/$NB_USER/.local/bin/python3_astra
