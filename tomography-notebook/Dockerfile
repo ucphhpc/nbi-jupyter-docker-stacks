@@ -35,7 +35,7 @@ RUN conda create -n astra -c astra-toolbox/label/dev \
 
 # bohrium_api needs to be present before bohrium install
 # Numpy 1.17.* has dropped support of py2
-RUN $PYTHON2_PATH/bin/pip install \
+RUN conda run -n python2 pip install \
     numpy==1.16.4 \
     bohrium_api \
     pystan \
@@ -48,7 +48,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     && fix-permissions /home/$NB_USER
 
 # Install packages for python2/3 envs
-RUN $PYTHON2_PATH/bin/pip install \
+RUN conda run -n python2 pip install \
     numpy==1.16.4 \
     bohrium \
     scipy \
@@ -64,7 +64,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     torch \
     torchvision \
     future \
-    && $PYTHON3_PATH/bin/pip install \
+    && conda run -n python3 pip install \
     numpy==1.16.4 \
     bohrium \
     scipy \
@@ -83,7 +83,7 @@ RUN $PYTHON2_PATH/bin/pip install \
     jupyter-client==6.1.5 \
     mig_meow \
     future \
-    && $ASTRA_PATH/bin/pip install \
+    && conda run -n astra pip install \
     numpy==1.16.4 \
     bohrium \
     ipympl \
@@ -107,11 +107,6 @@ RUN $PYTHON2_PATH/bin/pip install \
     future \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
-
-RUN mkdir -p /home/$NB_USER/.local/bin/python_astra /home/$NB_USER/.local/bin/python3_astra
-# Add astra python to local path
-RUN ln -s $ASTRA_PATH/bin/python /home/$NB_USER/.local/bin/python_astra \
-    && ln -s $ASTRA_PATH/bin/python /home/$NB_USER/.local/bin/python3_astra
 
 WORKDIR /home/$NB_USER
 

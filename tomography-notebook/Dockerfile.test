@@ -3,11 +3,11 @@ COPY tests /app/tests
 
 WORKDIR /app/tests
 
-RUN $PYTHON3_PATH/bin/pip install pytest \
-    && $PYTHON3_PATH/bin/pip install -r requirements.txt
+RUN jupyterlab_pip install pytest \
+    && $jupyterlab_pip install -r requirements.txt
 
 # hpy5 tests requires unittest2
-RUN $PYTHON2_PATH/bin/pip install unittest2
+RUN jupyterlab_pip install unittest2
 
 USER root
 
