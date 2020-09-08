@@ -79,6 +79,8 @@ RUN conda run -n python2 pip install \
     jaxlib \
     bohrium \
     veros \
+    xarray \
+    netCDF4 \
     tensorflow \
     && conda run -n python3 pip install \
     numpy==1.18.4 \
@@ -88,6 +90,8 @@ RUN conda run -n python2 pip install \
     jaxlib \
     bohrium \
     veros \
+    xarray \
+    netCDF4 \
     tensorflow \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER

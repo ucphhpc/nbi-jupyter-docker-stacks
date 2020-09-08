@@ -23,8 +23,22 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     dvipng \
     graphviz \
     libgl1-mesa-glx \
+    gcc-7 \
+    g++-7 \
+    gcc-8 \
+    g++-8 \
+    gcc-9 \
+    g++-9 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
+# Update the alternatives, so that we fall back on gcc/g++
+RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 7 \
+    && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 8 \
+    && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 9 \
+    && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 7 \
+    && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 8 \
+    && update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-9 9
 
 # https://gitlab.com/nvidia/container-images/cuda/blob/master/dist/ubuntu18.04/10.0/base/Dockerfile
 RUN apt-get update && apt-get install -y --no-install-recommends \
