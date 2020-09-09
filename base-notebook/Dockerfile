@@ -122,6 +122,11 @@ RUN conda init \
 RUN mv $CONDA_DIR/bin/pip $CONDA_DIR/bin/jupyterlab_pip \
     && mv $CONDA_DIR/bin/pip3 $CONDA_DIR/bin/jupyterlab_pip3
 
+# Ensure there is a local bin directory for user binaries
+RUN mkdir -p ~/.local/bin
+
+ENV PATH="~/.local/bin:$PATH"
+
 WORKDIR /home/$NB_USER
 
 RUN echo 'echo -e "Welcome to an NBI Notebook Image.\n\
