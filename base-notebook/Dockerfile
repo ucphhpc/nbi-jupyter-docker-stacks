@@ -87,7 +87,7 @@ RUN conda install --quiet --yes \
     'bqplot==0.12.13' \
     'jupyter-server-proxy' \
     'nbgrader' \
-    && jupyter labextension install jupyter-leaflet@0.11.6 \
+    && jupyter labextension install jupyter-leaflet@0.13.2 \
                                     @jupyter-widgets/jupyterlab-manager \
                                     @bokeh/jupyter_bokeh \
                                     @pyviz/jupyterlab_pyviz \
