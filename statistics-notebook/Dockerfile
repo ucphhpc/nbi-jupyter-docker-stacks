@@ -32,21 +32,36 @@ RUN $PYTHON2_PATH/bin/pip install \
     && fix-permissions /home/$NB_USER
 
 # Install packages for python2/3 envs
+# NOTE: iminuit breaks py2 in recent versions using py3-only constructs.
+#       The 1.5.x versions officially require python 3.5+ and 1.3.8 is the
+#       latest version known to work and succeed in self-test for py2. While
+#       versions >= 1.3.9 definitely break one or more self-tests in py2.
+#       One can easily test in a jupyter session Terminal with:
+#       pip2 install iminuit==1.3.9
+#       python2 -c "import iminuit; iminuit.test()"
+# NOTE: ipyleaflet > 0.12.4 breaks py2 with py3-only constructs. It should be
+#       restricted to that version in base-notebook but we override for now.
+#       One can easily test in a jupyter session Terminal with:
+#       pip2 install ipyleaflet==0.12.6
+#       python2 -c "import ipyleaflet".
 RUN $PYTHON2_PATH/bin/pip install \
+    ipyleaflet==0.12.4 \
     bohrium \
     scipy \
     seaborn \
     sklearn \
+    sympy \
     pandas \
-    iminuit \
+    iminuit==1.3.8 \
     graphviz \
     ipywidgets \
     && $PYTHON3_PATH/bin/pip install \
     numpy \
     bohrium \
-    scipy \ 
+    scipy \
     seaborn \
     sklearn \
+    sympy \
     pandas \
     iminuit \
     graphviz \
