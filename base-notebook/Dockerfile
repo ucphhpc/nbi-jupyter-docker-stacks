@@ -1,5 +1,5 @@
 # Set default username
-FROM jupyter/base-notebook:lab-2.2.5
+FROM jupyter/base-notebook:lab-3.0.12
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
 ARG FACETS_VERSION=0.2.2
@@ -80,18 +80,17 @@ RUN conda update --quiet -n base conda \
 # replacement for notebook plots
 # https://github.com/yuvipanda/jupyter-launcher-shortcuts
 RUN conda install --quiet --yes \
-    'notebook==6.0.2' \
+    'notebook' \
     'ipympl' \
     'ipyleaflet' \
     'ipywidgets' \
-    'bqplot==0.12.13' \
+    'bqplot' \
+    'jupyter_bokeh' \
     'jupyter-server-proxy' \
     'nbgrader' \
-    && jupyter labextension install jupyter-leaflet@0.13.2 \
+    && jupyter labextension install jupyter-leaflet \
                                     @jupyter-widgets/jupyterlab-manager \
-                                    @bokeh/jupyter_bokeh \
-                                    @pyviz/jupyterlab_pyviz \
-                                    bqplot@0.5.13 \
+                                    bqplot \
                                     @jupyterlab/server-proxy \
                                     jupyterlab-topbar-extension \
                                     jupyterlab-system-monitor \
@@ -130,16 +129,8 @@ ENV PATH="~/.local/bin:$PATH"
 
 WORKDIR /home/$NB_USER
 
-RUN echo 'echo -e "Welcome to an NBI Notebook Image.\n\
-In these images we typically provide a number of different environments (package bundles) that you can use to run your application.\n\
-To discover which are available, please use the (conda env list) command to see which ones are provided by the particular Notebook that you selected.\n\
-\n\
-The available environments in this Notebook are:\n\
-$(conda env list)\n\
-\n\
-The current active environment is denoted by the '*' symbol, to activate a different environment, use the (conda activate NAME) command.\nLikewise to deactivate use the (conda deactivate) command."' >> ~/.bashrc
-#use conda env list to see which are available in the Notebook you have spawned.'\
-#>> ~/.bashrc
+COPY res/welcome.txt /home/jovyan/welcome.txt
+RUN cat ~/welcome.txt >> ~/.bashrc
 
 # Ensure that container Runs as
 USER $NB_UID
