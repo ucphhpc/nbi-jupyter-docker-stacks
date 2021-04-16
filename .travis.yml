@@ -10,6 +10,7 @@ env:
     - NOTEBOOK=sme-notebook
     - NOTEBOOK=thin-notebook
     - NOTEBOOK=python-notebook
+    - NOTEBOOK=python-cuda-notebook
     - NOTEBOOK=datascience-notebook
     - NOTEBOOK=chemistry-notebook
     - NOTEBOOK=fenics-notebook
