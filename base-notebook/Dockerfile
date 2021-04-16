@@ -127,10 +127,20 @@ RUN mkdir -p ~/.local/bin
 
 ENV PATH="~/.local/bin:$PATH"
 
+USER root
+
+# Script to update the ENV of a particular kernelspec in the image
+COPY ./res/update_kernel_spec.py /usr/local/bin/update_kernel_spec.py
+RUN chmod +x /usr/local/bin/update_kernel_spec.py
+
+USER $NB_UID
+
 WORKDIR /home/$NB_USER
 
-COPY res/welcome.txt /home/jovyan/welcome.txt
-RUN cat ~/welcome.txt >> ~/.bashrc
+# Setup the welcome message
+COPY ./res/welcome.txt /home/$NB_USER/welcome.txt
+RUN cat ~/welcome.txt >> ~/.bashrc \
+    && rm -fr /home/$NB_USER/welcome.txt
 
 # Ensure that container Runs as
 USER $NB_UID
