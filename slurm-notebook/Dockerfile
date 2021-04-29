@@ -1,4 +1,4 @@
-FROM nielsbohr/python-notebook:latest
+FROM nielsbohr/python-notebook:edge
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 
 ARG SLURM_VERSION=18.08.4
@@ -25,6 +25,7 @@ RUN apt-get update \
     libmunge-dev \
     libslurm-dev \
     openmpi-bin \
+    libopenmpi-dev \
     libnss-ldap \
     libpam-ldap \
     python3-h5py \
@@ -39,6 +40,8 @@ RUN apt-get update \
     cmake-curses-gui \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /tmp
 
 RUN cd \
     && wget -O slurm.tar.bz2 "$SLURM_DOWNLOAD_URL" \
@@ -67,7 +70,7 @@ USER $NB_UID
 # Install slurm labextension
 # jupyterlab_slurm does not support jlab > 2.0.0, wait for it
 # to be updated before reintroduced
-# RUN pip install jupyterlab_slurm \
+# RUN jupyterlab_pip3 install jupyterlab_slurm \
 #     && fix-permissions $CONDA_DIR \
 #     && fix-permissions /home/$NB_USER
 
@@ -83,10 +86,18 @@ USER $NB_UID
 
 RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
+
+# Install packages for python3 envs
+COPY requirements.txt /tmp/
+RUN conda run -n python3 pip install -r requirements.txt \
+    && conda clean -y --all \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
+
 # Add cling kernel
 # https://github.com/QuantStack/xeus-cling
-RUN conda create -n cling \
-    && conda install xeus-cling -n cling -c conda-forge \
+COPY environment.yml /tmp/
+RUN conda env create -n cling -f environment.yml \
     && conda clean --all -f -y \
     && rm -fr /tmp/tmp* \
     && fix-permissions $CONDA_DIR \

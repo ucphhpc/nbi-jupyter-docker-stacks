@@ -1,0 +1,5 @@
+name: slurm
+dependencies:
+  - xeus-cling
+channels:
+  - "conda-forge"

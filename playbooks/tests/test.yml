@@ -1,0 +1,12 @@
+---
+- name: test-notebook
+  hosts: all
+  vars:
+    notebook:
+      user: jovyan
+      uid: 1000
+    ansible_bender:
+      base_image: "{{ image }}"
+      target_image:
+        name: "{{ image }}.test"
+        user: "{{ notebook.user }}"

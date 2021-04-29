@@ -1,0 +1,91 @@
+---
+- name: nielsbohr/gpu-notebook
+  hosts: all
+  roles:
+    - { role: rasmunk-ansible/gpu/cuda }
+    - { role: rasmunk-ansible/tools/python,
+        requirements_path: "{{ playbook_path }}/requirements.txt",
+        python_env_name: python3 }
+  vars:
+    project_name: nielsbohr/gpu-notebook:edge
+    notebook:
+      user: jovyan
+      uid: 1000
+    # configuration specific for ansible-bender
+    ansible_bender:
+      base_image: nielsbohr/python-notebook:edge
+      target_image:
+        name: "{{ project_name }}"
+        user: "{{ notebook.user }}"
+        working_dir: "/home/{{ notebook.user }}"
+        environment:
+          CUDA_VERSION: "{{ cuda_major_version }}.{{ cuda_min_version }}"
+          NCCL_VERSION: 2.9.6
+          CUDNN_VERSION: 8.1.1
+          CUDA_PATH: "/usr/local/cuda"
+          # nvidia-container-runtime
+          NVIDIA_VISIBLE_DEVICES: all
+          NVIDIA_DRIVER_CAPABILITIES: compute,utility
+          # set tensorflow verbosity to error level, (default is 0/everything)
+          TF_CPP_MIN_LOG_LEVEL: "3"
+          # paths
+          PATH: "${CUDA_PATH}/bin:$PATH"
+          LD_LIBRARY_PATH: "${CUDA_PATH}/lib64:${LD_LIBRARY_PATH}"
+      working_container:
+        user: root
+        volumes:
+          # To get caching effects from previous builds
+          - /var/lib/containers:/var/lib/containers
+
+    cuda_os_dist: ubuntu2004
+    cuda_cpu_arch: x86_64
+    cuda_major_version: 11
+    cuda_min_version: 3
+    cuda_version: "{{ cuda_major_version }}.{{ cuda_min_version }}"
+    cuda_pkg_version: 11-3
+
+  tasks:
+  - name: "install cuda dependencies for {{ project_name }}"
+    package:
+      name:
+        - gnupg2
+        - ca-certificates
+      state: present
+
+  - name: add cuda repo apt key
+    apt_key:
+      url: https://developer.download.nvidia.com/compute/cuda/repos/{{ cuda_os_dist }}/{{ cuda_cpu_arch }}/7fa2af80.pub
+      state: present
+
+  - name: "add cuda repository"
+    apt_repository:
+      repo: "deb https://developer.download.nvidia.com/compute/cuda/repos/{{ cuda_os_dist }}/{{ cuda_cpu_arch }} /"
+      state: present
+
+  - name: "add nvidia ml repository"
+    apt_repository:
+      repo: "deb https://developer.download.nvidia.com/compute/machine-learning/repos/{{ cuda_os_dist }}/{{ cuda_cpu_arch }} /"
+      state: present
+
+  - name: "install cuda and cudnn"
+    package:
+      name:
+        - "cuda-{{ cuda_pkg_version }}"
+        - libcudnn8
+        - libcudnn8-dev
+      state: present
+
+  - name: copy requirements
+    copy:
+      src: "{{ playbook_dir }}/requirements.txt"
+      dest: /tmp/requirements.txt
+      mode: 0755
+    tags:
+      - notebook_requirements
+
+  - name: install requirements
+    command:
+      cmd: conda run -n python3 pip install -r requirements.txt
+      chdir: /tmp
+    tags:
+      - notebook_requirements
