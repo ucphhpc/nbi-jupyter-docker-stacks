@@ -104,12 +104,14 @@ RUN conda install --quiet --yes \
     && rm -fr /home/$NB_USER/.npm \
     && rm -rf /tmp/npm* \
     && rm -fr /tmp/v8* \
+    && conda clean -y -f --all \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
 RUN conda run -n base pip install \
     facets-overview \
     nbresuse \
+    && conda clean -y -f --all \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
