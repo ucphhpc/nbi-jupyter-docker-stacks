@@ -61,6 +61,7 @@ RUN npm config set production
 
 # Update conda, npm, yarn
 RUN conda update --quiet -n base conda \
+    && npm i -g agentkeepalive \
     && npm i -g npm \
     && npm i -g yarn \
     && conda clean --all -f -y \
