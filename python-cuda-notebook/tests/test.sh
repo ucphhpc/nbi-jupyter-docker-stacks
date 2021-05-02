@@ -1,2 +1,2 @@
 #!/bin/bash
-pytest -n 4 --durations=0
+pytest -n 8 --durations=0

@@ -1,4 +1,4 @@
-FROM nielsbohr/python-notebook:edge
+FROM nielsbohr/python-notebook:latest
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
 
@@ -25,6 +25,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/${CUDA_OS_DIST}/${CUDA_CPU}/7fa2af80.pub | apt-key add - \
     && echo "deb https://developer.download.nvidia.com/compute/cuda/repos/${CUDA_OS_DIST}/${CUDA_CPU} /" > /etc/apt/sources.list.d/cuda.list \
     && echo "deb https://developer.download.nvidia.com/compute/machine-learning/repos/${CUDA_OS_DIST}/${CUDA_CPU} /" > /etc/apt/sources.list.d/nvidia-ml.list \
+    && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # For libraries in the cuda-compat-* package: https://docs.nvidia.com/cuda/eula/index.html#attachment-a
@@ -32,6 +33,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     cuda-${CUDA_PKG_VERSION} \
     libcudnn8 \
     libcudnn8-dev \
+    && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Add missing symlink for libcusolver
@@ -49,16 +51,18 @@ ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
 # set tensorflow verbosity to error level, (default is 0/everything)
 ENV TF_CPP_MIN_LOG_LEVEL="3"
 
+RUN chown $NB_UID:$NB_GID -R /tmp
+
 # Install user packages
 USER $NB_UID
-WORKDIR /home/$NB_USER
 
-RUN conda run -n python3 pip install \
-    tensorflow \
-    tensorflow-gpu \
-    keras \
+COPY requirements.txt /tmp/
+RUN conda run -n python3 pip install -r requirements.txt \
+    && conda clean --all -f -y \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
+
+WORKDIR /home/$NB_USER
 
 # Ensure that container Runs as
 USER $NB_UID
