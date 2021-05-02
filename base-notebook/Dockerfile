@@ -88,7 +88,6 @@ RUN conda install --quiet --yes \
     'bqplot' \
     'jupyter_bokeh' \
     'jupyter-server-proxy' \
-    'nbgrader' \
     && jupyter labextension install jupyter-leaflet \
                                     @jupyter-widgets/jupyterlab-manager \
                                     bqplot \
