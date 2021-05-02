@@ -1,4 +1,4 @@
-FROM nielsbohr/python-cuda-notebook:latest
+FROM nielsbohr/python-notebook:latest
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
 ARG RSTUDIO_VERSION=1.1.463
@@ -98,10 +98,10 @@ RUN conda run -n r Rscript /opt/res/keras_package.R
 USER root
 
 # Ensure that R can find it's required binaries
-# RUN echo "PATH=\"$R_PATH/bin:$PATH\"" >> /home/$NB_USER/.bashrc \
-#     && echo "PATH=\"/home/$NB_USER/.local/bin:$R_PATH/bin:$PATH\"" >> $R_PATH/lib/R/etc/Renviron \
-#     && ln -s /usr/lib/rstudio-server/bin/rserver /usr/local/bin/rserver \
-#     && ln -s $R_PATH/bin/R /usr/local/bin/R
+RUN echo "PATH=\"$R_PATH/bin:$PATH\"" >> /home/$NB_USER/.bashrc \
+    && echo "PATH=\"/home/$NB_USER/.local/bin:$R_PATH/bin:$PATH\"" >> $R_PATH/lib/R/etc/Renviron \
+    && ln -s /usr/lib/rstudio-server/bin/rserver /usr/local/bin/rserver \
+    && ln -s $R_PATH/bin/R /usr/local/bin/R
 RUN python3 /usr/local/bin/update_kernel_spec.py ir --env-kwargs PATH=$R_PATH/bin:$PATH
 
 WORKDIR /home/$NB_USER

@@ -1,0 +1,4 @@
+name: r-notebook
+dependencies:
+  - python=3.8
+  - ipykernel
