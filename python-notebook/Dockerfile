@@ -15,7 +15,7 @@ USER $NB_UID
 RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 ENV PYTHON3_PATH=$CONDA_DIR/envs/python3
 
-# Create user python2/3 environement
+# Create user python3 environement
 COPY environment.yml /tmp/
 RUN conda env create -n python3 -f environment.yml \
     && conda run -n python3 python -m ipykernel install --user --name=python3 \
