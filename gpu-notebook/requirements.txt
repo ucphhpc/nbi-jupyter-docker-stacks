@@ -1,4 +1,4 @@
 pydot
 xgboost
 scikit-optimize
-hdbscan --install-option='--no-build-isolation --no-binary :all:'
+hdbscan

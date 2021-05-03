@@ -15,8 +15,6 @@ USER $NB_UID
 RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 # Packages
-# Ensure cpu only version of tensorflow is not included and add some
-# additional requested packages
 COPY requirements.txt /tmp/requirements.txt
 RUN conda run -n python3 pip install -r requirements.txt \
     && conda clean -y -f --all \
