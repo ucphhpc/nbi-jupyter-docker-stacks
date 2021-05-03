@@ -14,6 +14,7 @@ IMAGES = [
     "sme-notebook",
     "thin-notebook",
     "python-notebook",
+    "python-cuda-notebook",
     "datascience-notebook",
     "chemistry-notebook",
     "fenics-notebook",
@@ -22,7 +23,6 @@ IMAGES = [
     "hpc-notebook",
     "hpc-ocean-notebook",
     "tomography-notebook",
-    "tensorflow-notebook",
     "geo-notebook",
     "bio-notebook",
 ]
