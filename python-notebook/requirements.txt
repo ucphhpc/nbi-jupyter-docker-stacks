@@ -1,4 +1,4 @@
-ipympl
 ipyleaflet
-matplotlib
+ipympl
 jupyter-client
+matplotlib
