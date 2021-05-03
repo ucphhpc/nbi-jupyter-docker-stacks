@@ -5,7 +5,7 @@ import nbformat
 
 cur_path = os.path.abspath(".")
 notebooks_path = os.path.join(cur_path, "notebooks")
-kernels = ["python2", "python3"]
+kernels = ["python3"]
 
 
 def _notebook_run(path, kernel="python3"):
@@ -49,44 +49,8 @@ cuda_notebooks = ["tensorflow.ipynb", "keras.ipynb"]
 
 def test_notebooks():
     for f_notebook in os.listdir(notebooks_path):
-        # skip special notebooks
-        if f_notebook in cuda_notebooks or f_notebook in python3_only_notebooks:
-            continue
         for kernel in kernels:
             _, errors = _notebook_run(
                 os.path.join(notebooks_path, f_notebook), kernel=kernel
             )
-            assert errors == []
-
-
-def test_cuda_notebooks():
-    """Requires that cuda is available, if not don't run"""
-    try:
-        import tensorflow as tf
-    except ImportError as err:
-        print("Failed to import tensorflow: ", err)
-        return 0
-    avail = tf.test.is_gpu_available()
-
-    if not avail:
-        print("No gpus were available, skipped test")
-        return 0
-
-    if avail:
-        """Requires that cuda is available, if not don't run"""
-        notebooks_paths = [os.path.join(notebooks_path, i) for i in cuda_notebooks]
-        for notebook_path in notebooks_paths:
-            for kernel in kernels:
-                _, errors = _notebook_run(notebook_path, kernel)
-                assert errors == []
-
-
-python3_only_notebooks = ["umap.ipynb"]
-
-
-def test_python3_only():
-    for notebook in python3_only_notebooks:
-        p = os.path.join(notebooks_path, notebook)
-        if os.path.exists(p):
-            _, errors = _notebook_run(p, kernel="python3")
             assert errors == []

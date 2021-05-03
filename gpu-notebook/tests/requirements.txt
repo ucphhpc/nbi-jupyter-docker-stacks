@@ -1,5 +1,4 @@
-pytest==4.3.1
-pytest-xdist==1.26.1
-nbconvert==5.4.1
-nbformat==4.4.0
-tensorflow-gpu
+pytest==6.2.3
+pytest-xdist==2.2.1
+nbconvert==6.0.7
+nbformat==5.1.3
