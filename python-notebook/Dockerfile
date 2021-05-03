@@ -16,20 +16,15 @@ RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 ENV PYTHON3_PATH=$CONDA_DIR/envs/python3
 
 # Create user python2/3 environement
-RUN conda create -n python3 python=3.7 ipykernel \
+COPY environment.yml /tmp/
+RUN conda env create -n python3 -f environment.yml \
     && $PYTHON3_PATH/bin/python -m ipykernel install --user --name=python3 \
     && conda clean --all -f -y \
-    && rm -fr /tmp/tmp* \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-# upgrade pip
-# Add matplotlib widget for jlab
-RUN conda run -n python3 pip install \
-    ipympl \
-    ipyleaflet \
-    matplotlib \
-    jupyter-client \
+COPY requirements.txt /tmp/
+RUN conda run -n python3 pip install -r requirements.txt \
     && conda clean --all -f -y \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER

@@ -1,0 +1,4 @@
+ipympl
+ipyleaflet
+matplotlib
+jupyter-client
