@@ -42,8 +42,9 @@ USER $NB_UID
 RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 # Proj4 is required for cartopy
-RUN conda install -n python3 \
-    proj4 \
+COPY environment.yml /tmp/
+RUN conda env update -n python3 -f environment.yml \
+    && conda clean --all -f -y \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
@@ -53,9 +54,6 @@ RUN conda run -n python3 pip install -r requirements.txt \
     && conda clean -y --all \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
-
-# Matplotlib basemap
-RUN $PYTHON3_PATH/bin/pip install git+https://github.com/matplotlib/basemap.git@3076ec9470cf7dba523bc94ebe5ae9a990e34d08
 
 WORKDIR /home/$NB_USER
 
