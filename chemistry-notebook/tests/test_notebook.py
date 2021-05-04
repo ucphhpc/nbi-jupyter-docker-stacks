@@ -8,7 +8,7 @@ notebooks_path = os.path.join(cur_path, "notebooks")
 kernels = ["python3"]
 
 
-def _notebook_run(path, kernel="python3"):
+def _notebook_run(path, kernel="python3", timeout=60):
     """Execute a notebook via nbconvert and collect output.
        :returns (parsed nb object, execution errors)
     """
@@ -21,8 +21,8 @@ def _notebook_run(path, kernel="python3"):
             "--to",
             "notebook",
             "--execute",
-            "--ExecutePreprocessor.timeout=60",
-            "--ExecutePreprocessor.kernel_name=" + kernel,
+            "--ExecutePreprocessor.timeout={}".format(timeout),
+            "--ExecutePreprocessor.kernel_name={}".format(kernel),
             "--output",
             fout.name,
             path,

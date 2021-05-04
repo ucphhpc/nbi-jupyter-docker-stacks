@@ -22,7 +22,7 @@ def _notebook_run(path, kernel="python3", timeout=60):
             "notebook",
             "--execute",
             "--ExecutePreprocessor.timeout={}".format(timeout),
-            "--ExecutePreprocessor.kernel_name=" + kernel,
+            "--ExecutePreprocessor.kernel_name={}".format(kernel),
             "--output",
             fout.name,
             path,

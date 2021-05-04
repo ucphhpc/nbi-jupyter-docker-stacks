@@ -5,12 +5,10 @@ import nbformat
 
 cur_path = os.path.abspath(".")
 notebooks_path = os.path.join(cur_path, "notebooks")
-astra_kernel = "astra"
-kernels = ["python2", "python3", astra_kernel]
-astra_notebooks = ["astra-toolbox.ipynb"]
+kernels = ["python3"]
 
 
-def _notebook_run(path, kernel="python3"):
+def _notebook_run(path, kernel="python3", timeout=60):
     """Execute a notebook via nbconvert and collect output.
        :returns (parsed nb object, execution errors)
     """
@@ -23,8 +21,8 @@ def _notebook_run(path, kernel="python3"):
             "--to",
             "notebook",
             "--execute",
-            "--ExecutePreprocessor.timeout=60",
-            "--ExecutePreprocessor.kernel_name=" + kernel,
+            "--ExecutePreprocessor.timeout={}".format(timeout),
+            "--ExecutePreprocessor.kernel_name={}".format(kernel),
             "--output",
             fout.name,
             path,
@@ -48,12 +46,7 @@ def _notebook_run(path, kernel="python3"):
 def test_notebooks():
     for f_notebook in os.listdir(notebooks_path):
         for kernel in kernels:
-            if f_notebook in astra_notebooks:
-                _, errors = _notebook_run(
-                    os.path.join(notebooks_path, f_notebook), kernel=astra_kernel
-                )
-            else:
-                _, errors = _notebook_run(
-                    os.path.join(notebooks_path, f_notebook), kernel=kernel
-                )
-            assert errors == []
+            _, errors = _notebook_run(
+                os.path.join(notebooks_path, f_notebook), kernel=kernel
+            )
+        assert errors == []
