@@ -6,7 +6,7 @@ astropy
 bayesian-optimization
 bokeh
 Bottleneck
-cartopy==0.18.0
+cartopy
 cython
 datashader
 graphviz
