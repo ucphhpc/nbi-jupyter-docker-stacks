@@ -6,7 +6,6 @@ PACKAGE_TIMEOUT:=60
 ALL_IMAGES:=base-notebook \
     r-notebook \
     slurm-notebook \
-    thin-notebook \
     python-notebook \
     python-cuda-notebook \
     datascience-notebook \
