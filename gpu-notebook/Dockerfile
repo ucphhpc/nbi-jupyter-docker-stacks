@@ -1,4 +1,4 @@
-FROM nielsbohr/python-cuda-notebook:latest
+FROM nielsbohr/python-cuda-notebook:edge
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
 
@@ -20,6 +20,8 @@ RUN conda run -n python3 pip install -r requirements.txt \
     && conda clean -y -f --all \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
+
+RUN conda run -n python3 pip install hdbscan --no-cache-dir --no-binary :all:
 
 WORKDIR /home/$NB_USER
 # Run container as

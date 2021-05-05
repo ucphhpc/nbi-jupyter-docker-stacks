@@ -1,4 +1,3 @@
 pydot
 xgboost
 scikit-optimize
-hdbscan
