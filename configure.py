@@ -12,7 +12,6 @@ IMAGES = [
     "r-notebook",
     "slurm-notebook",
     "sme-notebook",
-    "thin-notebook",
     "python-notebook",
     "python-cuda-notebook",
     "datascience-notebook",
