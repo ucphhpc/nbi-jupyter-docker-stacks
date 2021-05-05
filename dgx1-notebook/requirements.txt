@@ -1,11 +1,8 @@
-nibabel
-ruamel.yaml
-tensorflow-addons
-umap-learn
+Bottleneck
+PyQt5
 astropy
 bayesian-optimization
 bokeh
-Bottleneck
 cartopy
 cython
 datashader
@@ -20,10 +17,10 @@ mlxtend
 nbconvert
 nbi-stat
 netCDF4
+nibabel
 nose
 numba
 numdifftools
-numpy
 opencv-python
 pandas
 pillow
@@ -32,9 +29,9 @@ pomegranate
 pydotplus
 pymc3
 pyproj
-PyQt5
 pystan
 recordclass
+ruamel.yaml
 ruptures
 scikit-image
 scikit-learn
@@ -44,8 +41,10 @@ six
 sklearn
 statsmodels
 sympy
+tensorflow-addons
 tqdm
 trackpy
+umap-learn
 uncertainties
 xarray
 xgboost
