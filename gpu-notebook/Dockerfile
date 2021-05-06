@@ -8,6 +8,13 @@ USER root
 RUN echo "[global]" > /etc/pip.conf \
     && echo "timeout=$PACKAGE_TIMEOUT" >> /etc/pip.conf
 
+
+RUN apt-get update \
+    && apt-get install -yq --no-install-recommends \
+    graphviz \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /tmp
 
 USER $NB_UID
@@ -21,7 +28,7 @@ RUN conda run -n python3 pip install -r requirements.txt \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-RUN conda run -n python3 pip install hdbscan --no-cache-dir --no-binary :all:
+RUN conda run -n python3 pip install hdbscan --no-build-isolation --no-binary :all:
 
 WORKDIR /home/$NB_USER
 # Run container as
