@@ -8,6 +8,7 @@ ALL_IMAGES:=base-notebook \
     slurm-notebook \
     python-notebook \
     python-cuda-notebook \
+    gpu-notebook \
     datascience-notebook \
     chemistry-notebook \
     fenics-notebook \
