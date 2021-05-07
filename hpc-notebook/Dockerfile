@@ -24,8 +24,6 @@ RUN apt-get update \
     libxi-dev \
     libhdf5-dev \
     libhdf5-doc \
-    xtensor-dev \
-    xtensor-doc \
     libjson-c-dev \
     libnetcdf-dev \
     libnetcdff-dev \
@@ -34,17 +32,6 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /tmp
-
-RUN curl -LOk https://github.com/bh107/bohrium/archive/v${BOHRIUM_VERSION}.tar.gz \
-    && tar -xf v${BOHRIUM_VERSION}.tar.gz \
-    && mkdir bohrium-${BOHRIUM_VERSION}/build \
-    && cd bohrium-${BOHRIUM_VERSION}/build \
-    && cmake .. -DVE_OPENCL=OFF -DVE_CUDA=OFF -DEXT_CLBLAS=OFF -DBRIDGE_PY_API=OFF -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=/usr \
-    && make install -j 2 \
-    && cd /tmp \
-    && rm -r bohrium-${BOHRIUM_VERSION} \
-    && mkdir -p /usr/var/bohrium \
-    && chmod 777 /usr/var/bohrium
 
 RUN mkdir -p /opt \
     && chgrp $NB_GID /opt \
@@ -66,31 +53,19 @@ USER $NB_UID
 
 RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
-RUN conda install --quiet --yes \
-    ffmpeg \
-    imagemagick \
+COPY environment.yml /tmp/
+RUN conda env update -n python3 -f environment.yml \
     && conda clean --all -f -y \
-    && rm -fr /tmp/tmp* \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-RUN pip install h5py
+COPY requirements.txt /tmp/
+RUN conda run -n python3 pip install -r requirements.txt \
+    && conda clean -y --all \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 WORKDIR /home/$NB_USER
-
-# Install code-server (https://github.com/betatim/vscode-binder/blob/master/postBuild)
-ARG CODE_SERVER_VERSION="2.1698"
-ARG CODE_SERVER_VSC_VERSION="vsc1.41.1"
-# Download and install VS Code server
-RUN wget -q -O code-server.tar.gz https://github.com/cdr/code-server/releases/download/${CODE_SERVER_VERSION}/code-server${CODE_SERVER_VERSION}-${CODE_SERVER_VSC_VERSION}-linux-x86_64.tar.gz \
-	&& mkdir -p ~/.local/bin \
-	&& tar -xvf code-server.tar.gz -C ~/.local/bin --strip-components=1 \
-	&& rm -rf code-server.tar.gz
-
-# Python extension
-RUN wget https://github.com/microsoft/vscode-python/releases/download/2019.10.44104/ms-python-release.vsix \
-	&& $HOME/.local/bin/code-server --install-extension ms-python-release.vsix \
-	&& rm -rf ms-python-release.vsix
 
 ENV PATH="$PATH:$HOME/.local/bin"
 

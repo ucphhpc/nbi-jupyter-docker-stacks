@@ -1,0 +1,4 @@
+name: hpc-notebook
+dependencies:
+  - ffmpeg
+  - imagemagick
