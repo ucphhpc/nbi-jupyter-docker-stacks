@@ -1,4 +1,4 @@
-FROM nielsbohr/gpu-notebook:edge
+FROM nielsbohr/gpu-notebook:latest
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
 
