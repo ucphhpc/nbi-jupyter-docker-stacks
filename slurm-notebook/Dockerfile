@@ -1,4 +1,4 @@
-FROM nielsbohr/python-notebook:latest
+FROM nielsbohr/python-notebook:edge
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 
 ARG SLURM_VERSION=18.08.4
@@ -19,25 +19,33 @@ RUN groupadd -r slurm --gid=990 && useradd -r -g slurm --uid=990 slurm \
 # build, slurm, openmpi, ldap
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-    supervisor \
-    munge \
+    autotools-dev \
+    cgdb \
+    cmake-curses-gui \
+    csh \
+    g++ \
+    g++-10 \
+    g++-8 \
+    g++-9 \
+    gcc \
+    gcc-10 \
+    gcc-8 \
+    gcc-9 \
     iputils-ping \
-    libmunge-dev \
-    libslurm-dev \
-    openmpi-bin \
-    libopenmpi-dev \
-    libnss-ldap \
-    libpam-ldap \
-    python3-h5py \
-    python3-h5py-dbg \
+    ldap-utils \
     libhdf5-dev \
     libhdf5-doc \
-    ldap-utils \
-    cgdb \
-    csh \
+    libmunge-dev \
+    libnss-ldap \
+    libopenmpi-dev \
+    libpam-ldap \
+    libslurm-dev \
+    munge \
+    openmpi-bin \
+    python3-h5py \
+    python3-h5py-dbg \
+    supervisor \
     tcsh \
-    autotools-dev \
-    cmake-curses-gui \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -67,25 +75,7 @@ RUN mkdir -p /var/spool/slurmd \
 
 USER $NB_UID
 
-# Install slurm labextension
-# jupyterlab_slurm does not support jlab > 2.0.0, wait for it
-# to be updated before reintroduced
-# RUN jupyterlab_pip3 install jupyterlab_slurm \
-#     && fix-permissions $CONDA_DIR \
-#     && fix-permissions /home/$NB_USER
-
-# RUN jupyter labextension install jupyterlab-slurm \
-#     && npm cache clean --force \
-#     && npm dedupe \
-#     && rm -fr /home/$NB_USER/.yarn \
-#     && rm -fr /home/$NB_USER/.npm \
-#     && rm -rf /tmp/npm* \
-#     && rm -fr /tmp/v8* \
-#     && fix-permissions $CONDA_DIR \
-#     && fix-permissions /home/$NB_USER
-
 RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
-
 
 # Install packages for python3 envs
 COPY requirements.txt /tmp/
@@ -108,7 +98,6 @@ RUN cp -R $CXX_PATH/share/jupyter/kernels/* $CONDA_DIR/share/jupyter/kernels/
 
 # TODO, Add PySlurm (Python interface to slurm) requires Cython
 # Requires slurm 19.05
-
 USER root
 
 # Prepare supervisord state dirs
