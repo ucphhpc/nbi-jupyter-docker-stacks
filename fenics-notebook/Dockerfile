@@ -11,6 +11,7 @@ RUN echo "[global]" > /etc/pip.conf \
 RUN apt-get update \
     && apt-get install -yq --no-install-recommends \
     pkg-config \
+    gmsh \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && rm -fr /tmp/tmp*
@@ -33,6 +34,9 @@ RUN conda run -n python3 pip install -r requirements.txt \
     && conda clean --all -f -y \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
+
+# Ensure that the pkg config can be found in Jupyter
+RUN conda run -n python3 python3 /usr/local/bin/update_kernel_spec.py python3 --env-kwargs PATH=$PYTHON3_PATH/bin:$PATH
 
 WORKDIR /home/$NB_USER
 

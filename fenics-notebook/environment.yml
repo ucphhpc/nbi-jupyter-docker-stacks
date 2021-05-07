@@ -4,3 +4,4 @@ channels:
   - fenics
 dependencies:
   - fenics
+  - gmsh
