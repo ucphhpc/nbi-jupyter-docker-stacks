@@ -16,73 +16,21 @@ RUN apt-get update \
 
 WORKDIR /tmp
 
-# Run container as
 USER $NB_UID
 
 RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
-RUN $PYTHON2_PATH/bin/pip install \
-    numpy==1.16.4 \
-    bohrium_api \
-    pystan \
-    pymc3==3.6 \
-    && $PYTHON3_PATH/bin/pip install \
-    bohrium_api \
+COPY environment.yml /tmp/
+RUN conda env update -n python3 -f environment.yml \
+    && conda clean --all -f -y \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-# Install packages for python2/3 envs
-# NOTE: iminuit breaks py2 in recent versions using py3-only constructs.
-#       The 1.5.x versions officially require python 3.5+ and 1.3.8 is the
-#       latest version known to work and succeed in self-test for py2. While
-#       versions >= 1.3.9 definitely break one or more self-tests in py2.
-#       One can easily test in a jupyter session Terminal with:
-#       pip2 install iminuit==1.3.9
-#       python2 -c "import iminuit; iminuit.test()"
-# NOTE: ipyleaflet > 0.12.4 breaks py2 with py3-only constructs. It should be
-#       restricted to that version in base-notebook but we override for now.
-#       One can easily test in a jupyter session Terminal with:
-#       pip2 install ipyleaflet==0.12.6
-#       python2 -c "import ipyleaflet".
-RUN $PYTHON2_PATH/bin/pip install \
-    ipyleaflet==0.12.4 \
-    bohrium \
-    scipy \
-    seaborn \
-    sklearn \
-    sympy \
-    pandas \
-    iminuit==1.3.8 \
-    graphviz \
-    ipywidgets \
-    && $PYTHON3_PATH/bin/pip install \
-    numpy \
-    bohrium \
-    scipy \
-    seaborn \
-    sklearn \
-    sympy \
-    pandas \
-    iminuit \
-    graphviz \
-    ipywidgets \
-    pystan \
-    pymc3 \
+COPY requirements.txt /tmp/
+RUN conda run -n python3 pip install -r requirements.txt \
+    && conda clean -y --all \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
-
-RUN git clone https://github.com/scikit-hep/probfit.git \
-    && cd probfit \
-    && git checkout 6c64dd6d46c4155f83e2a75eead17e66d829911f \
-    && $PYTHON2_PATH/bin/pip install cython \
-    && $PYTHON2_PATH/bin/pip install . \
-    && $PYTHON3_PATH/bin/pip install cython \
-    && $PYTHON3_PATH/bin/pip install . \
-    && rm -fr /tmp/probfit \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
-
-USER root
 
 WORKDIR /home/$NB_USER
 

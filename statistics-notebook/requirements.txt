@@ -1,0 +1,12 @@
+graphviz
+iminuit
+ipywidgets
+numpy
+pandas
+probfit
+pymc3
+pystan
+scipy
+seaborn
+sklearn
+sympy
