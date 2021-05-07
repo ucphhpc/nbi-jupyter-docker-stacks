@@ -1,0 +1,9 @@
+botorch
+jax
+jaxlib
+netCDF4
+numpy
+scipy
+tensorflow
+veros
+xarray
