@@ -26,7 +26,7 @@ IMAGES = [
     "ocean-notebook",
     "geo-notebook",
     "bio-notebook",
-    "sme-notebook"
+    "sme-notebook",
 ]
 
 if __name__ == "__main__":

@@ -12,7 +12,6 @@ RUN echo "[global]" > /etc/pip.conf \
 # BioBase dependency
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-    gfortran \
     libxml2-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*

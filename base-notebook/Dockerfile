@@ -12,35 +12,35 @@ RUN echo "[global]" > /etc/pip.conf \
 
 RUN apt-get update \
     && apt-get install -yq --no-install-recommends \
-    automake \
     autoconf \
-    gcc \
-    g++ \
-    make \
-    cmake \
-    gfortran \
-    perl \
-    tar \
+    automake \
     bzip2 \
-    zlib1g \
-    git \
-    tzdata \
-    lftp \
-    openssh-client \
-    rsync \
+    cmake \
     curl \
+    g++ \
+    gcc \
+    gfortran \
+    git \
+    htop \
+    less \
+    lftp \
+    make \
+    man \
+    nano \
+    openssh-client \
+    perl \
+    rclone \
+    rsync \
+    screen \
+    tar \
     texlive \
     texlive-latex-extra \
-    htop \
-    nano \
-    vim \
-    man \
-    less \
     tree \
-    rclone \
+    tzdata \
     unzip \
+    vim \
     wget \
-    screen \
+    zlib1g \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -136,6 +136,20 @@ COPY ./res/update_kernel_spec.py /usr/local/bin/update_kernel_spec.py
 RUN chmod +x /usr/local/bin/update_kernel_spec.py
 
 USER $NB_UID
+
+# Install code-server (https://github.com/betatim/vscode-binder/blob/master/postBuild)
+# ARG CODE_SERVER_VERSION="2.1698"
+# ARG CODE_SERVER_VSC_VERSION="vsc1.41.1"
+# # Download and install VS Code server
+# RUN wget -q -O code-server.tar.gz https://github.com/cdr/code-server/releases/download/${CODE_SERVER_VERSION}/code-server${CODE_SERVER_VERSION}-${CODE_SERVER_VSC_VERSION}-linux-x86_64.tar.gz \
+# 	&& mkdir -p ~/.local/bin \
+# 	&& tar -xvf code-server.tar.gz -C ~/.local/bin --strip-components=1 \
+# 	&& rm -rf code-server.tar.gz
+
+# # Python extension
+# RUN wget https://github.com/microsoft/vscode-python/releases/download/2019.10.44104/ms-python-release.vsix \
+# 	&& $HOME/.local/bin/code-server --install-extension ms-python-release.vsix \
+# 	&& rm -rf ms-python-release.vsix
 
 WORKDIR /home/$NB_USER
 

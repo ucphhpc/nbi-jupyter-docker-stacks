@@ -50,4 +50,3 @@ def test_notebooks():
                 os.path.join(notebooks_path, f_notebook), kernel=kernel, timeout=120
             )
             assert errors == []
-
