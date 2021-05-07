@@ -8,6 +8,7 @@ notebooks_path = os.path.join(cur_path, "notebooks")
 gpu_notebooks_path = os.path.join(cur_path, "gpu_notebooks")
 kernels = ["python3"]
 
+
 def _notebook_run(path, kernel="python3", timeout=60):
     """Execute a notebook via nbconvert and collect output.
        :returns (parsed nb object, execution errors)
@@ -50,6 +51,7 @@ def test_cpu_notebooks():
                 os.path.join(notebooks_path, f_notebook), kernel=kernel, timeout=360
             )
             assert errors == []
+
 
 def test_gpu_notebooks():
     """Requires that gpu is available, if not don't run"""

@@ -31,6 +31,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # For libraries in the cuda-compat-* package: https://docs.nvidia.com/cuda/eula/index.html#attachment-a
 RUN apt-get update && apt-get install -y --no-install-recommends \
     cuda-${CUDA_PKG_VERSION} \
+    libnccl2 \
+    libnccl-dev \
     libcudnn8 \
     libcudnn8-dev \
     && apt-get clean \
