@@ -2,8 +2,11 @@ FROM nielsbohr/datascience-notebook:latest
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
 
-RUN $PYTHON2_PATH/bin/pip install veros \
-    && $PYTHON3_PATH/bin/pip install veros \
+WORKDIR /tmp
+
+COPY requirements.txt /tmp/
+RUN conda run -n python3 pip install -r requirements.txt \
+    && conda clean -y --all \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
