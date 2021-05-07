@@ -11,20 +11,21 @@ args = parser.parse_args()
 IMAGES = [
     "r-notebook",
     "slurm-notebook",
-    "sme-notebook",
     "python-notebook",
     "python-cuda-notebook",
     "gpu-notebook",
     "datascience-notebook",
     "chemistry-notebook",
     "fenics-notebook",
+    "qsharp-notebook",
     "statistics-notebook",
-    "dgx1-notebook",
+    "tomography-notebook",
     "hpc-notebook",
     "hpc-ocean-notebook",
-    "tomography-notebook",
+    "ocean-notebook",
     "geo-notebook",
     "bio-notebook",
+    "sme-notebook"
 ]
 
 if __name__ == "__main__":
