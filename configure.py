@@ -14,6 +14,7 @@ IMAGES = [
     "python-notebook",
     "python-cuda-notebook",
     "gpu-notebook",
+    "dgx1-notebook",
     "datascience-notebook",
     "chemistry-notebook",
     "fenics-notebook",

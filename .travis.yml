@@ -7,22 +7,22 @@ env:
     - NOTEBOOK=base-notebook
     - NOTEBOOK=r-notebook
     - NOTEBOOK=slurm-notebook
-    - NOTEBOOK=sme-notebook
     - NOTEBOOK=python-notebook
     - NOTEBOOK=python-cuda-notebook
+    - NOTEBOOK=gpu-notebook
+    - NOTEBOOK=dgx1-notebook
     - NOTEBOOK=datascience-notebook
     - NOTEBOOK=chemistry-notebook
     - NOTEBOOK=fenics-notebook
     - NOTEBOOK=qsharp-notebook
     - NOTEBOOK=statistics-notebook
-    - NOTEBOOK=dgx1-notebook
-    - NOTEBOOK=gpu-notebook
     - NOTEBOOK=tomography-notebook
-    - NOTEBOOK=ocean-notebook
     - NOTEBOOK=hpc-notebook
     - NOTEBOOK=hpc-ocean-notebook
+    - NOTEBOOK=ocean-notebook
     - NOTEBOOK=geo-notebook
     - NOTEBOOK=bio-notebook
+    - NOTEBOOK=sme-notebook
   global:
     - COMMIT=${TRAVIS_COMMIT::12}
     - RELEASE_VERS=latest
