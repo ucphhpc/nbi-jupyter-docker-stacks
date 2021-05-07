@@ -1,0 +1,17 @@
+future
+graphviz
+h5py
+jupyter-client
+mig_meow
+nbformat
+netCDF4
+numpy
+pandas
+pillow
+scikit-image
+scipy
+seaborn
+sklearn
+torch
+torchvision
+tqdm
