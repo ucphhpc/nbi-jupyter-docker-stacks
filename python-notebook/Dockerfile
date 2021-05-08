@@ -30,7 +30,7 @@ RUN conda run -n python3 pip install -r requirements.txt \
     && fix-permissions /home/$NB_USER
 
 # Add the python3 environment to the jupyter kernel path
-RUN python3 /usr/local/bin/update_kernel_spec.py python3 --env-kwargs PATH=$PYTHON3_PATH/bin:$PATH
+RUN conda run -n python3 python3 /usr/local/bin/update_kernel_spec.py python3 --env-kwargs PATH=$PYTHON3_PATH/bin:$PATH
 
 USER root
 WORKDIR /home/$NB_USER
