@@ -76,6 +76,7 @@ RUN mkdir -p /var/spool/slurmd \
 USER $NB_UID
 
 RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
+ENV CLING_PATH=$CONDA_DIR/envs/cling
 
 # Install packages for python3 envs
 COPY requirements.txt /tmp/
@@ -95,6 +96,9 @@ RUN conda env create -n cling -f environment.yml \
 
 ENV CXX_PATH=$CONDA_DIR/envs/cling
 RUN cp -R $CXX_PATH/share/jupyter/kernels/* $CONDA_DIR/share/jupyter/kernels/
+
+# Add the cling environment to the jupyter kernel path
+RUN conda run -n cling python3 /usr/local/bin/update_kernel_spec.py cling --env-kwargs PATH=$CLING_PATH/bin:$PATH
 
 # TODO, Add PySlurm (Python interface to slurm) requires Cython
 # Requires slurm 19.05
