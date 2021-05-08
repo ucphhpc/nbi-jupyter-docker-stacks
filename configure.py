@@ -9,9 +9,9 @@ parser.add_argument("-i", "--image", action="store", default="python-noteboook")
 args = parser.parse_args()
 
 IMAGES = [
+    "python-notebook",
     "r-notebook",
     "slurm-notebook",
-    "python-notebook",
     "python-cuda-notebook",
     "gpu-notebook",
     "dgx1-notebook",

@@ -5,9 +5,9 @@ services: docker
 env:
   jobs:
     - NOTEBOOK=base-notebook
+    - NOTEBOOK=python-notebook
     - NOTEBOOK=r-notebook
     - NOTEBOOK=slurm-notebook
-    - NOTEBOOK=python-notebook
     - NOTEBOOK=python-cuda-notebook
     - NOTEBOOK=gpu-notebook
     - NOTEBOOK=dgx1-notebook
