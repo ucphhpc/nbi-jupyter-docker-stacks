@@ -10,5 +10,7 @@ RUN conda run -n python3 pip install -r requirements.txt \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
+WORKDIR /home/$NB_USER
+
 # Run container as
 USER $NB_UID
