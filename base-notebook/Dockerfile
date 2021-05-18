@@ -88,12 +88,20 @@ RUN conda install --quiet --yes \
     'bqplot' \
     'jupyter_bokeh' \
     'jupyter-server-proxy' \
+    'jupyterlab-git' \
+    'jupyterlab_code_formatter' \
+    'autopep8' \
+    'black' \
+    'isort' \
+    'yapf' \
     && jupyter labextension install jupyter-leaflet \
                                     @jupyter-widgets/jupyterlab-manager \
                                     bqplot \
                                     @jupyterlab/server-proxy \
                                     jupyterlab-topbar-extension \
                                     jupyterlab-system-monitor \
+                                    @jupyterlab/git \
+                                    nbdime-jupyterlab \
     && conda clean --all -f -y \
     && npm cache clean --force \
     && npm dedupe \
