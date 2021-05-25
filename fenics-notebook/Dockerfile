@@ -19,7 +19,7 @@ RUN apt-get update \
 WORKDIR /tmp
 USER $NB_UID
 
-ENV PKG_CONfIG_PATH=$PYTHON3_PATH/lib/pkgconfig
+ENV PKG_CONFIG_PATH=$PYTHON3_PATH/lib/pkgconfig
 
 RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
