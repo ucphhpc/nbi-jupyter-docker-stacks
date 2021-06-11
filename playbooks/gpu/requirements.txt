@@ -1,4 +1,3 @@
-tensorflow-gpu
 tensorflow
 keras
 torch
