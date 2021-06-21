@@ -14,7 +14,7 @@ ENV CUDA_VERSION=${CUDA_MAJOR_VERSION}.${CUDA_MIN_VERSION}
 ARG CUDA_PKG_VERSION=11-0
 
 ARG NCCL_VERSION=2.9.6
-ARG CUDNN_VERSION=8.1.1
+ARG CUDNN_VERSION=8.0.5.39
 
 ENV CUDA_PATH="/usr/local/cuda"
 ENV CUDA_11_0_PATH="/usr/local/cuda-11.0"
@@ -30,25 +30,41 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # For libraries in the cuda-compat-* package: https://docs.nvidia.com/cuda/eula/index.html#attachment-a
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    cuda-${CUDA_PKG_VERSION} \
-    libnccl2 \
-    libnccl-dev \
-    libcudnn8 \
-    libcudnn8-dev \
+    cuda-cudart-11-0=11.0.221-1 \
+    cuda-compat-11-0 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Add missing symlink for libcusolver
-WORKDIR ${CUDA_PATH}/lib64
-RUN ln -s libcusolver.so.11 libcusolver.so.10
-WORKDIR /tmp
+# Runtime and NCCL
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    cuda-libraries-11-0=11.0.3-1 \
+    libnpp-11-0=11.1.0.245-1 \
+    cuda-nvtx-11-0=11.0.167-1 \
+    libcublas-11-0=11.2.0.252-1 \
+    libcusparse-11-0=11.1.1.245-1 \
+    libnccl2=$NCCL_VERSION-1+cuda11.0 \
+    && apt-get clean \
+    && rm -fr /var/lib/apt/lists/* \
+    && apt-mark hold libcublas-11-0 libnccl2
+
+# CUDNN
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libcudnn8=$CUDNN_VERSION-1+cuda11.0 \
+    && apt-mark hold libcudnn8 && \
+    rm -rf /var/lib/apt/lists/*
+
+# Add CUDA symlink and missing symlink for libcusolver
+RUN ln -s /usr/local/cuda-${CUDA_VERSION} /usr/local/cuda \
+    && ln -s /usr/local/cuda/lib64/libcusolver.so.10 /usr/local/cuda/lib64/libcusolver.so.11 \
+    && ln -s /usr/local/cuda/lib64/libcusolverMg.so.10 /usr/local/cuda/lib64/libcusolverMg.so.11
 
 ENV PATH="${CUDA_PATH}/bin:${PATH}"
-ENV LD_LIBRARY_PATH="${CUDA_PATH}/lib64:${LD_LIBRARY_PATH}"
+ENV LD_LIBRARY_PATH="${CUDA_PATH}/lib64"
 
 # nvidia-container-runtime
 ENV NVIDIA_VISIBLE_DEVICES all
 ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
+ENV NVIDIA_REQUIRE_CUDA "cuda>=11.0 brand=tesla,driver>=418,driver<419 brand=tesla,driver>=440,driver<441 driver>=450"
 
 # set tensorflow verbosity to error level, (default is 0/everything)
 ENV TF_CPP_MIN_LOG_LEVEL="3"
@@ -68,3 +84,4 @@ WORKDIR /home/$NB_USER
 
 # Ensure that container Runs as
 USER $NB_UID
+
