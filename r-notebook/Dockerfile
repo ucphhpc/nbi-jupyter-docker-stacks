@@ -1,7 +1,7 @@
 FROM nielsbohr/python-notebook:latest
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
-ARG RSTUDIO_VERSION=1.1.463
+ARG RSTUDIO_VERSION=1.4.1717
 ARG SHINY_VERSION=1.5.8.922
 
 USER root
@@ -18,7 +18,7 @@ RUN apt-get update \
     && wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5.6_amd64.deb \
     && dpkg -i libssl1.0.0_1.0.2n-1ubuntu5.6_amd64.deb \
     && rm -fr libssl1.0.0_1.0.2n-1ubuntu5.6_amd64.deb \
-    && wget https://download2.rstudio.org/rstudio-server-${RSTUDIO_VERSION}-amd64.deb -O /tmp/rstudio-server.deb \
+    && wget https://download2.rstudio.org/server/bionic/amd64/rstudio-server-${RSTUDIO_VERSION}-amd64.deb -O /tmp/rstudio-server.deb \
     && wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-${SHINY_VERSION}-amd64.deb -O /tmp/shiny-server.deb \
     && apt-get install -y --no-install-recommends /tmp/rstudio-server.deb /tmp/shiny-server.deb \
     && rm /tmp/rstudio-server.deb /tmp/shiny-server.deb \
@@ -45,17 +45,17 @@ RUN jupyterlab_pip3 install jupyter-rsession-proxy \
 RUN conda create -n r \
     'gxx_linux-64' \
     'libgfortran' \
-    'r-base=4.0.3' \
-    'r-boot=1.3*' \
-    'r-caret=6.0*' \
-    'r-crayon=1.4*' \
-    'r-devtools=2.3*' \
+    'r-base=4.1.0' \
+    'r-boot=1.*' \
+    'r-caret=6.*' \
+    'r-crayon=1.*' \
+    'r-devtools=2.*' \
     'r-e1071=1.*' \
-    'r-forecast=8.14*' \
-    'r-hexbin=1.28*' \
-    'r-htmltools=0.5*' \
-    'r-htmlwidgets=1.5*' \
-    'r-irkernel=1.1*' \
+    'r-forecast=8.*' \
+    'r-hexbin=1.*' \
+    'r-htmltools=0.*' \
+    'r-htmlwidgets=1.*' \
+    'r-irkernel=1.*' \
     'r-keras=2.4.*' \
     'r-leaps=3.*' \
     'r-nycflights13=1.0*' \
@@ -64,17 +64,17 @@ RUN conda create -n r \
     'r-randomforest=4.6*' \
     'r-RColorBrewer=1.*' \
     'r-rcurl=1.*' \
-    'r-readr=1.4*' \
-    'r-reshape2=1.4*' \
-    'r-rjson=0.2*' \
+    'r-readr=1.*' \
+    'r-reshape2=1.*' \
+    'r-rjson=0.*' \
     'r-rmarkdown=2.*' \
     'r-rocr=1.*' \
-    'r-rodbc=1.3*' \
-    'r-rsqlite=2.2*' \
+    'r-rodbc=1.*' \
+    'r-rsqlite=2.*' \
     'r-rtsne=0.*' \
-    'r-shiny=1.6*' \
-    'r-sparklyr=1.6*' \
-    'r-tidyverse=1.3*' \
+    'r-shiny=1.*' \
+    'r-sparklyr=1.*' \
+    'r-tidyverse=1.*' \
     'r-v8=3.4.*' \
     'unixodbc=2.3.*' \
     && conda clean --all -f -y \
@@ -90,6 +90,9 @@ RUN conda install -n r \
     && rm -fr /tmp/tmp* \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
+
+# Freetype is in the incorrect directory for some old libraries
+RUN ln -s $R_PATH/include/freetype2/freetype $R_PATH/include/
 
 # install tmp r packages
 COPY ./res /opt/res
