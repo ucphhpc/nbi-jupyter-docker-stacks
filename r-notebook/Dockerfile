@@ -107,6 +107,15 @@ RUN echo "PATH=\"$R_PATH/bin:$PATH\"" >> /home/$NB_USER/.bashrc \
     && ln -s $R_PATH/bin/R /usr/local/bin/R
 RUN python3 /usr/local/bin/update_kernel_spec.py ir --env-kwargs PATH=$R_PATH/bin:$PATH
 
+# Rstudio version 1.4 has permissions problems as per.
+# https://community.rstudio.com/t/permissions-related-to-upgrade-to-rstudio-server-open-source-1-4/94256/3
+RUN chown -R $NB_USER:$NB_GID /var/lib/rstudio-server \
+    && chown -R $NB_USER:$NB_GID /etc/rstudio
+
+# https://github.com/jupyterhub/jupyter-rsession-proxy
+# The rsession-proxy has to know whether version 1.4 is used
+ENV RSESSION_PROXY_RSTUDIO_1_4=True
+
 WORKDIR /home/$NB_USER
 
 # Ensure that container Runs as
