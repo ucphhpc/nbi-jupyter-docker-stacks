@@ -51,12 +51,21 @@ RUN conda install -qy -n r \
     'r-pROC' \
     'r-ape' \
     'r-minpack.lm' \
+    'r-tidyverse' \
+    'r-hexbin' \
+    'r-pheatmap' \
+    'r-tidyr' \
+    'r-magick' \
+    'r-magrittr' \
+    'r-corpcor' \
+    'r-rmarkdown' \
+    'r-tinytex' \
     && conda clean --all -f -y \
     && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()' \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-# NOTE: install BioConductor packages requested e.g. in erda ticket #18198
+# NOTE: install BioConductor packages requested e.g. in erda ticket #18198 and #25320
 ## BioConductor packages, etc.
 RUN conda install -qy -c bioconda -n r \
     'r-phytools' \
@@ -74,6 +83,13 @@ RUN conda install -qy -c bioconda -n r \
     'bioconductor-limma' \
     'bioconductor-Biostrings' \
     'bioconductor-biocinstaller' \
+    'bioconductor-dada2' \
+    'bioconductor-vsn' \
+    'bioconductor-multtest' \
+    'bioconductor-xcms' \
+    'bioconductor-biocparallel' \
+    'bioconductor-camera' \
+    'bioconductor-pcamethods' \
     'cutadapt' \
     'mafft' \
     'fasttree' \
