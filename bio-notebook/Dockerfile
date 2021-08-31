@@ -51,7 +51,6 @@ RUN conda install -qy -n r \
     'r-pROC' \
     'r-ape' \
     'r-minpack.lm' \
-    'r-tidyverse' \
     'r-hexbin' \
     'r-pheatmap' \
     'r-tidyr' \

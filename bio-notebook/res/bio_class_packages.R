@@ -55,7 +55,6 @@ devtools::install_github("Russel88/COEF", force = TRUE, upgrade = "never")
 install_github("DanielSprockett/reltools", force = TRUE);
 
 pkgs <- list(
-    "ggplot2",
     "phytools",
     "gridExtra",
     "vegan",
@@ -67,7 +66,6 @@ pkgs <- list(
     "readxl",
     "RColorBrewer",
     "plyr",
-    "dplyr",
     "reshape2",
     "stringr",
     "pscl",
