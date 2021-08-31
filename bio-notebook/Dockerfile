@@ -90,6 +90,7 @@ RUN conda install -qy -c bioconda -n r \
     'bioconductor-biocparallel' \
     'bioconductor-camera' \
     'bioconductor-pcamethods' \
+    'bioconductor-apeglm' \
     'cutadapt' \
     'mafft' \
     'fasttree' \
