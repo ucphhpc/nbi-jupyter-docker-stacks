@@ -3,6 +3,8 @@ LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
 ARG RSTUDIO_VERSION=1.4.1717
 ARG SHINY_VERSION=1.5.8.922
+ARG UBUNTU_VERSION=5.7
+ARG ARCH=amd64
 
 USER root
 
@@ -15,11 +17,11 @@ RUN echo "[global]" > /etc/pip.conf \
 # While Ubuntu 20.04 only provides > libssl1.1
 RUN apt-get update \
     && apt-get install -y fonts-dejavu lmodern cm-super unixodbc unixodbc-dev \
-    && wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu5.6_amd64.deb \
-    && dpkg -i libssl1.0.0_1.0.2n-1ubuntu5.6_amd64.deb \
-    && rm -fr libssl1.0.0_1.0.2n-1ubuntu5.6_amd64.deb \
-    && wget https://download2.rstudio.org/server/bionic/amd64/rstudio-server-${RSTUDIO_VERSION}-amd64.deb -O /tmp/rstudio-server.deb \
-    && wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-${SHINY_VERSION}-amd64.deb -O /tmp/shiny-server.deb \
+    && wget http://security.ubuntu.com/ubuntu/pool/main/o/openssl1.0/libssl1.0.0_1.0.2n-1ubuntu${UBUNTU_VERSION}_${ARCH}.deb \
+    && dpkg -i libssl1.0.0_1.0.2n-1ubuntu${UBUNTU_VERSION}_${ARCH}.deb \
+    && rm -fr libssl1.0.0_1.0.2n-1ubuntu${UBUNTU_VERSION}_${ARCH}.deb \
+    && wget https://download2.rstudio.org/server/bionic/${ARCH}/rstudio-server-${RSTUDIO_VERSION}-${ARCH}.deb -O /tmp/rstudio-server.deb \
+    && wget https://download3.rstudio.org/ubuntu-14.04/x86_64/shiny-server-${SHINY_VERSION}-${ARCH}.deb -O /tmp/shiny-server.deb \
     && apt-get install -y --no-install-recommends /tmp/rstudio-server.deb /tmp/shiny-server.deb \
     && rm /tmp/rstudio-server.deb /tmp/shiny-server.deb \
     && apt-get clean \

@@ -1,4 +1,4 @@
-FROM nielsbohr/bio-notebook:edge
+FROM nielsbohr/r-notebook:latest
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
 
@@ -11,6 +11,7 @@ RUN echo "[global]" > /etc/pip.conf \
 # NOTE: install extras directly from github and CRAN as requested in erda ticket #18198
 # IMPORTANT: R defaults to unpack with non-existant /bin/gtar so we overrride
 ENV TAR="/bin/tar"
+
 # install tmp r packages
 COPY ./res /opt/res
 RUN $R_PATH/bin/Rscript /opt/res/*.R
