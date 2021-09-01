@@ -27,6 +27,7 @@ IMAGES = [
     "geo-notebook",
     "bio-notebook",
     "bio-bigdata-notebook",
+    "bio-bsa-notebook",
     "sme-notebook",
 ]
 

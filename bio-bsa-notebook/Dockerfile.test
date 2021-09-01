@@ -1,0 +1,19 @@
+FROM nielsbohr/bio-bsa-notebook:edge
+COPY tests /app/tests
+
+WORKDIR /app/tests
+
+RUN jupyterlab_pip install pytest \
+    && jupyterlab_pip install -r requirements.txt
+
+USER root
+
+RUN chown $NB_UID:$NB_GID -R notebooks \
+    && chmod +x test.sh \
+    && chown $NB_UID:$NB_GID -R /app/tests
+
+# Run container as
+USER $NB_UID
+
+CMD ["bin/bash"]
+ENTRYPOINT ["/app/tests/test.sh"]
