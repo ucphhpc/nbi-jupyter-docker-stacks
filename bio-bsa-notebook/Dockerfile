@@ -11,9 +11,21 @@ RUN echo "[global]" > /etc/pip.conf \
 # NOTE: install extras directly from github and CRAN as requested in erda ticket #18198
 # IMPORTANT: R defaults to unpack with non-existant /bin/gtar so we overrride
 ENV TAR="/bin/tar"
-# install tmp r packages
-COPY ./res /opt/res
-RUN $R_PATH/bin/Rscript /opt/res/*.R
+
+# install r packages
+RUN conda install -yq -c bioconda -n r \
+    "bwa" \
+    "emboss" \
+    "blast" \
+    "clustalw" \
+    "fastqc" \
+    "samtools" \
+    "hmmer" \
+    "meme" \
+    && conda clean --all -f -y \
+    && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()' \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 WORKDIR /home/$NB_USER
 

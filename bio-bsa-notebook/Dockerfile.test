@@ -3,6 +3,15 @@ COPY tests /app/tests
 
 WORKDIR /app/tests
 
+# To execute the which command, python needs
+# to be available.
+RUN conda install -yq -n r \
+    "python" \
+    && conda clean --all -f -y \
+    && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()' \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
+
 RUN jupyterlab_pip install pytest \
     && jupyterlab_pip install -r requirements.txt
 

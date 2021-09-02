@@ -39,7 +39,6 @@ def _notebook_run(path, kernel="python3", timeout=60):
         for output in cell["outputs"]
         if output.output_type == "error"
     ]
-
     return nb, errors
 
 
