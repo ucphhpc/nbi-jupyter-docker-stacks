@@ -35,6 +35,9 @@ RUN apt-get update \
     tar \
     texlive \
     texlive-latex-extra \
+    texlive-xetex \
+    texlive-fonts-recommended \
+    texlive-plain-generic \
     tree \
     tzdata \
     unzip \
