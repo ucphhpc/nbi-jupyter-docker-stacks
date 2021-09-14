@@ -47,7 +47,7 @@ RUN jupyterlab_pip3 install jupyter-rsession-proxy \
 RUN conda create -n r \
     'gxx_linux-64' \
     'libgfortran' \
-    'r-base=4.1.0' \
+    'r-base=4.1.*' \
     'r-boot=1.*' \
     'r-caret=6.*' \
     'r-crayon=1.*' \
