@@ -122,6 +122,7 @@ RUN conda install --quiet --yes \
 RUN conda run -n base pip install \
     facets-overview \
     nbresuse \
+    nbconvert[webpdf] \
     && conda clean -y -f --all \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
