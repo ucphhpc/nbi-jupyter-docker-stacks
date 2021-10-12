@@ -23,7 +23,8 @@ ALL_IMAGES:=base-notebook \
     bio-notebook \
     bio-bigdata-notebook \
     bio-bsa-notebook \
-    sme-notebook
+    sme-notebook \
+    jwst-notebook
 
 # Inspired by https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 help:
