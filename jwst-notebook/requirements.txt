@@ -6,6 +6,7 @@ cartopy==0.18.0
 cython
 datashader
 graphviz
+healpy
 h5py
 ipywidgets
 jax

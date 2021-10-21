@@ -51,12 +51,11 @@ RUN conda env update -n python3 -f environment.yml \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-RUN echo x
-
 # Install packages for python3 envs
 COPY requirements.txt /tmp/
 RUN conda run -n python3 pip install -r requirements.txt
 
+#################
 # Grizli
 RUN git clone https://github.com/gbrammer/grizli.git
 
@@ -64,9 +63,19 @@ WORKDIR /tmp/grizli
 RUN conda run -n python3 pip install . -r requirements.txt
 
 WORKDIR /tmp/
-    
+
+# Eazy-py
+RUN conda run -n python3 pip install mpdaf
+RUN git clone https://github.com/gbrammer/eazy-py.git
+
+WORKDIR /tmp/eazy-py
+RUN conda run -n python3 pip install . -r requirements.txt
+
+WORKDIR /tmp/
+   
 # Conda install hstcal
 RUN conda config --add channels http://ssb.stsci.edu/astroconda 
+RUN conda config --add channels conda-forge
 RUN conda install -n python3 hstcal
 
 # Patch for photutils / drizzlepac
@@ -74,30 +83,40 @@ COPY photutils.patch /tmp/
 RUN conda run -n python3 pip install photutils --upgrade
 RUN conda run -n python3 python /tmp/photutils.patch
 
-# MIRAGE
-RUN conda run -n python3 pip install healpy mirage grismconf nircam_gsim
-    
-RUN conda clean -y --all \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
+# JWST tools
+RUN conda run -n python3 pip install jwst_backgrounds
+RUN conda run -n python3 pip install git+https://github.com/spacetelescope/jwst_gtvt.git
+RUN conda run -n python3 pip install jdaviz
+RUN conda run -n python3 pip install pandeia.engine
 
+# MIRAGE
+RUN conda run -n python3 pip install mirage grismconf nircam_gsim
+    
 WORKDIR /home/$NB_USER
 
 # FSPS
-RUN git clone https://github.com/cconroy20/fsps.git
-RUN cd fsps/src && make
-ENV SPS_HOME /home/${NB_USER}/fsps/
+RUN git clone https://github.com/cconroy20/fsps.git fsps_home
+RUN cd fsps_home/src && make
+ENV SPS_HOME /home/${NB_USER}/fsps_home
+
+# Compile python-fsps
+# Padova + lores BASEL models much faster
 RUN FFLAGS="-DMIST=0 -DPADOVA=1 -DMILES=0 -DBASEL=1" conda run -n python3 pip install fsps --no-binary fsps
 
 # Environment variables
 ENV JWST_DATA /home/${NB_USER}/work/JWST/Simulations/MirageGabe
 ENV CRDS_SERVER_URL https://jwst-crds.stsci.edu 
-ENV CRDS_PATH /home/${NB_USER}/crds_cache/ 
-ENV GRIZLI /home/${NB_USER}/work/DAWN/Science/JWST/Software 
+ENV CRDS_PATH /home/${NB_USER}/crds_cache 
 ENV MIRAGE_DATA ${JWST_DATA}/MIRAGE_DATA 
-ENV WEBBPSF_PATH $JWST_DATA/webbpsf-data 
-ENV SPS_HOME /home/${NB_USER}/fsps
-    
+ENV WEBBPSF_PATH ${JWST_DATA}/webbpsf-data 
+ENV GRIZLI /home/${NB_USER}/work/DAWN/Science/JWST/Software 
+ENV iref ${GRIZLI}/iref/
+ENV jref ${GRIZLI}/jref/
+
+RUN conda clean -y --all \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
+
 # Run container as
 USER $NB_UID
 
