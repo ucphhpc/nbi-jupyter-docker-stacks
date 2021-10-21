@@ -1,4 +1,4 @@
-FROM nielsbohr/datascience-notebook:edge
+FROM nielsbohr/jwst-notebook:edge
 COPY tests /app/tests
 
 WORKDIR /app/tests
