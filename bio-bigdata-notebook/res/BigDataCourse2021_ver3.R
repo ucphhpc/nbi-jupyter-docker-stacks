@@ -1,4 +1,8 @@
 ## Installing CRAN packages
+# imagemagick is required by magick
+install.packages(c(
+    "imagemagick"
+), repos='http://mirrors.dotsrc.org/cran/')
 install.packages(c(
     "hexbin",
     "ggplot2",
