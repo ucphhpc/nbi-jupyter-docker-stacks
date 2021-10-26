@@ -13,6 +13,7 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends \
     libnetcdf-dev \
     libc6-dev-i386 \
+    libmagick++-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
