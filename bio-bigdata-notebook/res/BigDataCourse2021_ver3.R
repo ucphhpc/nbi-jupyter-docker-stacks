@@ -1,8 +1,4 @@
 ## Installing CRAN packages
-# imagemagick is required by magick
-install.packages(c(
-    "imagemagick"
-), repos='http://mirrors.dotsrc.org/cran/')
 install.packages(c(
     "hexbin",
     "ggplot2",
@@ -36,4 +32,3 @@ BiocManager::install("BiocParallel", update = TRUE, ask = FALSE)
 BiocManager::install("CAMERA", update = TRUE, ask = FALSE)
 BiocManager::install("pcaMethods",update = TRUE, ask = FALSE)
 BiocManager::install("apeglm", update = TRUE, ask = FALSE)
-BiocManager::install("xcms", update = TRUE, ask = FALSE)

@@ -21,8 +21,12 @@ RUN apt-get update \
 ENV TAR="/bin/tar"
 
 # install tmp r packages
+RUN conda install -n r imagemagick -yq
+
 COPY ./res /opt/res
 RUN $R_PATH/bin/Rscript /opt/res/*.R
+
+RUN conda install -c bioconda -n r bioconductor-xcms -yq 
 
 WORKDIR /home/$NB_USER
 
