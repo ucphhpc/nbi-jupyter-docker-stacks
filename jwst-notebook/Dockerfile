@@ -1,0 +1,124 @@
+FROM nielsbohr/python-notebook:latest
+LABEL MAINTAINER="Gabriel Brammer <gabriel.brammer@nbi.ku.dk>"
+ARG PACKAGE_TIMEOUT=60
+
+USER root
+
+# Setup default timeout of installing packages
+RUN echo "[global]" > /etc/pip.conf \
+    && echo "timeout=$PACKAGE_TIMEOUT" >> /etc/pip.conf
+
+# For opencv2 and basemap geos
+RUN apt-get update \
+    && apt-get install -yq --no-install-recommends \
+    # HDF5 and netCDF4 requirements
+    libhdf5-dev \
+    libhdf5-doc \
+    libnetcdf-dev \
+    libnetcdff-dev \
+    libnetcdff-doc \
+    libx11-6 \
+    libsm6 \
+    libxext6 \
+    libgeos-dev \
+    libglib2.0-0 \
+    libxrender1 \
+    libgl1-mesa-glx \
+    graphviz \
+    # Required by cartopy
+    libproj-dev \
+    proj-data \
+    proj-bin \
+    libgeos-dev \
+    # JWST etc
+    less \
+    gfortran \
+    # Used in Datf exercises
+    fonts-humor-sans \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /tmp
+
+USER $NB_UID
+
+RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
+
+# Proj4 is required for cartopy
+COPY environment.yml /tmp/
+RUN conda env update -n python3 -f environment.yml \
+    && conda clean --all -f -y \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
+
+# Install packages for python3 envs
+COPY requirements.txt /tmp/
+RUN conda run -n python3 pip install -r requirements.txt
+
+#################
+# Grizli
+RUN git clone https://github.com/gbrammer/grizli.git
+
+WORKDIR /tmp/grizli
+RUN conda run -n python3 pip install . -r requirements.txt
+
+WORKDIR /tmp/
+
+# Eazy-py
+RUN conda run -n python3 pip install mpdaf
+RUN git clone https://github.com/gbrammer/eazy-py.git
+
+WORKDIR /tmp/eazy-py
+RUN conda run -n python3 pip install . -r requirements.txt
+
+WORKDIR /tmp/
+   
+# Conda install hstcal
+RUN conda config --add channels http://ssb.stsci.edu/astroconda 
+RUN conda config --add channels conda-forge
+RUN conda install -n python3 hstcal
+
+# Patch for photutils / drizzlepac
+COPY photutils.patch /tmp/
+RUN conda run -n python3 pip install photutils --upgrade
+RUN conda run -n python3 python /tmp/photutils.patch
+
+# JWST tools
+RUN conda run -n python3 pip install jwst_backgrounds
+RUN conda run -n python3 pip install git+https://github.com/spacetelescope/jwst_gtvt.git
+RUN conda run -n python3 pip install jdaviz
+RUN conda run -n python3 pip install pandeia.engine
+
+# MIRAGE
+RUN conda run -n python3 pip install mirage grismconf nircam_gsim
+    
+WORKDIR /home/$NB_USER
+
+# FSPS
+RUN git clone https://github.com/cconroy20/fsps.git fsps_home
+RUN cd fsps_home/src && make
+ENV SPS_HOME /home/${NB_USER}/fsps_home
+
+# Compile python-fsps
+# Padova + lores BASEL models much faster
+RUN FFLAGS="-DMIST=0 -DPADOVA=1 -DMILES=0 -DBASEL=1" conda run -n python3 pip install fsps --no-binary fsps
+
+# Environment variables
+ENV JWST_DATA /home/${NB_USER}/work/JWST/Simulations/MirageGabe
+ENV CRDS_SERVER_URL https://jwst-crds.stsci.edu 
+ENV CRDS_PATH /home/${NB_USER}/crds_cache 
+ENV MIRAGE_DATA ${JWST_DATA}/MIRAGE_DATA 
+ENV WEBBPSF_PATH ${JWST_DATA}/webbpsf-data 
+ENV GRIZLI /home/${NB_USER}/work/DAWN/Science/JWST/Software 
+ENV iref ${GRIZLI}/iref/
+ENV jref ${GRIZLI}/jref/
+
+RUN conda clean -y --all \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
+
+# Run container as
+USER $NB_UID
+
+
+
