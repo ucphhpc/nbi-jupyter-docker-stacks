@@ -1,0 +1,48 @@
+format_version: 10
+pipelines:
+  spirits:
+    group: simple
+    label_template: ${COUNT}
+    lock_behavior: none
+    display_order: -1
+    materials:
+      repo_spirits:
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+        username: munk1@live.dk
+        shallow_clone: false
+        auto_update: true
+        branch: master
+        encrypted_password: AES:5Ya+5kkqYIqUywWwY7x5sA==:5I+cRzZ/WvF4S7ApDGOTQA==
+    stages:
+    - build:
+        fetch_materials: true
+        keep_artifacts: false
+        clean_workspace: false
+        approval:
+          type: success
+          allow_only_on_success: false
+        jobs:
+          build:
+            timeout: 0
+            tasks:
+            - exec:
+                arguments:
+                - build-all
+                command: make
+                run_if: passed
+    - test:
+        fetch_materials: true
+        keep_artifacts: false
+        clean_workspace: true
+        approval:
+          type: success
+          allow_only_on_success: false
+        jobs:
+         test:
+          timeout: 0
+          tasks:
+          - exec:
+              arguments:
+              - test-all
+              command: make
+              run_if: passed
