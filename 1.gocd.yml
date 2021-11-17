@@ -1,7 +1,7 @@
 format_version: 10
 pipelines:
   nbi_jupyter_docker_stacks:
-    group: simple
+    group: ucphhpc
     label_template: ${COUNT}
     lock_behavior: none
     display_order: -1
