@@ -23,7 +23,7 @@ pipelines:
             tasks:
             - exec:
                 arguments:
-                - build-all
+                - build/base-notebook
                 command: make
                 run_if: passed
     - test:
@@ -39,6 +39,6 @@ pipelines:
           tasks:
           - exec:
               arguments:
-              - test-all
+              - test/base-notebook
               command: make
               run_if: passed
