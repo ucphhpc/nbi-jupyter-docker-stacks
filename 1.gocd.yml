@@ -8,11 +8,7 @@ pipelines:
     materials:
       repo_spirits:
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
-        username: munk1@live.dk
-        shallow_clone: false
-        auto_update: true
         branch: master
-        encrypted_password: AES:5Ya+5kkqYIqUywWwY7x5sA==:5I+cRzZ/WvF4S7ApDGOTQA==
     stages:
     - build:
         fetch_materials: true
