@@ -1,12 +1,12 @@
 format_version: 10
 pipelines:
-  spirits:
+  nbi_jupyter_docker_stacks:
     group: simple
     label_template: ${COUNT}
     lock_behavior: none
     display_order: -1
     materials:
-      repo_spirits:
+      repo_nbi_jupyter_docker_stacks:
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
         branch: master
     stages:
