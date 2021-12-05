@@ -1,83 +1,59 @@
 format_version: 10
 pipelines:
-<<<<<<< HEAD
   docker_images:
     group: simple
-=======
-  nbi_jupyter_docker_stacks:
-    group: ucphhpc
->>>>>>> 50dfc02ed63f0b98daf8b0704fbc6a6913260f17
     label_template: ${COUNT}
     lock_behavior: none
     display_order: -1
     materials:
-<<<<<<< HEAD
       nbi_images:
-=======
-      repo_nbi_jupyter_docker_stacks:
->>>>>>> 50dfc02ed63f0b98daf8b0704fbc6a6913260f17
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
         branch: master
     stages:
-    - build:
-        fetch_materials: true
-        keep_artifacts: true
-        approval:
-          type: success
-          allow_only_on_success: false
-        jobs:
-          image:
-            timeout: 0
-            tasks:
-<<<<<<< HEAD
-              - exec:
-                  arguments:
-                    build/#{NOTEBOOK}
-                  command: make
-                  run_if: passed
-=======
-            - exec:
-                arguments:
-                - build/base-notebook
-                command: make
-                run_if: passed
->>>>>>> 50dfc02ed63f0b98daf8b0704fbc6a6913260f17
-    - test:
-        fetch_materials: true
-        keep_artifacts: true
-        approval:
-          type: success
-          allow_only_on_success: false
-        jobs:
-<<<<<<< HEAD
-          image:
-            timeout: 0
-            tasks:
-              - exec:
-                  arguments:
-                    test/#{NOTEBOOK}
-                  command: make
-    - push:
-        fetch_materials: true
-        keep_artifacts: true
-        approval:
-          type: success
-          allow_only_on_success: false
-        jobs:
-          image:
-            timeout: 0
-            tasks:
-              - exec:
-                  arguments:
-                    push/#{NOTEBOOK}
-                  command: make
-=======
-         test:
-          timeout: 0
-          tasks:
-          - exec:
-              arguments:
-              - test/base-notebook
-              command: make
-              run_if: passed
->>>>>>> 50dfc02ed63f0b98daf8b0704fbc6a6913260f17
+      - build:
+          fetch_materials: true
+          keep_artifacts: true
+          approval:
+            type: success
+            allow_only_on_success: false
+          jobs:
+            build:
+              elastic_profile_id: "docker"
+              timeout: 0
+              tasks:
+                - exec:
+                    command: make
+                    arguments:
+                      - build/#{NOTEBOOK}
+                    run_if: passed
+      - test:
+          fetch_materials: true
+          keep_artifacts: true
+          approval:
+            type: success
+            allow_only_on_success: false
+          jobs:
+            test:
+              elastic_profile_id: "docker"
+              timeout: 0
+              tasks:
+                - exec:
+                    command: make
+                    arguments:
+                      - test/#{NOTEBOOK}
+
+      - push:
+          fetch_materials: true
+          keep_artifacts: true
+          approval:
+            type: success
+            allow_only_on_success: false
+          jobs:
+            push:
+              elastic_profile_id: "docker"
+              timeout: 0
+              tasks:
+                - exec:
+                    command: make
+                    arguments:
+                      - push/#{NOTEBOOK}
