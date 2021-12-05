@@ -1,7 +1,9 @@
 format_version: 10
 pipelines:
   docker_images:
-    group: simple
+    group: ucphhpc
+    parameters:
+      NOTEBOOK: base-notebook
     label_template: ${COUNT}
     lock_behavior: none
     display_order: -1
