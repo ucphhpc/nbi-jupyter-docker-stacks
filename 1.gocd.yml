@@ -1,18 +1,23 @@
 format_version: 10
 pipelines:
+<<<<<<< HEAD
   docker_images:
     group: simple
+=======
+  nbi_jupyter_docker_stacks:
+    group: ucphhpc
+>>>>>>> 50dfc02ed63f0b98daf8b0704fbc6a6913260f17
     label_template: ${COUNT}
     lock_behavior: none
     display_order: -1
     materials:
+<<<<<<< HEAD
       nbi_images:
+=======
+      repo_nbi_jupyter_docker_stacks:
+>>>>>>> 50dfc02ed63f0b98daf8b0704fbc6a6913260f17
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
-        username: munk1@live.dk
-        shallow_clone: false
-        auto_update: true
         branch: master
-        encrypted_password: AES:5Ya+5kkqYIqUywWwY7x5sA==:5I+cRzZ/WvF4S7ApDGOTQA==
     stages:
     - build:
         fetch_materials: true
@@ -24,11 +29,19 @@ pipelines:
           image:
             timeout: 0
             tasks:
+<<<<<<< HEAD
               - exec:
                   arguments:
                     build/#{NOTEBOOK}
                   command: make
                   run_if: passed
+=======
+            - exec:
+                arguments:
+                - build/base-notebook
+                command: make
+                run_if: passed
+>>>>>>> 50dfc02ed63f0b98daf8b0704fbc6a6913260f17
     - test:
         fetch_materials: true
         keep_artifacts: true
@@ -36,6 +49,7 @@ pipelines:
           type: success
           allow_only_on_success: false
         jobs:
+<<<<<<< HEAD
           image:
             timeout: 0
             tasks:
@@ -57,3 +71,13 @@ pipelines:
                   arguments:
                     push/#{NOTEBOOK}
                   command: make
+=======
+         test:
+          timeout: 0
+          tasks:
+          - exec:
+              arguments:
+              - test/base-notebook
+              command: make
+              run_if: passed
+>>>>>>> 50dfc02ed63f0b98daf8b0704fbc6a6913260f17
