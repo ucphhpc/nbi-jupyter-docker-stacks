@@ -56,6 +56,11 @@ pipelines:
               timeout: 0
               tasks:
                 - exec:
+                    command: docker login
+                    arguments:
+                      - -u "$DOCKERHUB_USERNAME"
+                      - -p "$DOCKERHUB_PASSWORD"
+                - exec:
                     command: make
                     arguments:
                       - push/#{NOTEBOOK}
