@@ -56,7 +56,11 @@ pipelines:
               timeout: 0
               tasks:
                 - exec:
-                    command: docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
+                    command: docker
+                    arguments:
+                      - login
+                      - -u $DOCKERHUB_USERNAME
+                      - -p $DOCKERHUB_PASSWORD
                 - exec:
                     command: make
                     arguments:
