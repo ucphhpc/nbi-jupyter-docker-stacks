@@ -1,6 +1,3 @@
-.. image:: https://travis-ci.com/ucphhpc/nbi-jupyter-docker-stacks.svg?branch=master
-    :target: https://travis-ci.com/ucphhpc/nbi-jupyter-docker-stacks
-
 ==========================
 nbi-jupyter-docker-stacks
 ==========================
