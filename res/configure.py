@@ -1,14 +1,7 @@
 import os
 import argparse
 
-parser = argparse.ArgumentParser(
-    description="Configuration script for " "Dockerfile build tags"
-)
-parser.add_argument("-t", "--tag", action="store", default="edge")
-parser.add_argument("-i", "--image", action="store", default="python-noteboook")
-args = parser.parse_args()
-
-IMAGES = [
+NOTEBOOKS = [
     "python-notebook",
     "r-notebook",
     "slurm-notebook",
@@ -32,9 +25,16 @@ IMAGES = [
 ]
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="Configuration script for " "Dockerfile build tags"
+    )
+    parser.add_argument("-t", "--tag", action="store", default="edge")
+    parser.add_argument("-i", "--image", action="store", default="python-noteboook")
+    args = parser.parse_args()
+
     # Replace all FROM tags
-    for i in IMAGES:
-        path_docker = os.path.join(os.getcwd(), i, "Dockerfile")
+    for notebook in NOTEBOOKS:
+        path_docker = os.path.join(os.getcwd(), notebook, "Dockerfile")
 
         with open(path_docker, "r") as f_docker:
             from_line = f_docker.readline()

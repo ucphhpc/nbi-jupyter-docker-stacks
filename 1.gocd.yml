@@ -1,67 +1,202 @@
+environments:
+  docker_images:
+    environment_variables:
+      DOCKERHUB_PASSWORD: '{{SECRET:[dockerhub][password]}}'
+      DOCKERHUB_USERNAME: '{{SECRET:[dockerhub][username]}}'
+      RELEASE: latest
+    pipelines:
+    - base-notebook
+    - python-notebook
+    - r-notebook
+    - slurm-notebook
+    - python-cuda-notebook
+    - gpu-notebook
+    - dgx1-notebook
+    - datascience-notebook
+    - chemistry-notebook
+    - fenics-notebook
+    - qsharp-notebook
+    - statistics-notebook
+    - tomography-notebook
+    - hpc-notebook
+    - hpc-ocean-notebook
+    - ocean-notebook
+    - geo-notebook
+    - bio-notebook
+    - sme-notebook
 format_version: 10
 pipelines:
-  docker_images:
+  base-notebook:
+    display_order: -1
     group: ucphhpc
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: &id001
+      nbi_images:
+        branch: ci_testing
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
     parameters:
       NOTEBOOK: base-notebook
-    label_template: ${COUNT}
-    lock_behavior: none
+    template: docker_image
+  bio-notebook:
     display_order: -1
-    materials:
-      nbi_images:
-        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
-        branch: master
-    stages:
-      - build:
-          fetch_materials: true
-          keep_artifacts: true
-          approval:
-            type: success
-            allow_only_on_success: false
-          jobs:
-            build:
-              elastic_profile_id: "docker"
-              timeout: 0
-              tasks:
-                - exec:
-                    command: make
-                    arguments:
-                      - build/#{NOTEBOOK}
-                    run_if: passed
-      - test:
-          fetch_materials: true
-          keep_artifacts: true
-          approval:
-            type: success
-            allow_only_on_success: false
-          jobs:
-            test:
-              elastic_profile_id: "docker"
-              timeout: 0
-              tasks:
-                - exec:
-                    command: make
-                    arguments:
-                      - test/#{NOTEBOOK}
-
-      - push:
-          fetch_materials: true
-          keep_artifacts: true
-          approval:
-            type: success
-            allow_only_on_success: false
-          jobs:
-            push:
-              elastic_profile_id: "docker"
-              timeout: 0
-              tasks:
-                - exec:
-                    command: docker
-                    arguments:
-                      - login
-                      - -u $DOCKERHUB_USERNAME
-                      - -p $DOCKERHUB_PASSWORD
-                - exec:
-                    command: make
-                    arguments:
-                      - push/#{NOTEBOOK}
+    group: ucphhpc
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
+    parameters:
+      NOTEBOOK: bio-notebook
+    template: docker_image
+  chemistry-notebook:
+    display_order: -1
+    group: ucphhpc
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
+    parameters:
+      NOTEBOOK: chemistry-notebook
+    template: docker_image
+  datascience-notebook:
+    display_order: -1
+    group: ucphhpc
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
+    parameters:
+      NOTEBOOK: datascience-notebook
+    template: docker_image
+  dgx1-notebook:
+    display_order: -1
+    group: ucphhpc
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
+    parameters:
+      NOTEBOOK: dgx1-notebook
+    template: docker_image
+  fenics-notebook:
+    display_order: -1
+    group: ucphhpc
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
+    parameters:
+      NOTEBOOK: fenics-notebook
+    template: docker_image
+  geo-notebook:
+    display_order: -1
+    group: ucphhpc
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
+    parameters:
+      NOTEBOOK: geo-notebook
+    template: docker_image
+  gpu-notebook:
+    display_order: -1
+    group: ucphhpc
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
+    parameters:
+      NOTEBOOK: gpu-notebook
+    template: docker_image
+  hpc-notebook:
+    display_order: -1
+    group: ucphhpc
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
+    parameters:
+      NOTEBOOK: hpc-notebook
+    template: docker_image
+  hpc-ocean-notebook:
+    display_order: -1
+    group: ucphhpc
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
+    parameters:
+      NOTEBOOK: hpc-ocean-notebook
+    template: docker_image
+  ocean-notebook:
+    display_order: -1
+    group: ucphhpc
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
+    parameters:
+      NOTEBOOK: ocean-notebook
+    template: docker_image
+  python-cuda-notebook:
+    display_order: -1
+    group: ucphhpc
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
+    parameters:
+      NOTEBOOK: python-cuda-notebook
+    template: docker_image
+  python-notebook:
+    display_order: -1
+    group: ucphhpc
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
+    parameters:
+      NOTEBOOK: python-notebook
+    template: docker_image
+  qsharp-notebook:
+    display_order: -1
+    group: ucphhpc
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
+    parameters:
+      NOTEBOOK: qsharp-notebook
+    template: docker_image
+  r-notebook:
+    display_order: -1
+    group: ucphhpc
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
+    parameters:
+      NOTEBOOK: r-notebook
+    template: docker_image
+  slurm-notebook:
+    display_order: -1
+    group: ucphhpc
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
+    parameters:
+      NOTEBOOK: slurm-notebook
+    template: docker_image
+  sme-notebook:
+    display_order: -1
+    group: ucphhpc
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
+    parameters:
+      NOTEBOOK: sme-notebook
+    template: docker_image
+  statistics-notebook:
+    display_order: -1
+    group: ucphhpc
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
+    parameters:
+      NOTEBOOK: statistics-notebook
+    template: docker_image
+  tomography-notebook:
+    display_order: -1
+    group: ucphhpc
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
+    parameters:
+      NOTEBOOK: tomography-notebook
+    template: docker_image
