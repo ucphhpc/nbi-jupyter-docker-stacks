@@ -63,12 +63,12 @@ if __name__ == "__main__":
         "lock_behaviour": "none",
         "display_order": -1,
         "materials": {
-            "nbi_images": {
+            "ucphhpc_images": {
                 "git": "https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git",
                 "branch": branch,
             }
         },
-        "template": "docker_image",
+        "template": "notebook_image",
     }
 
     generated_config = {

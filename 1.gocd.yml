@@ -1,5 +1,5 @@
 environments:
-  notebook_images:
+  docker_images:
     environment_variables:
       DOCKERHUB_PASSWORD: '{{SECRET:[dockerhub][password]}}'
       DOCKERHUB_USERNAME: '{{SECRET:[dockerhub][username]}}'
@@ -33,12 +33,12 @@ pipelines:
     label_template: ${COUNT}
     lock_behaviour: none
     materials: &id001
-      nbi_images:
+      ucphhpc_images:
         branch: master
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
     parameters:
       NOTEBOOK: bio-bigdata-notebook
-    template: docker_image
+    template: notebook_image
   bio-bsa-notebook:
     display_order: -1
     group: ucphhpc
@@ -47,7 +47,7 @@ pipelines:
     materials: *id001
     parameters:
       NOTEBOOK: bio-bsa-notebook
-    template: docker_image
+    template: notebook_image
   bio-notebook:
     display_order: -1
     group: ucphhpc
@@ -56,7 +56,7 @@ pipelines:
     materials: *id001
     parameters:
       NOTEBOOK: bio-notebook
-    template: docker_image
+    template: notebook_image
   chemistry-notebook:
     display_order: -1
     group: ucphhpc
@@ -65,7 +65,7 @@ pipelines:
     materials: *id001
     parameters:
       NOTEBOOK: chemistry-notebook
-    template: docker_image
+    template: notebook_image
   datascience-notebook:
     display_order: -1
     group: ucphhpc
@@ -74,7 +74,7 @@ pipelines:
     materials: *id001
     parameters:
       NOTEBOOK: datascience-notebook
-    template: docker_image
+    template: notebook_image
   dgx1-notebook:
     display_order: -1
     group: ucphhpc
@@ -83,7 +83,7 @@ pipelines:
     materials: *id001
     parameters:
       NOTEBOOK: dgx1-notebook
-    template: docker_image
+    template: notebook_image
   fenics-notebook:
     display_order: -1
     group: ucphhpc
@@ -92,7 +92,7 @@ pipelines:
     materials: *id001
     parameters:
       NOTEBOOK: fenics-notebook
-    template: docker_image
+    template: notebook_image
   geo-notebook:
     display_order: -1
     group: ucphhpc
@@ -101,7 +101,7 @@ pipelines:
     materials: *id001
     parameters:
       NOTEBOOK: geo-notebook
-    template: docker_image
+    template: notebook_image
   gpu-notebook:
     display_order: -1
     group: ucphhpc
@@ -110,7 +110,7 @@ pipelines:
     materials: *id001
     parameters:
       NOTEBOOK: gpu-notebook
-    template: docker_image
+    template: notebook_image
   hpc-notebook:
     display_order: -1
     group: ucphhpc
@@ -119,7 +119,7 @@ pipelines:
     materials: *id001
     parameters:
       NOTEBOOK: hpc-notebook
-    template: docker_image
+    template: notebook_image
   hpc-ocean-notebook:
     display_order: -1
     group: ucphhpc
@@ -128,7 +128,7 @@ pipelines:
     materials: *id001
     parameters:
       NOTEBOOK: hpc-ocean-notebook
-    template: docker_image
+    template: notebook_image
   ocean-notebook:
     display_order: -1
     group: ucphhpc
@@ -137,7 +137,7 @@ pipelines:
     materials: *id001
     parameters:
       NOTEBOOK: ocean-notebook
-    template: docker_image
+    template: notebook_image
   python-cuda-notebook:
     display_order: -1
     group: ucphhpc
@@ -146,7 +146,7 @@ pipelines:
     materials: *id001
     parameters:
       NOTEBOOK: python-cuda-notebook
-    template: docker_image
+    template: notebook_image
   python-notebook:
     display_order: -1
     group: ucphhpc
@@ -155,7 +155,7 @@ pipelines:
     materials: *id001
     parameters:
       NOTEBOOK: python-notebook
-    template: docker_image
+    template: notebook_image
   qsharp-notebook:
     display_order: -1
     group: ucphhpc
@@ -164,7 +164,7 @@ pipelines:
     materials: *id001
     parameters:
       NOTEBOOK: qsharp-notebook
-    template: docker_image
+    template: notebook_image
   r-notebook:
     display_order: -1
     group: ucphhpc
@@ -173,7 +173,7 @@ pipelines:
     materials: *id001
     parameters:
       NOTEBOOK: r-notebook
-    template: docker_image
+    template: notebook_image
   slurm-notebook:
     display_order: -1
     group: ucphhpc
@@ -182,7 +182,7 @@ pipelines:
     materials: *id001
     parameters:
       NOTEBOOK: slurm-notebook
-    template: docker_image
+    template: notebook_image
   sme-notebook:
     display_order: -1
     group: ucphhpc
@@ -191,7 +191,7 @@ pipelines:
     materials: *id001
     parameters:
       NOTEBOOK: sme-notebook
-    template: docker_image
+    template: notebook_image
   statistics-notebook:
     display_order: -1
     group: ucphhpc
@@ -200,7 +200,7 @@ pipelines:
     materials: *id001
     parameters:
       NOTEBOOK: statistics-notebook
-    template: docker_image
+    template: notebook_image
   tomography-notebook:
     display_order: -1
     group: ucphhpc
@@ -209,4 +209,4 @@ pipelines:
     materials: *id001
     parameters:
       NOTEBOOK: tomography-notebook
-    template: docker_image
+    template: notebook_image
