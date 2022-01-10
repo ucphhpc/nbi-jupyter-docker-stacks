@@ -22,7 +22,7 @@ def test_jupyter_start():
 
 def _notebook_run(path, kernel="python3", timeout=60):
     """Execute a notebook via nbconvert and collect output.
-       :returns (parsed nb object, execution errors)
+    :returns (parsed nb object, execution errors)
     """
     dirname, __ = os.path.split(path)
     os.chdir(dirname)
