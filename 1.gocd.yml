@@ -4,30 +4,10 @@ environments:
       DOCKERHUB_PASSWORD: '{{SECRET:[dockerhub][password]}}'
       DOCKERHUB_USERNAME: '{{SECRET:[dockerhub][username]}}'
       RELEASE: latest
-    pipelines:
-    - python-notebook
-    - r-notebook
-    - slurm-notebook
-    - python-cuda-notebook
-    - gpu-notebook
-    - dgx1-notebook
-    - datascience-notebook
-    - chemistry-notebook
-    - fenics-notebook
-    - qsharp-notebook
-    - statistics-notebook
-    - tomography-notebook
-    - hpc-notebook
-    - hpc-ocean-notebook
-    - ocean-notebook
-    - geo-notebook
-    - bio-notebook
-    - bio-bigdata-notebook
-    - bio-bsa-notebook
-    - sme-notebook
+    pipelines: null
 format_version: 10
 pipelines:
-  bio-bigdata-notebook:
+  base-notebook:
     display_order: -1
     group: ucphhpc
     label_template: ${COUNT}
@@ -36,6 +16,15 @@ pipelines:
       ucphhpc_images:
         branch: master
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+    parameters:
+      NOTEBOOK: base-notebook
+    template: notebook_image
+  bio-bigdata-notebook:
+    display_order: -1
+    group: ucphhpc
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
     parameters:
       NOTEBOOK: bio-bigdata-notebook
     template: notebook_image

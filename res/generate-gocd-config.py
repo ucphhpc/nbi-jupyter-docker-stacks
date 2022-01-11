@@ -51,7 +51,7 @@ if __name__ == "__main__":
                     "DOCKERHUB_USERNAME": "{{SECRET:[dockerhub][username]}}",
                     "DOCKERHUB_PASSWORD": "{{SECRET:[dockerhub][password]}}",
                 },
-                "pipelines": NOTEBOOKS,
+                "pipelines": NOTEBOOKS.extend(["base-notebook"]),
             }
         }
     }
