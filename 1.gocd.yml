@@ -3,7 +3,6 @@ environments:
     environment_variables:
       DOCKERHUB_PASSWORD: '{{SECRET:[dockerhub][password]}}'
       DOCKERHUB_USERNAME: '{{SECRET:[dockerhub][username]}}'
-      RELEASE: latest
     pipelines:
     - python-notebook
     - r-notebook
@@ -38,6 +37,8 @@ pipelines:
         branch: master
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
     parameters:
+      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: base-notebook
     template: notebook_image
   bio-bigdata-notebook:
@@ -47,6 +48,8 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: bio-bigdata-notebook
     template: notebook_image
   bio-bsa-notebook:
@@ -56,6 +59,8 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: bio-bsa-notebook
     template: notebook_image
   bio-notebook:
@@ -65,6 +70,8 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: bio-notebook
     template: notebook_image
   chemistry-notebook:
@@ -74,6 +81,8 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: chemistry-notebook
     template: notebook_image
   datascience-notebook:
@@ -83,6 +92,8 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: datascience-notebook
     template: notebook_image
   dgx1-notebook:
@@ -92,6 +103,8 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: dgx1-notebook
     template: notebook_image
   fenics-notebook:
@@ -101,6 +114,8 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: fenics-notebook
     template: notebook_image
   geo-notebook:
@@ -110,6 +125,8 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: geo-notebook
     template: notebook_image
   gpu-notebook:
@@ -119,6 +136,8 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: gpu-notebook
     template: notebook_image
   hpc-notebook:
@@ -128,6 +147,8 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: hpc-notebook
     template: notebook_image
   hpc-ocean-notebook:
@@ -137,6 +158,8 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: hpc-ocean-notebook
     template: notebook_image
   ocean-notebook:
@@ -146,6 +169,8 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: ocean-notebook
     template: notebook_image
   python-cuda-notebook:
@@ -155,6 +180,8 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: python-cuda-notebook
     template: notebook_image
   python-notebook:
@@ -164,6 +191,8 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: python-notebook
     template: notebook_image
   qsharp-notebook:
@@ -173,6 +202,8 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: qsharp-notebook
     template: notebook_image
   r-notebook:
@@ -182,6 +213,8 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: r-notebook
     template: notebook_image
   slurm-notebook:
@@ -191,6 +224,8 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: slurm-notebook
     template: notebook_image
   sme-notebook:
@@ -200,6 +235,8 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: sme-notebook
     template: notebook_image
   statistics-notebook:
@@ -209,6 +246,8 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: statistics-notebook
     template: notebook_image
   tomography-notebook:
@@ -218,5 +257,7 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: tomography-notebook
     template: notebook_image

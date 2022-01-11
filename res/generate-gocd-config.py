@@ -32,15 +32,15 @@ if __name__ == "__main__":
         "--branch", default="master", help="The branch that should be built"
     )
     parser.add_argument(
-        "--image-tag",
+        "--default-image-tag",
         default="latest",
-        help="The tag that should be used to tag the images",
+        help="Beside the commit specific tagged release, another version is released with this default tag",
     )
     args = parser.parse_args()
 
     config_name = args.config_name
     branch = args.branch
-    image_tag = args.image_tag
+    default_image_tag = args.default_image_tag
 
     # base-notebook is not part of the
     # NOTEBOOKS, because it is configured
@@ -53,7 +53,6 @@ if __name__ == "__main__":
         "environments": {
             "docker_images": {
                 "environment_variables": {
-                    "RELEASE": image_tag,
                     "DOCKERHUB_USERNAME": "{{SECRET:[dockerhub][username]}}",
                     "DOCKERHUB_PASSWORD": "{{SECRET:[dockerhub][password]}}",
                 },
@@ -86,7 +85,9 @@ if __name__ == "__main__":
     for notebook in NOTEBOOKS:
         notebook_pipeline = {
             **common_pipeline_attributes,
-            "parameters": {"NOTEBOOK": notebook},
+            "parameters": {"NOTEBOOK": notebook,
+                           "DEFAULT_TAG": default_image_tag,
+                           "COMMIT_TAG": "${GO_REVISION_UCPHHPC_IMAGES}"},
         }
         generated_config["pipelines"][notebook] = notebook_pipeline
 
