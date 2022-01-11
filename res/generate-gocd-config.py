@@ -42,6 +42,12 @@ if __name__ == "__main__":
     branch = args.branch
     image_tag = args.image_tag
 
+    # base-notebook is not part of the
+    # NOTEBOOKS, because it is configured
+    # to inherit from the upstream jupyter
+    # base-notebook
+    NOTEBOOKS.extend(["base-notebook"])
+
     # GOCD environment
     common_environments = {
         "environments": {
@@ -51,7 +57,7 @@ if __name__ == "__main__":
                     "DOCKERHUB_USERNAME": "{{SECRET:[dockerhub][username]}}",
                     "DOCKERHUB_PASSWORD": "{{SECRET:[dockerhub][password]}}",
                 },
-                "pipelines": NOTEBOOKS.extend(["base-notebook"]),
+                "pipelines": NOTEBOOKS,
             }
         }
     }
