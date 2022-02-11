@@ -292,6 +292,7 @@ pipelines:
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: latest
       NOTEBOOK: statistics-notebook
+      ARGS: ""
     template: notebook_image
   tomography-notebook:
     display_order: -1
