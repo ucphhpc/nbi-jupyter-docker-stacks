@@ -256,7 +256,7 @@ pipelines:
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: 20.02.7
       NOTEBOOK: slurm-notebook
-      ARGS: "--build-arg SLURM_VERSION=20.02.7 --build-arg=SLURM_DOWNLOAD_MD5=e47e68692354f03db2999ec84fe3f735"
+      ARGS: "--build-arg SLURM_VERSION=20.02.7 --build-arg SLURM_DOWNLOAD_MD5=e47e68692354f03db2999ec84fe3f735"
     template: notebook_image
   slurm-notebook-21.08.0:
     display_order: -1
@@ -268,7 +268,7 @@ pipelines:
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: 21.08.0
       NOTEBOOK: slurm-notebook
-      ARGS: "--build-arg SLURM_VERSION=21.08.0 --build-arg=SLURM_DOWNLOAD_MD5=a5bf9ab2733f520cd8229513431ad787"
+      ARGS: "--build-arg SLURM_VERSION=21.08.0 --build-arg SLURM_DOWNLOAD_MD5=a5bf9ab2733f520cd8229513431ad787"
     template: notebook_image
   sme-notebook:
     display_order: -1
