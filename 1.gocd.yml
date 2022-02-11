@@ -225,7 +225,7 @@ pipelines:
     materials: *id001
     parameters:
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
-      DEFAULT_TAG: latest
+      DEFAULT_TAG: 20.02.7
       NOTEBOOK: slurm-notebook
     template: notebook_image
   sme-notebook:

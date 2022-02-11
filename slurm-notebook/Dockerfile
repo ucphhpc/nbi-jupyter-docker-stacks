@@ -1,8 +1,8 @@
 FROM nielsbohr/python-notebook:latest
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 
-ARG SLURM_VERSION=21.08.0
-ARG SLURM_DOWNLOAD_MD5=a5bf9ab2733f520cd8229513431ad787
+ARG SLURM_VERSION=20.02.7
+ARG SLURM_DOWNLOAD_MD5=e47e68692354f03db2999ec84fe3f735
 ARG SLURM_DOWNLOAD_URL="https://download.schedmd.com/slurm/slurm-$SLURM_VERSION.tar.bz2"
 ARG PACKAGE_TIMEOUT=60
 
