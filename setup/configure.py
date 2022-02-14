@@ -1,28 +1,6 @@
 import os
 import argparse
-
-NOTEBOOKS = [
-    "python-notebook",
-    "r-notebook",
-    "slurm-notebook",
-    "python-cuda-notebook",
-    "gpu-notebook",
-    "dgx1-notebook",
-    "datascience-notebook",
-    "chemistry-notebook",
-    "fenics-notebook",
-    "qsharp-notebook",
-    "statistics-notebook",
-    "tomography-notebook",
-    "hpc-notebook",
-    "hpc-ocean-notebook",
-    "ocean-notebook",
-    "geo-notebook",
-    "bio-notebook",
-    "bio-bigdata-notebook",
-    "bio-bsa-notebook",
-    "sme-notebook",
-]
+from notebooks import NOTEBOOKS
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(

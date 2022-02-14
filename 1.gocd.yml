@@ -173,6 +173,7 @@ pipelines:
       DEFAULT_TAG: 20.02.7
       NOTEBOOK: hpc-notebook
       PARENT_NOTEBOOK: slurm-notebook:20.02.7
+      ARGS: ""
     template: notebook_image
   hpc-notebook-21.08.0:
     display_order: -1
@@ -185,6 +186,7 @@ pipelines:
       DEFAULT_TAG: 21.08.0
       NOTEBOOK: hpc-notebook
       PARENT_NOTEBOOK: slurm-notebook:21.08.0
+      ARGS: ""
     template: notebook_image
   hpc-ocean-notebook:
     display_order: -1

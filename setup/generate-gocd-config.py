@@ -85,9 +85,12 @@ if __name__ == "__main__":
     for notebook in NOTEBOOKS:
         notebook_pipeline = {
             **common_pipeline_attributes,
-            "parameters": {"NOTEBOOK": notebook,
-                           "DEFAULT_TAG": default_image_tag,
-                           "COMMIT_TAG": "${GO_REVISION_UCPHHPC_IMAGES}"},
+            "parameters": {
+                "NOTEBOOK": notebook,
+                "DEFAULT_TAG": default_image_tag,
+                "COMMIT_TAG": "${GO_REVISION_UCPHHPC_IMAGES}",
+                "BUILD_ARGS": ""
+            },
         }
         generated_config["pipelines"][notebook] = notebook_pipeline
 
