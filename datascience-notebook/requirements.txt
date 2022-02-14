@@ -43,5 +43,6 @@ sympy
 tqdm
 trackpy
 uncertainties
+uproot
 xarray
 xgboost
