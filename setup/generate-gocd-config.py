@@ -1,13 +1,46 @@
 import argparse
 import os
 import yaml
-from configure import NOTEBOOKS
+from notebooks import NOTEBOOKS
+from architecture import NOTEBOOKS_ARCHITECTURE
 
 current_dir = os.path.abspath(os.path.dirname(__file__))
 parent_dir = os.path.dirname(current_dir)
 
 PACKAGE_NAME = "generate-gocd-config"
 gocd_format_version = 10
+
+
+def get_common_environment():
+    common_environment = {
+        "environments": {
+            "docker_images": {
+                "environment_variables": {
+                    "DOCKERHUB_USERNAME": "{{SECRET:[dockerhub][username]}}",
+                    "DOCKERHUB_PASSWORD": "{{SECRET:[dockerhub][password]}}",
+                },
+                "pipelines": NOTEBOOKS,
+            }
+        }
+    }
+    return common_environment
+
+
+def get_common_pipeline():
+    common_pipeline = {
+        "group": "ucphhpc",
+        "label_template": "${COUNT}",
+        "lock_behaviour": "none",
+        "display_order": -1,
+        "materials": {
+            "ucphhpc_images": {
+                "git": "https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git",
+                "branch": branch,
+            }
+        },
+        "template": "notebook_image",
+    }
+    return common_pipeline
 
 
 def save_config(path, config, mode="w", handler=yaml, **handler_kwargs):
@@ -42,40 +75,13 @@ if __name__ == "__main__":
     branch = args.branch
     default_image_tag = args.default_image_tag
 
-    # base-notebook is not part of the
-    # NOTEBOOKS, because it is configured
-    # to inherit from the upstream jupyter
-    # base-notebook
-    NOTEBOOKS.extend(["base-notebook"])
-
     # GOCD environment
-    common_environments = {
-        "environments": {
-            "docker_images": {
-                "environment_variables": {
-                    "DOCKERHUB_USERNAME": "{{SECRET:[dockerhub][username]}}",
-                    "DOCKERHUB_PASSWORD": "{{SECRET:[dockerhub][password]}}",
-                },
-                "pipelines": NOTEBOOKS,
-            }
-        }
-    }
+    common_environments = get_common_environment()
 
     # Common GOCD pipeline params
-    common_pipeline_attributes = {
-        "group": "ucphhpc",
-        "label_template": "${COUNT}",
-        "lock_behaviour": "none",
-        "display_order": -1,
-        "materials": {
-            "ucphhpc_images": {
-                "git": "https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git",
-                "branch": branch,
-            }
-        },
-        "template": "notebook_image",
-    }
+    common_pipeline_attributes = get_common_pipeline()
 
+    
     generated_config = {
         "format_version": gocd_format_version,
         **common_environments,
