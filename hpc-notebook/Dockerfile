@@ -28,6 +28,9 @@ RUN apt-get update \
     libnetcdf-dev \
     libnetcdff-dev \
     libnetcdff-doc \
+    environment-modules \
+    tcl \
+    procps \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -40,6 +43,7 @@ RUN mkdir -p /opt \
 # Launch script
 RUN echo "#!/usr/bin/env bash" > /usr/local/bin/hpc_launch.sh && \
     echo "set -e" >> /usr/local/bin/hpc_launch.sh && \
+    echo "cd /home" >> /usr/local/bin/hpc_launch.sh && \
     echo "git clone https://github.com/ucphhpc/hpc_course.git /opt/hpc_course" >> /usr/local/bin/hpc_launch.sh && \
     echo "chgrp -R $NB_GID /opt/hpc_course" >> /usr/local/bin/hpc_launch.sh && \
     echo "chmod -R g+w /opt/hpc_course" >> /usr/local/bin/hpc_launch.sh
