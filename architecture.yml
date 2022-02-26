@@ -1,0 +1,77 @@
+architecture:
+  base_notebook:
+    latest:
+      parent: jupyter/base-notebook:lab-3.0.12
+  python_notebook:
+    latest:
+      parent: nielsbohr/base-notebook:latest
+  r_notebook:
+    latest:
+      parent: nielsbohr/python-notebook:latest
+  slurm_notebook:
+    20.02.07:
+      parent: nielsbohr/python-notebook:latest
+      parameters:
+        SLURM_VERSION: 20.02.07
+        SLURM_DOWNLOAD_MD5: e47e68692354f03db2999ec84fe3f735
+    21.08.0:
+      parent: nielsbohr/python-notebook:latest
+      parameters:
+        SLURM_VERSION: 21.08.0
+        SLURM_DOWNLOAD_MD5: a5bf9ab2733f520cd8229513431ad787
+  python_cuda_notebook:
+    latest:
+      parent: nielsbohr/python-notebook:latest
+  gpu_notebook:
+    latest:
+      parent: nielsbohr/python-notebook:latest
+  dgx1_notebook:
+    latest:
+      parent: nielsbohr/gpu-notebook:latest
+  datascience_notebook:
+    latest:
+      parent: nielsbohr/python-notebook:latest
+  chemistry_notebook:
+    latest:
+      parent: nielsbohr/base-notebook:latest
+  fenics_notebook:
+    latest:
+      parent: nielsbohr/python-notebook:latest
+  qsharp_notebook:
+    latest:
+      parent: nielsbohr/python-notebook:latest
+  hpc_notebook:
+    latest:
+      parent: nielsbohr/slurm-notebook:latest
+    20.02.07:
+      parent: nielsbohr/slurm-notebook:20.02.07
+    21.08.0:
+      parent: nielsbohr/slurm-notebook:21.08.0
+  hpc_ocean_notebook:
+    latest:
+      parent: nielsbohr/slurm-notebook:latest
+    20.02.07:
+      parent: nielsbohr/slurm-notebook:20.02.07
+    21.08.0:
+      parent: nielsbohr/slurm-notebook:21.08.0
+  ocean_notebook:
+    latest:
+      parent: nielsbohr/datascience-notebook:latest
+  geo_notebook:
+    latest:
+      parent: nielsbohr/python-notebook:latest
+  bio_notebook:
+    latest:
+      parent: nielsbohr/r-notebook:latest
+  bio_bigdata_notebook:
+    latest:
+      parent: nielsbohr/r-notebook:latest
+  bio_bsa_notebook:
+    latest:
+      parent: nielsbohr/bio-bsa-notebook:latest
+  sme-notebook:
+    latest:
+      parent: nielsbohr/base-notebook:latest
+  jwst_notebook:
+    latest:
+      parent: nielsbohr/python-notebook:latest

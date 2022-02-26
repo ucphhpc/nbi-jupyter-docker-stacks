@@ -1,5 +1,5 @@
 # Set default username
-FROM jupyter/base-notebook:lab-3.0.12
+FROM {{ parent }}
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
 ARG FACETS_VERSION=0.2.2

@@ -1,4 +1,4 @@
-FROM nielsbohr/python-notebook:latest
+FROM {{ parent }}
 LABEL MAINTAINER="Gabriel Brammer <gabriel.brammer@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
 

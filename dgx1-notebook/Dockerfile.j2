@@ -1,4 +1,4 @@
-FROM nielsbohr/base-notebook:latest
+FROM {{ parent }}
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
 
@@ -8,24 +8,24 @@ USER root
 RUN echo "[global]" > /etc/pip.conf \
     && echo "timeout=$PACKAGE_TIMEOUT" >> /etc/pip.conf
 
-USER $NB_UID
+RUN apt-get update \
+    && apt-get install -yq --no-install-recommends \
+    libgeos-dev \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /tmp
 
-RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
-ENV PYTHON3_PATH=$CONDA_DIR/envs/python3
+USER $NB_UID
 
-# Install diffpy into python2 env
-# diffpy also provides pyobjcrust
+RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
+
+# Proj4 is required for cartopy
 COPY environment.yml /tmp/
-RUN conda env create -n python3 -f environment.yml \
-    && conda run -n python3 python -m ipykernel install --user --name=python3 \
+RUN conda env update -n python3 -f environment.yml \
     && conda clean --all -f -y \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
-
-# Ensure that container Runs as
-USER $NB_UID
 
 COPY requirements.txt /tmp/
 RUN conda run -n python3 pip install -r requirements.txt \
@@ -33,10 +33,6 @@ RUN conda run -n python3 pip install -r requirements.txt \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-# Add the python3 environment to the jupyter kernel path
-RUN conda run -n python3 python3 /usr/local/bin/update_kernel_spec.py python3 --env-kwargs PATH=$PYTHON3_PATH/bin:$PATH
-
 WORKDIR /home/$NB_USER
-
 # Run container as
 USER $NB_UID

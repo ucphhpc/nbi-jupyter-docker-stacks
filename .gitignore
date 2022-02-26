@@ -109,3 +109,8 @@ venv.bak/
 nohup.out
 
 .DS_Store
+
+# Generated dockerfiles
+*/Dockerfile.*
+!*/Dockerfile.j2
+!*/Dockerfile.test
