@@ -9,10 +9,10 @@ architecture:
     latest:
       parent: nielsbohr/python-notebook:latest
   slurm_notebook:
-    20.02.07:
+    20.02.7:
       parent: nielsbohr/python-notebook:latest
       parameters:
-        SLURM_VERSION: 20.02.07
+        SLURM_VERSION: 20.02.7
         SLURM_DOWNLOAD_MD5: e47e68692354f03db2999ec84fe3f735
     21.08.0:
       parent: nielsbohr/python-notebook:latest
