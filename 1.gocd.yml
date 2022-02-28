@@ -39,7 +39,7 @@ pipelines:
       ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: latest
-      NOTEBOOK: base_notebook
+      NOTEBOOK: base-notebook
     template: notebook_image
   bio_bigdata_notebook:
     display_order: -1
@@ -51,7 +51,7 @@ pipelines:
       ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: latest
-      NOTEBOOK: bio_bigdata_notebook
+      NOTEBOOK: bio-bigdata-notebook
     template: notebook_image
   bio_bsa_notebook:
     display_order: -1
@@ -63,7 +63,7 @@ pipelines:
       ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: latest
-      NOTEBOOK: bio_bsa_notebook
+      NOTEBOOK: bio-bsa-notebook
     template: notebook_image
   bio_notebook:
     display_order: -1
@@ -75,7 +75,7 @@ pipelines:
       ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: latest
-      NOTEBOOK: bio_notebook
+      NOTEBOOK: bio-notebook
     template: notebook_image
   chemistry_notebook:
     display_order: -1
@@ -87,7 +87,7 @@ pipelines:
       ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: latest
-      NOTEBOOK: chemistry_notebook
+      NOTEBOOK: chemistry-notebook
     template: notebook_image
   datascience_notebook:
     display_order: -1
@@ -99,7 +99,7 @@ pipelines:
       ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: latest
-      NOTEBOOK: datascience_notebook
+      NOTEBOOK: datascience-notebook
     template: notebook_image
   dgx1_notebook:
     display_order: -1
@@ -111,7 +111,7 @@ pipelines:
       ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: latest
-      NOTEBOOK: dgx1_notebook
+      NOTEBOOK: dgx1-notebook
     template: notebook_image
   fenics_notebook:
     display_order: -1
@@ -123,7 +123,7 @@ pipelines:
       ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: latest
-      NOTEBOOK: fenics_notebook
+      NOTEBOOK: fenics-notebook
     template: notebook_image
   geo_notebook:
     display_order: -1
@@ -135,7 +135,7 @@ pipelines:
       ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: latest
-      NOTEBOOK: geo_notebook
+      NOTEBOOK: geo-notebook
     template: notebook_image
   gpu_notebook:
     display_order: -1
@@ -147,7 +147,7 @@ pipelines:
       ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: latest
-      NOTEBOOK: gpu_notebook
+      NOTEBOOK: gpu-notebook
     template: notebook_image
   hpc_notebook:
     display_order: -1
@@ -159,7 +159,7 @@ pipelines:
       ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: 21.08.0
-      NOTEBOOK: hpc_notebook
+      NOTEBOOK: hpc-notebook
     template: notebook_image
   hpc_ocean_notebook:
     display_order: -1
@@ -171,7 +171,7 @@ pipelines:
       ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: 21.08.0
-      NOTEBOOK: hpc_ocean_notebook
+      NOTEBOOK: hpc-ocean-notebook
     template: notebook_image
   jwst_notebook:
     display_order: -1
@@ -183,7 +183,7 @@ pipelines:
       ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: latest
-      NOTEBOOK: jwst_notebook
+      NOTEBOOK: jwst-notebook
     template: notebook_image
   ocean_notebook:
     display_order: -1
@@ -195,7 +195,7 @@ pipelines:
       ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: latest
-      NOTEBOOK: ocean_notebook
+      NOTEBOOK: ocean-notebook
     template: notebook_image
   python_cuda_notebook:
     display_order: -1
@@ -207,7 +207,7 @@ pipelines:
       ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: latest
-      NOTEBOOK: python_cuda_notebook
+      NOTEBOOK: python-cuda-notebook
     template: notebook_image
   python_notebook:
     display_order: -1
@@ -219,7 +219,7 @@ pipelines:
       ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: latest
-      NOTEBOOK: python_notebook
+      NOTEBOOK: python-notebook
     template: notebook_image
   qsharp_notebook:
     display_order: -1
@@ -231,7 +231,7 @@ pipelines:
       ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: latest
-      NOTEBOOK: qsharp_notebook
+      NOTEBOOK: qsharp-notebook
     template: notebook_image
   r_notebook:
     display_order: -1
@@ -243,7 +243,7 @@ pipelines:
       ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: latest
-      NOTEBOOK: r_notebook
+      NOTEBOOK: r-notebook
     template: notebook_image
   slurm_notebook:
     display_order: -1
@@ -255,7 +255,7 @@ pipelines:
       ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: 21.08.0
-      NOTEBOOK: slurm_notebook
+      NOTEBOOK: slurm-notebook
     template: notebook_image
   sme-notebook:
     display_order: -1

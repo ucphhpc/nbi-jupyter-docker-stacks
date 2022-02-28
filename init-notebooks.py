@@ -110,11 +110,12 @@ if __name__ == "__main__":
 
     # Generate the GOCD build config
     for notebook, versions in notebooks.items():
+        name = notebook.replace("_", "-")
         for version, build_data in versions.items():
             notebook_pipeline = {
                 **common_pipeline_attributes,
                 "parameters": {
-                    "NOTEBOOK": notebook,
+                    "NOTEBOOK": name,
                     "DEFAULT_TAG": version,
                     "COMMIT_TAG": "${GO_REVISION_UCPHHPC_IMAGES}",
                     "ARGS": ""
