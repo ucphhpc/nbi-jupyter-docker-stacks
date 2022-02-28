@@ -36,6 +36,8 @@ RUN apt-get update \
     libnetcdf-dev \
     libnetcdff-dev \
     libnetcdff-doc \
+    clang-12 \
+    llvm-12 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 

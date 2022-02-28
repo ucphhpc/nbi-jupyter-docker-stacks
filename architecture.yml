@@ -43,15 +43,15 @@ architecture:
   hpc_notebook:
     latest:
       parent: nielsbohr/slurm-notebook:latest
-    20.02.07:
-      parent: nielsbohr/slurm-notebook:20.02.07
+    20.02.7:
+      parent: nielsbohr/slurm-notebook:20.02.7
     21.08.0:
       parent: nielsbohr/slurm-notebook:21.08.0
   hpc_ocean_notebook:
     latest:
       parent: nielsbohr/slurm-notebook:latest
-    20.02.07:
-      parent: nielsbohr/slurm-notebook:20.02.07
+    20.02.7:
+      parent: nielsbohr/slurm-notebook:20.02.7
     21.08.0:
       parent: nielsbohr/slurm-notebook:21.08.0
   ocean_notebook:
