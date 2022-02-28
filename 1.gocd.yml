@@ -36,9 +36,10 @@ pipelines:
         branch: master
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
     parameters:
+      ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: base_notebook
-      TAG: latest
     template: notebook_image
   bio_bigdata_notebook:
     display_order: -1
@@ -47,9 +48,10 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: bio_bigdata_notebook
-      TAG: latest
     template: notebook_image
   bio_bsa_notebook:
     display_order: -1
@@ -58,9 +60,10 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: bio_bsa_notebook
-      TAG: latest
     template: notebook_image
   bio_notebook:
     display_order: -1
@@ -69,9 +72,10 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: bio_notebook
-      TAG: latest
     template: notebook_image
   chemistry_notebook:
     display_order: -1
@@ -80,9 +84,10 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: chemistry_notebook
-      TAG: latest
     template: notebook_image
   datascience_notebook:
     display_order: -1
@@ -91,9 +96,10 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: datascience_notebook
-      TAG: latest
     template: notebook_image
   dgx1_notebook:
     display_order: -1
@@ -102,9 +108,10 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: dgx1_notebook
-      TAG: latest
     template: notebook_image
   fenics_notebook:
     display_order: -1
@@ -113,9 +120,10 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: fenics_notebook
-      TAG: latest
     template: notebook_image
   geo_notebook:
     display_order: -1
@@ -124,9 +132,10 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: geo_notebook
-      TAG: latest
     template: notebook_image
   gpu_notebook:
     display_order: -1
@@ -135,9 +144,10 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: gpu_notebook
-      TAG: latest
     template: notebook_image
   hpc_notebook:
     display_order: -1
@@ -146,9 +156,10 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: 21.08.0
       NOTEBOOK: hpc_notebook
-      TAG: 21.08.0
     template: notebook_image
   hpc_ocean_notebook:
     display_order: -1
@@ -157,9 +168,10 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: 21.08.0
       NOTEBOOK: hpc_ocean_notebook
-      TAG: 21.08.0
     template: notebook_image
   jwst_notebook:
     display_order: -1
@@ -168,9 +180,10 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: jwst_notebook
-      TAG: latest
     template: notebook_image
   ocean_notebook:
     display_order: -1
@@ -179,9 +192,10 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: ocean_notebook
-      TAG: latest
     template: notebook_image
   python_cuda_notebook:
     display_order: -1
@@ -190,9 +204,10 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: python_cuda_notebook
-      TAG: latest
     template: notebook_image
   python_notebook:
     display_order: -1
@@ -201,9 +216,10 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: python_notebook
-      TAG: latest
     template: notebook_image
   qsharp_notebook:
     display_order: -1
@@ -212,9 +228,10 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: qsharp_notebook
-      TAG: latest
     template: notebook_image
   r_notebook:
     display_order: -1
@@ -223,9 +240,10 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: r_notebook
-      TAG: latest
     template: notebook_image
   slurm_notebook:
     display_order: -1
@@ -234,9 +252,10 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: 21.08.0
       NOTEBOOK: slurm_notebook
-      TAG: 21.08.0
     template: notebook_image
   sme-notebook:
     display_order: -1
@@ -245,7 +264,8 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
       NOTEBOOK: sme-notebook
-      TAG: latest
     template: notebook_image
