@@ -63,9 +63,14 @@ if __name__ == "__main__":
     # Load the architecture file
     architecture_path = os.path.join(current_dir, architecture_name)
     architecture = load(architecture_path, handler=yaml, Loader=yaml.FullLoader)
+    owner = architecture.get("owner", None)
+    if not owner:
+        print("Failed to find architecture the owner in: {}".format(architecture_path))
+        exit(-1)
+
     notebooks = architecture.get("architecture", None)
     if not notebooks:
-        print("Failed to load architecture in: {}".format(architecture_path))
+        print("Failed to find the architecture in: {}".format(architecture_path))
         exit(-1)
 
     list_notebooks = list(key.replace("_", "-") for key in notebooks.keys())
@@ -107,6 +112,25 @@ if __name__ == "__main__":
                 output_content = template.render(parent=parent)
             # Save rendered template to a file
             write(output_file, output_content)
+    
+    # Generate the test Dockerfiles for the notebooks
+    for notebook, versions in notebooks.items():
+        name = notebook.replace("_", "-")
+        for version, build_data in versions.items():
+            test_parent = "{}/{}:{}".format(owner, name, version)
+
+            test_template_file = os.path.join("res", "tests", "Dockerfile.test.j2")
+            test_output_file = "{}/Dockerfile.{}.test".format(name, version)
+            test_template_content = load(test_template_file)
+            if not test_template_content:
+                print("Could not find test template file: {}".format(test_template_file))
+                exit(-4)
+
+            template = Template(test_template_content)
+            test_output_content = template.render(parent=test_parent)
+            # Save the rendered template to a file
+            write(test_output_file, test_output_content)
+
 
     # Generate the GOCD build config
     for notebook, versions in notebooks.items():

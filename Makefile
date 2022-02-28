@@ -41,7 +41,7 @@ build-all: $(foreach i,$(ALL_IMAGES),build/$(i))
 
 test/%:
 	$(MAKE) build/$(notdir $@)
-	docker build --rm --force-rm -t $(OWNER)/$(notdir $@):$(TAG)-test -f ./$(notdir $@)/Dockerfile.test ${ARGS} ./$(notdir $@)
+	docker build --rm --force-rm -t $(OWNER)/$(notdir $@):$(TAG)-test -f ./$(notdir $@)/Dockerfile.${TAG}.test ${ARGS} ./$(notdir $@)
 	docker run $(OWNER)/$(notdir $@):$(TAG)-test
 
 test-all: $(foreach i, $(ALL_IMAGES),test/$(i))

@@ -1,13 +1,11 @@
-FROM nielsbohr/tomography-notebook:edge
+FROM {{ parent }}
 COPY tests /app/tests
 
 WORKDIR /app/tests
 
+# base pip is for pip3
 RUN jupyterlab_pip install pytest \
     && jupyterlab_pip install -r requirements.txt
-
-# hpy5 tests requires unittest2
-RUN jupyterlab_pip install unittest2
 
 USER root
 
