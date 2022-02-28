@@ -1,4 +1,4 @@
-FROM nielsbohr/python-notebook:latest
+FROM {{ parent }}
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
 
@@ -8,9 +8,30 @@ USER root
 RUN echo "[global]" > /etc/pip.conf \
     && echo "timeout=$PACKAGE_TIMEOUT" >> /etc/pip.conf
 
+# For opencv2 and basemap geos
 RUN apt-get update \
     && apt-get install -yq --no-install-recommends \
+    # HDF5 and netCDF4 requirements
+    libhdf5-dev \
+    libhdf5-doc \
+    libnetcdf-dev \
+    libnetcdff-dev \
+    libnetcdff-doc \
+    libx11-6 \
+    libsm6 \
+    libxext6 \
+    libgeos-dev \
+    libglib2.0-0 \
+    libxrender1 \
+    libgl1-mesa-glx \
     graphviz \
+    # Required by cartopy
+    libproj-dev \
+    proj-data \
+    proj-bin \
+    libgeos-dev \
+    # Used in Datf exercises
+    fonts-humor-sans \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -20,12 +41,14 @@ USER $NB_UID
 
 RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
+# Proj4 is required for cartopy
 COPY environment.yml /tmp/
 RUN conda env update -n python3 -f environment.yml \
     && conda clean --all -f -y \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
+# Install packages for python3 envs
 COPY requirements.txt /tmp/
 RUN conda run -n python3 pip install -r requirements.txt \
     && conda clean -y --all \
@@ -34,5 +57,5 @@ RUN conda run -n python3 pip install -r requirements.txt \
 
 WORKDIR /home/$NB_USER
 
-# Ensure that container Runs as
+# Run container as
 USER $NB_UID

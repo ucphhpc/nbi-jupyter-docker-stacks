@@ -1,4 +1,4 @@
-FROM nielsbohr/python-cuda-notebook:latest
+FROM {{ parent }}
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
 
@@ -33,4 +33,3 @@ RUN conda run -n python3 pip install hdbscan --no-build-isolation --no-binary :a
 WORKDIR /home/$NB_USER
 # Run container as
 USER $NB_UID
-

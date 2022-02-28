@@ -4,30 +4,29 @@ environments:
       DOCKERHUB_PASSWORD: '{{SECRET:[dockerhub][password]}}'
       DOCKERHUB_USERNAME: '{{SECRET:[dockerhub][username]}}'
     pipelines:
-    - python-notebook
-    - r-notebook
-    - slurm-notebook
-    - python-cuda-notebook
-    - gpu-notebook
-    - dgx1-notebook
-    - datascience-notebook
-    - chemistry-notebook
-    - fenics-notebook
-    - qsharp-notebook
-    - statistics-notebook
-    - tomography-notebook
-    - hpc-notebook
-    - hpc-ocean-notebook
-    - ocean-notebook
-    - geo-notebook
-    - bio-notebook
-    - bio-bigdata-notebook
-    - bio-bsa-notebook
+    - base_notebook
+    - python_notebook
+    - r_notebook
+    - slurm_notebook
+    - python_cuda_notebook
+    - gpu_notebook
+    - dgx1_notebook
+    - datascience_notebook
+    - chemistry_notebook
+    - fenics_notebook
+    - qsharp_notebook
+    - hpc_notebook
+    - hpc_ocean_notebook
+    - ocean_notebook
+    - geo_notebook
+    - bio_notebook
+    - bio_bigdata_notebook
+    - bio_bsa_notebook
     - sme-notebook
-    - base-notebook
+    - jwst_notebook
 format_version: 10
 pipelines:
-  base-notebook:
+  base_notebook:
     display_order: -1
     group: ucphhpc
     label_template: ${COUNT}
@@ -37,262 +36,226 @@ pipelines:
         branch: master
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
     parameters:
+      ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: latest
-      NOTEBOOK: base-notebook
-      ARGS: ""
+      NOTEBOOK: base_notebook
     template: notebook_image
-  bio-bigdata-notebook:
+  bio_bigdata_notebook:
     display_order: -1
     group: ucphhpc
     label_template: ${COUNT}
     lock_behaviour: none
     materials: *id001
     parameters:
+      ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: latest
-      NOTEBOOK: bio-bigdata-notebook
-      ARGS: ""
+      NOTEBOOK: bio_bigdata_notebook
     template: notebook_image
-  bio-bsa-notebook:
+  bio_bsa_notebook:
     display_order: -1
     group: ucphhpc
     label_template: ${COUNT}
     lock_behaviour: none
     materials: *id001
     parameters:
+      ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: latest
-      NOTEBOOK: bio-bsa-notebook
-      ARGS: ""
+      NOTEBOOK: bio_bsa_notebook
     template: notebook_image
-  bio-notebook:
+  bio_notebook:
     display_order: -1
     group: ucphhpc
     label_template: ${COUNT}
     lock_behaviour: none
     materials: *id001
     parameters:
+      ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: latest
-      NOTEBOOK: bio-notebook
-      ARGS: ""
+      NOTEBOOK: bio_notebook
     template: notebook_image
-  chemistry-notebook:
+  chemistry_notebook:
     display_order: -1
     group: ucphhpc
     label_template: ${COUNT}
     lock_behaviour: none
     materials: *id001
     parameters:
+      ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: latest
-      NOTEBOOK: chemistry-notebook
-      ARGS: ""
+      NOTEBOOK: chemistry_notebook
     template: notebook_image
-  datascience-notebook:
+  datascience_notebook:
     display_order: -1
     group: ucphhpc
     label_template: ${COUNT}
     lock_behaviour: none
     materials: *id001
     parameters:
+      ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: latest
-      NOTEBOOK: datascience-notebook
-      ARGS: ""
+      NOTEBOOK: datascience_notebook
     template: notebook_image
-  dgx1-notebook:
+  dgx1_notebook:
     display_order: -1
     group: ucphhpc
     label_template: ${COUNT}
     lock_behaviour: none
     materials: *id001
     parameters:
+      ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: latest
-      NOTEBOOK: dgx1-notebook
-      ARGS: ""
+      NOTEBOOK: dgx1_notebook
     template: notebook_image
-  fenics-notebook:
+  fenics_notebook:
     display_order: -1
     group: ucphhpc
     label_template: ${COUNT}
     lock_behaviour: none
     materials: *id001
     parameters:
+      ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: latest
-      NOTEBOOK: fenics-notebook
-      ARGS: ""
+      NOTEBOOK: fenics_notebook
     template: notebook_image
-  geo-notebook:
+  geo_notebook:
     display_order: -1
     group: ucphhpc
     label_template: ${COUNT}
     lock_behaviour: none
     materials: *id001
     parameters:
+      ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: latest
-      NOTEBOOK: geo-notebook
-      ARGS: ""
+      NOTEBOOK: geo_notebook
     template: notebook_image
-  gpu-notebook:
+  gpu_notebook:
     display_order: -1
     group: ucphhpc
     label_template: ${COUNT}
     lock_behaviour: none
     materials: *id001
     parameters:
+      ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: latest
-      NOTEBOOK: gpu-notebook
-      ARGS: ""
+      NOTEBOOK: gpu_notebook
     template: notebook_image
-  hpc-notebook:
+  hpc_notebook:
     display_order: -1
     group: ucphhpc
     label_template: ${COUNT}
     lock_behaviour: none
     materials: *id001
     parameters:
-      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
-      DEFAULT_TAG: latest
-      NOTEBOOK: hpc-notebook
-      ARGS: ""
-    template: notebook_image
-  hpc-notebook-20.02.7:
-    display_order: -1
-    group: ucphhpc
-    label_template: ${COUNT}
-    lock_behaviour: none
-    materials: *id001
-    parameters:
-      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
-      DEFAULT_TAG: 20.02.7
-      NOTEBOOK: hpc-notebook
-      PARENT_NOTEBOOK: slurm-notebook:20.02.7
-    template: notebook_image
-  hpc-notebook-21.08.0:
-    display_order: -1
-    group: ucphhpc
-    label_template: ${COUNT}
-    lock_behaviour: none
-    materials: *id001
-    parameters:
+      ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: 21.08.0
-      NOTEBOOK: hpc-notebook
-      PARENT_NOTEBOOK: slurm-notebook:21.08.0
+      NOTEBOOK: hpc_notebook
     template: notebook_image
-  hpc-ocean-notebook:
+  hpc_ocean_notebook:
     display_order: -1
     group: ucphhpc
     label_template: ${COUNT}
     lock_behaviour: none
     materials: *id001
     parameters:
-      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
-      DEFAULT_TAG: latest
-      NOTEBOOK: hpc-ocean-notebook
-      ARGS: ""
-    template: notebook_image
-  ocean-notebook:
-    display_order: -1
-    group: ucphhpc
-    label_template: ${COUNT}
-    lock_behaviour: none
-    materials: *id001
-    parameters:
-      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
-      DEFAULT_TAG: latest
-      NOTEBOOK: ocean-notebook
-      ARGS: ""
-    template: notebook_image
-  python-cuda-notebook:
-    display_order: -1
-    group: ucphhpc
-    label_template: ${COUNT}
-    lock_behaviour: none
-    materials: *id001
-    parameters:
-      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
-      DEFAULT_TAG: latest
-      NOTEBOOK: python-cuda-notebook
-      ARGS: ""
-    template: notebook_image
-  python-notebook:
-    display_order: -1
-    group: ucphhpc
-    label_template: ${COUNT}
-    lock_behaviour: none
-    materials: *id001
-    parameters:
-      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
-      DEFAULT_TAG: latest
-      NOTEBOOK: python-notebook
-      ARGS: ""
-    template: notebook_image
-  qsharp-notebook:
-    display_order: -1
-    group: ucphhpc
-    label_template: ${COUNT}
-    lock_behaviour: none
-    materials: *id001
-    parameters:
-      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
-      DEFAULT_TAG: latest
-      NOTEBOOK: qsharp-notebook
-      ARGS: ""
-    template: notebook_image
-  r-notebook:
-    display_order: -1
-    group: ucphhpc
-    label_template: ${COUNT}
-    lock_behaviour: none
-    materials: *id001
-    parameters:
-      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
-      DEFAULT_TAG: latest
-      NOTEBOOK: r-notebook
-      ARGS: ""
-    template: notebook_image
-  slurm-notebook:
-    display_order: -1
-    group: ucphhpc
-    label_template: ${COUNT}
-    lock_behaviour: none
-    materials: *id001
-    parameters:
-      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
-      DEFAULT_TAG: latest
-      NOTEBOOK: slurm-notebook
-      ARGS: ""
-    template: notebook_image
-  slurm-notebook-20.02.7:
-    display_order: -1
-    group: ucphhpc
-    label_template: ${COUNT}
-    lock_behaviour: none
-    materials: *id001
-    parameters:
-      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
-      DEFAULT_TAG: 20.02.7
-      NOTEBOOK: slurm-notebook
-      ARGS: "--build-arg SLURM_VERSION=20.02.7 --build-arg SLURM_DOWNLOAD_MD5=e47e68692354f03db2999ec84fe3f735"
-    template: notebook_image
-  slurm-notebook-21.08.0:
-    display_order: -1
-    group: ucphhpc
-    label_template: ${COUNT}
-    lock_behaviour: none
-    materials: *id001
-    parameters:
+      ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: 21.08.0
-      NOTEBOOK: slurm-notebook
-      ARGS: "--build-arg SLURM_VERSION=21.08.0 --build-arg SLURM_DOWNLOAD_MD5=a5bf9ab2733f520cd8229513431ad787"
+      NOTEBOOK: hpc_ocean_notebook
+    template: notebook_image
+  jwst_notebook:
+    display_order: -1
+    group: ucphhpc
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
+    parameters:
+      ARGS: ''
+      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
+      NOTEBOOK: jwst_notebook
+    template: notebook_image
+  ocean_notebook:
+    display_order: -1
+    group: ucphhpc
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
+    parameters:
+      ARGS: ''
+      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
+      NOTEBOOK: ocean_notebook
+    template: notebook_image
+  python_cuda_notebook:
+    display_order: -1
+    group: ucphhpc
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
+    parameters:
+      ARGS: ''
+      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
+      NOTEBOOK: python_cuda_notebook
+    template: notebook_image
+  python_notebook:
+    display_order: -1
+    group: ucphhpc
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
+    parameters:
+      ARGS: ''
+      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
+      NOTEBOOK: python_notebook
+    template: notebook_image
+  qsharp_notebook:
+    display_order: -1
+    group: ucphhpc
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
+    parameters:
+      ARGS: ''
+      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
+      NOTEBOOK: qsharp_notebook
+    template: notebook_image
+  r_notebook:
+    display_order: -1
+    group: ucphhpc
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
+    parameters:
+      ARGS: ''
+      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
+      NOTEBOOK: r_notebook
+    template: notebook_image
+  slurm_notebook:
+    display_order: -1
+    group: ucphhpc
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
+    parameters:
+      ARGS: ''
+      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: 21.08.0
+      NOTEBOOK: slurm_notebook
     template: notebook_image
   sme-notebook:
     display_order: -1
@@ -301,32 +264,8 @@ pipelines:
     lock_behaviour: none
     materials: *id001
     parameters:
+      ARGS: ''
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: latest
       NOTEBOOK: sme-notebook
-      ARGS: ""
-    template: notebook_image
-  statistics-notebook:
-    display_order: -1
-    group: ucphhpc
-    label_template: ${COUNT}
-    lock_behaviour: none
-    materials: *id001
-    parameters:
-      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
-      DEFAULT_TAG: latest
-      NOTEBOOK: statistics-notebook
-      ARGS: ""
-    template: notebook_image
-  tomography-notebook:
-    display_order: -1
-    group: ucphhpc
-    label_template: ${COUNT}
-    lock_behaviour: none
-    materials: *id001
-    parameters:
-      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
-      DEFAULT_TAG: latest
-      NOTEBOOK: tomography-notebook
-      ARGS: ""
     template: notebook_image

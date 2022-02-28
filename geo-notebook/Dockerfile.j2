@@ -1,4 +1,4 @@
-FROM nielsbohr/python-notebook:latest
+FROM {{ parent }}
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
 
@@ -10,11 +10,11 @@ RUN echo "[global]" > /etc/pip.conf \
 
 WORKDIR /tmp
 
-# Run container as
 USER $NB_UID
 
 RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
+# Python3: use conda since several geo packages are only packaged there
 COPY environment.yml /tmp/
 RUN conda env update -n python3 -f environment.yml \
     && conda clean --all -f -y \
@@ -23,7 +23,7 @@ RUN conda env update -n python3 -f environment.yml \
 
 COPY requirements.txt /tmp/
 RUN conda run -n python3 pip install -r requirements.txt \
-    && conda clean -y --all \
+    && conda clean --all -f -y \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
@@ -31,4 +31,3 @@ WORKDIR /home/$NB_USER
 
 # Ensure that container Runs as
 USER $NB_UID
-
