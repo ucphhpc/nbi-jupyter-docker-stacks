@@ -54,17 +54,11 @@ if __name__ == "__main__":
     parser.add_argument(
         "--branch", default="master", help="The branch that should be built"
     )
-    parser.add_argument(
-        "--default-image-tag",
-        default="latest",
-        help="Beside the commit specific tagged release, another version is released with this default tag",
-    )
     args = parser.parse_args()
 
     architecture_name = args.architecture_name
     config_name = args.config_name
     branch = args.branch
-    default_image_tag = args.default_image_tag
 
     # Load the architecture file
     architecture_path = os.path.join(current_dir, architecture_name)
@@ -87,6 +81,7 @@ if __name__ == "__main__":
         "pipelines": {},
     }
 
+    # Generate the notebook Dockerfiles
     for notebook, versions in notebooks.items():
         name = notebook.replace("_", "-")
         for version, build_data in versions.items():
@@ -113,14 +108,16 @@ if __name__ == "__main__":
             # Save rendered template to a file
             write(output_file, output_content)
 
+    # Generate the GOCD build config
     for notebook, versions in notebooks.items():
         for version, build_data in versions.items():
             notebook_pipeline = {
                 **common_pipeline_attributes,
                 "parameters": {
                     "NOTEBOOK": notebook,
-                    "TAG": version,
+                    "DEFAULT_TAG": version,
                     "COMMIT_TAG": "${GO_REVISION_UCPHHPC_IMAGES}",
+                    "ARGS": ""
                 },
             }
             generated_config["pipelines"][notebook] = notebook_pipeline
