@@ -13,6 +13,7 @@ make push/${NOTEBOOK} TAG=${TAG} ARGS=${BUILD_ARGS}
 
 # If the EXTRA_TAG is set.
 # Link it to the original tag and push that version as well
+echo "Extra tag ${EXTRA_TAG}"
 if [[ -z $EXTRA_TAG ]]; then
     ln -s ${NOTEBOOK}/Dockerfile.${TAG} ${NOTEBOOK}/Dockerfile.${EXTRA_TAG}
 
