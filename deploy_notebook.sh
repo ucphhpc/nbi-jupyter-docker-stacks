@@ -14,6 +14,9 @@ make push/${NOTEBOOK} TAG=${TAG} ARGS=${BUILD_ARGS}
 # If the EXTRA_TAG is set.
 # Link it to the original tag and push that version as well
 echo "Pre test EXTRA_TAG expanded: ${!EXTRA_TAG}"
+# Test which envvars are available in GOCD
+printenv
+
 if [[ -n ${EXTRA_TAG} ]]; then
     echo "Extra tag expanded: ${!EXTRA_TAG}"
 
