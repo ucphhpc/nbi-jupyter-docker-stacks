@@ -179,7 +179,7 @@ if __name__ == "__main__":
     if not write(path, generated_config, handler=yaml):
         print("Failed to save config")
         exit(-1)
-    print("Generated new GOCD config in: {}".format(path))
+    print("Generated a new GOCD config in: {}".format(path))
 
     # Update the Makefile such that it contains every notebook
     # image
@@ -200,4 +200,4 @@ if __name__ == "__main__":
 
     # Write the new makefile content to the Makefile
     write(makefile_path, new_makefile_content)
-    print("Generated new Makefile in: {}".format(makefile_path))
+    print("Generated a new Makefile in: {}".format(makefile_path))
