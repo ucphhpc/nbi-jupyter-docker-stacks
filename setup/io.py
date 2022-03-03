@@ -33,7 +33,11 @@ def write(path, content, mode="w", mkdirs=False, handler=None, **handler_kwargs)
             if handler:
                 handler.dump(content, fh, **handler_kwargs)
             else:
-                fh.write(content)
+                if isinstance(content, (list, set)):
+                    for line in content:
+                        fh.write(line)
+                else:
+                    fh.write(content)
         return True
     except Exception as err:
         print("Failed to save file: {} - {}".format(path, err))

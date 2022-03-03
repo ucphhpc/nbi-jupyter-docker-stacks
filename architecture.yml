@@ -25,7 +25,7 @@ architecture:
       parent: nielsbohr/python-notebook:latest
   gpu_notebook:
     latest:
-      parent: nielsbohr/python-notebook:latest
+      parent: nielsbohr/python-cuda-notebook:latest
   dgx1_notebook:
     latest:
       parent: nielsbohr/gpu-notebook:latest
@@ -41,6 +41,9 @@ architecture:
   qsharp_notebook:
     latest:
       parent: nielsbohr/python-notebook:latest
+  hpc_gpu_notebook:
+    latest:
+      parent: nielsbohr/gpu-notebook:latest
   hpc_notebook:
     latest:
       parent: nielsbohr/slurm-notebook:latest

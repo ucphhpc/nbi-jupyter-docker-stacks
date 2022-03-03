@@ -1,0 +1,23 @@
+FROM {{ parent }}
+LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
+ARG PACKAGE_TIMEOUT=60
+
+USER root
+
+COPY --from=nielsbohr/gpu-notebook
+
+# Add the NVIDIA HPC Compiler
+RUN echo 'deb [trusted=yes] https://developer.download.nvidia.com/hpc-sdk/ubuntu/amd64 /' | tee /etc/apt/sources.list.d/nvhpc.list \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+    nvhpc-22-2-cuda-multi \
+    && apt-get clean \
+    && rm -fr /var/lib/apt/lists/*
+
+WORKDIR /home/$NB_USER
+
+# As an exception, run as root,
+# Remember to use supervisord start-notebook.sh to
+# de-escalate privileges to $NB_UID:$NB_GID
+USER root
+

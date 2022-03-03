@@ -1,4 +1,5 @@
 import argparse
+from asyncore import read
 import os
 import yaml
 from jinja2 import Template
@@ -54,11 +55,15 @@ if __name__ == "__main__":
     parser.add_argument(
         "--branch", default="master", help="The branch that should be built"
     )
+    parser.add_argument(
+        "--makefile", default="Makefile", help="The makefile that defines the images"
+    )
     args = parser.parse_args()
 
     architecture_name = args.architecture_name
     config_name = args.config_name
     branch = args.branch
+    makefile = args.makefile
 
     # Load the architecture file
     architecture_path = os.path.join(current_dir, architecture_name)
@@ -74,6 +79,8 @@ if __name__ == "__main__":
         exit(-1)
 
     list_notebooks = list(key.replace("_", "-") for key in notebooks.keys())
+    num_notebooks = len(list_notebooks) - 1
+
     # GOCD environment
     common_environments = get_common_environment(list(notebooks.keys()))
 
@@ -104,6 +111,8 @@ if __name__ == "__main__":
 
             template = Template(template_content)
             output_content = None
+            # template_file_content = build_data.get("template_file_content", None)
+
             build_parameters = build_data.get("parameters", None)
             if build_parameters:
                 # Format the jinja2 template
@@ -131,7 +140,6 @@ if __name__ == "__main__":
             # Save the rendered template to a file
             write(test_output_file, test_output_content)
 
-
     # Generate the GOCD build config
     for notebook, versions in notebooks.items():
         name = notebook.replace("_", "-")
@@ -152,3 +160,22 @@ if __name__ == "__main__":
         print("Failed to save config")
         exit(-1)
     print("Generated config in: {}".format(path))
+
+    # Update the Makefile such that it contains every notebook
+    # image
+    makefile_path = os.path.join(current_dir, makefile)
+    makefile_content = load(makefile_path, readlines=True)
+    new_makefile_content = []
+
+    for line in makefile_content:
+        if "ALL_IMAGES:=" in line:
+            images_declaration = "ALL_IMAGES:="
+            for notebook in notebooks:
+                name = notebook.replace("_", "-")
+                images_declaration += "{} ".format(name)
+            new_makefile_content.append(images_declaration)
+        else:
+            new_makefile_content.append(line)
+
+    # Write the new makefile content to the Makefile
+    write(makefile_path, new_makefile_content)

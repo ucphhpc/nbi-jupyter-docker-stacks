@@ -15,6 +15,7 @@ environments:
     - chemistry_notebook
     - fenics_notebook
     - qsharp_notebook
+    - hpc_gpu_notebook
     - hpc_notebook
     - hpc_ocean_notebook
     - ocean_notebook
@@ -148,6 +149,18 @@ pipelines:
       COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
       DEFAULT_TAG: latest
       NOTEBOOK: gpu-notebook
+    template: notebook_image
+  hpc_gpu_notebook:
+    display_order: -1
+    group: ucphhpc
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
+    parameters:
+      ARGS: ''
+      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      DEFAULT_TAG: latest
+      NOTEBOOK: hpc-gpu-notebook
     template: notebook_image
   hpc_notebook:
     display_order: -1

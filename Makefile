@@ -3,30 +3,7 @@
 OWNER:=nielsbohr
 TAG:=edge
 PACKAGE_TIMEOUT:=60
-ALL_IMAGES:=base-notebook \
-    python-notebook \
-    r-notebook \
-    slurm-notebook \
-    python-cuda-notebook \
-    gpu-notebook \
-    dgx1-notebook \
-    datascience-notebook \
-    chemistry-notebook \
-    fenics-notebook \
-    qsharp-notebook \
-    statistics-notebook \
-    tomography-notebook \
-    hpc-notebook \
-    hpc-ocean-notebook \
-    ocean-notebook \
-    geo-notebook \
-    bio-notebook \
-    bio-bigdata-notebook \
-    bio-bsa-notebook \
-    sme-notebook \
-    jwst-notebook
-
-# Inspired by https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
+ALL_IMAGES:=base-notebook python-notebook r-notebook slurm-notebook python-cuda-notebook gpu-notebook dgx1-notebook datascience-notebook chemistry-notebook fenics-notebook qsharp-notebook hpc-gpu-notebook hpc-notebook hpc-ocean-notebook ocean-notebook geo-notebook bio-notebook bio-bigdata-notebook bio-bsa-notebook sme-notebook jwst-notebook # Inspired by https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 help:
 	@echo "nbi-jupyter-docker-stacks"
 	@echo "========================="
