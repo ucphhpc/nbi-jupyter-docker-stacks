@@ -230,7 +230,7 @@ pipelines:
     materials: *id001
     parameters:
       ARGS: ''
-      COMMIT_TAG: ${GO_REVISION_UCPHHPC_IMAGES}
+      COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: python-notebook
     template: notebook_image
