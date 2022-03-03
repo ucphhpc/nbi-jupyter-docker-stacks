@@ -23,12 +23,12 @@ architecture:
   python_cuda_notebook:
     latest:
       parent: nielsbohr/python-notebook:latest
-  gpu_notebook:
-    latest:
-      parent: nielsbohr/python-cuda-notebook:latest
       extra_template: templates/cuda/Dockerfile.cuda
       extra_template_files:
         - templates/cuda/requirements.txt
+  gpu_notebook:
+    latest:
+      parent: nielsbohr/python-cuda-notebook:latest
   dgx1_notebook:
     latest:
       parent: nielsbohr/gpu-notebook:latest
