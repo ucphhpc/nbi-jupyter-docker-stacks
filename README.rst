@@ -27,8 +27,8 @@ with the definitions specified in the `architecture.yml` file::
 	Generated the file: bio-bsa-notebook/Dockerfile.latest
 	Generated the file: sme-notebook/Dockerfile.latest
 	Generated the file: jwst-notebook/Dockerfile.latest
-	Generated a new GOCD config in: /home/munk/jupyter/nbi-jupyter-docker-stacks/1.gocd.yml
-	Generated a new Makefile in: /home/munk/jupyter/nbi-jupyter-docker-stacks/Makefile
+	Generated a new GOCD config in: ...jupyter/nbi-jupyter-docker-stacks/1.gocd.yml
+	Generated a new Makefile in: .../jupyter/nbi-jupyter-docker-stacks/Makefile
 
 In addition to generating the Dockerfiles, the `init-notebooks.py` script also generates 
 a GOCD configuration and an up-to-date Makefile configuration.
