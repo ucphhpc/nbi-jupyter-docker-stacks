@@ -168,7 +168,7 @@ if __name__ == "__main__":
                 "parameters": {
                     "NOTEBOOK": name,
                     "DEFAULT_TAG": version,
-                    "COMMIT_TAG": "${GO_REVISION_UCPHHPC_IMAGES}",
+                    "COMMIT_TAG": "GO_REVISION_UCPHHPC_IMAGES",
                     "ARGS": ""
                 },
             }
