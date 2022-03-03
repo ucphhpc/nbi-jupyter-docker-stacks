@@ -1,2 +1,0 @@
-pytest==6.2.3
-pytest-xdist==2.2.1
