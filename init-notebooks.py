@@ -140,6 +140,7 @@ if __name__ == "__main__":
 
             # Save rendered template to a file
             write(output_file, output_content)
+            print("Generated the file: {}".format(output_file))
     
     # Generate the test Dockerfiles for the notebooks
     for notebook, versions in notebooks.items():
