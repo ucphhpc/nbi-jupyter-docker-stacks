@@ -23,9 +23,9 @@ architecture:
   python_cuda_notebook:
     latest:
       parent: nielsbohr/python-notebook:latest
-      extra_template: templates/cuda/Dockerfile.cuda
+      extra_template: res/templates/cuda/Dockerfile.cuda
       extra_template_files:
-        - templates/cuda/requirements.txt
+        - res/templates/cuda/requirements.txt
   gpu_notebook:
     latest:
       parent: nielsbohr/python-cuda-notebook:latest
@@ -47,9 +47,9 @@ architecture:
   hpc_gpu_notebook:
     latest:
       parent: nielsbohr/hpc-notebook:latest
-      extra_template: templates/cuda/Dockerfile.cuda
+      extra_template: res/templates/cuda/Dockerfile.cuda
       extra_template_files:
-        - templates/cuda/requirements.txt
+        - res/templates/cuda/requirements.txt
   hpc_notebook:
     latest:
       parent: nielsbohr/slurm-notebook:latest
