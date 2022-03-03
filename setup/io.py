@@ -1,4 +1,5 @@
 import os
+import shutil
 
 
 def makedirs(path):
@@ -77,3 +78,15 @@ def chmod(path, mode, **kwargs):
             "Failed to set permissions: {} on: {} - {}".format(mode, path, err),
         )
     return True, "Set the path: {} with permissions: {}".format(path, mode)
+
+
+def copy(original, target):
+    # Copy path to target
+    try:
+        shutil.copyfile(original, target)
+    except Exception as err:
+        return (
+            False,
+            "Failed to copy file: {} to: {} - {}".format(original, target, err)
+        )
+    return True, "Copied file: {} to: {}".format(original, target)

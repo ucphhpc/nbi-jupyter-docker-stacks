@@ -3,7 +3,7 @@ from asyncore import read
 import os
 import yaml
 from jinja2 import Template
-from setup.io import load, write
+from setup.io import load, write, copy
 
 current_dir = os.path.abspath(os.path.dirname(__file__))
 parent_dir = os.path.dirname(current_dir)
@@ -111,14 +111,33 @@ if __name__ == "__main__":
 
             template = Template(template_content)
             output_content = None
-            # template_file_content = build_data.get("template_file_content", None)
+            template_parameters = {
+                "parent": parent
+            }
+
+            extra_template_file = build_data.get("extra_template", None)
+            if extra_template_file:
+                extra_template = load(extra_template_file)
+                template_parameters["extra_template"] = extra_template
+                
+                # Check for additional template files that should
+                # be copied over.
+                extra_template_files = build_data.get("extra_template_files", [])
+                target_dir = os.path.join(current_dir, name)
+                for extra_file_path in extra_template_files:
+                    extra_file_name = extra_file_path.split("/")[-1]
+                    success, msg = copy(extra_file_path, os.path.join(target_dir, extra_file_name))
+                    if not success:
+                        print(msg)
+                        exit(-4)
 
             build_parameters = build_data.get("parameters", None)
             if build_parameters:
-                # Format the jinja2 template
-                output_content = template.render(parent=parent, **build_parameters)
-            else:
-                output_content = template.render(parent=parent)
+                template_parameters.update(**build_parameters)
+
+            # Format the jinja2 template
+            output_content = template.render(**template_parameters)
+
             # Save rendered template to a file
             write(output_file, output_content)
     
@@ -159,7 +178,7 @@ if __name__ == "__main__":
     if not write(path, generated_config, handler=yaml):
         print("Failed to save config")
         exit(-1)
-    print("Generated config in: {}".format(path))
+    print("Generated new GOCD config in: {}".format(path))
 
     # Update the Makefile such that it contains every notebook
     # image
@@ -174,8 +193,10 @@ if __name__ == "__main__":
                 name = notebook.replace("_", "-")
                 images_declaration += "{} ".format(name)
             new_makefile_content.append(images_declaration)
+            new_makefile_content.append("\n")
         else:
             new_makefile_content.append(line)
 
     # Write the new makefile content to the Makefile
     write(makefile_path, new_makefile_content)
+    print("Generated new Makefile in: {}".format(makefile_path))

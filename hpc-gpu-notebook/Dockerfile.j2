@@ -4,7 +4,9 @@ ARG PACKAGE_TIMEOUT=60
 
 USER root
 
-COPY --from=nielsbohr/gpu-notebook
+{{ extra_template }}
+
+USER root
 
 # Add the NVIDIA HPC Compiler
 RUN echo 'deb [trusted=yes] https://developer.download.nvidia.com/hpc-sdk/ubuntu/amd64 /' | tee /etc/apt/sources.list.d/nvhpc.list \

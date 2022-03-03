@@ -26,6 +26,9 @@ architecture:
   gpu_notebook:
     latest:
       parent: nielsbohr/python-cuda-notebook:latest
+      extra_template: templates/cuda/Dockerfile.cuda
+      extra_template_files:
+        - templates/cuda/requirements.txt
   dgx1_notebook:
     latest:
       parent: nielsbohr/gpu-notebook:latest
@@ -43,7 +46,10 @@ architecture:
       parent: nielsbohr/python-notebook:latest
   hpc_gpu_notebook:
     latest:
-      parent: nielsbohr/gpu-notebook:latest
+      parent: nielsbohr/hpc-notebook:latest
+      extra_template: templates/cuda/Dockerfile.cuda
+      extra_template_files:
+        - templates/cuda/requirements.txt
   hpc_notebook:
     latest:
       parent: nielsbohr/slurm-notebook:latest
