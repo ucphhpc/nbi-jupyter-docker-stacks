@@ -47,6 +47,14 @@ architecture:
   hpc_gpu_notebook:
     latest:
       parent: nielsbohr/hpc-notebook:latest
+      parameters:
+        nvhome: /opt/nvidia/hpc_sdk
+        target: Linux_x86_64
+        version: 22.2
+        nvcudadir: "/opt/nvidia/hpc_sdk/Linux_x86_64/22.2/cuda"
+        nvcompdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/22.2/compilers"
+        nvmathdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/22.2/math_libs"
+        nvcommdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/22.2/opt/nvidia/hpc_sdk/Linux_x86_64/22.2/comm_libs"
       extra_template: res/templates/cuda/Dockerfile.cuda
       extra_template_files:
         - res/templates/cuda/requirements.txt

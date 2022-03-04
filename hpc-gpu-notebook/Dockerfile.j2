@@ -16,6 +16,16 @@ RUN echo 'deb [trusted=yes] https://developer.download.nvidia.com/hpc-sdk/ubuntu
     && apt-get clean \
     && rm -fr /var/lib/apt/lists/*
 
+# Setup the Nvidia HPC Compiler environment vars
+ENV NVHPC="{{ nvhome }}"
+ENV NVHPC_ROOT="{{ nvhome }}/{{ target }}/{{ version }}"
+ENV PATH="{{ nvcompdir }}/extras/qd/bin:{{ nvcompdir }}/bin:{{ nvcudadir }}/bin:$PATH"
+
+ENV LD_LIBRARY_PATH="{{ nvcommdir }}/nvshmem/lib:{{ nvcommdir }}/nccl/lib:{{ nvmathdir }}/lib64:{{ nvcompdir }}/lib:{{ nvcompdir }}/extras/qd/lib:{{ nvcudadir }}/extras/CUPTI/lib64:{{ nvcudadir }}/lib64"
+ENV CPATH="{{ nvcompdir }}/extras/qd/include/qd:{{ nvcommdir }}/nvshmem/include:{{ nvcommdir }}/nccl/include:{{ nvmathdir }}/include"
+ENV MANPATH="{{ nvcompdir }}/man"
+
+
 WORKDIR /home/$NB_USER
 
 # As an exception, run as root,
