@@ -69,7 +69,7 @@ RUN chown $NB_UID:$NB_GID -R /tmp
 USER $NB_UID
 
 COPY requirements.txt /tmp/
-RUN conda run -n python3 pip install -r /tmp/requirements.txt \
+RUN conda run -n python3 pip install -r /tmp/requirements.txt -f https://download.pytorch.org/whl/torch_stable.html \
     && conda clean --all -f -y \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
