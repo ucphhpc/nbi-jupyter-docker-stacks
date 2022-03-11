@@ -13,15 +13,14 @@ Getting Started
 Before any of the images can be built, the Dockerfiles for each Notebook has to be generated first.
 The reason for this is that by default each notebook defined by a `Jinja2 <https://jinja2docs.readthedocs.io/en/stable/>`__ template.
 
-To ensure that the nessesary libraries are installed to initialize the repo, we recommend that you create a virtual environment
+To ensure that the nessesary libraries are installed to generate the Notebooks, we recommend that you create a virtual environment
 and install the associated requiremnets::
 
 	username@hostname:~/jupyter/nbi-jupyter-docker-stacks$ python3 -m virtualenv venv
 	username@hostname:~/jupyter/nbi-jupyter-docker-stacks$ source venv
 	(venv) username@hostname:~/jupyter/nbi-jupyter-docker-stacks$ pip3 install -r requirements.txt
 
-Therefore the `init-notebooks.py` script was developed to generate template and render the Jinja2 template files
-with the definitions specified in the `architecture.yml` file::
+Afterwards, you should now be able to use the `init-notebooks.py` script to generate template and render the Jinja2 template files::
 
 	(venv) username@hostname:~/jupyter/nbi-jupyter-docker-stacks$ python3 init-notebooks.py 
 	Generated the file: hpc-ocean-notebook/Dockerfile.latest
@@ -42,6 +41,8 @@ a GOCD configuration and an up-to-date Makefile configuration.
 
 The GOCD `1.gocd.yml` configuration file is used to automatically build and test the defined notebook
 pipelines as part of the UCPH CI/CD infrastructure.
+
+The Notebooks and the associated GOCD configuration file are generated based on the definitions specified in the `architecture.yml` file.
 
 --------
 Building
