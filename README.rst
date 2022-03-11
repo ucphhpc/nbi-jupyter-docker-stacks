@@ -13,6 +13,13 @@ Getting Started
 Before any of the images can be built, the Dockerfiles for each Notebook has to be generated first.
 The reason for this is that by default each notebook defined by a `Jinja2 <https://jinja2docs.readthedocs.io/en/stable/>`__ template.
 
+To ensure that the nessesary libraries are installed to initialize the repo, we recommend that you create a virtual environment
+and install the associated requiremnets::
+
+	username@hostname:~/jupyter/nbi-jupyter-docker-stacks$ python3 -m virtualenv venv
+	username@hostname:~/jupyter/nbi-jupyter-docker-stacks$ source venv
+	(venv) username@hostname:~/jupyter/nbi-jupyter-docker-stacks$ pip3 install -r requirements.txt
+
 Therefore the `init-notebooks.py` script was developed to generate template and render the Jinja2 template files
 with the definitions specified in the `architecture.yml` file::
 
