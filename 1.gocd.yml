@@ -33,6 +33,12 @@ pipelines:
     label_template: ${COUNT}
     lock_behaviour: none
     materials: &id001
+      publish_docker_git:
+        branch: main
+        destintation: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
       ucphhpc_images:
         branch: master
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git

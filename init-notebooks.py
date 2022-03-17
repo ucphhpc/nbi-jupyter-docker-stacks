@@ -37,6 +37,15 @@ def get_common_pipeline():
             "ucphhpc_images": {
                 "git": "https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git",
                 "branch": branch,
+            },
+            # this is the name of material
+            # says about type of material and url at once
+            "publish_docker_git": {
+                "git": "https://github.com/rasmunk/publish-docker-scripts.git",
+                "branch": "main",
+                "username": "${GIT_USER}",
+                "password": "{{SECRET:[github][access_token]}}",
+                "destintation": "publish-docker-scripts"
             }
         },
         "template": "notebook_image",
