@@ -169,6 +169,9 @@ if __name__ == "__main__":
                 "parameters": {
                     "NOTEBOOK": name,
                     "DEFAULT_TAG": version,
+                    "SRC_DIRECTORY": name,
+                    "TEST_DIRECTORY": name,
+                    "PUSH_DIRECTORY": "publish-docker-scripts",
                     "COMMIT_TAG": "GO_REVISION_UCPHHPC_IMAGES",
                     "ARGS": ""
                 },

@@ -41,6 +41,9 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: base-notebook
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: base-notebook
+      TEST_DIRECTORY: base-notebook
     template: notebook_image
   bio_bigdata_notebook:
     display_order: -1
@@ -53,6 +56,9 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: bio-bigdata-notebook
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: bio-bigdata-notebook
+      TEST_DIRECTORY: bio-bigdata-notebook
     template: notebook_image
   bio_bsa_notebook:
     display_order: -1
@@ -65,6 +71,9 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: bio-bsa-notebook
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: bio-bsa-notebook
+      TEST_DIRECTORY: bio-bsa-notebook
     template: notebook_image
   bio_notebook:
     display_order: -1
@@ -77,6 +86,9 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: bio-notebook
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: bio-notebook
+      TEST_DIRECTORY: bio-notebook
     template: notebook_image
   chemistry_notebook:
     display_order: -1
@@ -89,6 +101,9 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: chemistry-notebook
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: chemistry-notebook
+      TEST_DIRECTORY: chemistry-notebook
     template: notebook_image
   datascience_notebook:
     display_order: -1
@@ -101,6 +116,9 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: datascience-notebook
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: datascience-notebook
+      TEST_DIRECTORY: datascience-notebook
     template: notebook_image
   dgx1_notebook:
     display_order: -1
@@ -113,6 +131,9 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: dgx1-notebook
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: dgx1-notebook
+      TEST_DIRECTORY: dgx1-notebook
     template: notebook_image
   fenics_notebook:
     display_order: -1
@@ -125,6 +146,9 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: fenics-notebook
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: fenics-notebook
+      TEST_DIRECTORY: fenics-notebook
     template: notebook_image
   geo_notebook:
     display_order: -1
@@ -137,6 +161,9 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: geo-notebook
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: geo-notebook
+      TEST_DIRECTORY: geo-notebook
     template: notebook_image
   gpu_notebook:
     display_order: -1
@@ -149,6 +176,9 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: gpu-notebook
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: gpu-notebook
+      TEST_DIRECTORY: gpu-notebook
     template: notebook_image
   hpc_gpu_notebook:
     display_order: -1
@@ -161,6 +191,9 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: hpc-gpu-notebook
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: hpc-gpu-notebook
+      TEST_DIRECTORY: hpc-gpu-notebook
     template: notebook_image
   hpc_notebook:
     display_order: -1
@@ -173,6 +206,9 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: 21.08.0
       NOTEBOOK: hpc-notebook
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: hpc-notebook
+      TEST_DIRECTORY: hpc-notebook
     template: notebook_image
   hpc_ocean_notebook:
     display_order: -1
@@ -185,6 +221,9 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: 21.08.0
       NOTEBOOK: hpc-ocean-notebook
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: hpc-ocean-notebook
+      TEST_DIRECTORY: hpc-ocean-notebook
     template: notebook_image
   jwst_notebook:
     display_order: -1
@@ -197,6 +236,9 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: jwst-notebook
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: jwst-notebook
+      TEST_DIRECTORY: jwst-notebook
     template: notebook_image
   ocean_notebook:
     display_order: -1
@@ -209,6 +251,9 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: ocean-notebook
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: ocean-notebook
+      TEST_DIRECTORY: ocean-notebook
     template: notebook_image
   python_cuda_notebook:
     display_order: -1
@@ -221,6 +266,9 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: python-cuda-notebook
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: python-cuda-notebook
+      TEST_DIRECTORY: python-cuda-notebook
     template: notebook_image
   python_notebook:
     display_order: -1
@@ -233,6 +281,9 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: python-notebook
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: python-notebook
+      TEST_DIRECTORY: python-notebook
     template: notebook_image
   qsharp_notebook:
     display_order: -1
@@ -245,6 +296,9 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: qsharp-notebook
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: qsharp-notebook
+      TEST_DIRECTORY: qsharp-notebook
     template: notebook_image
   r_notebook:
     display_order: -1
@@ -257,6 +311,9 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: r-notebook
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: r-notebook
+      TEST_DIRECTORY: r-notebook
     template: notebook_image
   slurm_notebook:
     display_order: -1
@@ -269,6 +326,9 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: 21.08.0
       NOTEBOOK: slurm-notebook
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: slurm-notebook
+      TEST_DIRECTORY: slurm-notebook
     template: notebook_image
   sme-notebook:
     display_order: -1
@@ -281,4 +341,7 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: sme-notebook
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: sme-notebook
+      TEST_DIRECTORY: sme-notebook
     template: notebook_image
