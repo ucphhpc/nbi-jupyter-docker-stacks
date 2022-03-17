@@ -88,7 +88,7 @@ if __name__ == "__main__":
         print("Failed to find the architecture in: {}".format(architecture_path))
         exit(-1)
 
-    list_notebooks = list(key.replace("_", "-") for key in notebooks.keys())
+    list_notebooks = list(notebooks.keys())
     num_notebooks = len(list_notebooks) - 1
 
     # GOCD environment
@@ -105,15 +105,14 @@ if __name__ == "__main__":
 
     # Generate the notebook Dockerfiles
     for notebook, versions in notebooks.items():
-        name = notebook.replace("_", "-")
         for version, build_data in versions.items():
             parent = build_data.get("parent", None)
             if not parent:
-                print("Missing required parent for notebook: {}".format(name))
+                print("Missing required parent for notebook: {}".format(notebook))
                 exit(-2)
 
-            template_file = build_data.get("file", "{}/Dockerfile.j2".format(name))
-            output_file = "{}/Dockerfile.{}".format(name, version)
+            template_file = build_data.get("file", "{}/Dockerfile.j2".format(notebook))
+            output_file = "{}/Dockerfile.{}".format(notebook, version)
             template_content = load(template_file)
             if not template_content:
                 print("Could not find the template file: {}".format(template_file))
@@ -133,7 +132,7 @@ if __name__ == "__main__":
                 # Check for additional template files that should
                 # be copied over.
                 extra_template_files = build_data.get("extra_template_files", [])
-                target_dir = os.path.join(current_dir, name)
+                target_dir = os.path.join(current_dir, notebook)
                 for extra_file_path in extra_template_files:
                     extra_file_name = extra_file_path.split("/")[-1]
                     success, msg = copy(extra_file_path, os.path.join(target_dir, extra_file_name))
@@ -154,12 +153,11 @@ if __name__ == "__main__":
     
     # Generate the test Dockerfiles for the notebooks
     for notebook, versions in notebooks.items():
-        name = notebook.replace("_", "-")
         for version, build_data in versions.items():
-            test_parent = "{}/{}:{}".format(owner, name, version)
+            test_parent = "{}/{}:{}".format(owner, notebook, version)
 
             test_template_file = os.path.join("res", "tests", "Dockerfile.test.j2")
-            test_output_file = "{}/Dockerfile.{}.test".format(name, version)
+            test_output_file = "{}/Dockerfile.{}.test".format(notebook, version)
             test_template_content = load(test_template_file)
             if not test_template_content:
                 print("Could not find test template file: {}".format(test_template_file))
@@ -172,21 +170,20 @@ if __name__ == "__main__":
 
     # Generate the GOCD build config
     for notebook, versions in notebooks.items():
-        name = notebook.replace("_", "-")
         for version, build_data in versions.items():
             notebook_pipeline = {
                 **common_pipeline_attributes,
                 "parameters": {
-                    "NOTEBOOK": name,
+                    "NOTEBOOK": notebook,
                     "DEFAULT_TAG": version,
-                    "SRC_DIRECTORY": name,
-                    "TEST_DIRECTORY": name,
+                    "SRC_DIRECTORY": notebook,
+                    "TEST_DIRECTORY": notebook,
                     "PUSH_DIRECTORY": "publish-docker-scripts",
                     "COMMIT_TAG": "GO_REVISION_UCPHHPC_IMAGES",
                     "ARGS": ""
                 },
             }
-            generated_config["pipelines"][name] = notebook_pipeline
+            generated_config["pipelines"][notebook] = notebook_pipeline
 
     path = os.path.join(current_dir, config_name)
     if not write(path, generated_config, handler=yaml):
@@ -204,8 +201,7 @@ if __name__ == "__main__":
         if "ALL_IMAGES:=" in line:
             images_declaration = "ALL_IMAGES:="
             for notebook in notebooks:
-                name = notebook.replace("_", "-")
-                images_declaration += "{} ".format(name)
+                images_declaration += "{} ".format(notebook)
             new_makefile_content.append(images_declaration)
             new_makefile_content.append("\n")
         else:

@@ -4,27 +4,27 @@ environments:
       DOCKERHUB_PASSWORD: '{{SECRET:[dockerhub][password]}}'
       DOCKERHUB_USERNAME: '{{SECRET:[dockerhub][username]}}'
     pipelines:
-    - base_notebook
-    - python_notebook
-    - r_notebook
-    - slurm_notebook
-    - python_cuda_notebook
-    - gpu_notebook
-    - dgx1_notebook
-    - datascience_notebook
-    - chemistry_notebook
-    - fenics_notebook
-    - qsharp_notebook
-    - hpc_gpu_notebook
-    - hpc_notebook
-    - hpc_ocean_notebook
-    - ocean_notebook
-    - geo_notebook
-    - bio_notebook
-    - bio_bigdata_notebook
-    - bio_bsa_notebook
+    - base-notebook
+    - python-notebook
+    - r-notebook
+    - slurm-notebook
+    - python-cuda-notebook
+    - gpu-notebook
+    - dgx1-notebook
+    - datascience-notebook
+    - chemistry-notebook
+    - fenics-notebook
+    - qsharp-notebook
+    - hpc-gpu-notebook
+    - hpc-notebook
+    - hpc-ocean-notebook
+    - ocean-notebook
+    - geo-notebook
+    - bio-notebook
+    - bio-bigdata-notebook
+    - bio-bsa-notebook
     - sme-notebook
-    - jwst_notebook
+    - jwst-notebook
 format_version: 10
 pipelines:
   base-notebook:

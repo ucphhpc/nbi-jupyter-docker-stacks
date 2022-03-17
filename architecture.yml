@@ -1,15 +1,15 @@
 owner: nielsbohr
 architecture:
-  base_notebook:
+  base-notebook:
     latest:
       parent: jupyter/base-notebook:lab-3.0.12
-  python_notebook:
+  python-notebook:
     latest:
       parent: nielsbohr/base-notebook:latest
-  r_notebook:
+  r-notebook:
     latest:
       parent: nielsbohr/python-notebook:latest
-  slurm_notebook:
+  slurm-notebook:
     20.02.7:
       parent: nielsbohr/python-notebook:latest
       parameters:
@@ -20,31 +20,31 @@ architecture:
       parameters:
         SLURM_VERSION: 21.08.0
         SLURM_DOWNLOAD_MD5: a5bf9ab2733f520cd8229513431ad787
-  python_cuda_notebook:
+  python-cuda-notebook:
     latest:
       parent: nielsbohr/python-notebook:latest
       extra_template: res/templates/cuda/Dockerfile.cuda
       extra_template_files:
         - res/templates/cuda/requirements.txt
-  gpu_notebook:
+  gpu-notebook:
     latest:
       parent: nielsbohr/python-cuda-notebook:latest
-  dgx1_notebook:
+  dgx1-notebook:
     latest:
       parent: nielsbohr/gpu-notebook:latest
-  datascience_notebook:
+  datascience-notebook:
     latest:
       parent: nielsbohr/python-notebook:latest
-  chemistry_notebook:
+  chemistry-notebook:
     latest:
       parent: nielsbohr/base-notebook:latest
-  fenics_notebook:
+  fenics-notebook:
     latest:
       parent: nielsbohr/python-notebook:latest
-  qsharp_notebook:
+  qsharp-notebook:
     latest:
       parent: nielsbohr/python-notebook:latest
-  hpc_gpu_notebook:
+  hpc-gpu-notebook:
     latest:
       parent: nielsbohr/hpc-notebook:latest
       parameters:
@@ -58,38 +58,38 @@ architecture:
       extra_template: res/templates/cuda/Dockerfile.cuda
       extra_template_files:
         - res/templates/cuda/requirements.txt
-  hpc_notebook:
+  hpc-notebook:
     latest:
       parent: nielsbohr/slurm-notebook:latest
     20.02.7:
       parent: nielsbohr/slurm-notebook:20.02.7
     21.08.0:
       parent: nielsbohr/slurm-notebook:21.08.0
-  hpc_ocean_notebook:
+  hpc-ocean-notebook:
     latest:
       parent: nielsbohr/slurm-notebook:latest
     20.02.7:
       parent: nielsbohr/slurm-notebook:20.02.7
     21.08.0:
       parent: nielsbohr/slurm-notebook:21.08.0
-  ocean_notebook:
+  ocean-notebook:
     latest:
       parent: nielsbohr/datascience-notebook:latest
-  geo_notebook:
+  geo-notebook:
     latest:
       parent: nielsbohr/python-notebook:latest
-  bio_notebook:
+  bio-notebook:
     latest:
       parent: nielsbohr/r-notebook:latest
-  bio_bigdata_notebook:
+  bio-bigdata-notebook:
     latest:
       parent: nielsbohr/r-notebook:latest
-  bio_bsa_notebook:
+  bio-bsa-notebook:
     latest:
       parent: nielsbohr/bio-bsa-notebook:latest
   sme-notebook:
     latest:
       parent: nielsbohr/base-notebook:latest
-  jwst_notebook:
+  jwst-notebook:
     latest:
       parent: nielsbohr/python-notebook:latest
