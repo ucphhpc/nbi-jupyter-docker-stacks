@@ -37,6 +37,7 @@ def get_common_pipeline():
             "ucphhpc_images": {
                 "git": "https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git",
                 "branch": branch,
+                "destination": "nbi-jupyter-docker-stacks"
             },
             # this is the name of material
             # says about type of material and url at once

@@ -41,6 +41,7 @@ pipelines:
         username: ${GIT_USER}
       ucphhpc_images:
         branch: master
+        destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
     parameters:
       ARGS: ''
