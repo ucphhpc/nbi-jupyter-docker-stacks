@@ -186,7 +186,7 @@ if __name__ == "__main__":
                     "ARGS": ""
                 },
             }
-            generated_config["pipelines"][notebook] = notebook_pipeline
+            generated_config["pipelines"][name] = notebook_pipeline
 
     path = os.path.join(current_dir, config_name)
     if not write(path, generated_config, handler=yaml):

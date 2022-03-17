@@ -27,7 +27,7 @@ environments:
     - jwst_notebook
 format_version: 10
 pipelines:
-  base_notebook:
+  base-notebook:
     display_order: -1
     group: ucphhpc
     label_template: ${COUNT}
@@ -52,7 +52,7 @@ pipelines:
       SRC_DIRECTORY: base-notebook
       TEST_DIRECTORY: base-notebook
     template: notebook_image
-  bio_bigdata_notebook:
+  bio-bigdata-notebook:
     display_order: -1
     group: ucphhpc
     label_template: ${COUNT}
@@ -67,7 +67,7 @@ pipelines:
       SRC_DIRECTORY: bio-bigdata-notebook
       TEST_DIRECTORY: bio-bigdata-notebook
     template: notebook_image
-  bio_bsa_notebook:
+  bio-bsa-notebook:
     display_order: -1
     group: ucphhpc
     label_template: ${COUNT}
@@ -82,7 +82,7 @@ pipelines:
       SRC_DIRECTORY: bio-bsa-notebook
       TEST_DIRECTORY: bio-bsa-notebook
     template: notebook_image
-  bio_notebook:
+  bio-notebook:
     display_order: -1
     group: ucphhpc
     label_template: ${COUNT}
@@ -97,7 +97,7 @@ pipelines:
       SRC_DIRECTORY: bio-notebook
       TEST_DIRECTORY: bio-notebook
     template: notebook_image
-  chemistry_notebook:
+  chemistry-notebook:
     display_order: -1
     group: ucphhpc
     label_template: ${COUNT}
@@ -112,7 +112,7 @@ pipelines:
       SRC_DIRECTORY: chemistry-notebook
       TEST_DIRECTORY: chemistry-notebook
     template: notebook_image
-  datascience_notebook:
+  datascience-notebook:
     display_order: -1
     group: ucphhpc
     label_template: ${COUNT}
@@ -127,7 +127,7 @@ pipelines:
       SRC_DIRECTORY: datascience-notebook
       TEST_DIRECTORY: datascience-notebook
     template: notebook_image
-  dgx1_notebook:
+  dgx1-notebook:
     display_order: -1
     group: ucphhpc
     label_template: ${COUNT}
@@ -142,7 +142,7 @@ pipelines:
       SRC_DIRECTORY: dgx1-notebook
       TEST_DIRECTORY: dgx1-notebook
     template: notebook_image
-  fenics_notebook:
+  fenics-notebook:
     display_order: -1
     group: ucphhpc
     label_template: ${COUNT}
@@ -157,7 +157,7 @@ pipelines:
       SRC_DIRECTORY: fenics-notebook
       TEST_DIRECTORY: fenics-notebook
     template: notebook_image
-  geo_notebook:
+  geo-notebook:
     display_order: -1
     group: ucphhpc
     label_template: ${COUNT}
@@ -172,7 +172,7 @@ pipelines:
       SRC_DIRECTORY: geo-notebook
       TEST_DIRECTORY: geo-notebook
     template: notebook_image
-  gpu_notebook:
+  gpu-notebook:
     display_order: -1
     group: ucphhpc
     label_template: ${COUNT}
@@ -187,7 +187,7 @@ pipelines:
       SRC_DIRECTORY: gpu-notebook
       TEST_DIRECTORY: gpu-notebook
     template: notebook_image
-  hpc_gpu_notebook:
+  hpc-gpu-notebook:
     display_order: -1
     group: ucphhpc
     label_template: ${COUNT}
@@ -202,7 +202,7 @@ pipelines:
       SRC_DIRECTORY: hpc-gpu-notebook
       TEST_DIRECTORY: hpc-gpu-notebook
     template: notebook_image
-  hpc_notebook:
+  hpc-notebook:
     display_order: -1
     group: ucphhpc
     label_template: ${COUNT}
@@ -217,7 +217,7 @@ pipelines:
       SRC_DIRECTORY: hpc-notebook
       TEST_DIRECTORY: hpc-notebook
     template: notebook_image
-  hpc_ocean_notebook:
+  hpc-ocean-notebook:
     display_order: -1
     group: ucphhpc
     label_template: ${COUNT}
@@ -232,7 +232,7 @@ pipelines:
       SRC_DIRECTORY: hpc-ocean-notebook
       TEST_DIRECTORY: hpc-ocean-notebook
     template: notebook_image
-  jwst_notebook:
+  jwst-notebook:
     display_order: -1
     group: ucphhpc
     label_template: ${COUNT}
@@ -247,7 +247,7 @@ pipelines:
       SRC_DIRECTORY: jwst-notebook
       TEST_DIRECTORY: jwst-notebook
     template: notebook_image
-  ocean_notebook:
+  ocean-notebook:
     display_order: -1
     group: ucphhpc
     label_template: ${COUNT}
@@ -262,7 +262,7 @@ pipelines:
       SRC_DIRECTORY: ocean-notebook
       TEST_DIRECTORY: ocean-notebook
     template: notebook_image
-  python_cuda_notebook:
+  python-cuda-notebook:
     display_order: -1
     group: ucphhpc
     label_template: ${COUNT}
@@ -277,7 +277,7 @@ pipelines:
       SRC_DIRECTORY: python-cuda-notebook
       TEST_DIRECTORY: python-cuda-notebook
     template: notebook_image
-  python_notebook:
+  python-notebook:
     display_order: -1
     group: ucphhpc
     label_template: ${COUNT}
@@ -292,7 +292,7 @@ pipelines:
       SRC_DIRECTORY: python-notebook
       TEST_DIRECTORY: python-notebook
     template: notebook_image
-  qsharp_notebook:
+  qsharp-notebook:
     display_order: -1
     group: ucphhpc
     label_template: ${COUNT}
@@ -307,7 +307,7 @@ pipelines:
       SRC_DIRECTORY: qsharp-notebook
       TEST_DIRECTORY: qsharp-notebook
     template: notebook_image
-  r_notebook:
+  r-notebook:
     display_order: -1
     group: ucphhpc
     label_template: ${COUNT}
@@ -322,7 +322,7 @@ pipelines:
       SRC_DIRECTORY: r-notebook
       TEST_DIRECTORY: r-notebook
     template: notebook_image
-  slurm_notebook:
+  slurm-notebook:
     display_order: -1
     group: ucphhpc
     label_template: ${COUNT}
