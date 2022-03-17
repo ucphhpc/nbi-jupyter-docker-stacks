@@ -9,6 +9,7 @@ current_dir = os.path.abspath(os.path.dirname(__file__))
 parent_dir = os.path.dirname(current_dir)
 
 PACKAGE_NAME = "generate-gocd-config"
+REPO_NAME = "nbi-jupyter-docker-stacks"
 gocd_format_version = 10
 
 
@@ -37,7 +38,7 @@ def get_common_pipeline():
             "ucphhpc_images": {
                 "git": "https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git",
                 "branch": branch,
-                "destination": "nbi-jupyter-docker-stacks"
+                "destination": REPO_NAME
             },
             # this is the name of material
             # says about type of material and url at once
@@ -176,8 +177,8 @@ if __name__ == "__main__":
                 "parameters": {
                     "NOTEBOOK": notebook,
                     "DEFAULT_TAG": version,
-                    "SRC_DIRECTORY": notebook,
-                    "TEST_DIRECTORY": notebook,
+                    "SRC_DIRECTORY": REPO_NAME,
+                    "TEST_DIRECTORY": REPO_NAME,
                     "PUSH_DIRECTORY": "publish-docker-scripts",
                     "COMMIT_TAG": "GO_REVISION_UCPHHPC_IMAGES",
                     "ARGS": ""
