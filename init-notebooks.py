@@ -45,7 +45,7 @@ def get_common_pipeline():
                 "branch": "main",
                 "username": "${GIT_USER}",
                 "password": "{{SECRET:[github][access_token]}}",
-                "destintation": "publish-docker-scripts"
+                "destination": "publish-docker-scripts"
             }
         },
         "template": "notebook_image",

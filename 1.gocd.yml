@@ -35,7 +35,7 @@ pipelines:
     materials: &id001
       publish_docker_git:
         branch: main
-        destintation: publish-docker-scripts
+        destination: publish-docker-scripts
         git: https://github.com/rasmunk/publish-docker-scripts.git
         password: '{{SECRET:[github][access_token]}}'
         username: ${GIT_USER}
