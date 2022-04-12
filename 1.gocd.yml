@@ -1,5 +1,8 @@
 environments:
   docker_images:
+    environment_variables:
+      DOCKERHUB_PASSWORD: '{{SECRET:[dockerhub][password]}}'
+      DOCKERHUB_USERNAME: '{{SECRET:[dockerhub][username]}}'
     pipelines:
     - base-notebook
     - python-notebook
@@ -26,7 +29,7 @@ format_version: 10
 pipelines:
   base-notebook:
     display_order: -1
-    group: ucphhpc
+    group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
     materials: &id001
@@ -51,7 +54,7 @@ pipelines:
     template: notebook_image
   bio-bigdata-notebook:
     display_order: -1
-    group: ucphhpc
+    group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
     materials: *id001
@@ -66,7 +69,7 @@ pipelines:
     template: notebook_image
   bio-bsa-notebook:
     display_order: -1
-    group: ucphhpc
+    group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
     materials: *id001
@@ -81,7 +84,7 @@ pipelines:
     template: notebook_image
   bio-notebook:
     display_order: -1
-    group: ucphhpc
+    group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
     materials: *id001
@@ -96,7 +99,7 @@ pipelines:
     template: notebook_image
   chemistry-notebook:
     display_order: -1
-    group: ucphhpc
+    group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
     materials: *id001
@@ -111,7 +114,7 @@ pipelines:
     template: notebook_image
   datascience-notebook:
     display_order: -1
-    group: ucphhpc
+    group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
     materials: *id001
@@ -126,7 +129,7 @@ pipelines:
     template: notebook_image
   dgx1-notebook:
     display_order: -1
-    group: ucphhpc
+    group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
     materials: *id001
@@ -141,7 +144,7 @@ pipelines:
     template: notebook_image
   fenics-notebook:
     display_order: -1
-    group: ucphhpc
+    group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
     materials: *id001
@@ -156,7 +159,7 @@ pipelines:
     template: notebook_image
   geo-notebook:
     display_order: -1
-    group: ucphhpc
+    group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
     materials: *id001
@@ -171,7 +174,7 @@ pipelines:
     template: notebook_image
   gpu-notebook:
     display_order: -1
-    group: ucphhpc
+    group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
     materials: *id001
@@ -186,7 +189,7 @@ pipelines:
     template: notebook_image
   hpc-gpu-notebook:
     display_order: -1
-    group: ucphhpc
+    group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
     materials: *id001
@@ -201,7 +204,7 @@ pipelines:
     template: notebook_image
   hpc-notebook:
     display_order: -1
-    group: ucphhpc
+    group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
     materials: *id001
@@ -216,7 +219,7 @@ pipelines:
     template: notebook_image
   hpc-ocean-notebook:
     display_order: -1
-    group: ucphhpc
+    group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
     materials: *id001
@@ -231,7 +234,7 @@ pipelines:
     template: notebook_image
   jwst-notebook:
     display_order: -1
-    group: ucphhpc
+    group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
     materials: *id001
@@ -246,7 +249,7 @@ pipelines:
     template: notebook_image
   ocean-notebook:
     display_order: -1
-    group: ucphhpc
+    group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
     materials: *id001
@@ -261,7 +264,7 @@ pipelines:
     template: notebook_image
   python-cuda-notebook:
     display_order: -1
-    group: ucphhpc
+    group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
     materials: *id001
@@ -276,7 +279,7 @@ pipelines:
     template: notebook_image
   python-notebook:
     display_order: -1
-    group: ucphhpc
+    group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
     materials: *id001
@@ -291,7 +294,7 @@ pipelines:
     template: notebook_image
   qsharp-notebook:
     display_order: -1
-    group: ucphhpc
+    group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
     materials: *id001
@@ -306,7 +309,7 @@ pipelines:
     template: notebook_image
   r-notebook:
     display_order: -1
-    group: ucphhpc
+    group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
     materials: *id001
@@ -321,7 +324,7 @@ pipelines:
     template: notebook_image
   slurm-notebook:
     display_order: -1
-    group: ucphhpc
+    group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
     materials: *id001
@@ -336,7 +339,7 @@ pipelines:
     template: notebook_image
   sme-notebook:
     display_order: -1
-    group: ucphhpc
+    group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
     materials: *id001

@@ -30,7 +30,7 @@ def get_common_environment(notebooks):
 
 def get_common_pipeline():
     common_pipeline = {
-        "group": "ucphhpc",
+        "group": "notebook_image",
         "label_template": "${COUNT}",
         "lock_behaviour": "none",
         "display_order": -1,
