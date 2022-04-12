@@ -16,7 +16,7 @@ gocd_format_version = 10
 def get_common_environment(notebooks):
     common_environment = {
         "environments": {
-            "docker_images": {
+            "notebook_image": {
                 "environment_variables": {
                     "DOCKERHUB_USERNAME": "{{SECRET:[dockerhub][username]}}",
                     "DOCKERHUB_PASSWORD": "{{SECRET:[dockerhub][password]}}",
