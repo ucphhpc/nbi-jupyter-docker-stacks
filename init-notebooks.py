@@ -11,8 +11,16 @@ PACKAGE_NAME = "generate-gocd-config"
 REPO_NAME = "nbi-jupyter-docker-stacks"
 gocd_format_version = 10
 
+def get_pipelines(notebooks):
+    pipelines = []
+    for notebook, versions in notebooks.items():
+        for version, build_data in versions.items():
+            notebook_version_name = "{}-{}".format(notebook, version)
+            pipelines.append(notebook_version_name)
+    return pipelines
 
-def get_common_environment(notebooks):
+
+def get_common_environment(pipelines):
     common_environment = {
         "environments": {
             "notebook_image": {
@@ -20,11 +28,13 @@ def get_common_environment(notebooks):
                     "DOCKERHUB_USERNAME": "{{SECRET:[dockerhub][username]}}",
                     "DOCKERHUB_PASSWORD": "{{SECRET:[dockerhub][password]}}",
                 },
-                "pipelines": notebooks,
+                "pipelines": pipelines,
             }
         }
     }
     return common_environment
+
+
 
 
 def get_common_pipeline():
@@ -91,8 +101,12 @@ if __name__ == "__main__":
     list_notebooks = list(notebooks.keys())
     num_notebooks = len(list_notebooks) - 1
 
+    print()
+    # Get all pipelines
+    pipelines = get_pipelines(notebooks)
+
     # GOCD environment
-    common_environments = get_common_environment(list(notebooks.keys()))
+    common_environments = get_common_environment(pipelines)
 
     # Common GOCD pipeline params
     common_pipeline_attributes = get_common_pipeline()
@@ -183,7 +197,8 @@ if __name__ == "__main__":
                     "ARGS": ""
                 },
             }
-            generated_config["pipelines"][notebook] = notebook_pipeline
+            notebook_version_name = "{}-{}".format(notebook, version)
+            generated_config["pipelines"][notebook_version_name] = notebook_pipeline
 
     path = os.path.join(current_dir, config_name)
     if not write(path, generated_config, handler=yaml):

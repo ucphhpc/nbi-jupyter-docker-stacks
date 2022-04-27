@@ -4,30 +4,35 @@ environments:
       DOCKERHUB_PASSWORD: '{{SECRET:[dockerhub][password]}}'
       DOCKERHUB_USERNAME: '{{SECRET:[dockerhub][username]}}'
     pipelines:
-    - base-notebook
-    - python-notebook
-    - r-notebook
-    - slurm-notebook
-    - python-cuda-notebook
-    - gpu-notebook
-    - dgx1-notebook
-    - datascience-notebook
-    - chemistry-notebook
-    - fenics-notebook
-    - qsharp-notebook
-    - hpc-gpu-notebook
-    - hpc-notebook
-    - hpc-ocean-notebook
-    - ocean-notebook
-    - geo-notebook
-    - bio-notebook
-    - bio-bigdata-notebook
-    - bio-bsa-notebook
-    - sme-notebook
-    - jwst-notebook
+    - base-notebook-latest
+    - python-notebook-latest
+    - r-notebook-latest
+    - slurm-notebook-20.02.7
+    - slurm-notebook-21.08.0
+    - python-cuda-notebook-latest
+    - gpu-notebook-latest
+    - dgx1-notebook-latest
+    - datascience-notebook-latest
+    - chemistry-notebook-latest
+    - fenics-notebook-latest
+    - qsharp-notebook-latest
+    - hpc-gpu-notebook-latest
+    - hpc-notebook-latest
+    - hpc-notebook-20.02.7
+    - hpc-notebook-21.08.0
+    - hpc-ocean-notebook-latest
+    - hpc-ocean-notebook-20.02.7
+    - hpc-ocean-notebook-21.08.0
+    - ocean-notebook-latest
+    - geo-notebook-latest
+    - bio-notebook-latest
+    - bio-bigdata-notebook-latest
+    - bio-bsa-notebook-latest
+    - sme-notebook-latest
+    - jwst-notebook-latest
 format_version: 10
 pipelines:
-  base-notebook:
+  base-notebook-latest:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -52,7 +57,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
-  bio-bigdata-notebook:
+  bio-bigdata-notebook-latest:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -67,7 +72,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
-  bio-bsa-notebook:
+  bio-bsa-notebook-latest:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -82,7 +87,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
-  bio-notebook:
+  bio-notebook-latest:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -97,7 +102,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
-  chemistry-notebook:
+  chemistry-notebook-latest:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -112,7 +117,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
-  datascience-notebook:
+  datascience-notebook-latest:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -127,7 +132,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
-  dgx1-notebook:
+  dgx1-notebook-latest:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -142,7 +147,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
-  fenics-notebook:
+  fenics-notebook-latest:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -157,7 +162,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
-  geo-notebook:
+  geo-notebook-latest:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -172,7 +177,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
-  gpu-notebook:
+  gpu-notebook-latest:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -187,7 +192,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
-  hpc-gpu-notebook:
+  hpc-gpu-notebook-latest:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -202,7 +207,22 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
-  hpc-notebook:
+  hpc-notebook-20.02.7:
+    display_order: -1
+    group: notebook_image
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
+    parameters:
+      ARGS: ''
+      COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
+      DEFAULT_TAG: 20.02.7
+      NOTEBOOK: hpc-notebook
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: nbi-jupyter-docker-stacks
+      TEST_DIRECTORY: nbi-jupyter-docker-stacks
+    template: notebook_image
+  hpc-notebook-21.08.0:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -217,7 +237,37 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
-  hpc-ocean-notebook:
+  hpc-notebook-latest:
+    display_order: -1
+    group: notebook_image
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
+    parameters:
+      ARGS: ''
+      COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
+      DEFAULT_TAG: latest
+      NOTEBOOK: hpc-notebook
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: nbi-jupyter-docker-stacks
+      TEST_DIRECTORY: nbi-jupyter-docker-stacks
+    template: notebook_image
+  hpc-ocean-notebook-20.02.7:
+    display_order: -1
+    group: notebook_image
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
+    parameters:
+      ARGS: ''
+      COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
+      DEFAULT_TAG: 20.02.7
+      NOTEBOOK: hpc-ocean-notebook
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: nbi-jupyter-docker-stacks
+      TEST_DIRECTORY: nbi-jupyter-docker-stacks
+    template: notebook_image
+  hpc-ocean-notebook-21.08.0:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -232,7 +282,22 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
-  jwst-notebook:
+  hpc-ocean-notebook-latest:
+    display_order: -1
+    group: notebook_image
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
+    parameters:
+      ARGS: ''
+      COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
+      DEFAULT_TAG: latest
+      NOTEBOOK: hpc-ocean-notebook
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: nbi-jupyter-docker-stacks
+      TEST_DIRECTORY: nbi-jupyter-docker-stacks
+    template: notebook_image
+  jwst-notebook-latest:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -247,7 +312,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
-  ocean-notebook:
+  ocean-notebook-latest:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -262,7 +327,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
-  python-cuda-notebook:
+  python-cuda-notebook-latest:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -277,7 +342,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
-  python-notebook:
+  python-notebook-latest:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -292,7 +357,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
-  qsharp-notebook:
+  qsharp-notebook-latest:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -307,7 +372,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
-  r-notebook:
+  r-notebook-latest:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -322,7 +387,22 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
-  slurm-notebook:
+  slurm-notebook-20.02.7:
+    display_order: -1
+    group: notebook_image
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
+    parameters:
+      ARGS: ''
+      COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
+      DEFAULT_TAG: 20.02.7
+      NOTEBOOK: slurm-notebook
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: nbi-jupyter-docker-stacks
+      TEST_DIRECTORY: nbi-jupyter-docker-stacks
+    template: notebook_image
+  slurm-notebook-21.08.0:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -337,7 +417,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
-  sme-notebook:
+  sme-notebook-latest:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
