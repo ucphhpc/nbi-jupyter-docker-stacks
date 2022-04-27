@@ -1,5 +1,4 @@
 import argparse
-from asyncore import read
 import os
 import yaml
 from jinja2 import Template
