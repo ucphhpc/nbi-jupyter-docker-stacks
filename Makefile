@@ -31,6 +31,9 @@ maintainer-clean:
 	@echo 'deletes files that may need special tools to rebuild.'
 	$(MAKE) venv-clean
 
+install-dev:
+	$(VENV)/pip install -r requirements-dev.txt
+
 install-dep:
 	$(VENV)/pip install -r requirements.txt
 

@@ -35,8 +35,6 @@ def get_common_environment(pipelines):
     return common_environment
 
 
-
-
 def get_common_pipeline():
     common_pipeline = {
         "group": "notebook_image",
