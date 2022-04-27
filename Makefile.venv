@@ -1,0 +1,80 @@
+VENV_NAME=venv
+VENV=$(VENV_NAME)/bin
+ACTIVATE_FILE=$(VENV)/activate
+PYTHON=$(VENV)/python3
+
+#
+# Interactive shells
+#
+
+.PHONY: python
+python: venv
+	exec $(VENV)/python
+
+.PHONY: ipython
+ipython: $(VENV)/ipython
+	exec $(VENV)/ipython
+
+.PHONY: shell
+shell: venv
+	. $(VENV)/activate && exec $(notdir $(SHELL))
+
+.PHONY: bash zsh
+bash zsh: venv
+	. $(VENV)/activate && exec $@
+
+#
+# Python interpreter detection
+#
+
+_PY_AUTODETECT_MSG=Detected Python interpreter: $(PY). Use PY environment variable to override
+
+ifeq (ok,$(shell test -e /dev/null 2>&1 && echo ok))
+NULL_STDERR=2>/dev/null
+else
+NULL_STDERR=2>NUL
+endif
+
+ifndef PY
+_PY_OPTION:=python3
+ifeq (ok,$(shell $(_PY_OPTION) -c "print('ok')" $(NULL_STDERR)))
+PY=$(_PY_OPTION)
+endif
+endif
+
+ifndef PY
+_PY_OPTION:=$(VENVDIR)/bin/python
+ifeq (ok,$(shell $(_PY_OPTION) -c "print('ok')" $(NULL_STDERR)))
+PY=$(_PY_OPTION)
+$(info $(_PY_AUTODETECT_MSG))
+endif
+endif
+
+ifndef PY
+_PY_OPTION:=python
+ifeq (ok,$(shell $(_PY_OPTION) -c "print('ok')" $(NULL_STDERR)))
+PY=$(_PY_OPTION)
+$(info $(_PY_AUTODETECT_MSG))
+endif
+endif
+
+ifndef PY
+define _PY_AUTODETECT_ERR
+Could not detect Python interpreter automatically.
+Please specify path to interpreter via PY environment variable.
+endef
+$(error $(_PY_AUTODETECT_ERR))
+endif
+
+#
+# Virtual environment
+#
+
+.PHONY: venv
+venv:
+	$(PY) -m venv $(VENV_NAME)
+	$(VENV)/python -m pip install --upgrade pip setuptools wheel
+
+.PHONY: venv-clean
+venv-clean:
+	rm -fr $(VENV_NAME)
