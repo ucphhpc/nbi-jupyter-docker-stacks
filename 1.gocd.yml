@@ -53,6 +53,7 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: base-notebook
+      NOTEBOOK_PIPELINE: base-notebook-latest
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -68,6 +69,7 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: bio-bigdata-notebook
+      NOTEBOOK_PIPELINE: bio-bigdata-notebook-latest
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -83,6 +85,7 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: bio-bsa-notebook
+      NOTEBOOK_PIPELINE: bio-bsa-notebook-latest
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -98,6 +101,7 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: bio-notebook
+      NOTEBOOK_PIPELINE: bio-notebook-latest
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -113,6 +117,7 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: chemistry-notebook
+      NOTEBOOK_PIPELINE: chemistry-notebook-latest
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -128,6 +133,7 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: datascience-notebook
+      NOTEBOOK_PIPELINE: datascience-notebook-latest
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -143,6 +149,7 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: dgx1-notebook
+      NOTEBOOK_PIPELINE: dgx1-notebook-latest
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -158,6 +165,7 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: fenics-notebook
+      NOTEBOOK_PIPELINE: fenics-notebook-latest
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -173,6 +181,7 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: geo-notebook
+      NOTEBOOK_PIPELINE: geo-notebook-latest
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -188,6 +197,7 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: gpu-notebook
+      NOTEBOOK_PIPELINE: gpu-notebook-latest
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -203,6 +213,7 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: hpc-gpu-notebook
+      NOTEBOOK_PIPELINE: hpc-gpu-notebook-latest
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -218,6 +229,7 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: 20.02.7
       NOTEBOOK: hpc-notebook
+      NOTEBOOK_PIPELINE: hpc-notebook-20.02.7
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -233,6 +245,7 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: 21.08.0
       NOTEBOOK: hpc-notebook
+      NOTEBOOK_PIPELINE: hpc-notebook-21.08.0
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -248,6 +261,7 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: hpc-notebook
+      NOTEBOOK_PIPELINE: hpc-notebook-latest
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -263,6 +277,7 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: 20.02.7
       NOTEBOOK: hpc-ocean-notebook
+      NOTEBOOK_PIPELINE: hpc-ocean-notebook-20.02.7
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -278,6 +293,7 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: 21.08.0
       NOTEBOOK: hpc-ocean-notebook
+      NOTEBOOK_PIPELINE: hpc-ocean-notebook-21.08.0
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -293,6 +309,7 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: hpc-ocean-notebook
+      NOTEBOOK_PIPELINE: hpc-ocean-notebook-latest
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -308,6 +325,7 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: jwst-notebook
+      NOTEBOOK_PIPELINE: jwst-notebook-latest
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -323,6 +341,7 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: ocean-notebook
+      NOTEBOOK_PIPELINE: ocean-notebook-latest
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -338,6 +357,7 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: python-cuda-notebook
+      NOTEBOOK_PIPELINE: python-cuda-notebook-latest
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -353,6 +373,7 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: python-notebook
+      NOTEBOOK_PIPELINE: python-notebook-latest
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -368,6 +389,7 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: qsharp-notebook
+      NOTEBOOK_PIPELINE: qsharp-notebook-latest
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -383,6 +405,7 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: r-notebook
+      NOTEBOOK_PIPELINE: r-notebook-latest
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -398,6 +421,7 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: 20.02.7
       NOTEBOOK: slurm-notebook
+      NOTEBOOK_PIPELINE: slurm-notebook-20.02.7
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -413,6 +437,7 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: 21.08.0
       NOTEBOOK: slurm-notebook
+      NOTEBOOK_PIPELINE: slurm-notebook-21.08.0
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -428,6 +453,7 @@ pipelines:
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
       DEFAULT_TAG: latest
       NOTEBOOK: sme-notebook
+      NOTEBOOK_PIPELINE: sme-notebook-latest
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks

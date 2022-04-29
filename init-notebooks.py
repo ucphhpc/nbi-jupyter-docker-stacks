@@ -183,10 +183,12 @@ if __name__ == "__main__":
     # Generate the GOCD build config
     for notebook, versions in notebooks.items():
         for version, build_data in versions.items():
+            notebook_version_name = "{}-{}".format(notebook, version)
             notebook_pipeline = {
                 **common_pipeline_attributes,
                 "parameters": {
                     "NOTEBOOK": notebook,
+                    "NOTEBOOK_PIPELINE": notebook_version_name,
                     "DEFAULT_TAG": version,
                     "SRC_DIRECTORY": REPO_NAME,
                     "TEST_DIRECTORY": REPO_NAME,
@@ -195,7 +197,6 @@ if __name__ == "__main__":
                     "ARGS": ""
                 },
             }
-            notebook_version_name = "{}-{}".format(notebook, version)
             generated_config["pipelines"][notebook_version_name] = notebook_pipeline
 
     path = os.path.join(current_dir, config_name)
