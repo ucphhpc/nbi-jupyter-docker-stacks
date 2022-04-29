@@ -6,7 +6,7 @@ TAG:=edge
 PACKAGE_TIMEOUT:=60
 ALL_IMAGES:=base-notebook python-notebook r-notebook slurm-notebook python-cuda-notebook gpu-notebook dgx1-notebook datascience-notebook chemistry-notebook fenics-notebook qsharp-notebook hpc-gpu-notebook hpc-notebook hpc-ocean-notebook ocean-notebook geo-notebook bio-notebook bio-bigdata-notebook bio-bsa-notebook sme-notebook jwst-notebook 
 
-all: venv install-dep help
+all: venv install-dep init
 
 # Inspired by https://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 help:
@@ -15,6 +15,9 @@ help:
 	@echo "Replace % with a notebook directory name (e.g., make build/base-notebook)"
 	@echo
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+
+init:
+	. $(VENV)/activate; python3 init-notebooks.py
 
 clean:
 	rm -fr .env
@@ -30,6 +33,7 @@ maintainer-clean:
 	@echo 'This command is intended for maintainers to use; it'
 	@echo 'deletes files that may need special tools to rebuild.'
 	$(MAKE) venv-clean
+	$(MAKE) clean
 
 install-dev:
 	$(VENV)/pip install -r requirements-dev.txt
@@ -57,5 +61,6 @@ push/%:
 	docker push $(OWNER)/$(notdir $@):$(TAG)
 
 push-all: $(foreach i, $(ALL_IMAGES),build/$(i) push/$(i))
+
 
 include Makefile.venv
