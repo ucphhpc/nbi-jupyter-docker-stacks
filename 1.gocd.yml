@@ -17,13 +17,15 @@ environments:
     - chemistry-notebook-latest
     - fenics-notebook-latest
     - qsharp-notebook-latest
-    - hpc-gpu-notebook-latest
     - hpc-notebook-latest
     - hpc-notebook-20.11.9
     - hpc-notebook-21.08.8
     - hpc-ocean-notebook-latest
     - hpc-ocean-notebook-20.11.9
     - hpc-ocean-notebook-21.08.8
+    - hpc-gpu-notebook-latest
+    - hpc-gpu-notebook-20.11.9
+    - hpc-gpu-notebook-21.08.8
     - ocean-notebook-latest
     - geo-notebook-latest
     - bio-notebook-latest
@@ -199,6 +201,38 @@ pipelines:
       DEFAULT_TAG: latest
       NOTEBOOK: gpu-notebook
       NOTEBOOK_PIPELINE: gpu-notebook-latest
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: nbi-jupyter-docker-stacks
+      TEST_DIRECTORY: nbi-jupyter-docker-stacks
+    template: notebook_image
+  hpc-gpu-notebook-20.11.9:
+    display_order: -1
+    group: notebook_image
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
+    parameters:
+      ARGS: ''
+      COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
+      DEFAULT_TAG: 20.11.9
+      NOTEBOOK: hpc-gpu-notebook
+      NOTEBOOK_PIPELINE: hpc-gpu-notebook-20.11.9
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: nbi-jupyter-docker-stacks
+      TEST_DIRECTORY: nbi-jupyter-docker-stacks
+    template: notebook_image
+  hpc-gpu-notebook-21.08.8:
+    display_order: -1
+    group: notebook_image
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials: *id001
+    parameters:
+      ARGS: ''
+      COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
+      DEFAULT_TAG: 21.08.8
+      NOTEBOOK: hpc-gpu-notebook
+      NOTEBOOK_PIPELINE: hpc-gpu-notebook-21.08.8
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
