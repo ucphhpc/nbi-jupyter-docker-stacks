@@ -1,49 +1,56 @@
 WORKDIR /tmp
 
 ARG CUDA_OS_DIST=ubuntu2004
+ARG CUDA_KEYRING_VERSION=1.0-1
 ARG CUDA_CPU=x86_64
 ARG CUDA_MAJOR_VERSION=11
 ARG CUDA_MIN_VERSION=0
-ENV CUDA_VERSION=${CUDA_MAJOR_VERSION}.${CUDA_MIN_VERSION}
+ARG CUDA_VERSION=${CUDA_MAJOR_VERSION}.${CUDA_MIN_VERSION}
 ARG CUDA_PKG_VERSION=11-0
 
 ARG NCCL_VERSION=2.9.6
 ARG CUDNN_VERSION=8.0.5.39
 
+ENV CUDA_VERSION=${CUDA_VERSION}
 ENV CUDA_PATH="/usr/local/cuda"
-ENV CUDA_11_0_PATH="/usr/local/cuda-11.0"
+ENV CUDA_11_0_PATH="/usr/local/cuda-${CUDA_VERSION}"
 
+# Install the CUDA keyring for automating the signature public key rotation
+# as per https://developer.nvidia.com/blog/updating-the-cuda-linux-gpg-repository-key/
+# https://github.com/NVIDIA/nvidia-docker/issues/1631
 RUN apt-get update && apt-get install -y --no-install-recommends \
     gnupg2 \
     ca-certificates \
-    && curl -fsSL https://developer.download.nvidia.com/compute/cuda/repos/${CUDA_OS_DIST}/${CUDA_CPU}/7fa2af80.pub | apt-key add - \
-    && echo "deb https://developer.download.nvidia.com/compute/cuda/repos/${CUDA_OS_DIST}/${CUDA_CPU} /" > /etc/apt/sources.list.d/cuda.list \
-    && echo "deb https://developer.download.nvidia.com/compute/machine-learning/repos/${CUDA_OS_DIST}/${CUDA_CPU} /" > /etc/apt/sources.list.d/nvidia-ml.list \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    # Update nvidia GPG key
+    && rm -f /etc/apt/sources.list.d/cuda.list \
+    && rm -f /etc/apt/sources.list.d/nvidia-ml.list \
+    && apt-key del 7fa2af80 \
+    && apt-get update && apt-get install -y --no-install-recommends wget \
+    && wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-keyring_1.0-1_all.deb \
+    && dpkg -i cuda-keyring_1.0-1_all.deb
 
 # For libraries in the cuda-compat-* package: https://docs.nvidia.com/cuda/eula/index.html#attachment-a
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    cuda-cudart-11-0=11.0.221-1 \
-    cuda-compat-11-0 \
+    cuda-cudart-${CUDA_PKG_VERSION}=${CUDA_VERSION}.221-1 \
+    cuda-compat-${CUDA_PKG_VERSION} \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Runtime and NCCL
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    cuda-libraries-11-0=11.0.3-1 \
-    libnpp-11-0=11.1.0.245-1 \
-    cuda-nvtx-11-0=11.0.167-1 \
-    libcublas-11-0=11.2.0.252-1 \
-    libcusparse-11-0=11.1.1.245-1 \
-    libnccl2=$NCCL_VERSION-1+cuda11.0 \
+    cuda-libraries-${CUDA_PKG_VERSION}=${CUDA_VERSION}.3-1 \
+    libnpp-${CUDA_PKG_VERSION}=11.1.0.245-1 \
+    cuda-nvtx-${CUDA_PKG_VERSION}=${CUDA_VERSION}.167-1 \
+    libcublas-${CUDA_PKG_VERSION}=11.2.0.252-1 \
+    libcusparse-${CUDA_PKG_VERSION}=11.1.1.245-1 \
+    libnccl2=$NCCL_VERSION-1+cuda${CUDA_VERSION} \
     && apt-get clean \
     && rm -fr /var/lib/apt/lists/* \
-    && apt-mark hold libcublas-11-0 libnccl2
+    && apt-mark hold libcublas-${CUDA_PKG_VERSION} libnccl2
 
 # CUDNN
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libcudnn8=$CUDNN_VERSION-1+cuda11.0 \
+    libcudnn8=$CUDNN_VERSION-1+cuda${CUDA_VERSION} \
     && apt-mark hold libcudnn8 && \
     rm -rf /var/lib/apt/lists/*
 
@@ -58,7 +65,7 @@ ENV LD_LIBRARY_PATH="${CUDA_PATH}/lib64"
 # nvidia-container-runtime
 ENV NVIDIA_VISIBLE_DEVICES all
 ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
-ENV NVIDIA_REQUIRE_CUDA "cuda>=11.0 brand=tesla,driver>=418,driver<419 brand=tesla,driver>=440,driver<441 driver>=450"
+ENV NVIDIA_REQUIRE_CUDA "cuda>=${CUDA_VERSION} brand=tesla,driver>=418,driver<419 brand=tesla,driver>=440,driver<441 driver>=450"
 
 # set tensorflow verbosity to error level, (default is 0/everything)
 ENV TF_CPP_MIN_LOG_LEVEL="3"
