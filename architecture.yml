@@ -10,16 +10,16 @@ architecture:
     latest:
       parent: nielsbohr/python-notebook:latest
   slurm-notebook:
-    20.02.7:
+    20.11.9:
       parent: nielsbohr/python-notebook:latest
       parameters:
-        SLURM_VERSION: 20.02.7
-        SLURM_DOWNLOAD_MD5: e47e68692354f03db2999ec84fe3f735
-    21.08.0:
+        SLURM_VERSION: 20.11.9
+        SLURM_DOWNLOAD_MD5: 79b39943768ef21b83585e2f5087d9af
+    21.08.8:
       parent: nielsbohr/python-notebook:latest
       parameters:
-        SLURM_VERSION: 21.08.0
-        SLURM_DOWNLOAD_MD5: a5bf9ab2733f520cd8229513431ad787
+        SLURM_VERSION: 21.08.8
+        SLURM_DOWNLOAD_MD5: a5dba20d14af7b2f92ea75ff4f37480a
   python-cuda-notebook:
     latest:
       parent: nielsbohr/python-notebook:latest
@@ -61,17 +61,17 @@ architecture:
   hpc-notebook:
     latest:
       parent: nielsbohr/slurm-notebook:latest
-    20.02.7:
-      parent: nielsbohr/slurm-notebook:20.02.7
-    21.08.0:
-      parent: nielsbohr/slurm-notebook:21.08.0
+    20.11.9:
+      parent: nielsbohr/slurm-notebook:20.11.9
+    21.08.8:
+      parent: nielsbohr/slurm-notebook:21.08.8
   hpc-ocean-notebook:
     latest:
       parent: nielsbohr/slurm-notebook:latest
-    20.02.7:
-      parent: nielsbohr/slurm-notebook:20.02.7
-    21.08.0:
-      parent: nielsbohr/slurm-notebook:21.08.0
+    20.11.9:
+      parent: nielsbohr/slurm-notebook:20.11.9
+    21.08.8:
+      parent: nielsbohr/slurm-notebook:21.08.8
   ocean-notebook:
     latest:
       parent: nielsbohr/datascience-notebook:latest

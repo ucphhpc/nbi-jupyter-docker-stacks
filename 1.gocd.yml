@@ -7,8 +7,8 @@ environments:
     - base-notebook-latest
     - python-notebook-latest
     - r-notebook-latest
-    - slurm-notebook-20.02.7
-    - slurm-notebook-21.08.0
+    - slurm-notebook-20.11.9
+    - slurm-notebook-21.08.8
     - python-cuda-notebook-latest
     - gpu-notebook-latest
     - dgx1-notebook-latest
@@ -18,11 +18,11 @@ environments:
     - qsharp-notebook-latest
     - hpc-gpu-notebook-latest
     - hpc-notebook-latest
-    - hpc-notebook-20.02.7
-    - hpc-notebook-21.08.0
+    - hpc-notebook-20.11.9
+    - hpc-notebook-21.08.8
     - hpc-ocean-notebook-latest
-    - hpc-ocean-notebook-20.02.7
-    - hpc-ocean-notebook-21.08.0
+    - hpc-ocean-notebook-20.11.9
+    - hpc-ocean-notebook-21.08.8
     - ocean-notebook-latest
     - geo-notebook-latest
     - bio-notebook-latest
@@ -218,7 +218,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
-  hpc-notebook-20.02.7:
+  hpc-notebook-20.11.9:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -227,14 +227,14 @@ pipelines:
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 20.02.7
+      DEFAULT_TAG: 20.11.9
       NOTEBOOK: hpc-notebook
-      NOTEBOOK_PIPELINE: hpc-notebook-20.02.7
+      NOTEBOOK_PIPELINE: hpc-notebook-20.11.9
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
-  hpc-notebook-21.08.0:
+  hpc-notebook-21.08.8:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -243,9 +243,9 @@ pipelines:
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 21.08.0
+      DEFAULT_TAG: 21.08.8
       NOTEBOOK: hpc-notebook
-      NOTEBOOK_PIPELINE: hpc-notebook-21.08.0
+      NOTEBOOK_PIPELINE: hpc-notebook-21.08.8
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -266,7 +266,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
-  hpc-ocean-notebook-20.02.7:
+  hpc-ocean-notebook-20.11.9:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -275,14 +275,14 @@ pipelines:
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 20.02.7
+      DEFAULT_TAG: 20.11.9
       NOTEBOOK: hpc-ocean-notebook
-      NOTEBOOK_PIPELINE: hpc-ocean-notebook-20.02.7
+      NOTEBOOK_PIPELINE: hpc-ocean-notebook-20.11.9
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
-  hpc-ocean-notebook-21.08.0:
+  hpc-ocean-notebook-21.08.8:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -291,9 +291,9 @@ pipelines:
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 21.08.0
+      DEFAULT_TAG: 21.08.8
       NOTEBOOK: hpc-ocean-notebook
-      NOTEBOOK_PIPELINE: hpc-ocean-notebook-21.08.0
+      NOTEBOOK_PIPELINE: hpc-ocean-notebook-21.08.8
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -410,7 +410,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
-  slurm-notebook-20.02.7:
+  slurm-notebook-20.11.9:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -419,14 +419,14 @@ pipelines:
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 20.02.7
+      DEFAULT_TAG: 20.11.9
       NOTEBOOK: slurm-notebook
-      NOTEBOOK_PIPELINE: slurm-notebook-20.02.7
+      NOTEBOOK_PIPELINE: slurm-notebook-20.11.9
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
-  slurm-notebook-21.08.0:
+  slurm-notebook-21.08.8:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -435,9 +435,9 @@ pipelines:
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 21.08.0
+      DEFAULT_TAG: 21.08.8
       NOTEBOOK: slurm-notebook
-      NOTEBOOK_PIPELINE: slurm-notebook-21.08.0
+      NOTEBOOK_PIPELINE: slurm-notebook-21.08.8
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
