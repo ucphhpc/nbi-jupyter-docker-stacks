@@ -10,16 +10,21 @@ architecture:
     latest:
       parent: nielsbohr/python-notebook:latest
   slurm-notebook:
-    20.11.9:
+    latest:
       parent: nielsbohr/python-notebook:latest
       parameters:
-        SLURM_VERSION: 20.11.9
-        SLURM_DOWNLOAD_MD5: 79b39943768ef21b83585e2f5087d9af
+        SLURM_VERSION: 21.08.8
+        SLURM_DOWNLOAD_MD5: a5dba20d14af7b2f92ea75ff4f37480a
     21.08.8:
       parent: nielsbohr/python-notebook:latest
       parameters:
         SLURM_VERSION: 21.08.8
         SLURM_DOWNLOAD_MD5: a5dba20d14af7b2f92ea75ff4f37480a
+    20.11.9:
+      parent: nielsbohr/python-notebook:latest
+      parameters:
+        SLURM_VERSION: 20.11.9
+        SLURM_DOWNLOAD_MD5: 79b39943768ef21b83585e2f5087d9af
   python-cuda-notebook:
     latest:
       parent: nielsbohr/python-notebook:latest
