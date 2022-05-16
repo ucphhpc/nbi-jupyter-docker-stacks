@@ -1,4 +1,4 @@
 pytest==6.2.3
 pytest-xdist==2.2.1
-nbconvert==6.0.7
+nbconvert==6.5.0
 nbformat==5.0.7
