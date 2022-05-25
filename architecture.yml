@@ -2,7 +2,7 @@ owner: nielsbohr
 architecture:
   base-notebook:
     latest:
-      parent: jupyter/base-notebook:lab-3.3.4
+      parent: jupyter/base-notebook:lab-3.4.2
   python-notebook:
     latest:
       parent: nielsbohr/base-notebook:latest
