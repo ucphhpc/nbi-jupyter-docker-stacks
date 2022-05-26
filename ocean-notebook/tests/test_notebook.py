@@ -47,7 +47,6 @@ def test_notebooks():
     for f_notebook in os.listdir(notebooks_path):
         for kernel in kernels:
             _, errors = _notebook_run(
-                os.path.join(notebooks_path, f_notebook), kernel=kernel,
-                timeout=120
+                os.path.join(notebooks_path, f_notebook), kernel=kernel, timeout=120
             )
             assert errors == []

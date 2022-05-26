@@ -69,10 +69,10 @@ def get_common_materials():
 
 def get_upstream_materials(name, pipeline, stage):
     upstream_materials = {
-            "upstream_{}".format(name): {
-                "pipeline": pipeline,
-                "stage": stage,
-            }
+        "upstream_{}".format(name): {
+            "pipeline": pipeline,
+            "stage": stage,
+        }
     }
 
     return upstream_materials
@@ -150,11 +150,11 @@ if __name__ == "__main__":
             if not parent:
                 print("Missing required parent for notebook: {}".format(notebook))
                 exit(-2)
-            
+
             if "owner" not in parent:
                 print("Missing required parent attribute 'owner': {}".format(notebook))
                 exit(-2)
-            
+
             if "image" not in parent:
                 print("Missing required parent attribute 'image': {}".format(notebook))
                 exit(-2)
@@ -163,7 +163,9 @@ if __name__ == "__main__":
                 print("Missing required parent attribute 'tag': {}".format(notebook))
                 exit(-2)
 
-            parent_image = "{}/{}:{}".format(parent["owner"], parent["image"], parent["tag"])
+            parent_image = "{}/{}:{}".format(
+                parent["owner"], parent["image"], parent["tag"]
+            )
 
             template_file = build_data.get("file", "{}/Dockerfile.j2".format(notebook))
             output_file = "{}/Dockerfile.{}".format(notebook, version)
@@ -228,9 +230,15 @@ if __name__ == "__main__":
     for notebook, versions in notebooks.items():
         for version, build_data in versions.items():
             parent = build_data.get("parent", None)
-            if parent and "pipeline_dependent" in parent and parent["pipeline_dependent"]:
+            if (
+                parent
+                and "pipeline_dependent" in parent
+                and parent["pipeline_dependent"]
+            ):
                 parent_pipeline = "{}-{}".format(parent["image"], parent["tag"])
-                materials = get_materials(notebook, upstream_pipeline=parent_pipeline, stage="push")
+                materials = get_materials(
+                    notebook, upstream_pipeline=parent_pipeline, stage="push"
+                )
             else:
                 materials = get_materials(notebook)
 

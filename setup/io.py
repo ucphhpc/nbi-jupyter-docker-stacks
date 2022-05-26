@@ -87,6 +87,6 @@ def copy(original, target):
     except Exception as err:
         return (
             False,
-            "Failed to copy file: {} to: {} - {}".format(original, target, err)
+            "Failed to copy file: {} to: {} - {}".format(original, target, err),
         )
     return True, "Copied file: {} to: {}".format(original, target)
