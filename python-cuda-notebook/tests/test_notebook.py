@@ -70,5 +70,5 @@ def test_gpu_notebooks():
         """Requires that gpu is available, if not don't run"""
         for notebook_path in gpu_notebooks_path:
             for kernel in kernels:
-                _, errors = _notebook_run(gpu_notebooks_path, kernel, timeout=300)
+                _, errors = _notebook_run(os.path.join(gpu_notebooks_path, notebook_path), kernel, timeout=360)
                 assert errors == []
