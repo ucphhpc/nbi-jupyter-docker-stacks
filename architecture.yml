@@ -2,70 +2,150 @@ owner: nielsbohr
 architecture:
   base-notebook:
     latest:
-      parent: jupyter/base-notebook:lab-3.4.2
+      parent:
+        owner: jupyter
+        image: base-notebook
+        tag: lab-3.4.2
+        pipeline_dependent: false
   python-notebook:
     latest:
-      parent: nielsbohr/base-notebook:latest
+      parent:
+        owner: nielsbohr
+        image: base-notebook
+        tag: latest
+        pipeline_dependent: true
   r-notebook:
     latest:
-      parent: nielsbohr/python-notebook:latest
+      parent:
+        owner: nielsbohr
+        image: python-notebook
+        tag: latest
+        pipeline_dependent: true
   slurm-notebook:
     latest:
-      parent: nielsbohr/python-notebook:latest
+      parent:
+        owner: nielsbohr
+        image: python-notebook
+        tag: latest
+        pipeline_dependent: true
       parameters:
         SLURM_VERSION: 21.08.8
         SLURM_DOWNLOAD_MD5: a5dba20d14af7b2f92ea75ff4f37480a
     21.08.8:
-      parent: nielsbohr/python-notebook:latest
+      parent:
+        owner: nielsbohr
+        image: python-notebook
+        tag: latest
+        pipeline_dependent: true
       parameters:
         SLURM_VERSION: 21.08.8
         SLURM_DOWNLOAD_MD5: a5dba20d14af7b2f92ea75ff4f37480a
     20.11.9:
-      parent: nielsbohr/python-notebook:latest
+      parent:
+        owner: nielsbohr
+        image: python-notebook
+        tag: latest
+        pipeline_dependent: true
       parameters:
         SLURM_VERSION: 20.11.9
         SLURM_DOWNLOAD_MD5: 79b39943768ef21b83585e2f5087d9af
   python-cuda-notebook:
     latest:
-      parent: nielsbohr/python-notebook:latest
+      parent:
+        owner: nielsbohr
+        image: python-notebook
+        tag: latest
+        pipeline_dependent: true
       extra_template: res/templates/cuda/Dockerfile.cuda
       extra_template_files:
         - res/templates/cuda/requirements.txt
   gpu-notebook:
     latest:
-      parent: nielsbohr/python-cuda-notebook:latest
+      parent:
+        owner: nielsbohr
+        image: python-cuda-notebook
+        tag: latest
+        pipeline_dependent: true
   dgx1-notebook:
     latest:
-      parent: nielsbohr/gpu-notebook:latest
+      parent:
+        owner: nielsbohr
+        image: gpu-notebook
+        tag: latest
+        pipeline_dependent: true
   datascience-notebook:
     latest:
-      parent: nielsbohr/python-notebook:latest
+      parent:
+        owner: nielsbohr
+        image: python-notebook
+        tag: latest
+        pipeline_dependent: true
   chemistry-notebook:
     latest:
-      parent: nielsbohr/base-notebook:latest
+      parent:
+        owner: nielsbohr
+        image: base-notebook
+        tag: latest
+        pipeline_dependent: true
   fenics-notebook:
     latest:
-      parent: nielsbohr/python-notebook:latest
+      parent:
+        owner: nielsbohr
+        image: python-notebook
+        tag: latest
+        pipeline_dependent: true
   qsharp-notebook:
     latest:
-      parent: nielsbohr/python-notebook:latest
+      parent:
+        owner: nielsbohr
+        image: python-notebook
+        tag: latest
+        pipeline_dependent: true
   hpc-notebook:
     latest:
-      parent: nielsbohr/slurm-notebook:latest
+      parent:
+        owner: nielsbohr
+        image: slurm-notebook
+        tag: latest
+        pipeline_dependent: true
     20.11.9:
-      parent: nielsbohr/slurm-notebook:20.11.9
+      parent:
+        owner: nielsbohr
+        image: slurm-notebook
+        tag: 20.11.9
+        pipeline_dependent: true
     21.08.8:
-      parent: nielsbohr/slurm-notebook:21.08.8
+      parent:
+        owner: nielsbohr
+        image: slurm-notebook
+        tag: 21.08.8
+        pipeline_dependent: true
   hpc-ocean-notebook:
     latest:
-      parent: nielsbohr/slurm-notebook:latest
+      parent:
+        owner: nielsbohr
+        image: slurm-notebook
+        tag: latest
+        pipeline_dependent: true
     20.11.9:
-      parent: nielsbohr/slurm-notebook:20.11.9
+      parent:
+        owner: nielsbohr
+        image: slurm-notebook
+        tag: 20.11.9
+        pipeline_dependent: true
     21.08.8:
-      parent: nielsbohr/slurm-notebook:21.08.8
+      parent:
+        owner: nielsbohr
+        image: slurm-notebook
+        tag: 21.08.8
+        pipeline_dependent: true
   hpc-gpu-notebook:
     latest:
-      parent: nielsbohr/hpc-notebook:latest
+      parent:
+        owner: nielsbohr
+        image: hpc-notebook
+        tag: latest
+        pipeline_dependent: true
       parameters:
         nvhome: /opt/nvidia/hpc_sdk
         target: Linux_x86_64
@@ -78,7 +158,11 @@ architecture:
       extra_template_files:
         - res/templates/cuda/requirements.txt
     20.11.9:
-      parent: nielsbohr/hpc-notebook:20.11.9
+      parent:
+        owner: nielsbohr
+        image: hpc-notebook
+        tag: 20.11.9
+        pipeline_dependent: true
       parameters:
         nvhome: /opt/nvidia/hpc_sdk
         target: Linux_x86_64
@@ -91,7 +175,11 @@ architecture:
       extra_template_files:
         - res/templates/cuda/requirements.txt
     21.08.8:
-      parent: nielsbohr/hpc-notebook:21.08.8
+      parent:
+        owner: nielsbohr
+        image: hpc-notebook
+        tag: 21.08.8
+        pipeline_dependent: true
       parameters:
         nvhome: /opt/nvidia/hpc_sdk
         target: Linux_x86_64
@@ -105,22 +193,50 @@ architecture:
         - res/templates/cuda/requirements.txt
   ocean-notebook:
     latest:
-      parent: nielsbohr/datascience-notebook:latest
+      parent:
+        owner: nielsbohr
+        image: datascience-notebook
+        tag: latest
+        pipeline_dependent: true
   geo-notebook:
     latest:
-      parent: nielsbohr/python-notebook:latest
+      parent:
+        owner: nielsbohr
+        image: python-notebook
+        tag: latest
+        pipeline_dependent: true
   bio-notebook:
     latest:
-      parent: nielsbohr/r-notebook:latest
+      parent:
+        owner: nielsbohr
+        image: r-notebook
+        tag: latest
+        pipeline_dependent: true
   bio-bigdata-notebook:
     latest:
-      parent: nielsbohr/r-notebook:latest
+      parent:
+        owner: nielsbohr
+        image: r-notebook
+        tag: latest
+        pipeline_dependent: true
   bio-bsa-notebook:
     latest:
-      parent: nielsbohr/bio-bsa-notebook:latest
+      parent:
+        owner: nielsbohr
+        image: r-notebook
+        tag: latest
+        pipeline_dependent: true
   sme-notebook:
     latest:
-      parent: nielsbohr/base-notebook:latest
+      parent:
+        owner: nielsbohr
+        image: base-notebook
+        tag: latest
+        pipeline_dependent: true
   jwst-notebook:
     latest:
-      parent: nielsbohr/python-notebook:latest
+      parent:
+        owner: nielsbohr
+        image: python-notebook
+        tag: latest
+        pipeline_dependent: true

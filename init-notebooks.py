@@ -11,6 +11,7 @@ PACKAGE_NAME = "generate-gocd-config"
 REPO_NAME = "nbi-jupyter-docker-stacks"
 gocd_format_version = 10
 
+
 def get_pipelines(notebooks):
     pipelines = []
     for notebook, versions in notebooks.items():
@@ -41,31 +42,58 @@ def get_common_pipeline():
         "label_template": "${COUNT}",
         "lock_behaviour": "none",
         "display_order": -1,
-        "materials": {
-            "ucphhpc_images": {
-                "git": "https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git",
-                "branch": branch,
-                "destination": REPO_NAME
-            },
-            # this is the name of material
-            # says about type of material and url at once
-            "publish_docker_git": {
-                "git": "https://github.com/rasmunk/publish-docker-scripts.git",
-                "branch": "main",
-                "username": "${GIT_USER}",
-                "password": "{{SECRET:[github][access_token]}}",
-                "destination": "publish-docker-scripts"
-            }
-        },
         "template": "notebook_image",
     }
     return common_pipeline
 
 
+def get_common_materials():
+    common_materials = {
+        "ucphhpc_images": {
+            "git": "https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git",
+            "branch": branch,
+            "destination": REPO_NAME,
+        },
+        # this is the name of material
+        # says about type of material and url at once
+        "publish_docker_git": {
+            "git": "https://github.com/rasmunk/publish-docker-scripts.git",
+            "branch": "main",
+            "username": "${GIT_USER}",
+            "password": "{{SECRET:[github][access_token]}}",
+            "destination": "publish-docker-scripts",
+        },
+    }
+    return common_materials
+
+
+def get_upstream_materials(name, pipeline, stage):
+    upstream_materials = {
+            "upstream_{}".format(name): {
+                "pipeline": pipeline,
+                "stage": stage,
+            }
+    }
+
+    return upstream_materials
+
+
+def get_materials(notebook, upstream_pipeline=None, stage=None):
+    materials = {}
+    common_materials = get_common_materials()
+    materials.update(common_materials)
+    if upstream_pipeline and stage:
+        upstream_materials = get_upstream_materials(notebook, upstream_pipeline, stage)
+        materials.update(upstream_materials)
+    return materials
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(prog=PACKAGE_NAME)
     parser.add_argument(
-        "--architecture-name", default="architecture.yml", help="The name of the architecture file that is used to configure the notebooks to be built"
+        "--architecture-name",
+        default="architecture.yml",
+        help="The name of the architecture file that is used to configure the notebooks to be built",
     )
     parser.add_argument(
         "--config-name", default="1.gocd.yml", help="Name of the output gocd config"
@@ -122,6 +150,20 @@ if __name__ == "__main__":
             if not parent:
                 print("Missing required parent for notebook: {}".format(notebook))
                 exit(-2)
+            
+            if "owner" not in parent:
+                print("Missing required parent attribute 'owner': {}".format(notebook))
+                exit(-2)
+            
+            if "image" not in parent:
+                print("Missing required parent attribute 'image': {}".format(notebook))
+                exit(-2)
+
+            if "tag" not in parent:
+                print("Missing required parent attribute 'tag': {}".format(notebook))
+                exit(-2)
+
+            parent_image = "{}/{}:{}".format(parent["owner"], parent["image"], parent["tag"])
 
             template_file = build_data.get("file", "{}/Dockerfile.j2".format(notebook))
             output_file = "{}/Dockerfile.{}".format(notebook, version)
@@ -132,22 +174,22 @@ if __name__ == "__main__":
 
             template = Template(template_content)
             output_content = None
-            template_parameters = {
-                "parent": parent
-            }
+            template_parameters = {"parent": parent_image}
 
             extra_template_file = build_data.get("extra_template", None)
             if extra_template_file:
                 extra_template = load(extra_template_file)
                 template_parameters["extra_template"] = extra_template
-                
+
                 # Check for additional template files that should
                 # be copied over.
                 extra_template_files = build_data.get("extra_template_files", [])
                 target_dir = os.path.join(current_dir, notebook)
                 for extra_file_path in extra_template_files:
                     extra_file_name = extra_file_path.split("/")[-1]
-                    success, msg = copy(extra_file_path, os.path.join(target_dir, extra_file_name))
+                    success, msg = copy(
+                        extra_file_path, os.path.join(target_dir, extra_file_name)
+                    )
                     if not success:
                         print(msg)
                         exit(-4)
@@ -162,30 +204,40 @@ if __name__ == "__main__":
             # Save rendered template to a file
             write(output_file, output_content)
             print("Generated the file: {}".format(output_file))
-    
+
     # Generate the test Dockerfiles for the notebooks
     for notebook, versions in notebooks.items():
         for version, build_data in versions.items():
-            test_parent = "{}/{}:{}".format(owner, notebook, version)
+            test_notebook = "{}/{}:{}".format(owner, notebook, version)
 
             test_template_file = os.path.join("res", "tests", "Dockerfile.test.j2")
             test_output_file = "{}/Dockerfile.{}.test".format(notebook, version)
             test_template_content = load(test_template_file)
             if not test_template_content:
-                print("Could not find test template file: {}".format(test_template_file))
+                print(
+                    "Could not find test template file: {}".format(test_template_file)
+                )
                 exit(-4)
 
             template = Template(test_template_content)
-            test_output_content = template.render(parent=test_parent)
+            test_output_content = template.render(parent=test_notebook)
             # Save the rendered template to a file
             write(test_output_file, test_output_content)
 
     # Generate the GOCD build config
     for notebook, versions in notebooks.items():
         for version, build_data in versions.items():
+            parent = build_data.get("parent", None)
+            if parent and "pipeline_dependent" in parent and parent["pipeline_dependent"]:
+                parent_pipeline = "{}-{}".format(parent["image"], parent["tag"])
+                materials = get_materials(notebook, upstream_pipeline=parent_pipeline, stage="push")
+            else:
+                materials = get_materials(notebook)
+
             notebook_version_name = "{}-{}".format(notebook, version)
             notebook_pipeline = {
                 **common_pipeline_attributes,
+                "materials": materials,
                 "parameters": {
                     "NOTEBOOK": notebook,
                     "NOTEBOOK_PIPELINE": notebook_version_name,
@@ -194,7 +246,7 @@ if __name__ == "__main__":
                     "TEST_DIRECTORY": REPO_NAME,
                     "PUSH_DIRECTORY": "publish-docker-scripts",
                     "COMMIT_TAG": "GO_REVISION_UCPHHPC_IMAGES",
-                    "ARGS": ""
+                    "ARGS": "",
                 },
             }
             generated_config["pipelines"][notebook_version_name] = notebook_pipeline

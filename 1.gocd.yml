@@ -40,7 +40,7 @@ pipelines:
     group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
-    materials: &id001
+    materials:
       publish_docker_git:
         branch: main
         destination: publish-docker-scripts
@@ -66,7 +66,20 @@ pipelines:
     group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
-    materials: *id001
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: master
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_bio-bigdata-notebook:
+        pipeline: r-notebook-latest
+        stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
@@ -82,7 +95,20 @@ pipelines:
     group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
-    materials: *id001
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: master
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_bio-bsa-notebook:
+        pipeline: r-notebook-latest
+        stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
@@ -98,7 +124,20 @@ pipelines:
     group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
-    materials: *id001
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: master
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_bio-notebook:
+        pipeline: r-notebook-latest
+        stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
@@ -114,7 +153,20 @@ pipelines:
     group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
-    materials: *id001
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: master
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_chemistry-notebook:
+        pipeline: base-notebook-latest
+        stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
@@ -130,7 +182,20 @@ pipelines:
     group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
-    materials: *id001
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: master
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_datascience-notebook:
+        pipeline: python-notebook-latest
+        stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
@@ -146,7 +211,20 @@ pipelines:
     group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
-    materials: *id001
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: master
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_dgx1-notebook:
+        pipeline: gpu-notebook-latest
+        stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
@@ -162,7 +240,20 @@ pipelines:
     group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
-    materials: *id001
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: master
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_fenics-notebook:
+        pipeline: python-notebook-latest
+        stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
@@ -178,7 +269,20 @@ pipelines:
     group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
-    materials: *id001
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: master
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_geo-notebook:
+        pipeline: python-notebook-latest
+        stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
@@ -194,7 +298,20 @@ pipelines:
     group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
-    materials: *id001
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: master
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_gpu-notebook:
+        pipeline: python-cuda-notebook-latest
+        stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
@@ -210,7 +327,20 @@ pipelines:
     group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
-    materials: *id001
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: master
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_hpc-gpu-notebook:
+        pipeline: hpc-notebook-20.11.9
+        stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
@@ -226,7 +356,20 @@ pipelines:
     group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
-    materials: *id001
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: master
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_hpc-gpu-notebook:
+        pipeline: hpc-notebook-21.08.8
+        stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
@@ -242,7 +385,20 @@ pipelines:
     group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
-    materials: *id001
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: master
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_hpc-gpu-notebook:
+        pipeline: hpc-notebook-latest
+        stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
@@ -258,7 +414,20 @@ pipelines:
     group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
-    materials: *id001
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: master
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_hpc-notebook:
+        pipeline: slurm-notebook-20.11.9
+        stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
@@ -274,7 +443,20 @@ pipelines:
     group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
-    materials: *id001
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: master
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_hpc-notebook:
+        pipeline: slurm-notebook-21.08.8
+        stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
@@ -290,7 +472,20 @@ pipelines:
     group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
-    materials: *id001
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: master
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_hpc-notebook:
+        pipeline: slurm-notebook-latest
+        stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
@@ -306,7 +501,20 @@ pipelines:
     group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
-    materials: *id001
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: master
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_hpc-ocean-notebook:
+        pipeline: slurm-notebook-20.11.9
+        stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
@@ -322,7 +530,20 @@ pipelines:
     group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
-    materials: *id001
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: master
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_hpc-ocean-notebook:
+        pipeline: slurm-notebook-21.08.8
+        stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
@@ -338,7 +559,20 @@ pipelines:
     group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
-    materials: *id001
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: master
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_hpc-ocean-notebook:
+        pipeline: slurm-notebook-latest
+        stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
@@ -354,7 +588,20 @@ pipelines:
     group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
-    materials: *id001
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: master
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_jwst-notebook:
+        pipeline: python-notebook-latest
+        stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
@@ -370,7 +617,20 @@ pipelines:
     group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
-    materials: *id001
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: master
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_ocean-notebook:
+        pipeline: datascience-notebook-latest
+        stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
@@ -386,7 +646,20 @@ pipelines:
     group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
-    materials: *id001
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: master
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_python-cuda-notebook:
+        pipeline: python-notebook-latest
+        stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
@@ -402,7 +675,20 @@ pipelines:
     group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
-    materials: *id001
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: master
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_python-notebook:
+        pipeline: base-notebook-latest
+        stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
@@ -418,7 +704,20 @@ pipelines:
     group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
-    materials: *id001
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: master
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_qsharp-notebook:
+        pipeline: python-notebook-latest
+        stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
@@ -434,7 +733,20 @@ pipelines:
     group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
-    materials: *id001
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: master
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_r-notebook:
+        pipeline: python-notebook-latest
+        stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
@@ -450,7 +762,20 @@ pipelines:
     group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
-    materials: *id001
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: master
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_slurm-notebook:
+        pipeline: python-notebook-latest
+        stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
@@ -466,7 +791,20 @@ pipelines:
     group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
-    materials: *id001
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: master
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_slurm-notebook:
+        pipeline: python-notebook-latest
+        stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
@@ -482,7 +820,20 @@ pipelines:
     group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
-    materials: *id001
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: master
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_slurm-notebook:
+        pipeline: python-notebook-latest
+        stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
@@ -498,7 +849,20 @@ pipelines:
     group: notebook_image
     label_template: ${COUNT}
     lock_behaviour: none
-    materials: *id001
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: master
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_sme-notebook:
+        pipeline: base-notebook-latest
+        stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
