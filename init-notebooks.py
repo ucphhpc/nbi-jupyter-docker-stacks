@@ -150,6 +150,20 @@ if __name__ == "__main__":
             if not parent:
                 print("Missing required parent for notebook: {}".format(notebook))
                 exit(-2)
+            
+            if "owner" not in parent:
+                print("Missing required parent attribute 'owner': {}".format(notebook))
+                exit(-2)
+            
+            if "image" not in parent:
+                print("Missing required parent attribute 'image': {}".format(notebook))
+                exit(-2)
+
+            if "tag" not in parent:
+                print("Missing required parent attribute 'tag': {}".format(notebook))
+                exit(-2)
+
+            parent_image = "{}/{}:{}".format(parent["owner"], parent["image"], parent["tag"])
 
             if "owner" not in parent:
                 print("Missing required parent attribute 'owner': {}".format(notebook))
