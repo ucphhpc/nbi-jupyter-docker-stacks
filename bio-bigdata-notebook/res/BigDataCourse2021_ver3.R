@@ -15,7 +15,7 @@ install.packages(c(
     "rmarkdown",
     "tinytex"
 ), repos='http://mirrors.dotsrc.org/cran/')
-tinytex::install_tinytex()
+tinytex::install_tinytex(force=TRUE)
 
 # Installing packages from Bioconductor
 if (!requireNamespace("BiocManager", quietly = TRUE))
@@ -23,12 +23,12 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
 
 library(BiocManager)
 
-BiocManager::install("DESeq2", update = TRUE, ask = FALSE)
-BiocManager::install("dada2", update = TRUE, ask = FALSE)
-BiocManager::install("vsn", update = TRUE, ask = FALSE)
-BiocManager::install("multtest", update = TRUE, ask = FALSE)
-BiocManager::install("xcms", update = TRUE, ask = FALSE)
-BiocManager::install("BiocParallel", update = TRUE, ask = FALSE)
-BiocManager::install("CAMERA", update = TRUE, ask = FALSE)
-BiocManager::install("pcaMethods",update = TRUE, ask = FALSE)
-BiocManager::install("apeglm", update = TRUE, ask = FALSE)
+BiocManager::install("DESeq2", update = TRUE, ask = FALSE, force = TRUE)
+BiocManager::install("dada2", update = TRUE, ask = FALSE, force = TRUE)
+BiocManager::install("vsn", update = TRUE, ask = FALSE, force = TRUE)
+BiocManager::install("multtest", update = TRUE, ask = FALSE, force = TRUE)
+BiocManager::install("xcms", update = TRUE, ask = FALSE, force = TRUE)
+BiocManager::install("BiocParallel", update = TRUE, ask = FALSE, force = TRUE)
+BiocManager::install("CAMERA", update = TRUE, ask = FALSE, force = TRUE)
+BiocManager::install("pcaMethods",update = TRUE, ask = FALSE, force = TRUE)
+BiocManager::install("apeglm", update = TRUE, ask = FALSE, force = TRUE)
