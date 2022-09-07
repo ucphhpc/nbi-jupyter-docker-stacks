@@ -1,5 +1,5 @@
 astropy
-bayesian-optimization
+git+https://github.com/fmfn/BayesianOptimization
 bokeh
 Bottleneck
 cython
