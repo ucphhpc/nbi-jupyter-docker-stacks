@@ -1,4 +1,4 @@
-owner: nielsbohr
+owner: ucphhpc
 architecture:
   base-notebook:
     latest:
@@ -10,21 +10,21 @@ architecture:
   python-notebook:
     latest:
       parent:
-        owner: nielsbohr
+        owner: ucphhpc
         image: base-notebook
         tag: latest
         pipeline_dependent: true
   r-notebook:
     latest:
       parent:
-        owner: nielsbohr
+        owner: ucphhpc
         image: python-notebook
         tag: latest
         pipeline_dependent: true
   slurm-notebook:
     latest:
       parent:
-        owner: nielsbohr
+        owner: ucphhpc
         image: python-notebook
         tag: latest
         pipeline_dependent: true
@@ -33,7 +33,7 @@ architecture:
         SLURM_DOWNLOAD_MD5: a5dba20d14af7b2f92ea75ff4f37480a
     21.08.8:
       parent:
-        owner: nielsbohr
+        owner: ucphhpc
         image: python-notebook
         tag: latest
         pipeline_dependent: true
@@ -42,7 +42,7 @@ architecture:
         SLURM_DOWNLOAD_MD5: a5dba20d14af7b2f92ea75ff4f37480a
     20.11.9:
       parent:
-        owner: nielsbohr
+        owner: ucphhpc
         image: python-notebook
         tag: latest
         pipeline_dependent: true
@@ -52,7 +52,7 @@ architecture:
   python-cuda-notebook:
     latest:
       parent:
-        owner: nielsbohr
+        owner: ucphhpc
         image: python-notebook
         tag: latest
         pipeline_dependent: true
@@ -62,87 +62,87 @@ architecture:
   gpu-notebook:
     latest:
       parent:
-        owner: nielsbohr
+        owner: ucphhpc
         image: python-cuda-notebook
         tag: latest
         pipeline_dependent: true
   dgx1-notebook:
     latest:
       parent:
-        owner: nielsbohr
+        owner: ucphhpc
         image: gpu-notebook
         tag: latest
         pipeline_dependent: true
   datascience-notebook:
     latest:
       parent:
-        owner: nielsbohr
+        owner: ucphhpc
         image: python-notebook
         tag: latest
         pipeline_dependent: true
   chemistry-notebook:
     latest:
       parent:
-        owner: nielsbohr
+        owner: ucphhpc
         image: base-notebook
         tag: latest
         pipeline_dependent: true
   fenics-notebook:
     latest:
       parent:
-        owner: nielsbohr
+        owner: ucphhpc
         image: python-notebook
         tag: latest
         pipeline_dependent: true
   qsharp-notebook:
     latest:
       parent:
-        owner: nielsbohr
+        owner: ucphhpc
         image: python-notebook
         tag: latest
         pipeline_dependent: true
   hpc-notebook:
     latest:
       parent:
-        owner: nielsbohr
+        owner: ucphhpc
         image: slurm-notebook
         tag: latest
         pipeline_dependent: true
     20.11.9:
       parent:
-        owner: nielsbohr
+        owner: ucphhpc
         image: slurm-notebook
         tag: 20.11.9
         pipeline_dependent: true
     21.08.8:
       parent:
-        owner: nielsbohr
+        owner: ucphhpc
         image: slurm-notebook
         tag: 21.08.8
         pipeline_dependent: true
   hpc-ocean-notebook:
     latest:
       parent:
-        owner: nielsbohr
+        owner: ucphhpc
         image: slurm-notebook
         tag: latest
         pipeline_dependent: true
     20.11.9:
       parent:
-        owner: nielsbohr
+        owner: ucphhpc
         image: slurm-notebook
         tag: 20.11.9
         pipeline_dependent: true
     21.08.8:
       parent:
-        owner: nielsbohr
+        owner: ucphhpc
         image: slurm-notebook
         tag: 21.08.8
         pipeline_dependent: true
   hpc-gpu-notebook:
     latest:
       parent:
-        owner: nielsbohr
+        owner: ucphhpc
         image: hpc-notebook
         tag: latest
         pipeline_dependent: true
@@ -159,7 +159,7 @@ architecture:
         - res/templates/cuda/requirements.txt
     20.11.9:
       parent:
-        owner: nielsbohr
+        owner: ucphhpc
         image: hpc-notebook
         tag: 20.11.9
         pipeline_dependent: true
@@ -176,7 +176,7 @@ architecture:
         - res/templates/cuda/requirements.txt
     21.08.8:
       parent:
-        owner: nielsbohr
+        owner: ucphhpc
         image: hpc-notebook
         tag: 21.08.8
         pipeline_dependent: true
@@ -194,49 +194,49 @@ architecture:
   ocean-notebook:
     latest:
       parent:
-        owner: nielsbohr
+        owner: ucphhpc
         image: datascience-notebook
         tag: latest
         pipeline_dependent: true
   geo-notebook:
     latest:
       parent:
-        owner: nielsbohr
+        owner: ucphhpc
         image: python-notebook
         tag: latest
         pipeline_dependent: true
   bio-notebook:
     latest:
       parent:
-        owner: nielsbohr
+        owner: ucphhpc
         image: r-notebook
         tag: latest
         pipeline_dependent: true
   bio-bigdata-notebook:
     latest:
       parent:
-        owner: nielsbohr
+        owner: ucphhpc
         image: r-notebook
         tag: latest
         pipeline_dependent: true
   bio-bsa-notebook:
     latest:
       parent:
-        owner: nielsbohr
+        owner: ucphhpc
         image: r-notebook
         tag: latest
         pipeline_dependent: true
   sme-notebook:
     latest:
       parent:
-        owner: nielsbohr
+        owner: ucphhpc
         image: base-notebook
         tag: latest
         pipeline_dependent: true
   jwst-notebook:
     latest:
       parent:
-        owner: nielsbohr
+        owner: ucphhpc
         image: python-notebook
         tag: latest
         pipeline_dependent: true

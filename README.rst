@@ -4,7 +4,7 @@ nbi-jupyter-docker-stacks
 
 A collection of docker jupyter notebook images used at `UCPH <https://www.ku.dk/english/>`_.
 
-Deployed notebooks are published at `DockerHub <https://hub.docker.com/u/nielsbohr>`_.
+Deployed notebooks are published at `DockerHub <https://hub.docker.com/u/ucphhpc>`_.
 
 ---------------
 Getting Started
