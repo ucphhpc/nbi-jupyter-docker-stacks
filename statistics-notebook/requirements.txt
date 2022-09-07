@@ -4,7 +4,7 @@ ipywidgets
 numpy
 pandas
 probfit
-pymc3
+pymc
 pystan
 scipy
 seaborn
