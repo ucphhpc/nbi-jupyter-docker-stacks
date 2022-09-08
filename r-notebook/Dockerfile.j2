@@ -1,7 +1,7 @@
 FROM {{ parent }}
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
-ARG RSTUDIO_VERSION=2022.02.2-485
+ARG RSTUDIO_VERSION=2022.07.1-554
 ARG SHINY_VERSION=1.5.18.987
 ARG UBUNTU_VERSION=18.04
 ARG RSTUDIO_ARCH=amd64
@@ -12,6 +12,14 @@ USER root
 # Setup default timeout of installing packages
 RUN echo "[global]" > /etc/pip.conf \
     && echo "timeout=$PACKAGE_TIMEOUT" >> /etc/pip.conf
+
+# Ubuntu 22.04 does not come with libssl1.1 which is required by rstudio server
+RUN apt-get update \
+    && apt-get install -y libterm-readline-gnu-perl \
+    && wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb -O /tmp/libssl1.1.deb \
+    && dpkg -i /tmp/libssl1.1.deb \
+    && apt-get clean \
+    && rm -fr /var/lib/apt/lists/*
 
 # R-Studio install - with some extra fonts for LaTeX PDF generation
 # https://www.rstudio.com/products/rstudio/download-server/debian-ubuntu/
