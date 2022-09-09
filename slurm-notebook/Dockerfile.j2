@@ -25,11 +25,9 @@ RUN apt-get update \
     csh \
     g++ \
     g++-10 \
-    g++-8 \
     g++-9 \
     gcc \
     gcc-10 \
-    gcc-8 \
     gcc-9 \
     iputils-ping \
     ldap-utils \
@@ -43,13 +41,18 @@ RUN apt-get update \
     munge \
     openmpi-bin \
     python3-h5py \
-    python3-h5py-dbg \
     supervisor \
     tcsh \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /tmp
+
+# By default the HDF5 library disables deprecated symbols
+# We keep them in to maintain compatability
+# Therefore we uncomment the following line
+# /* #undef H5_NO_DEPRECATED_SYMBOLS */
+RUN sed -i "s/\/\* #undef H5_NO_DEPRECATED_SYMBOLS \*\//#undef H5_NO_DEPRECATED_SYMBOLS/g" /usr/include/hdf5/serial/H5pubconf.h
 
 RUN cd \
     && wget -O slurm.tar.bz2 "$SLURM_DOWNLOAD_URL" \
