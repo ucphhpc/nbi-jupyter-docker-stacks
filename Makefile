@@ -4,7 +4,7 @@
 OWNER:=ucphhpc
 TAG:=edge
 PACKAGE_TIMEOUT:=60
-ALL_IMAGES:=base-notebook python-notebook r-notebook slurm-notebook python-cuda-notebook gpu-notebook dgx1-notebook datascience-notebook chemistry-notebook fenics-notebook qsharp-notebook hpc-notebook hpc-ocean-notebook hpc-gpu-notebook ocean-notebook geo-notebook bio-notebook bio-bigdata-notebook bio-bsa-notebook sme-notebook jwst-notebook 
+ALL_IMAGES:=base-notebook python-notebook statistics-notebook r-notebook slurm-notebook python-cuda-notebook gpu-notebook dgx1-notebook datascience-notebook chemistry-notebook fenics-notebook qsharp-notebook hpc-notebook hpc-ocean-notebook hpc-gpu-notebook ocean-notebook geo-notebook bio-notebook bio-bigdata-notebook bio-bsa-notebook sme-notebook jwst-notebook 
 
 all: venv install-dep init help
 

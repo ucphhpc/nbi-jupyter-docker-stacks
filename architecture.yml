@@ -14,6 +14,13 @@ architecture:
         image: base-notebook
         tag: latest
         pipeline_dependent: true
+  statistics-notebook:
+    latest:
+      parent:
+        owner: ucphhpc
+        image: python-notebook
+        tag: latest
+        pipeline_dependent: true
   r-notebook:
     latest:
       parent:
