@@ -85,7 +85,6 @@ RUN conda update --quiet -n base conda \
 # replacement for notebook plots
 # https://github.com/yuvipanda/jupyter-launcher-shortcuts
 RUN conda install --quiet --yes \
-    'notebook' \
     'ipympl' \
     'ipyleaflet' \
     'ipywidgets' \
@@ -119,13 +118,10 @@ RUN conda install --quiet --yes \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-# https://github.com/bokeh/jupyter_bokeh
-# Version JupyterLab 3.0 and above requires that jupyter_bokeh is installed with pip
 RUN conda run -n base pip3 install \
     facets-overview \
     nbresuse \
     nbconvert[webpdf] \
-    jupyter_bokeh \
     && conda clean -y -f --all \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
