@@ -78,6 +78,13 @@ RUN conda update --quiet -n base conda \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
+# jupyter/base-notebook no longer provides pip
+RUN conda install --quiet --yes \
+    pip \
+    && conda clean --all -f -y \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
+
 # Notebook/Lab dependencies
 # dedupe, resolve duplicates packages
 # https://ipyleaflet.readthedocs.io/en/latest/installation.html#using-conda
@@ -114,7 +121,6 @@ RUN conda install --quiet --yes \
     && rm -fr /home/$NB_USER/.npm \
     && rm -rf /tmp/npm* \
     && rm -fr /tmp/v8* \
-    && conda clean -y -f --all \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
@@ -132,8 +138,7 @@ RUN conda init \
 # Hide the default $CONDA_DIR/bin/pip to ensure that the user doesn't try to
 # install into that one by mistake when it should have been installed into one
 # of the jupyter conda environments
-RUN mv $CONDA_DIR/bin/pip $CONDA_DIR/bin/jupyterlab_pip \
-    && mv $CONDA_DIR/bin/pip3 $CONDA_DIR/bin/jupyterlab_pip3
+RUN mv $CONDA_DIR/bin/pip $CONDA_DIR/bin/jupyterlab_pip
 
 # Ensure there is a local bin directory for user binaries
 RUN mkdir -p ~/.local/bin
