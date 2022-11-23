@@ -23,8 +23,7 @@ argument_group.add_argument("-v", "--verbose", default=False, action="store_true
 args, extras = parser.parse_known_args()
 
 
-def update_kernel(spec):
-    kernel_path = os.path.join(spec.resource_dir, "kernel.json")
+def update_kernel(spec, kernel_path):
     kernel_lock_path = os.path.join(spec.resource_dir, "kernel.json.lock")
     with open(kernel_lock_path, "a") as lock_file:
         flock(lock_file.fileno(), LOCK_EX)
@@ -59,7 +58,21 @@ def main():
             expanded_value = os.path.expandvars(value)
             kernel_spec.env.update({key: expanded_value})
 
-    if update_kernel(kernel_spec) and args.verbose:
+    kernel_path = os.path.join(kernel_spec.resource_dir, "kernel.json")
+    user_local_dir = os.path.join(
+        os.path.expanduser(
+            "~",
+        ),
+        ".local",
+    )
+    if os.path.exists(user_local_dir):
+        destination = kernelspec.KernelSpecManager()._get_destination_dir(
+            kernel_name, prefix=user_local_dir
+        )
+        kernel_path = os.path.join(destination, "kernel.json")
+
+    print("Updating kernel at path: {}".format(kernel_path))
+    if update_kernel(kernel_spec, kernel_path) and args.verbose:
         print("Updated kernel: {}".format(kernel_name))
 
 

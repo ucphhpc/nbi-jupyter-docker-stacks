@@ -138,7 +138,8 @@ RUN conda init \
 # Hide the default $CONDA_DIR/bin/pip to ensure that the user doesn't try to
 # install into that one by mistake when it should have been installed into one
 # of the jupyter conda environments
-RUN mv $CONDA_DIR/bin/pip $CONDA_DIR/bin/jupyterlab_pip
+RUN mv $CONDA_DIR/bin/pip $CONDA_DIR/bin/jupyterlab_pip \
+    && mv $CONDA_DIR/bin/pip3 $CONDA_DIR/bin/jupyterlab_pip3
 
 # Ensure there is a local bin directory for user binaries
 RUN mkdir -p ~/.local/bin

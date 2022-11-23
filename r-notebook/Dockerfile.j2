@@ -42,7 +42,7 @@ USER $NB_UID
 RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 # Provide rstudio and shiny launcher icons
-RUN jupyterlab_pip install jupyter-rsession-proxy \
+RUN jupyterlab_pip3 install jupyter-rsession-proxy \
     && rm -fr /tmp/tmp* \
     && rm -fr /tmp/npm* \
     && rm -fr /tmp/v8* \

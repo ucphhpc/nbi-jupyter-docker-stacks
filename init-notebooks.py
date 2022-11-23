@@ -150,7 +150,7 @@ if __name__ == "__main__":
             if not parent:
                 print("Missing required parent for notebook: {}".format(notebook))
                 exit(-2)
-            
+
             if "owner" not in parent:
                 print("Missing required parent attribute 'owner': {}".format(notebook))
                 exit(-2)
