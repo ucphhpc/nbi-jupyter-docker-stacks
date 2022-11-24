@@ -90,12 +90,14 @@ RUN conda create -n r \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-RUN conda install -n r \
-    python=3.7 \
-    ipykernel \
-    && $R_PATH/bin/python -m ipykernel install --user \
+RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
+ENV PYTHON3_PATH=$CONDA_DIR/envs/python3
+
+# Create user r environement
+COPY environment.yml /tmp/
+RUN conda env update -n r -f environment.yml \
+    && conda run -n r $R_PATH/bin/python -m ipykernel install --user --name=r \
     && conda clean --all -f -y \
-    && rm -fr /tmp/tmp* \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 

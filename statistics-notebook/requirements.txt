@@ -8,6 +8,7 @@ pymc
 pystan
 scipy
 seaborn
+scikit-learn
 sklearn
 sympy
 uproot

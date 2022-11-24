@@ -60,7 +60,7 @@ RUN conda run -n python3 pip install -r requirements.txt
 RUN git clone https://github.com/gbrammer/grizli.git
 
 WORKDIR /tmp/grizli
-RUN checkout tags/1.7
+RUN git checkout tags/1.7
 RUN conda env update -n python3 -f environment.yml \
     && conda clean --all -f -y \
     && fix-permissions $CONDA_DIR \
@@ -87,7 +87,7 @@ RUN conda install -n python3 hstcal \
 
 # Patch for photutils / drizzlepac
 COPY photutils.patch /tmp/
-RUN conda run -n python3 pip install photutils --upgrade \
+RUN conda run -n python3 pip install drizzlepac photutils --upgrade \
     && conda clean --all -f -y \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER

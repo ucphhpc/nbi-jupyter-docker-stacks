@@ -52,6 +52,8 @@ RUN echo "#!/usr/bin/env bash" > /usr/local/bin/hpc_launch.sh && \
     echo "chmod -R g+w /opt/hpc_course" >> /usr/local/bin/hpc_launch.sh
 RUN chmod a+x /usr/local/bin/hpc_launch.sh
 
+# Append the HPC Notebook supervisord configuration to the
+# existing supervisord.conf inherited from SLURM Notebook
 COPY supervisord.conf /etc/supervisor/hpc-supervisord.conf
 RUN cat /etc/supervisor/hpc-supervisord.conf >> /etc/supervisor/supervisord.conf \
     && rm -fr /etc/supervisor/hpc-supervisord.conf
