@@ -60,7 +60,11 @@ RUN conda run -n python3 pip install -r requirements.txt
 RUN git clone https://github.com/gbrammer/grizli.git
 
 WORKDIR /tmp/grizli
-RUN conda run -n python3 pip install . -r requirements.txt
+RUN checkout tags/1.7
+RUN conda env update -n python3 -f environment.yml \
+    && conda clean --all -f -y \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 WORKDIR /tmp/
 
@@ -76,12 +80,22 @@ WORKDIR /tmp/
 # Conda install hstcal
 RUN conda config --add channels http://ssb.stsci.edu/astroconda 
 RUN conda config --add channels conda-forge
-RUN conda install -n python3 hstcal
+RUN conda install -n python3 hstcal \
+    && conda clean --all -f -y \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 # Patch for photutils / drizzlepac
 COPY photutils.patch /tmp/
-RUN conda run -n python3 pip install photutils --upgrade
-RUN conda run -n python3 python /tmp/photutils.patch
+RUN conda run -n python3 pip install photutils --upgrade \
+    && conda clean --all -f -y \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
+
+RUN conda run -n python3 python /tmp/photutils.patch \
+    && conda clean --all -f -y \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 # JWST tools
 RUN conda run -n python3 pip install jwst_backgrounds
@@ -112,10 +126,6 @@ ENV WEBBPSF_PATH ${JWST_DATA}/webbpsf-data
 ENV GRIZLI /home/${NB_USER}/work/DAWN/Science/JWST/Software 
 ENV iref ${GRIZLI}/iref/
 ENV jref ${GRIZLI}/jref/
-
-RUN conda clean -y --all \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
 
 # Run container as
 USER $NB_UID
