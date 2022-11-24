@@ -9,7 +9,7 @@ python_notebooks_path = os.path.join(notebooks_path, "python")
 r_notebooks_path = os.path.join(notebooks_path, "r")
 
 
-def _notebook_run(path, kernel="python3", timeout=60):
+def _notebook_run(path, kernel="python3", timeout=300):
     """Execute a notebook via nbconvert and collect output.
     :returns (parsed nb object, execution errors)
     """

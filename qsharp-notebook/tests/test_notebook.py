@@ -8,7 +8,7 @@ notebooks_path = os.path.join(cur_path, "notebooks")
 kernels = ["iqsharp"]
 
 
-def _notebook_run(path, kernel="python3", timeout=60):
+def _notebook_run(path, kernel="python3", timeout=300):
     """Execute a notebook via nbconvert and collect output.
     :returns (parsed nb object, execution errors)
     """

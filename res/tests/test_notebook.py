@@ -20,7 +20,7 @@ def _notebook_run(path, kernel="python3"):
             "--to",
             "notebook",
             "--execute",
-            "--ExecutePreprocessor.timeout=60",
+            "--ExecutePreprocessor.timeout=300",
             "--ExecutePreprocessor.kernel_name=" + kernel,
             "--output",
             fout.name,

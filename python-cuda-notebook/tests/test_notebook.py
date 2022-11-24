@@ -9,7 +9,7 @@ gpu_notebooks_path = os.path.join(cur_path, "gpu_notebooks")
 kernels = ["python3"]
 
 
-def _notebook_run(path, kernel="python3", timeout=60):
+def _notebook_run(path, kernel="python3", timeout=300):
     """Execute a notebook via nbconvert and collect output.
     :returns (parsed nb object, execution errors)
     """
