@@ -168,7 +168,7 @@ ARG CODE_SERVER_VERSION="4.8.3"
 ARG CODE_SERVER_ARCH="amd64"
 # Download and install VS Code server
 RUN wget -q -O code-server.tar.gz https://github.com/cdr/code-server/releases/download/v${CODE_SERVER_VERSION}/code-server-${CODE_SERVER_VERSION}-linux-${CODE_SERVER_ARCH}.tar.gz \
-	&& mkdir -p ~/usr/local \
+	&& mkdir -p /usr/local \
 	&& tar -xvf code-server.tar.gz -C /usr/local --strip-components=1 \
 	&& rm -rf code-server.tar.gz
 
