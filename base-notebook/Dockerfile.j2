@@ -132,6 +132,17 @@ RUN conda run -n base pip3 install \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
+# VSCode proxy extension
+RUN git clone https://github.com/betatim/vscode-binder.git \
+    && cd vscode-binder \
+    && conda run -n base pip3 install .
+
+
+# RUN conda run -n base pip3 install jupyter-vscode-proxy \
+#     && conda clean -y -f --all \
+#     && fix-permissions $CONDA_DIR \
+#     && fix-permissions /home/$NB_USER
+
 RUN conda init \
     && conda config --set auto_activate_base false
 
@@ -152,21 +163,16 @@ USER root
 COPY ./res/update_kernel_spec.py /usr/local/bin/update_kernel_spec.py
 RUN chmod +x /usr/local/bin/update_kernel_spec.py
 
+#Install code-server (https://github.com/betatim/vscode-binder/blob/master/postBuild)
+ARG CODE_SERVER_VERSION="4.8.3"
+ARG CODE_SERVER_ARCH="amd64"
+# Download and install VS Code server
+RUN wget -q -O code-server.tar.gz https://github.com/cdr/code-server/releases/download/v${CODE_SERVER_VERSION}/code-server-${CODE_SERVER_VERSION}-linux-${CODE_SERVER_ARCH}.tar.gz \
+	&& mkdir -p ~/usr/local \
+	&& tar -xvf code-server.tar.gz -C /usr/local --strip-components=1 \
+	&& rm -rf code-server.tar.gz
+
 USER $NB_UID
-
-# Install code-server (https://github.com/betatim/vscode-binder/blob/master/postBuild)
-# ARG CODE_SERVER_VERSION="2.1698"
-# ARG CODE_SERVER_VSC_VERSION="vsc1.41.1"
-# # Download and install VS Code server
-# RUN wget -q -O code-server.tar.gz https://github.com/cdr/code-server/releases/download/${CODE_SERVER_VERSION}/code-server${CODE_SERVER_VERSION}-${CODE_SERVER_VSC_VERSION}-linux-x86_64.tar.gz \
-# 	&& mkdir -p ~/.local/bin \
-# 	&& tar -xvf code-server.tar.gz -C ~/.local/bin --strip-components=1 \
-# 	&& rm -rf code-server.tar.gz
-
-# # Python extension
-# RUN wget https://github.com/microsoft/vscode-python/releases/download/2019.10.44104/ms-python-release.vsix \
-# 	&& $HOME/.local/bin/code-server --install-extension ms-python-release.vsix \
-# 	&& rm -rf ms-python-release.vsix
 
 WORKDIR /home/$NB_USER
 
