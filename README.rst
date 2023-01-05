@@ -20,7 +20,7 @@ and install the associated requiremnets::
 	username@hostname:~/jupyter/nbi-jupyter-docker-stacks$ source venv
 	(venv) username@hostname:~/jupyter/nbi-jupyter-docker-stacks$ pip install -r requirements.txt
 
-Afterwards, you should now be able to use the `init-notebooks.py` script to generate template and render the Jinja2 template files::
+Afterwards, you should now be able to use the ``init-notebooks.py`` script to generate template and render the Jinja2 template files::
 
 	(venv) username@hostname:~/jupyter/nbi-jupyter-docker-stacks$ python3 init-notebooks.py 
 	Generated the file: hpc-ocean-notebook/Dockerfile.latest
@@ -36,15 +36,15 @@ Afterwards, you should now be able to use the `init-notebooks.py` script to gene
 	Generated a new GOCD config in: ...jupyter/nbi-jupyter-docker-stacks/1.gocd.yml
 	Generated a new Makefile in: .../jupyter/nbi-jupyter-docker-stacks/Makefile
 
-In addition to generating the Dockerfiles, the `init-notebooks.py` script also generates 
+In addition to generating the Dockerfiles, the ``init-notebooks.py`` script also generates 
 a GOCD configuration and an up-to-date Makefile configuration.
 
-The GOCD `1.gocd.yml` configuration file is used to automatically build and test the defined notebook
+The GOCD ``1.gocd.yml`` configuration file is used to automatically build and test the defined notebook
 pipelines as part of the UCPH CI/CD infrastructure.
 
-The Notebooks and the associated GOCD configuration file are generated based on the definitions specified in the `architecture.yml` file.
+The Notebooks and the associated GOCD configuration file are generated based on the definitions specified in the ``architecture.yml`` file.
 
-This entire process can also be simplified by simply executing `make` in the root directory, which will create an initial Python virtual environment and use the current `architecture.yml` file setup to generate the Dockerfiles and the associated GOCD configuration::
+This entire process can also be simplified by simply executing ``make`` in the root directory, which will create an initial Python virtual environment and use the current `architecture.yml` file setup to generate the Dockerfiles and the associated GOCD configuration::
 
 	make
 
