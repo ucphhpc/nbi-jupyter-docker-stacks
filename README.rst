@@ -103,6 +103,42 @@ Therefore, to introduce a new Python package to the datascience-notebook, the pa
 
 In addition, if the change involves introducing a new feature, such as a new Python package, it is prudent that the introduction also ensures that the new package is tested as part of the Notebook image. To accomplish this, a Jupyter Notebook test file should be added, that validates that the added package functions as expected in the Notebooks associated ``tests`` directory. For example, if the `numpy` package was introduced into the datascience-notebook, a test Notebook such as the ``datascience-notebook/tests/numpy.ipynb`` should be included.
 
+**********************
+Introducing a Notebook
+**********************
+
+To introduce a new Notebook, we recommend that the following approach is adopted to ensure a succesfull introduction.
+Firstly, the ``architecture.yml`` file should be updated to include the new Notebook.
+The Notebook should be defined as follows in the architecture file::
+
+	architecture:
+		<notebook-name>:
+			<notebook-image-tag>
+				parent:
+					owner: <parent-image-owner>
+					image: <parent-image-name>
+					tag: <parent-image-tag>
+					pipeline_dependent: <boolean>
+				parameters:
+					<dockerfile-template-variable-name>: <dockerfile-template-variable-value>
+
+Secondly, a directory with the name of the new Notebook should be created in the root directory.
+
+Thirdly, create a Jinja Dockerfile template inside the new directory that defines the default build 
+for the new Notebook. Inspiration here can be gathered from one of the existing Notebooks.
+Importantly though, is that the template uses the following beginning and end::
+
+	FROM {{ parent }}
+	...
+
+	# Ensure that container Runs as
+	USER $NB_UID
+
+Where the ``parent`` declaration must be defined in the ``architecture.yml`` file, and is extracted by the ``init-notebooks.py`` script when the subsequent Dockerfiles are generated.
+Finally, the new Notebook directory should included a ``tests`` directory that must contain a ``test_notebook.py``, ``test.sh``, and a ``requirements.txt`` file.
+Examples of these files can be found in the root ``res/tests`` directory. 
+
+
 --------
 Security
 --------
