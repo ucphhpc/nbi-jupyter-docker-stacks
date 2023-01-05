@@ -44,6 +44,10 @@ pipelines as part of the UCPH CI/CD infrastructure.
 
 The Notebooks and the associated GOCD configuration file are generated based on the definitions specified in the `architecture.yml` file.
 
+This entire process can also be simplified by simply executing `make` in the root directory, which will create an initial Python virtual environment and use the current `architecture.yml` file setup to generate the Dockerfiles and the associated GOCD configuration::
+
+	make
+
 --------
 Building
 --------
