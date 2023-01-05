@@ -84,3 +84,21 @@ To evaluate the entire stack, a target to 'build-all'/'test-all' is also availab
 
 	make build-all
 	make test-all
+
+------------
+Contributing
+------------
+
+To contribute either a change to an existing Notebook or introduce a new Notebook is fairly "easy".
+
+***************
+Making a change
+***************
+
+A change can be introduced to one of the current Notebooks, by altering the selected Notebook setup in its associated directory.
+
+For instance, if a change is to be introduced to the datascience-notebook, the change must be applied either to the ``datascience-notebook/Dockerfile.j2`` Jinja template file, its associated Conda environment file ``datascience-notebook/environment.yml``, or the Python ``datascience-notebook/requirements.txt`` file.
+
+Therefore, to introduce a new Python package to the datascience-notebook, the package should be added to the ``datascience-notebook/requirements.txt`` file. Hereafter, the change can be tested by following the steps outlined in the ``Getting Started``, ``Building``, and ``Testing`` sections above.
+
+In addition, if the change involves introducing a new feature, such as a new Python package, it is prudent that the introduction also ensures that the new package is tested as part of the Notebook image. To accomplish this, a Jupyter Notebook test file should be added, that validates that the added package functions as expected in the Notebooks associated ``tests`` directory. For example, if the `numpy` package was introduced into the datascience-notebook, a test Notebook such as the ``datascience-notebook/tests/numpy.ipynb`` should be included.
