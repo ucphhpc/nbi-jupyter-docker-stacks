@@ -102,3 +102,8 @@ For instance, if a change is to be introduced to the datascience-notebook, the c
 Therefore, to introduce a new Python package to the datascience-notebook, the package should be added to the ``datascience-notebook/requirements.txt`` file. Hereafter, the change can be tested by following the steps outlined in the ``Getting Started``, ``Building``, and ``Testing`` sections above.
 
 In addition, if the change involves introducing a new feature, such as a new Python package, it is prudent that the introduction also ensures that the new package is tested as part of the Notebook image. To accomplish this, a Jupyter Notebook test file should be added, that validates that the added package functions as expected in the Notebooks associated ``tests`` directory. For example, if the `numpy` package was introduced into the datascience-notebook, a test Notebook such as the ``datascience-notebook/tests/numpy.ipynb`` should be included.
+
+--------
+Security
+--------
+Any security related questions/issues/inquries should be directed at security@erda.dk
