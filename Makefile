@@ -48,7 +48,7 @@ installcheck:
 	$(VENV)/pip install -r tests/requirements.txt
 
 uninstallcheck:
-	$(VENV)/pip uninstall -y -r requirements.txt
+	$(VENV)/pip uninstall -y -r tests/requirements.txt
 
 test/%:
 	$(MAKE) build/$(notdir $@)
