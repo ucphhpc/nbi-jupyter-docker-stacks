@@ -38,11 +38,14 @@ maintainer-clean:
 install-dev:
 	$(VENV)/pip install -r requirements-dev.txt
 
+uninstall-dev:
+	$(VENV)/pip uninstall -y -r requirements-dev.txt
+
 install-dep:
 	$(VENV)/pip install -r requirements.txt
 
 uninstall-dep:
-	$(VENV)/pip uninstall -r requirements.txt
+	$(VENV)/pip uninstall -y -r requirements.txt
 
 installcheck:
 	$(VENV)/pip install -r tests/requirements.txt
