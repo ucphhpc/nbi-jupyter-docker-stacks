@@ -250,10 +250,11 @@ if __name__ == "__main__":
                     "NOTEBOOK": notebook,
                     "NOTEBOOK_PIPELINE": notebook_version_name,
                     "DEFAULT_TAG": version,
+                    "COMMIT_TAG": "GO_REVISION_UCPHHPC_IMAGES",
+                    "EXTRA_TAG": "",
                     "SRC_DIRECTORY": REPO_NAME,
                     "TEST_DIRECTORY": REPO_NAME,
                     "PUSH_DIRECTORY": "publish-docker-scripts",
-                    "COMMIT_TAG": "GO_REVISION_UCPHHPC_IMAGES",
                     "ARGS": "",
                 },
             }
