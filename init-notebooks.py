@@ -41,6 +41,11 @@ def get_common_pipeline():
         "group": "notebook_image",
         "label_template": "${COUNT}",
         "lock_behaviour": "none",
+        # Run on the 1st at 00:00 of every month
+        "timer": {
+            "spec": "0 0 0 1 * ?",
+            "only_on_changes": "no"
+        },
         "display_order": -1,
         "template": "notebook_image",
     }

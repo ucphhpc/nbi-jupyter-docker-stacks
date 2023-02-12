@@ -63,6 +63,9 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
+    timer: &id001
+      only_on_changes: 'no'
+      spec: 0 0 0 1 * ?
   bio-bigdata-notebook-latest:
     display_order: -1
     group: notebook_image
@@ -93,6 +96,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
+    timer: *id001
   bio-bsa-notebook-latest:
     display_order: -1
     group: notebook_image
@@ -123,6 +127,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
+    timer: *id001
   bio-notebook-latest:
     display_order: -1
     group: notebook_image
@@ -153,6 +158,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
+    timer: *id001
   chemistry-notebook-latest:
     display_order: -1
     group: notebook_image
@@ -183,6 +189,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
+    timer: *id001
   datascience-notebook-latest:
     display_order: -1
     group: notebook_image
@@ -213,6 +220,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
+    timer: *id001
   dgx1-notebook-latest:
     display_order: -1
     group: notebook_image
@@ -243,6 +251,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
+    timer: *id001
   fenics-notebook-latest:
     display_order: -1
     group: notebook_image
@@ -273,6 +282,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
+    timer: *id001
   geo-notebook-latest:
     display_order: -1
     group: notebook_image
@@ -303,6 +313,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
+    timer: *id001
   gpu-notebook-latest:
     display_order: -1
     group: notebook_image
@@ -333,6 +344,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
+    timer: *id001
   hpc-gpu-notebook-20.11.9:
     display_order: -1
     group: notebook_image
@@ -363,6 +375,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
+    timer: *id001
   hpc-gpu-notebook-21.08.8:
     display_order: -1
     group: notebook_image
@@ -393,6 +406,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
+    timer: *id001
   hpc-gpu-notebook-latest:
     display_order: -1
     group: notebook_image
@@ -423,6 +437,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
+    timer: *id001
   hpc-notebook-20.11.9:
     display_order: -1
     group: notebook_image
@@ -453,6 +468,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
+    timer: *id001
   hpc-notebook-21.08.8:
     display_order: -1
     group: notebook_image
@@ -483,6 +499,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
+    timer: *id001
   hpc-notebook-latest:
     display_order: -1
     group: notebook_image
@@ -513,6 +530,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
+    timer: *id001
   hpc-ocean-notebook-20.11.9:
     display_order: -1
     group: notebook_image
@@ -543,6 +561,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
+    timer: *id001
   hpc-ocean-notebook-21.08.8:
     display_order: -1
     group: notebook_image
@@ -573,6 +592,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
+    timer: *id001
   hpc-ocean-notebook-latest:
     display_order: -1
     group: notebook_image
@@ -603,6 +623,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
+    timer: *id001
   jwst-notebook-latest:
     display_order: -1
     group: notebook_image
@@ -633,6 +654,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
+    timer: *id001
   ocean-notebook-latest:
     display_order: -1
     group: notebook_image
@@ -663,6 +685,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
+    timer: *id001
   python-cuda-notebook-latest:
     display_order: -1
     group: notebook_image
@@ -693,6 +716,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
+    timer: *id001
   python-notebook-latest:
     display_order: -1
     group: notebook_image
@@ -723,6 +747,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
+    timer: *id001
   qsharp-notebook-latest:
     display_order: -1
     group: notebook_image
@@ -753,6 +778,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
+    timer: *id001
   r-notebook-latest:
     display_order: -1
     group: notebook_image
@@ -783,6 +809,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
+    timer: *id001
   slurm-notebook-20.11.9:
     display_order: -1
     group: notebook_image
@@ -813,6 +840,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
+    timer: *id001
   slurm-notebook-21.08.8:
     display_order: -1
     group: notebook_image
@@ -843,6 +871,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
+    timer: *id001
   slurm-notebook-latest:
     display_order: -1
     group: notebook_image
@@ -873,6 +902,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
+    timer: *id001
   sme-notebook-latest:
     display_order: -1
     group: notebook_image
@@ -903,6 +933,7 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
+    timer: *id001
   statistics-notebook-latest:
     display_order: -1
     group: notebook_image
@@ -933,3 +964,4 @@ pipelines:
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
+    timer: *id001
