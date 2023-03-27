@@ -8,7 +8,7 @@ pymc
 pystan
 scipy
 seaborn
+scikit-image
 scikit-learn
-sklearn
 sympy
 uproot

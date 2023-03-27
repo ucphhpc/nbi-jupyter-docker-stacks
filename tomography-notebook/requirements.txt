@@ -8,10 +8,10 @@ netCDF4
 numpy
 pandas
 pillow
-scikit-image
 scipy
 seaborn
-sklearn
+scikit-image
+scikit-learn
 torch
 torchvision
 tqdm
