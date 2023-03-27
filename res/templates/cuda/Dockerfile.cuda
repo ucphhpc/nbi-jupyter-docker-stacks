@@ -1,15 +1,15 @@
 WORKDIR /tmp
 
-ARG CUDA_OS_DIST=ubuntu2004
+ARG CUDA_OS_DIST=ubuntu2204
 ARG CUDA_KEYRING_VERSION=1.0-1
 ARG CUDA_CPU=x86_64
-ARG CUDA_MAJOR_VERSION=11
-ARG CUDA_MIN_VERSION=0
+ARG CUDA_MAJOR_VERSION=12
+ARG CUDA_MIN_VERSION=1
 ARG CUDA_VERSION=${CUDA_MAJOR_VERSION}.${CUDA_MIN_VERSION}
-ARG CUDA_PKG_VERSION=11-0
+ARG CUDA_PKG_VERSION=12-1
 
-ARG NCCL_VERSION=2.9.6
-ARG CUDNN_VERSION=8.0.5.39
+ARG NCCL_VERSION=2.17.1
+ARG CUDNN_VERSION=8.8.1
 
 ENV CUDA_VERSION=${CUDA_VERSION}
 ENV CUDA_PATH="/usr/local/cuda"
@@ -31,18 +31,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # For libraries in the cuda-compat-* package: https://docs.nvidia.com/cuda/eula/index.html#attachment-a
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    cuda-cudart-${CUDA_PKG_VERSION}=${CUDA_VERSION}.221-1 \
+    cuda-cudart-${CUDA_PKG_VERSION} \
     cuda-compat-${CUDA_PKG_VERSION} \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
 # Runtime and NCCL
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    cuda-libraries-${CUDA_PKG_VERSION}=${CUDA_VERSION}.3-1 \
-    libnpp-${CUDA_PKG_VERSION}=11.1.0.245-1 \
-    cuda-nvtx-${CUDA_PKG_VERSION}=${CUDA_VERSION}.167-1 \
-    libcublas-${CUDA_PKG_VERSION}=11.2.0.252-1 \
-    libcusparse-${CUDA_PKG_VERSION}=11.1.1.245-1 \
+    cuda-libraries-${CUDA_PKG_VERSION} \
+    libnpp-${CUDA_PKG_VERSION} \
+    cuda-nvtx-${CUDA_PKG_VERSION} \
+    libcublas-${CUDA_PKG_VERSION} \
+    libcusparse-${CUDA_PKG_VERSION} \
     libnccl2=$NCCL_VERSION-1+cuda${CUDA_VERSION} \
     && apt-get clean \
     && rm -fr /var/lib/apt/lists/* \
@@ -50,14 +50,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # CUDNN
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libcudnn8=$CUDNN_VERSION-1+cuda${CUDA_VERSION} \
+    libcudnn8 \
     && apt-mark hold libcudnn8 && \
     rm -rf /var/lib/apt/lists/*
 
 # Add CUDA symlink and missing symlink for libcusolver
-RUN ln -s /usr/local/cuda-${CUDA_VERSION} /usr/local/cuda \
-    && ln -s /usr/local/cuda/lib64/libcusolver.so.10 /usr/local/cuda/lib64/libcusolver.so.11 \
-    && ln -s /usr/local/cuda/lib64/libcusolverMg.so.10 /usr/local/cuda/lib64/libcusolverMg.so.11
+RUN ln -s /usr/local/cuda-${CUDA_VERSION} /usr/local/cuda
 
 ENV PATH="${CUDA_PATH}/bin:${PATH}"
 ENV LD_LIBRARY_PATH="${CUDA_PATH}/lib64"
@@ -65,7 +63,7 @@ ENV LD_LIBRARY_PATH="${CUDA_PATH}/lib64"
 # nvidia-container-runtime
 ENV NVIDIA_VISIBLE_DEVICES all
 ENV NVIDIA_DRIVER_CAPABILITIES compute,utility
-ENV NVIDIA_REQUIRE_CUDA "cuda>=${CUDA_VERSION} brand=tesla,driver>=418,driver<419 brand=tesla,driver>=440,driver<441 driver>=450"
+# ENV NVIDIA_REQUIRE_CUDA "cuda>=${CUDA_VERSION} brand=tesla,driver>=418,driver<530 brand=tesla,driver>=440,driver<441 driver>=450"
 
 # set tensorflow verbosity to error level, (default is 0/everything)
 ENV TF_CPP_MIN_LOG_LEVEL="3"
