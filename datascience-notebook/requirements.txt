@@ -9,8 +9,8 @@ graphviz
 h5py
 iminuit
 ipywidgets
-jax
-jaxlib
+jax==0.4.6
+jaxlib==0.4.6
 joblib
 lightgbm
 mlxtend

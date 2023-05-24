@@ -1,6 +1,6 @@
 botorch
-jax
-jaxlib
+jax==0.4.6
+jaxlib==0.4.6
 netCDF4
 numpy
 scipy

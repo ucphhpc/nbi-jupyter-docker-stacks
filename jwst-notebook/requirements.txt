@@ -9,8 +9,8 @@ graphviz
 healpy
 h5py
 ipywidgets
-jax
-jaxlib
+jax==0.4.6
+jaxlib==0.4.6
 joblib
 jwst==1.3.2
 lightgbm
