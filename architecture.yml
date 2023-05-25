@@ -73,13 +73,6 @@ architecture:
         image: python-cuda-notebook
         tag: latest
         pipeline_dependent: true
-  dgx1-notebook:
-    latest:
-      parent:
-        owner: ucphhpc
-        image: gpu-notebook
-        tag: latest
-        pipeline_dependent: true
   datascience-notebook:
     latest:
       parent:
