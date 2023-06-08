@@ -6,8 +6,8 @@ cython
 datashader
 graphviz
 h5py
-jax==0.4.6
-jaxlib==0.4.6
+jax==0.4.3
+jaxlib==0.4.3
 joblib
 lightgbm
 mlxtend
