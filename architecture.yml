@@ -5,7 +5,7 @@ architecture:
       parent:
         owner: jupyter
         image: base-notebook
-        tag: lab-3.6.3
+        tag: lab-3.6.2
         pipeline_dependent: false
   python-notebook:
     latest:
