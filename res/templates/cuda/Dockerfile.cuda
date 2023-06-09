@@ -9,7 +9,7 @@ ARG CUDA_VERSION=${CUDA_MAJOR_VERSION}.${CUDA_MIN_VERSION}
 ARG CUDA_PKG_VERSION=11-8
 
 ARG NCCL_VERSION=2.16.5
-ARG CUDNN_VERSION=8.6
+ARG CUDNN_VERSION=8.9.1.23-1+${CUDA_VERSION}
 
 ENV CUDA_VERSION=${CUDA_VERSION}
 ENV CUDA_PATH="/usr/local/cuda"
@@ -50,7 +50,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # CUDNN
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libcudnn8 \
+    libcudnn8=${CUDNN_VERSION} \
     && apt-mark hold libcudnn8 && \
     rm -rf /var/lib/apt/lists/*
 
