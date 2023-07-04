@@ -36,8 +36,17 @@ architecture:
         tag: latest
         pipeline_dependent: true
       parameters:
-        SLURM_VERSION: 21.08.8
-        SLURM_DOWNLOAD_MD5: a5dba20d14af7b2f92ea75ff4f37480a
+        SLURM_VERSION: 22.05.9
+        SLURM_DOWNLOAD_MD5: 72100ba296730ef88c6d8c9992300005
+    22.05.9:
+      parent:
+        owner: ucphhpc
+        image: python-notebook
+        tag: latest
+        pipeline_dependent: true
+      parameters:
+        SLURM_VERSION: 22.05.9
+        SLURM_DOWNLOAD_MD5: 72100ba296730ef88c6d8c9992300005
     21.08.8:
       parent:
         owner: ucphhpc
@@ -120,6 +129,12 @@ architecture:
         image: slurm-notebook
         tag: 21.08.8
         pipeline_dependent: true
+    22.05.9:
+      parent:
+        owner: ucphhpc
+        image: slurm-notebook
+        tag: 22.05.9
+        pipeline_dependent: true
   hpc-ocean-notebook:
     latest:
       parent:
@@ -138,6 +153,12 @@ architecture:
         owner: ucphhpc
         image: slurm-notebook
         tag: 21.08.8
+        pipeline_dependent: true
+    22.05.9:
+      parent:
+        owner: ucphhpc
+        image: slurm-notebook
+        tag: 22.05.9
         pipeline_dependent: true
   hpc-gpu-notebook:
     latest:
@@ -179,6 +200,23 @@ architecture:
         owner: ucphhpc
         image: hpc-notebook
         tag: 21.08.8
+        pipeline_dependent: true
+      parameters:
+        nvhome: /opt/nvidia/hpc_sdk
+        target: Linux_x86_64
+        version: 22.2
+        nvcudadir: "/opt/nvidia/hpc_sdk/Linux_x86_64/22.2/cuda"
+        nvcompdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/22.2/compilers"
+        nvmathdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/22.2/math_libs"
+        nvcommdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/22.2/opt/nvidia/hpc_sdk/Linux_x86_64/22.2/comm_libs"
+      extra_template: res/templates/cuda/Dockerfile.cuda
+      extra_template_files:
+        - res/templates/cuda/requirements.txt
+    22.05.9:
+      parent:
+        owner: ucphhpc
+        image: hpc-notebook
+        tag: 22.05.9
         pipeline_dependent: true
       parameters:
         nvhome: /opt/nvidia/hpc_sdk
