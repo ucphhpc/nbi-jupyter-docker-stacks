@@ -1,8 +1,8 @@
 FROM {{ parent }}
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
-ARG RSTUDIO_VERSION=2022.07.1-554
-ARG SHINY_VERSION=1.5.18.987
+ARG RSTUDIO_VERSION=2023.06.0+421
+ARG SHINY_VERSION=1.5.20.1002
 ARG UBUNTU_VERSION=18.04
 ARG RSTUDIO_ARCH=amd64
 ARG SHINY_ARCH=x86_64
@@ -53,7 +53,7 @@ RUN jupyterlab_pip3 install jupyter-rsession-proxy \
 RUN conda create -n r \
     'gxx_linux-64' \
     'libgfortran' \
-    'r-base=4.1.*' \
+    'r-base=4.3.*' \
     'r-boot=1.*' \
     'r-caret=6.*' \
     'r-crayon=1.*' \
@@ -64,15 +64,15 @@ RUN conda create -n r \
     'r-htmltools=0.*' \
     'r-htmlwidgets=1.*' \
     'r-irkernel=1.*' \
-    'r-keras=2.4.*' \
+    'r-keras=2.*' \
     'r-leaps=3.*' \
     'r-nycflights13=1.0*' \
     'r-pheatmap=1.0*' \
     'r-plyr=1.8*' \
-    'r-randomforest=4.6*' \
+    'r-randomforest=4.7*' \
     'r-RColorBrewer=1.*' \
     'r-rcurl=1.*' \
-    'r-readr=1.*' \
+    'r-readr=2.*' \
     'r-reshape2=1.*' \
     'r-rjson=0.*' \
     'r-rmarkdown=2.*' \
@@ -82,8 +82,8 @@ RUN conda create -n r \
     'r-rtsne=0.*' \
     'r-shiny=1.*' \
     'r-sparklyr=1.*' \
-    'r-tidyverse=1.*' \
-    'r-v8=3.4.*' \
+    'r-tidyverse=2.*' \
+    'r-v8=4.*' \
     'unixodbc=2.3.*' \
     && conda clean --all -f -y \
     && $R_PATH/bin/R -e 'IRkernel::installspec()' \
