@@ -4,6 +4,7 @@ ARG PACKAGE_TIMEOUT=60
 ARG RSTUDIO_VERSION=2023.06.0+421
 ARG SHINY_VERSION=1.5.20.1002
 ARG UBUNTU_VERSION=18.04
+ARG UBUNTU_DISTRO=jammy
 ARG RSTUDIO_ARCH=amd64
 ARG SHINY_ARCH=x86_64
 
@@ -26,7 +27,7 @@ RUN apt-get update \
 # https://www.rstudio.com/products/shiny/download-server/ubuntu/
 RUN apt-get update \
     && apt-get install -y fonts-dejavu lmodern cm-super unixodbc unixodbc-dev \
-    && wget https://download2.rstudio.org/server/bionic/${RSTUDIO_ARCH}/rstudio-server-${RSTUDIO_VERSION}-${RSTUDIO_ARCH}.deb -O /tmp/rstudio-server.deb \
+    && wget https://download2.rstudio.org/server/${UBUNTU_DISTRO}/${RSTUDIO_ARCH}/rstudio-server-${RSTUDIO_VERSION}-${RSTUDIO_ARCH}.deb -O /tmp/rstudio-server.deb \
     && wget https://download3.rstudio.org/ubuntu-${UBUNTU_VERSION}/${SHINY_ARCH}/shiny-server-${SHINY_VERSION}-${RSTUDIO_ARCH}.deb -O /tmp/shiny-server.deb \
     && apt-get install -y --no-install-recommends /tmp/rstudio-server.deb /tmp/shiny-server.deb \
     && rm /tmp/rstudio-server.deb /tmp/shiny-server.deb \
