@@ -60,9 +60,6 @@ RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 ENV CONDA_DIR=/opt/conda
 ENV JUPYTER_PATH=$CONDA_DIR/envs/jupyter
 
-# Don't install development junk
-RUN npm config set production
-
 # Update conda, npm, yarn
 RUN conda update --quiet -n base conda \
     && npm i -g agentkeepalive \
