@@ -28,7 +28,7 @@ RUN conda run -n python3 pip install -r requirements.txt \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-RUN conda run -n python3 pip install hdbscan --no-build-isolation --no-binary :all:
+RUN conda run -n python3 pip install hdbscan==0.8.29 --no-build-isolation --no-binary :all:
 
 WORKDIR /home/$NB_USER
 # Run container as
