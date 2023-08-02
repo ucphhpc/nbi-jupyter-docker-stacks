@@ -1,6 +1,5 @@
 name: geo-notebook
 dependencies:
-   - appmode
    - arrow
    - autopep8
    - bokeh
