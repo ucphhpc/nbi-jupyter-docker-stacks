@@ -39,7 +39,6 @@ scikit-learn
 scipy
 seaborn
 six
-sklearn
 statsmodels
 sympy
 tqdm
