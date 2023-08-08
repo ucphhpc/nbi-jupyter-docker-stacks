@@ -145,5 +145,5 @@ COPY ./res/welcome.txt /home/$NB_USER/welcome.txt
 RUN cat ~/welcome.txt >> ~/.bashrc \
     && rm -fr /home/$NB_USER/welcome.txt
 
-# Ensure that container Runs as
+# Ensure that container runs as the notebook user
 USER $NB_UID
