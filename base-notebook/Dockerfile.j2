@@ -88,57 +88,30 @@ RUN conda install --quiet --yes \
 # jupyter-widgets/jupyterlab-manager and matplotlib is for ipympl support which is labs
 # replacement for notebook plots
 # https://github.com/yuvipanda/jupyter-launcher-shortcuts
-RUN conda install --quiet --yes \
-    'ipympl' \
-    'ipyleaflet' \
-    'ipywidgets' \
-    'bqplot' \
-    'jupyter-server-proxy' \
-    'jupyterlab-git' \
-    'jupyterlab_code_formatter' \
-    'autopep8' \
-    'black' \
-    'isort' \
-    'yapf' \
-    && jupyter labextension install jupyter-leaflet \
-                                    @jupyter-widgets/jupyterlab-manager \
-                                    bqplot \
-                                    @jupyterlab/server-proxy \
-                                    jupyterlab-topbar-extension \
-                                    jupyterlab-system-monitor \
-                                    @jupyterlab/git \
-                                    nbdime-jupyterlab \
-    && conda clean --all -f -y \
-    && npm cache clean --force \
-    && npm dedupe \
-    && rm -rf $CONDA_DIR/share/jupyter/lab/staging \
-    && rm -rf $CONDA_DIR/share/jupyter/lab/extensions/jupyter-matplotlib-0.4.0.tgz \
-    && rm -fr $CONDA_DIR/share/jupyter/lab/extensions/jupyter-matplotlib-0.4.1.tgz \
-    && rm -fr /home/$NB_USER/.yarn \
-    && rm -fr /home/$NB_USER/.npm \
-    && rm -rf /tmp/npm* \
-    && rm -fr /tmp/v8* \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
-
 RUN conda run -n base pip3 install \
+    black \
+    bqplot \
     facets-overview \
     nbresuse \
+    nbdime \
     nbconvert[webpdf] \
+    jupyter-resource-usage \
+    jupyterlab-topbar-text \
+    jupyterlab-theme-toggler \
+    jupyter-server-proxy \
+    jupyterlab-git \
+    jupyter-leaflet \
+    jupyterlab-widgets \
+    ipyleaflet \
+    jupyterlab-code-formatter \
     && conda clean -y -f --all \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
 # VSCode proxy extension
-RUN git clone https://github.com/betatim/vscode-binder.git \
-    && cd vscode-binder \
-    && conda run -n base pip3 install .
-
-
-# RUN conda run -n base pip3 install jupyter-vscode-proxy \
-#     && conda clean -y -f --all \
-#     && fix-permissions $CONDA_DIR \
-#     && fix-permissions /home/$NB_USER
+# RUN git clone https://github.com/betatim/vscode-binder.git \
+#     && cd vscode-binder \
+#     && conda run -n base pip3 install .
 
 RUN conda init \
     && conda config --set auto_activate_base false
@@ -151,7 +124,6 @@ RUN mv $CONDA_DIR/bin/pip $CONDA_DIR/bin/jupyterlab_pip \
 
 # Ensure there is a local bin directory for user binaries
 RUN mkdir -p ~/.local/bin
-
 ENV PATH="~/.local/bin:$PATH"
 
 USER root
@@ -161,16 +133,15 @@ COPY ./res/update_kernel_spec.py /usr/local/bin/update_kernel_spec.py
 RUN chmod +x /usr/local/bin/update_kernel_spec.py
 
 #Install code-server (https://github.com/betatim/vscode-binder/blob/master/postBuild)
-ARG CODE_SERVER_VERSION="4.8.3"
-ARG CODE_SERVER_ARCH="amd64"
-# Download and install VS Code server
-RUN wget -q -O code-server.tar.gz https://github.com/cdr/code-server/releases/download/v${CODE_SERVER_VERSION}/code-server-${CODE_SERVER_VERSION}-linux-${CODE_SERVER_ARCH}.tar.gz \
-	&& mkdir -p /usr/local \
-	&& tar -xvf code-server.tar.gz -C /usr/local --strip-components=1 \
-	&& rm -rf code-server.tar.gz
+# ARG CODE_SERVER_VERSION="4.8.3"
+# ARG CODE_SERVER_ARCH="amd64"
+# # Download and install VS Code server
+# RUN wget -q -O code-server.tar.gz https://github.com/cdr/code-server/releases/download/v${CODE_SERVER_VERSION}/code-server-${CODE_SERVER_VERSION}-linux-${CODE_SERVER_ARCH}.tar.gz \
+# 	&& mkdir -p /usr/local \
+# 	&& tar -xvf code-server.tar.gz -C /usr/local --strip-components=1 \
+# 	&& rm -rf code-server.tar.gz
 
 USER $NB_UID
-
 WORKDIR /home/$NB_USER
 
 # Setup the welcome message
