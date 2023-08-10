@@ -109,8 +109,14 @@ RUN conda run -n base pip3 install \
 #     && cd vscode-binder \
 #     && conda run -n base pip3 install .
 
+# Don't activate the base environment by default
+# This is instead set via the DEFAULT_CONDA_ENVIRONMENT environment variable
 RUN conda init \
     && conda config --set auto_activate_base false
+
+# Disable the JupyterLab news announcements
+# https://jupyterlab.readthedocs.io/en/stable/privacy_policies.html
+RUN jupyter labextension disable "@jupyterlab/apputils-extension:announcements"
 
 # Hide the default $CONDA_DIR/bin/pip to ensure that the user doesn't try to
 # install into that one by mistake when it should have been installed into one
