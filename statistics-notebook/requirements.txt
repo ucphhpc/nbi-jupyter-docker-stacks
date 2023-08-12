@@ -3,7 +3,6 @@ iminuit
 ipywidgets
 numpy
 pandas
-probfit
 pymc
 pystan
 scipy

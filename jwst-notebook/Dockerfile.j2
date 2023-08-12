@@ -98,8 +98,8 @@ RUN conda run -n python3 python /tmp/photutils.patch \
     && fix-permissions /home/$NB_USER
 
 # JWST tools
-RUN conda run -n python3 pip install jwst_backgrounds
-RUN conda run -n python3 pip install git+https://github.com/spacetelescope/jwst_gtvt.git
+RUN conda run -n python3 pip install jwst-backgrounds
+RUN conda run -n python3 pip install jwst-gtvt
 RUN conda run -n python3 pip install jdaviz
 RUN conda run -n python3 pip install pandeia.engine
 

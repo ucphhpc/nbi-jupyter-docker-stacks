@@ -6,6 +6,7 @@ cython
 datashader
 graphviz
 h5py
+git+https://github.com/scikit-learn-contrib/hdbscan
 jax==0.4.3
 jaxlib==0.4.3
 joblib

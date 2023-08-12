@@ -21,7 +21,6 @@ RUN conda install -yq -c bioconda -n r \
     "fastqc" \
     "samtools" \
     "hmmer" \
-    "meme" \
     && conda clean --all -f -y \
     && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()' \
     && fix-permissions $CONDA_DIR \

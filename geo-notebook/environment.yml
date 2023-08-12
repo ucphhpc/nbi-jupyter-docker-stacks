@@ -1,6 +1,5 @@
 name: geo-notebook
 dependencies:
-   - appmode
    - arrow
    - autopep8
    - bokeh
@@ -19,7 +18,7 @@ dependencies:
    - datashader
    - distributed
    - eofs
-   - esmpy
+   - esmpy<8.4
    - fastparquet
    - flake8
    - gdal
@@ -57,7 +56,6 @@ dependencies:
    - toolz
    - tornado
    - xarray
-   - xesmf
    - xesmf
    - zarr
    - zict
