@@ -1,2 +1,2 @@
 mpi4py
-modi-helper-scripts
+git+https://github.com/ucphhpc/modi-helper-scripts.git
