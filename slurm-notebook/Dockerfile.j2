@@ -84,6 +84,10 @@ USER $NB_UID
 RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 ENV CLING_PATH=$CONDA_DIR/envs/cling
 
+# Install the MODI-Helper-Scripts systemwide such that every environment and 
+# inherriting images can use them
+RUN jupyterlab_pip3 install git+https://github.com/ucphhpc/modi-helper-scripts.git
+
 # Install packages for python3 envs
 COPY requirements.txt /tmp/
 RUN conda run -n python3 pip install -r requirements.txt \
