@@ -1,10 +1,13 @@
 ## Installing CRAN packages
 install.packages(c(
+    "circlize",
     "hexbin",
     "ggplot2",
     "pheatmap",
     "plyr",
+    "plotly",
     "FactoMineR",
+    "Factoshiny"
     "factoextra",
     "dplyr",
     "tidyr",
@@ -22,7 +25,6 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager", repos='http://mirrors.dotsrc.org/cran/')
 
 library(BiocManager)
-
 BiocManager::install("DESeq2", update = TRUE, ask = FALSE, force = TRUE)
 BiocManager::install("dada2", update = TRUE, ask = FALSE, force = TRUE)
 BiocManager::install("vsn", update = TRUE, ask = FALSE, force = TRUE)
@@ -33,8 +35,4 @@ BiocManager::install("CAMERA", update = TRUE, ask = FALSE, force = TRUE)
 BiocManager::install("pcaMethods",update = TRUE, ask = FALSE, force = TRUE)
 BiocManager::install("apeglm", update = TRUE, ask = FALSE, force = TRUE)
 # Added additional packages based on requests made in ticket #31641
-BiocManager::install("GWENA")
-install.packages("Factoshiny")
-install.packages("plotly")
-install.packages("circlize")
-install.packages("plotly")
+BiocManager::install("GWENA", update = TRUE, ask = FALSE, force = TRUE)
