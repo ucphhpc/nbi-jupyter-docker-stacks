@@ -7,7 +7,7 @@ install.packages(c(
     "plyr",
     "plotly",
     "FactoMineR",
-    "Factoshiny"
+    "Factoshiny",
     "factoextra",
     "dplyr",
     "tidyr",
