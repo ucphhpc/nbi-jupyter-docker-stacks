@@ -14,7 +14,7 @@ USER $NB_USER
 RUN dotnet tool install -g Microsoft.Quantum.IQSharp \
 	&& $HOME/.dotnet/tools/dotnet-iqsharp install --user
 
-WORKDIR /home/$NB_USER
+WORKDIR "${HOME}"
 
 # Ensure that container Runs as
 USER $NB_UID

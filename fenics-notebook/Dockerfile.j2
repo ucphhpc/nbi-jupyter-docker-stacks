@@ -38,7 +38,7 @@ RUN conda run -n python3 pip install -r requirements.txt \
 # Ensure that the pkg config can be found in Jupyter
 RUN conda run -n python3 python3 /usr/local/bin/update_kernel_spec.py python3 --env-kwargs PATH=$PYTHON3_PATH/bin:$PATH
 
-WORKDIR /home/$NB_USER
+WORKDIR "${HOME}"
 
 # Ensure that container Runs as
 USER $NB_UID

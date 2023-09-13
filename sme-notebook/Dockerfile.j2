@@ -59,7 +59,7 @@ RUN git clone --recursive https://github.com/zabirauf/icsharp.git \
     && fix-permissions /home/$NB_USER
 
 USER root
-WORKDIR /home/$NB_USER
+WORKDIR "${HOME}"
 
 # Ensure that container Runs as
 USER $NB_UID

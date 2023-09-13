@@ -28,7 +28,7 @@ RUN $R_PATH/bin/Rscript /opt/res/*.R
 
 RUN conda install -c bioconda -n r bioconductor-xcms -yq 
 
-WORKDIR /home/$NB_USER
+WORKDIR "${HOME}"
 
 # Run container as
 USER $NB_UID

@@ -127,7 +127,10 @@ RUN chown -R $NB_USER:$NB_GID /var/lib/rstudio-server \
 # The rsession-proxy has to know whether version 1.4 is used
 ENV RSESSION_PROXY_RSTUDIO_1_4=True
 
-WORKDIR /home/$NB_USER
+# Add site specific settings
+COPY --chown=${NB_UID}:${NB_GID} Rprofile.site ${R_PATH}/lib/R/etc/
+
+WORKDIR "${HOME}"
 
 # Ensure that container Runs as
 USER $NB_UID

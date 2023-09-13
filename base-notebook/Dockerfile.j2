@@ -144,7 +144,7 @@ RUN chmod +x /usr/local/bin/update_kernel_spec.py
 # 	&& rm -rf code-server.tar.gz
 
 USER $NB_UID
-WORKDIR /home/$NB_USER
+WORKDIR "${HOME}"
 
 # Setup the welcome message
 COPY ./res/welcome.txt /home/$NB_USER/welcome.txt

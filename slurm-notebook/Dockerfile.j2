@@ -125,7 +125,7 @@ COPY supervisord.conf /etc/supervisor/supervisord.conf
 RUN chown $NB_UID:$NB_GID /etc/supervisor/supervisord.conf \
     && chmod 775 /etc/supervisor/supervisord.conf
 
-WORKDIR /home/$NB_USER
+WORKDIR "${HOME}"
 # Ensure that the common MPI library is loaded
 ENV LD_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu/:${LD_LIBRARY_PATH}"
 

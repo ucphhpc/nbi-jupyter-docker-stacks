@@ -107,7 +107,7 @@ ENV TAR="/bin/tar"
 COPY ./res /opt/res
 RUN $R_PATH/bin/Rscript /opt/res/*.R
 
-WORKDIR /home/$NB_USER
+WORKDIR "${HOME}"
 
 # Run container as
 USER $NB_UID
