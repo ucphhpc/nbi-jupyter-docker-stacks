@@ -96,11 +96,13 @@ RUN conda run -n base pip3 install \
     jupyter-resource-usage \
     jupyterlab-topbar-text \
     jupyter-server-proxy \
+    jupyterlab \
     jupyterlab-git \
     jupyterlab-widgets \
-    ipyleaflet \
     jupyterlab-code-formatter \
+    ipyleaflet \
     ipympl \
+    ipywidgets \
     && conda clean -y -f --all \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
