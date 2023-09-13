@@ -100,6 +100,7 @@ RUN conda run -n base pip3 install \
     jupyterlab-widgets \
     ipyleaflet \
     jupyterlab-code-formatter \
+    ipympl \
     && conda clean -y -f --all \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
