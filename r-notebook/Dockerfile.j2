@@ -50,8 +50,16 @@ RUN jupyterlab_pip3 install jupyter-rsession-proxy \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
+# Create R environement
+COPY environment.yml /tmp/
+RUN conda env create -n r -f environment.yml \
+    && conda run -n r $R_PATH/bin/python -m ipykernel install --user --name=r \
+    && conda clean --all -f -y \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
+
 # Create R environment
-RUN conda create -n r \
+RUN conda install -yq -n r \
     'gxx_linux-64' \
     'libgfortran' \
     'r-base=4.3.*' \
@@ -94,20 +102,12 @@ RUN conda create -n r \
 RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 ENV PYTHON3_PATH=$CONDA_DIR/envs/python3
 
-# Create user r environement
-COPY environment.yml /tmp/
-RUN conda env update -n r -f environment.yml \
-    && conda run -n r $R_PATH/bin/python -m ipykernel install --user --name=r \
-    && conda clean --all -f -y \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
-
 # Freetype is in the incorrect directory for some old libraries
 RUN ln -s $R_PATH/include/freetype2/freetype $R_PATH/include/
 
 # install tmp r packages
 COPY ./res /opt/res
-RUN conda run -n r Rscript /opt/res/keras_package.R
+# RUN conda run -n r Rscript /opt/res/keras_package.R
 
 USER root
 
