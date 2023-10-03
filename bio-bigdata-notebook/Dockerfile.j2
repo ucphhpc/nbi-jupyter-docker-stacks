@@ -20,8 +20,14 @@ RUN apt-get update \
 # IMPORTANT: R defaults to unpack with non-existant /bin/gtar so we overrride
 ENV TAR="/bin/tar"
 
-# install tmp r packages
-RUN conda install -n r imagemagick -yq
+# install r packages
+RUN conda install -yq -n r \
+    'r-FactoMineR' \
+    'r-factoextra' \
+    && conda clean --all -f -y \
+    && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()' \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 COPY ./res /opt/res
 RUN $R_PATH/bin/Rscript /opt/res/*.R
