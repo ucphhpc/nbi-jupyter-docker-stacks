@@ -34,6 +34,13 @@ RUN $R_PATH/bin/Rscript /opt/res/*.R
 
 RUN conda install -c bioconda -n r bioconductor-xcms -yq 
 
+RUN conda install -yq -n r \
+    'r-magick' \
+    && conda clean --all -f -y \
+    && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()' \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
+
 WORKDIR "${HOME}"
 
 # Run container as

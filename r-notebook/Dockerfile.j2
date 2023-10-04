@@ -7,6 +7,8 @@ ARG UBUNTU_VERSION=18.04
 ARG UBUNTU_DISTRO=jammy
 ARG RSTUDIO_ARCH=amd64
 ARG SHINY_ARCH=x86_64
+ARG KERAS_VERSION=2.13.0
+ARG TENSORFLOW_VERSION=2.14.0
 
 USER root
 
@@ -53,7 +55,7 @@ RUN jupyterlab_pip3 install jupyter-rsession-proxy \
 # Create R environement
 COPY environment.yml /tmp/
 RUN conda env create -n r -f environment.yml \
-    && conda run -n r $R_PATH/bin/python -m ipykernel install --user --name=r \
+    && conda run -n r $R_PATH/bin/python -m ipykernel install --user --name=ir \
     && conda clean --all -f -y \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
@@ -108,6 +110,18 @@ RUN ln -s $R_PATH/include/freetype2/freetype $R_PATH/include/
 # install tmp r packages
 COPY ./res /opt/res
 # RUN conda run -n r Rscript /opt/res/keras_package.R
+# Install kera and tensorflow
+RUN conda install -yq -n r \
+    "r-keras=${KERAS_VERSION}" \
+    "r-tensorflow=${TENSORFLOW_VERSION}" \
+    && conda clean --all -f -y \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
+
+# Install the python tensorflow module for the R environment
+RUN $R_PATH/bin/pip install \
+    tensorflow==${TENSORFLOW_VERSION} \
+    && fix-permissions $CONDA_DIR
 
 USER root
 
