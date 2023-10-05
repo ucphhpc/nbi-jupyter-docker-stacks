@@ -23,6 +23,10 @@ ENV PKG_CONFIG_PATH=$PYTHON3_PATH/lib/pkgconfig
 
 RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
+# Clone the python3 enviornment into fenicsx to enable the installation
+# of two seperate fenics installations, namely the old fenics and the new fenicsx
+RUN conda create --name fenicsx --clone python3
+
 COPY environment.yml /tmp/
 RUN conda env update -n python3 -f environment.yml \
     && conda clean --all -f -y \
@@ -35,8 +39,17 @@ RUN conda run -n python3 pip install -r requirements.txt \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
+ENV FENICSX_PATH=$CONDA_DIR/envs/fenicsx
+COPY environment-fenicsx.yml /tmp/
+RUN conda env update -n fenicsx -f /tmp/environment-fenicsx.yml \
+    && conda run -n fenicsx pip install -r requirements.txt \
+    && conda clean --all -f -y \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
+
 # Ensure that the pkg config can be found in Jupyter
-RUN conda run -n python3 python3 /usr/local/bin/update_kernel_spec.py python3 --env-kwargs PATH=$PYTHON3_PATH/bin:$PATH
+RUN conda run -n python3 python3 /usr/local/bin/update_kernel_spec.py python3 --env-kwargs PATH=$PYTHON3_PATH/bin:$PATH \
+    && conda run -n fenicsx python3 /usr/local/bin/update_kernel_spec.py fenicsx --env-kwargs PATH=$FENICSX_PATH/bin:$PATH
 
 WORKDIR "${HOME}"
 
