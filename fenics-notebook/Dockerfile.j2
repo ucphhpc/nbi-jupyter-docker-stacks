@@ -47,7 +47,10 @@ RUN conda env update -n fenicsx -f /tmp/environment-fenicsx.yml \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-# Ensure that the pkg config can be found in Jupyter
+# Add the fenicsx kernel to Jupyter
+RUN conda run -n fenicsx python -m ipykernel install --user --name=fenicsx
+
+# Ensure that the pkg config can be found in in the Jupyter kernels
 RUN conda run -n python3 python3 /usr/local/bin/update_kernel_spec.py python3 --env-kwargs PATH=$PYTHON3_PATH/bin:$PATH \
     && conda run -n fenicsx python3 /usr/local/bin/update_kernel_spec.py fenicsx --env-kwargs PATH=$FENICSX_PATH/bin:$PATH
 
