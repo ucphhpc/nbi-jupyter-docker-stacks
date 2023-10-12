@@ -19,8 +19,8 @@ WORKDIR /tmp
 USER $NB_UID
 
 COPY requirements.txt /tmp/
-RUN conda run -n python3 pip install -r requirements.txt \
-    && conda clean -y --all \
+RUN mamba run -n python3 pip install -r requirements.txt \
+    && mamba clean -y --all \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 

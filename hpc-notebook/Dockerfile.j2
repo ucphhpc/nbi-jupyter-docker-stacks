@@ -60,17 +60,17 @@ RUN cat /etc/supervisor/hpc-supervisord.conf >> /etc/supervisor/supervisord.conf
 
 USER $NB_UID
 
-RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
+RUN mamba config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 COPY environment.yml /tmp/
-RUN conda env update -n python3 -f environment.yml \
-    && conda clean --all -f -y \
+RUN mamba env update -n python3 -f environment.yml \
+    && mamba clean --all -f -y \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
 COPY requirements.txt /tmp/
-RUN conda run -n python3 pip install -r requirements.txt \
-    && conda clean -y --all \
+RUN mamba run -n python3 pip install -r requirements.txt \
+    && mamba clean -y --all \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 

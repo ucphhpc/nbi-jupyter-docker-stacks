@@ -32,7 +32,7 @@ WORKDIR /tmp
 
 USER $NB_UID
 
-RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT \
+RUN mamba config --set remote_read_timeout_secs $PACKAGE_TIMEOUT \
     && mkdir -p /home/$NB_USER/.local/bin/icsharp
 
 # Clone and install csharp kernel

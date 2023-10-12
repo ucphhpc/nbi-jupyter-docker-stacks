@@ -81,7 +81,7 @@ RUN mkdir -p /var/spool/slurmd \
 
 USER $NB_UID
 
-RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
+RUN mamba config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 ENV CLING_PATH=$CONDA_DIR/envs/cling
 
 # Install the MODI-Helper-Scripts systemwide such that every environment and 
@@ -90,16 +90,16 @@ RUN jupyterlab_pip3 install git+https://github.com/ucphhpc/modi-helper-scripts.g
 
 # Install packages for python3 envs
 COPY requirements.txt /tmp/
-RUN conda run -n python3 pip install -r requirements.txt \
-    && conda clean -y --all \
+RUN mamba run -n python3 pip install -r requirements.txt \
+    && mamba clean -y --all \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
 # Add cling kernel
 # https://github.com/QuantStack/xeus-cling
 COPY environment.yml /tmp/
-RUN conda env create -n cling -f environment.yml \
-    && conda clean --all -f -y \
+RUN mamba env create -n cling -f environment.yml \
+    && mamba clean --all -f -y \
     && rm -fr /tmp/tmp* \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
@@ -108,7 +108,7 @@ ENV CXX_PATH=$CONDA_DIR/envs/cling
 RUN cp -R $CXX_PATH/share/jupyter/kernels/* $CONDA_DIR/share/jupyter/kernels/
 
 # Add the cling environment to the jupyter kernel path
-RUN conda run -n cling python3 /usr/local/bin/update_kernel_spec.py cling --env-kwargs PATH=$CLING_PATH/bin:$PATH
+RUN mamba run -n cling python3 /usr/local/bin/update_kernel_spec.py cling --env-kwargs PATH=$CLING_PATH/bin:$PATH
 
 # TODO, Add PySlurm (Python interface to slurm) requires Cython
 # Requires slurm 19.05

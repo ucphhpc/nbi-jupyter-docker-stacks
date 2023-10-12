@@ -21,10 +21,10 @@ RUN apt-get update \
 ENV TAR="/bin/tar"
 
 # install r packages
-RUN conda install -yq -n r \
+RUN mamba install -yq -n r \
     'r-FactoMineR' \
     'r-factoextra' \
-    && conda clean --all -f -y \
+    && mamba clean --all -f -y \
     && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()' \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
@@ -32,11 +32,11 @@ RUN conda install -yq -n r \
 COPY ./res /opt/res
 RUN $R_PATH/bin/Rscript /opt/res/*.R
 
-RUN conda install -c bioconda -n r bioconductor-xcms -yq 
+RUN mamba install -c bioconda -n r bioconductor-xcms -yq 
 
-RUN conda install -yq -n r \
+RUN mamba install -yq -n r \
     'r-magick' \
-    && conda clean --all -f -y \
+    && mamba clean --all -f -y \
     && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()' \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER

@@ -54,18 +54,21 @@ WORKDIR /tmp
 
 USER $NB_UID
 
-RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
+# https://github.com/mamba-org/mamba/issues/2882
+RUN conda install -n base conda==23.7.4
+
+RUN mamba config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 # Environement variables
 ENV CONDA_DIR=/opt/conda
 ENV JUPYTER_PATH=$CONDA_DIR/envs/jupyter
 
-# Update conda, npm, yarn
-RUN conda update --quiet -n base conda \
+# Update mamba, npm, yarn
+RUN mamba update --quiet -n base conda \
     && npm i -g agentkeepalive \
     && npm i -g npm \
     && npm i -g yarn \
-    && conda clean --all -f -y \
+    && mamba clean --all -f -y \
     && npm cache clean --force \
     && rm -fr /home/$NB_USER/.yarn \
     && rm -fr /home/$NB_USER/.npm \
@@ -76,9 +79,9 @@ RUN conda update --quiet -n base conda \
     && fix-permissions /home/$NB_USER
 
 # jupyter/base-notebook no longer provides pip
-RUN conda install --quiet --yes \
+RUN mamba install --quiet --yes \
     pip \
-    && conda clean --all -f -y \
+    && mamba clean --all -f -y \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
@@ -88,7 +91,7 @@ RUN conda install --quiet --yes \
 # jupyter-widgets/jupyterlab-manager and matplotlib is for ipympl support which is labs
 # replacement for notebook plots
 # https://github.com/yuvipanda/jupyter-launcher-shortcuts
-RUN conda run -n base pip3 install \
+RUN mamba run -n base pip3 install \
     black \
     bqplot \
     facets-overview \
@@ -103,7 +106,7 @@ RUN conda run -n base pip3 install \
     ipyleaflet \
     ipympl \
     ipywidgets \
-    && conda clean -y -f --all \
+    && mamba clean -y -f --all \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
@@ -114,8 +117,8 @@ RUN conda run -n base pip3 install \
 
 # Don't activate the base environment by default
 # This is instead set via the DEFAULT_CONDA_ENVIRONMENT environment variable
-RUN conda init \
-    && conda config --set auto_activate_base false
+RUN mamba init \
+    && mamba config --set auto_activate_base false
 
 # Disable the JupyterLab news announcements
 # https://jupyterlab.readthedocs.io/en/stable/privacy_policies.html
