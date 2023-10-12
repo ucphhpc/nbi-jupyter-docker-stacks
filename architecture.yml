@@ -7,12 +7,26 @@ architecture:
         image: base-notebook
         tag: lab-4.0.6
         pipeline_dependent: false
+    latest-501uid:
+      parent:
+        owner: jupyter
+        image: base-notebook
+        tag: lab-4.0.6
+        pipeline_dependent: false
+      parameters:
+        NB_UID: "501"
   python-notebook:
     latest:
       parent:
         owner: ucphhpc
         image: base-notebook
         tag: latest
+        pipeline_dependent: true
+    latest-501uid:
+      parent:
+        owner: ucphhpc
+        image: base-notebook
+        tag: latest-501uid
         pipeline_dependent: true
   statistics-notebook:
     latest:
@@ -21,12 +35,24 @@ architecture:
         image: python-notebook
         tag: latest
         pipeline_dependent: true
+    latest-501uid:
+      parent:
+        owner: ucphhpc
+        image: python-notebook
+        tag: latest-501uid
+        pipeline_dependent: true
   r-notebook:
     latest:
       parent:
         owner: ucphhpc
         image: python-notebook
         tag: latest
+        pipeline_dependent: true
+    latest-501uid:
+      parent:
+        owner: ucphhpc
+        image: python-notebook
+        tag: latest-501uid
         pipeline_dependent: true
   slurm-notebook:
     latest:
