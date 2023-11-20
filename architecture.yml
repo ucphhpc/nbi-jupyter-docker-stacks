@@ -7,26 +7,12 @@ architecture:
         image: base-notebook
         tag: lab-4.0.6
         pipeline_dependent: false
-    latest-501uid:
-      parent:
-        owner: jupyter
-        image: base-notebook
-        tag: lab-4.0.6
-        pipeline_dependent: false
-      parameters:
-        NB_UID: "501"
   python-notebook:
     latest:
       parent:
         owner: ucphhpc
         image: base-notebook
         tag: latest
-        pipeline_dependent: true
-    latest-501uid:
-      parent:
-        owner: ucphhpc
-        image: base-notebook
-        tag: latest-501uid
         pipeline_dependent: true
   statistics-notebook:
     latest:
@@ -35,12 +21,6 @@ architecture:
         image: python-notebook
         tag: latest
         pipeline_dependent: true
-    latest-501uid:
-      parent:
-        owner: ucphhpc
-        image: python-notebook
-        tag: latest-501uid
-        pipeline_dependent: true
   r-notebook:
     latest:
       parent:
@@ -48,27 +28,12 @@ architecture:
         image: python-notebook
         tag: latest
         pipeline_dependent: true
-    latest-501uid:
-      parent:
-        owner: ucphhpc
-        image: python-notebook
-        tag: latest-501uid
-        pipeline_dependent: true
   slurm-notebook:
     latest:
       parent:
         owner: ucphhpc
         image: python-notebook
         tag: latest
-        pipeline_dependent: true
-      parameters:
-        SLURM_VERSION: 22.05.9
-        SLURM_DOWNLOAD_MD5: 72100ba296730ef88c6d8c9992300005
-    latest-501uid:
-      parent:
-        owner: ucphhpc
-        image: python-notebook
-        tag: latest-501uid
         pipeline_dependent: true
       parameters:
         SLURM_VERSION: 22.05.9
@@ -110,27 +75,12 @@ architecture:
       extra_template: res/templates/cuda/Dockerfile.cuda
       extra_template_files:
         - res/templates/cuda/requirements.txt
-    latest-501uid:
-      parent:
-        owner: ucphhpc
-        image: python-notebook
-        tag: latest-501uid
-        pipeline_dependent: true
-      extra_template: res/templates/cuda/Dockerfile.cuda
-      extra_template_files:
-        - res/templates/cuda/requirements.txt
   gpu-notebook:
     latest:
       parent:
         owner: ucphhpc
         image: python-cuda-notebook
         tag: latest
-        pipeline_dependent: true
-    latest-501uid:
-      parent:
-        owner: ucphhpc
-        image: python-cuda-notebook
-        tag: latest-501uid
         pipeline_dependent: true
   datascience-notebook:
     latest:
@@ -139,24 +89,12 @@ architecture:
         image: python-notebook
         tag: latest
         pipeline_dependent: true
-    latest-501uid:
-      parent:
-        owner: ucphhpc
-        image: python-notebook
-        tag: latest-501uid
-        pipeline_dependent: true
   chemistry-notebook:
     latest:
       parent:
         owner: ucphhpc
         image: base-notebook
         tag: latest
-        pipeline_dependent: true
-    latest-501uid:
-      parent:
-        owner: ucphhpc
-        image: base-notebook
-        tag: latest-501uid
         pipeline_dependent: true
   fenics-notebook:
     latest:
@@ -165,12 +103,6 @@ architecture:
         image: python-notebook
         tag: latest
         pipeline_dependent: true
-    latest-501uid:
-      parent:
-        owner: ucphhpc
-        image: python-notebook
-        tag: latest-501uid
-        pipeline_dependent: true
   qsharp-notebook:
     latest:
       parent:
@@ -178,24 +110,12 @@ architecture:
         image: python-notebook
         tag: latest
         pipeline_dependent: true
-    latest-501uid:
-      parent:
-        owner: ucphhpc
-        image: python-notebook
-        tag: latest-501uid
-        pipeline_dependent: true
   hpc-notebook:
     latest:
       parent:
         owner: ucphhpc
         image: slurm-notebook
         tag: latest
-        pipeline_dependent: true
-    latest-501uid:
-      parent:
-        owner: ucphhpc
-        image: slurm-notebook
-        tag: latest-501uid
         pipeline_dependent: true
     20.11.9:
       parent:
@@ -222,12 +142,6 @@ architecture:
         image: slurm-notebook
         tag: latest
         pipeline_dependent: true
-    latest-501uid:
-      parent:
-        owner: ucphhpc
-        image: slurm-notebook
-        tag: latest-501uid
-        pipeline_dependent: true
     20.11.9:
       parent:
         owner: ucphhpc
@@ -252,23 +166,6 @@ architecture:
         owner: ucphhpc
         image: hpc-notebook
         tag: latest
-        pipeline_dependent: true
-      parameters:
-        nvhome: /opt/nvidia/hpc_sdk
-        target: Linux_x86_64
-        version: 22.2
-        nvcudadir: "/opt/nvidia/hpc_sdk/Linux_x86_64/22.2/cuda"
-        nvcompdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/22.2/compilers"
-        nvmathdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/22.2/math_libs"
-        nvcommdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/22.2/opt/nvidia/hpc_sdk/Linux_x86_64/22.2/comm_libs"
-      extra_template: res/templates/cuda/Dockerfile.cuda
-      extra_template_files:
-        - res/templates/cuda/requirements.txt
-    latest-501uid:
-      parent:
-        owner: ucphhpc
-        image: hpc-notebook
-        tag: latest-501uid
         pipeline_dependent: true
       parameters:
         nvhome: /opt/nvidia/hpc_sdk
@@ -339,24 +236,12 @@ architecture:
         image: datascience-notebook
         tag: latest
         pipeline_dependent: true
-    latest-501uid:
-      parent:
-        owner: ucphhpc
-        image: datascience-notebook
-        tag: latest-501uid
-        pipeline_dependent: true
   geo-notebook:
     latest:
       parent:
         owner: ucphhpc
         image: python-notebook
         tag: latest
-        pipeline_dependent: true
-    latest-501uid:
-      parent:
-        owner: ucphhpc
-        image: python-notebook
-        tag: latest-501uid
         pipeline_dependent: true
   bio-notebook:
     latest:
@@ -365,24 +250,12 @@ architecture:
         image: r-notebook
         tag: latest
         pipeline_dependent: true
-    latest-501uid:
-      parent:
-        owner: ucphhpc
-        image: r-notebook
-        tag: latest-501uid
-        pipeline_dependent: true
   bio-bigdata-notebook:
     latest:
       parent:
         owner: ucphhpc
         image: r-notebook
         tag: latest
-        pipeline_dependent: true
-    latest-501uid:
-      parent:
-        owner: ucphhpc
-        image: r-notebook
-        tag: latest-501uid
         pipeline_dependent: true
   bio-bsa-notebook:
     latest:
@@ -391,12 +264,6 @@ architecture:
         image: r-notebook
         tag: latest
         pipeline_dependent: true
-    latest-501uid:
-      parent:
-        owner: ucphhpc
-        image: r-notebook
-        tag: latest-501uid
-        pipeline_dependent: true
   sme-notebook:
     latest:
       parent:
@@ -404,22 +271,10 @@ architecture:
         image: base-notebook
         tag: latest
         pipeline_dependent: true
-    latest-501uid:
-      parent:
-        owner: ucphhpc
-        image: base-notebook
-        tag: latest-501uid
-        pipeline_dependent: true
   jwst-notebook:
     latest:
       parent:
         owner: ucphhpc
         image: python-notebook
         tag: latest
-        pipeline_dependent: true
-    latest-501uid:
-      parent:
-        owner: ucphhpc
-        image: python-notebook
-        tag: latest-501uid
         pipeline_dependent: true
