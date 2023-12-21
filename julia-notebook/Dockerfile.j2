@@ -29,8 +29,12 @@ md5sum -c - \
 # Add the julia environment to the jupyter kernel path
 RUN mamba run -n julia python3 /usr/local/bin/update_kernel_spec.py julia --env-kwargs PATH=${JULIA_PATH}/bin/julia:${PATH}
 
-# Install IJulia
+# Install IJulia (installed separately)
 RUN julia -e 'using Pkg; Pkg.add("IJulia")'
+
+# A few core packages
+COPY packages.jl /tmp/
+RUN julia packages.jl
 
 
 WORKDIR "${HOME}"
