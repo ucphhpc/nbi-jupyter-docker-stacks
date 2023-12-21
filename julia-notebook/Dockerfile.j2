@@ -16,6 +16,7 @@ USER root
 RUN echo "[global]" > /etc/pip.conf \
     && echo "timeout=${PACKAGE_TIMEOUT}" >> /etc/pip.conf
 
+USER $NB_UID
 WORKDIR /tmp
 
 # Download and install Julia
