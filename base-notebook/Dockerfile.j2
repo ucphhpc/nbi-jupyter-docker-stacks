@@ -66,7 +66,7 @@ USER $NB_UID
 WORKDIR /tmp
 
 # https://github.com/mamba-org/mamba/issues/2882
-RUN conda install -n base conda==23.7.4
+#RUN conda install -n base conda==23.7.4
 RUN mamba config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 # Update mamba, npm, yarn
