@@ -6,7 +6,7 @@ USER root
 
 {{ extra_template }}
 
-WORKDIR /home/$NB_USER
+WORKDIR "${HOME}"
 
 # Ensure that container Runs as
 USER $NB_UID

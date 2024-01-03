@@ -13,7 +13,7 @@ RUN echo "[global]" > /etc/pip.conf \
 ENV TAR="/bin/tar"
 
 # install r packages
-RUN conda install -yq -c bioconda -n r \
+RUN mamba install -yq -c bioconda -n r \
     "bwa" \
     "emboss" \
     "blast" \
@@ -21,12 +21,12 @@ RUN conda install -yq -c bioconda -n r \
     "fastqc" \
     "samtools" \
     "hmmer" \
-    && conda clean --all -f -y \
+    && mamba clean --all -f -y \
     && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()' \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-WORKDIR /home/$NB_USER
+WORKDIR "${HOME}"
 
 # Run container as
 USER $NB_UID

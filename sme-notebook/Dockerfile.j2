@@ -32,7 +32,7 @@ WORKDIR /tmp
 
 USER $NB_UID
 
-RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT \
+RUN mamba config --set remote_read_timeout_secs $PACKAGE_TIMEOUT \
     && mkdir -p /home/$NB_USER/.local/bin/icsharp
 
 # Clone and install csharp kernel
@@ -59,7 +59,7 @@ RUN git clone --recursive https://github.com/zabirauf/icsharp.git \
     && fix-permissions /home/$NB_USER
 
 USER root
-WORKDIR /home/$NB_USER
+WORKDIR "${HOME}"
 
 # Ensure that container Runs as
 USER $NB_UID

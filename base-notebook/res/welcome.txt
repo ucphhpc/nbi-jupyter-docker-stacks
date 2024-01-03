@@ -2,7 +2,4 @@ echo -e "Welcome to a University of Copenhagen High Performance Computing Center
 In these images we typically provide a number of different environments (package bundles) that you can use to run your application.\n\
 To discover which are available, please use the (conda env list) command to see which ones are provided by the particular Notebook that you selected.\n\
 \n\
-The available environments in this Notebook are:\n\
-$(conda env list)\n\
-\n\
 The current active environment is denoted by the '*' symbol, to activate a different environment, use the (conda activate NAME) command.\nLikewise to deactivate use the (conda deactivate) command."

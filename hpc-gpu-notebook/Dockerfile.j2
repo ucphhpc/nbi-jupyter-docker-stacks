@@ -26,7 +26,7 @@ ENV CPATH="{{ nvcompdir }}/extras/qd/include/qd:{{ nvcommdir }}/nvshmem/include:
 ENV MANPATH="{{ nvcompdir }}/man"
 
 
-WORKDIR /home/$NB_USER
+WORKDIR "${HOME}"
 
 # As an exception, run as root,
 # Remember to use supervisord start-notebook.sh to

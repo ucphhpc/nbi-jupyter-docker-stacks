@@ -1,10 +1,10 @@
+cython
 graphviz
 iminuit
 ipywidgets
 numpy
 pandas
 pymc
-pystan
 scipy
 seaborn
 scikit-image

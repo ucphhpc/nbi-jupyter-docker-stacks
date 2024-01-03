@@ -19,15 +19,15 @@ WORKDIR /tmp
 
 USER $NB_UID
 
-RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
+RUN mamba config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 # Packages
 COPY requirements.txt /tmp/requirements.txt
-RUN conda run -n python3 pip install -r requirements.txt \
-    && conda clean -y -f --all \
+RUN mamba run -n python3 pip install -r requirements.txt \
+    && mamba clean -y -f --all \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-WORKDIR /home/$NB_USER
+WORKDIR "${HOME}"
 # Run container as
 USER $NB_UID
