@@ -140,6 +140,7 @@ RUN chown -R $NB_USER:$NB_GID /var/lib/rstudio-server \
 # https://github.com/jupyterhub/jupyter-rsession-proxy
 # The rsession-proxy has to know whether version 1.4 is used
 ENV RSESSION_PROXY_RSTUDIO_1_4=True
+ENV R_LIBS_USER="$R_PATH/lib/R/library:$R_PATH/lib"
 
 # Add site specific settings
 COPY --chown=${NB_UID}:${NB_GID} Rprofile.site ${R_PATH}/lib/R/etc/
