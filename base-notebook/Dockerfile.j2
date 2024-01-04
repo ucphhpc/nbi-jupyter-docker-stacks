@@ -65,8 +65,6 @@ RUN chown $NB_UID:$NB_GID -R /tmp /home/$NB_USER $CONDA_DIR
 USER $NB_UID
 WORKDIR /tmp
 
-# https://github.com/mamba-org/mamba/issues/2882
-RUN conda install -n base conda==23.7.4
 RUN mamba config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 # Update mamba, npm, yarn
@@ -124,6 +122,10 @@ RUN mamba run -n base pip3 install \
 # This is instead set via the DEFAULT_CONDA_ENVIRONMENT environment variable
 RUN mamba init \
     && mamba config --set auto_activate_base false
+
+# Disable the JupyterLab news announcements
+# https://jupyterlab.readthedocs.io/en/stable/privacy_policies.html
+RUN jupyter labextension disable "@jupyterlab/apputils-extension:announcements"
 
 # Disable the JupyterLab news announcements
 # https://jupyterlab.readthedocs.io/en/stable/privacy_policies.html

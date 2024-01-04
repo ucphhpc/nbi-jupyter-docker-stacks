@@ -24,7 +24,7 @@ def get_pipelines(notebooks):
 def get_common_environment(pipelines):
     common_environment = {
         "environments": {
-            "notebook_image": {
+            "notebook_image_dev": {
                 "environment_variables": {
                     "DOCKERHUB_USERNAME": "{{SECRET:[dockerhub][username]}}",
                     "DOCKERHUB_PASSWORD": "{{SECRET:[dockerhub][password]}}",
@@ -38,7 +38,7 @@ def get_common_environment(pipelines):
 
 def get_common_pipeline():
     common_pipeline = {
-        "group": "notebook_image",
+        "group": "notebook_image_dev",
         "label_template": "${COUNT}",
         "lock_behaviour": "none",
         # Run on the 1st at 00:00 of every month
