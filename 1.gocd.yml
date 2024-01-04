@@ -1,5 +1,5 @@
 environments:
-  notebook_image:
+  notebook_image_dev:
     environment_variables:
       DOCKERHUB_PASSWORD: '{{SECRET:[dockerhub][password]}}'
       DOCKERHUB_USERNAME: '{{SECRET:[dockerhub][username]}}'
@@ -25,6 +25,7 @@ environments:
     - bio-bsa-notebook-dev
     - sme-notebook-dev
     - jwst-notebook-dev
+    - julia-notebook-dev
 format_version: 10
 pipelines:
   base-notebook-dev:
@@ -393,6 +394,37 @@ pipelines:
       EXTRA_TAG: ''
       NOTEBOOK: hpc-ocean-notebook
       NOTEBOOK_PIPELINE: hpc-ocean-notebook-dev
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: nbi-jupyter-docker-stacks
+      TEST_DIRECTORY: nbi-jupyter-docker-stacks
+    template: notebook_image
+    timer: *id001
+  julia-notebook-dev:
+    display_order: -1
+    group: notebook_image
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: dev
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_julia-notebook:
+        pipeline: base-notebook-dev
+        stage: push
+    parameters:
+      ARGS: ''
+      COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
+      DEFAULT_TAG: dev
+      EXTRA_TAG: ''
+      NOTEBOOK: julia-notebook
+      NOTEBOOK_PIPELINE: julia-notebook-dev
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks

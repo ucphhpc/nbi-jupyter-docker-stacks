@@ -165,7 +165,7 @@ architecture:
         tag: dev
         pipeline_dependent: true
   julia-notebook:
-    latest:
+    dev:
       parent:
         owner: ucphhpc
         image: base-notebook
