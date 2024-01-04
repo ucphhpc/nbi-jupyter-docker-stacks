@@ -1,0 +1,44 @@
+FROM {{ parent }}
+LABEL MAINTAINER="Sebastian Larsen Prehn <slp@erda.dk>"
+
+ARG JULIA_MAJOR_VERSION={{ JULIA_MAJOR_VERSION }}
+ARG JULIA_MINOR_VERSION={{ JULIA_MINOR_VERSION }}
+ARG JULIA_VERSION={{ JULIA_MAJOR_VERSION }}.{{ JULIA_MINOR_VERSION }}
+ARG JULIA_DOWNLOAD_MD5={{ JULIA_DOWNLOAD_MD5 }}
+ARG JULIA_DOWNLOAD_URL="https://julialang-s3.julialang.org/bin/linux/x64/${JULIA_MAJOR_VERSION}/julia-${JULIA_VERSION}-linux-x86_64.tar.gz"
+ARG PACKAGE_TIMEOUT=60
+
+ENV JULIA_PATH=/opt/julia
+
+USER root
+
+# Setup default timeout of installing packages
+RUN echo "[global]" > /etc/pip.conf \
+    && echo "timeout=${PACKAGE_TIMEOUT}" >> /etc/pip.conf
+
+USER $NB_UID
+WORKDIR /tmp
+
+# Download and install Julia
+RUN wget -O julia.tar.gz "${JULIA_DOWNLOAD_URL}" \
+    && echo "${JULIA_DOWNLOAD_MD5}" julia.tar.gz |
+md5sum -c - \
+    && mkdir -p ${JULIA_PATH} \
+    && tar zxvf julia.tar.gz -C ${JULIA_PATH} --strip-component 1 \
+    && rm -f julia.tar.gz
+
+# Add the julia environment to the jupyter kernel path
+RUN mamba run -n julia python3 /usr/local/bin/update_kernel_spec.py julia --env-kwargs PATH=${JULIA_PATH}/bin/julia:${PATH}
+
+# Install IJulia (installed separately)
+RUN julia -e 'using Pkg; Pkg.add("IJulia")'
+
+# A few core packages
+COPY packages.jl /tmp/
+RUN julia packages.jl
+
+
+WORKDIR "${HOME}"
+
+# Ensure that container Runs as
+USER $NB_UID
