@@ -38,7 +38,7 @@ def get_common_environment(pipelines):
 
 def get_common_pipeline():
     common_pipeline = {
-        "group": "notebook_image_dev",
+        "group": "notebook_image",
         "label_template": "${COUNT}",
         "lock_behaviour": "none",
         # Run on the 1st at 00:00 of every month
