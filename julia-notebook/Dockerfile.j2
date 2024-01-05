@@ -25,10 +25,9 @@ RUN wget -O julia.tar.gz "${JULIA_DOWNLOAD_URL}" \
     && tar zxvf julia.tar.gz -C ${JULIA_PATH} --strip-component 1 \
     && rm -f julia.tar.gz
 
-
 USER $NB_UID
-# Add the julia environment to the jupyter kernel path
-RUN mamba run -n julia python3 /usr/local/bin/update_kernel_spec.py julia --env-kwargs PATH=${JULIA_PATH}/bin/julia:${PATH}
+# Update the general PATH to also include the julia bin
+ENV PATH=${JULIA_PATH}/bin:${PATH}
 
 # Install IJulia (installed separately)
 RUN julia -e 'using Pkg; Pkg.add("IJulia")'
@@ -36,7 +35,6 @@ RUN julia -e 'using Pkg; Pkg.add("IJulia")'
 # A few core packages
 COPY packages.jl /tmp/
 RUN julia packages.jl
-
 
 WORKDIR "${HOME}"
 
