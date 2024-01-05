@@ -21,8 +21,7 @@ WORKDIR /tmp
 
 # Download and install Julia
 RUN wget -O julia.tar.gz "${JULIA_DOWNLOAD_URL}" \
-    && echo "${JULIA_DOWNLOAD_MD5}" julia.tar.gz |
-md5sum -c - \
+    && echo "${JULIA_DOWNLOAD_MD5}" julia.tar.gz | md5sum -c - \
     && mkdir -p ${JULIA_PATH} \
     && tar zxvf julia.tar.gz -C ${JULIA_PATH} --strip-component 1 \
     && rm -f julia.tar.gz
