@@ -278,3 +278,14 @@ architecture:
         image: python-notebook
         tag: latest
         pipeline_dependent: true
+  julia-notebook:
+    latest:
+      parent:
+        owner: ucphhpc
+        image: base-notebook
+        tag: latest
+        pipeline_dependent: true
+      parameters:
+        JULIA_MAJOR_VERSION: 1.9
+        JULIA_MINOR_VERSION: 4
+        JULIA_DOWNLOAD_MD5: 3503c6bc79c48b4e13178155ebe9cae5

@@ -37,6 +37,7 @@ environments:
     - bio-bsa-notebook-latest
     - sme-notebook-latest
     - jwst-notebook-latest
+    - julia-notebook-latest
 format_version: 10
 pipelines:
   base-notebook-latest:
@@ -684,6 +685,37 @@ pipelines:
       EXTRA_TAG: ''
       NOTEBOOK: hpc-ocean-notebook
       NOTEBOOK_PIPELINE: hpc-ocean-notebook-latest
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: nbi-jupyter-docker-stacks
+      TEST_DIRECTORY: nbi-jupyter-docker-stacks
+    template: notebook_image
+    timer: *id001
+  julia-notebook-latest:
+    display_order: -1
+    group: notebook_image
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: master
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_julia-notebook:
+        pipeline: base-notebook-latest
+        stage: push
+    parameters:
+      ARGS: ''
+      COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
+      DEFAULT_TAG: latest
+      EXTRA_TAG: ''
+      NOTEBOOK: julia-notebook
+      NOTEBOOK_PIPELINE: julia-notebook-latest
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
