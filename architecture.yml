@@ -175,3 +175,10 @@ architecture:
         JULIA_MAJOR_VERSION: 1.9
         JULIA_MINOR_VERSION: 4
         JULIA_DOWNLOAD_MD5: 3503c6bc79c48b4e13178155ebe9cae5
+  julia-datascience-notebook:
+    dev:
+      parent:
+        owner: ucphhpc
+        image: julia-notebook
+        tag: dev
+        pipeline_dependent: true
