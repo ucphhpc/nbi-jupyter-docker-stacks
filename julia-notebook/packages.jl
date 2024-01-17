@@ -3,7 +3,8 @@ using Pkg
 dependencies = [
     "Oscar",
     "HomotopyContinuation",
-    "DifferentialEquations"
+    "DifferentialEquations",
+    "SpeedyWeather"
 ]
 
 Pkg.add(dependencies)
