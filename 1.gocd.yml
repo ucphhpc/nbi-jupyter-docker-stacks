@@ -9,9 +9,7 @@ environments:
     - statistics-notebook-latest
     - r-notebook-latest
     - slurm-notebook-latest
-    - slurm-notebook-22.05.9
-    - slurm-notebook-21.08.8
-    - slurm-notebook-20.11.9
+    - slurm-notebook-22.05.11
     - python-cuda-notebook-latest
     - gpu-notebook-latest
     - datascience-notebook-latest
@@ -19,17 +17,11 @@ environments:
     - fenics-notebook-latest
     - qsharp-notebook-latest
     - hpc-notebook-latest
-    - hpc-notebook-20.11.9
-    - hpc-notebook-21.08.8
-    - hpc-notebook-22.05.9
+    - hpc-notebook-22.05.11
     - hpc-ocean-notebook-latest
-    - hpc-ocean-notebook-20.11.9
-    - hpc-ocean-notebook-21.08.8
-    - hpc-ocean-notebook-22.05.9
+    - hpc-ocean-notebook-22.05.11
     - hpc-gpu-notebook-latest
-    - hpc-gpu-notebook-20.11.9
-    - hpc-gpu-notebook-21.08.8
-    - hpc-gpu-notebook-22.05.9
+    - hpc-gpu-notebook-22.05.11
     - ocean-notebook-latest
     - geo-notebook-latest
     - bio-notebook-latest
@@ -318,7 +310,7 @@ pipelines:
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
     timer: *id001
-  hpc-gpu-notebook-20.11.9:
+  hpc-gpu-notebook-22.05.11:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -335,77 +327,15 @@ pipelines:
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_hpc-gpu-notebook:
-        pipeline: hpc-notebook-20.11.9
+        pipeline: hpc-notebook-22.05.11
         stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 20.11.9
+      DEFAULT_TAG: 22.05.11
       EXTRA_TAG: ''
       NOTEBOOK: hpc-gpu-notebook
-      NOTEBOOK_PIPELINE: hpc-gpu-notebook-20.11.9
-      PUSH_DIRECTORY: publish-docker-scripts
-      SRC_DIRECTORY: nbi-jupyter-docker-stacks
-      TEST_DIRECTORY: nbi-jupyter-docker-stacks
-    template: notebook_image
-    timer: *id001
-  hpc-gpu-notebook-21.08.8:
-    display_order: -1
-    group: notebook_image
-    label_template: ${COUNT}
-    lock_behaviour: none
-    materials:
-      publish_docker_git:
-        branch: main
-        destination: publish-docker-scripts
-        git: https://github.com/rasmunk/publish-docker-scripts.git
-        password: '{{SECRET:[github][access_token]}}'
-        username: ${GIT_USER}
-      ucphhpc_images:
-        branch: master
-        destination: nbi-jupyter-docker-stacks
-        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
-      upstream_hpc-gpu-notebook:
-        pipeline: hpc-notebook-21.08.8
-        stage: push
-    parameters:
-      ARGS: ''
-      COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 21.08.8
-      EXTRA_TAG: ''
-      NOTEBOOK: hpc-gpu-notebook
-      NOTEBOOK_PIPELINE: hpc-gpu-notebook-21.08.8
-      PUSH_DIRECTORY: publish-docker-scripts
-      SRC_DIRECTORY: nbi-jupyter-docker-stacks
-      TEST_DIRECTORY: nbi-jupyter-docker-stacks
-    template: notebook_image
-    timer: *id001
-  hpc-gpu-notebook-22.05.9:
-    display_order: -1
-    group: notebook_image
-    label_template: ${COUNT}
-    lock_behaviour: none
-    materials:
-      publish_docker_git:
-        branch: main
-        destination: publish-docker-scripts
-        git: https://github.com/rasmunk/publish-docker-scripts.git
-        password: '{{SECRET:[github][access_token]}}'
-        username: ${GIT_USER}
-      ucphhpc_images:
-        branch: master
-        destination: nbi-jupyter-docker-stacks
-        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
-      upstream_hpc-gpu-notebook:
-        pipeline: hpc-notebook-22.05.9
-        stage: push
-    parameters:
-      ARGS: ''
-      COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 22.05.9
-      EXTRA_TAG: ''
-      NOTEBOOK: hpc-gpu-notebook
-      NOTEBOOK_PIPELINE: hpc-gpu-notebook-22.05.9
+      NOTEBOOK_PIPELINE: hpc-gpu-notebook-22.05.11
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -442,7 +372,7 @@ pipelines:
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
     timer: *id001
-  hpc-notebook-20.11.9:
+  hpc-notebook-22.05.11:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -459,77 +389,15 @@ pipelines:
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_hpc-notebook:
-        pipeline: slurm-notebook-20.11.9
+        pipeline: slurm-notebook-22.05.11
         stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 20.11.9
+      DEFAULT_TAG: 22.05.11
       EXTRA_TAG: ''
       NOTEBOOK: hpc-notebook
-      NOTEBOOK_PIPELINE: hpc-notebook-20.11.9
-      PUSH_DIRECTORY: publish-docker-scripts
-      SRC_DIRECTORY: nbi-jupyter-docker-stacks
-      TEST_DIRECTORY: nbi-jupyter-docker-stacks
-    template: notebook_image
-    timer: *id001
-  hpc-notebook-21.08.8:
-    display_order: -1
-    group: notebook_image
-    label_template: ${COUNT}
-    lock_behaviour: none
-    materials:
-      publish_docker_git:
-        branch: main
-        destination: publish-docker-scripts
-        git: https://github.com/rasmunk/publish-docker-scripts.git
-        password: '{{SECRET:[github][access_token]}}'
-        username: ${GIT_USER}
-      ucphhpc_images:
-        branch: master
-        destination: nbi-jupyter-docker-stacks
-        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
-      upstream_hpc-notebook:
-        pipeline: slurm-notebook-21.08.8
-        stage: push
-    parameters:
-      ARGS: ''
-      COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 21.08.8
-      EXTRA_TAG: ''
-      NOTEBOOK: hpc-notebook
-      NOTEBOOK_PIPELINE: hpc-notebook-21.08.8
-      PUSH_DIRECTORY: publish-docker-scripts
-      SRC_DIRECTORY: nbi-jupyter-docker-stacks
-      TEST_DIRECTORY: nbi-jupyter-docker-stacks
-    template: notebook_image
-    timer: *id001
-  hpc-notebook-22.05.9:
-    display_order: -1
-    group: notebook_image
-    label_template: ${COUNT}
-    lock_behaviour: none
-    materials:
-      publish_docker_git:
-        branch: main
-        destination: publish-docker-scripts
-        git: https://github.com/rasmunk/publish-docker-scripts.git
-        password: '{{SECRET:[github][access_token]}}'
-        username: ${GIT_USER}
-      ucphhpc_images:
-        branch: master
-        destination: nbi-jupyter-docker-stacks
-        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
-      upstream_hpc-notebook:
-        pipeline: slurm-notebook-22.05.9
-        stage: push
-    parameters:
-      ARGS: ''
-      COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 22.05.9
-      EXTRA_TAG: ''
-      NOTEBOOK: hpc-notebook
-      NOTEBOOK_PIPELINE: hpc-notebook-22.05.9
+      NOTEBOOK_PIPELINE: hpc-notebook-22.05.11
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -566,7 +434,7 @@ pipelines:
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
     timer: *id001
-  hpc-ocean-notebook-20.11.9:
+  hpc-ocean-notebook-22.05.11:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -583,77 +451,15 @@ pipelines:
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_hpc-ocean-notebook:
-        pipeline: slurm-notebook-20.11.9
+        pipeline: slurm-notebook-22.05.11
         stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 20.11.9
+      DEFAULT_TAG: 22.05.11
       EXTRA_TAG: ''
       NOTEBOOK: hpc-ocean-notebook
-      NOTEBOOK_PIPELINE: hpc-ocean-notebook-20.11.9
-      PUSH_DIRECTORY: publish-docker-scripts
-      SRC_DIRECTORY: nbi-jupyter-docker-stacks
-      TEST_DIRECTORY: nbi-jupyter-docker-stacks
-    template: notebook_image
-    timer: *id001
-  hpc-ocean-notebook-21.08.8:
-    display_order: -1
-    group: notebook_image
-    label_template: ${COUNT}
-    lock_behaviour: none
-    materials:
-      publish_docker_git:
-        branch: main
-        destination: publish-docker-scripts
-        git: https://github.com/rasmunk/publish-docker-scripts.git
-        password: '{{SECRET:[github][access_token]}}'
-        username: ${GIT_USER}
-      ucphhpc_images:
-        branch: master
-        destination: nbi-jupyter-docker-stacks
-        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
-      upstream_hpc-ocean-notebook:
-        pipeline: slurm-notebook-21.08.8
-        stage: push
-    parameters:
-      ARGS: ''
-      COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 21.08.8
-      EXTRA_TAG: ''
-      NOTEBOOK: hpc-ocean-notebook
-      NOTEBOOK_PIPELINE: hpc-ocean-notebook-21.08.8
-      PUSH_DIRECTORY: publish-docker-scripts
-      SRC_DIRECTORY: nbi-jupyter-docker-stacks
-      TEST_DIRECTORY: nbi-jupyter-docker-stacks
-    template: notebook_image
-    timer: *id001
-  hpc-ocean-notebook-22.05.9:
-    display_order: -1
-    group: notebook_image
-    label_template: ${COUNT}
-    lock_behaviour: none
-    materials:
-      publish_docker_git:
-        branch: main
-        destination: publish-docker-scripts
-        git: https://github.com/rasmunk/publish-docker-scripts.git
-        password: '{{SECRET:[github][access_token]}}'
-        username: ${GIT_USER}
-      ucphhpc_images:
-        branch: master
-        destination: nbi-jupyter-docker-stacks
-        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
-      upstream_hpc-ocean-notebook:
-        pipeline: slurm-notebook-22.05.9
-        stage: push
-    parameters:
-      ARGS: ''
-      COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 22.05.9
-      EXTRA_TAG: ''
-      NOTEBOOK: hpc-ocean-notebook
-      NOTEBOOK_PIPELINE: hpc-ocean-notebook-22.05.9
+      NOTEBOOK_PIPELINE: hpc-ocean-notebook-22.05.11
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -907,7 +713,7 @@ pipelines:
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
     timer: *id001
-  slurm-notebook-20.11.9:
+  slurm-notebook-22.05.11:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -929,72 +735,10 @@ pipelines:
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 20.11.9
+      DEFAULT_TAG: 22.05.11
       EXTRA_TAG: ''
       NOTEBOOK: slurm-notebook
-      NOTEBOOK_PIPELINE: slurm-notebook-20.11.9
-      PUSH_DIRECTORY: publish-docker-scripts
-      SRC_DIRECTORY: nbi-jupyter-docker-stacks
-      TEST_DIRECTORY: nbi-jupyter-docker-stacks
-    template: notebook_image
-    timer: *id001
-  slurm-notebook-21.08.8:
-    display_order: -1
-    group: notebook_image
-    label_template: ${COUNT}
-    lock_behaviour: none
-    materials:
-      publish_docker_git:
-        branch: main
-        destination: publish-docker-scripts
-        git: https://github.com/rasmunk/publish-docker-scripts.git
-        password: '{{SECRET:[github][access_token]}}'
-        username: ${GIT_USER}
-      ucphhpc_images:
-        branch: master
-        destination: nbi-jupyter-docker-stacks
-        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
-      upstream_slurm-notebook:
-        pipeline: python-notebook-latest
-        stage: push
-    parameters:
-      ARGS: ''
-      COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 21.08.8
-      EXTRA_TAG: ''
-      NOTEBOOK: slurm-notebook
-      NOTEBOOK_PIPELINE: slurm-notebook-21.08.8
-      PUSH_DIRECTORY: publish-docker-scripts
-      SRC_DIRECTORY: nbi-jupyter-docker-stacks
-      TEST_DIRECTORY: nbi-jupyter-docker-stacks
-    template: notebook_image
-    timer: *id001
-  slurm-notebook-22.05.9:
-    display_order: -1
-    group: notebook_image
-    label_template: ${COUNT}
-    lock_behaviour: none
-    materials:
-      publish_docker_git:
-        branch: main
-        destination: publish-docker-scripts
-        git: https://github.com/rasmunk/publish-docker-scripts.git
-        password: '{{SECRET:[github][access_token]}}'
-        username: ${GIT_USER}
-      ucphhpc_images:
-        branch: master
-        destination: nbi-jupyter-docker-stacks
-        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
-      upstream_slurm-notebook:
-        pipeline: python-notebook-latest
-        stage: push
-    parameters:
-      ARGS: ''
-      COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 22.05.9
-      EXTRA_TAG: ''
-      NOTEBOOK: slurm-notebook
-      NOTEBOOK_PIPELINE: slurm-notebook-22.05.9
+      NOTEBOOK_PIPELINE: slurm-notebook-22.05.11
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
