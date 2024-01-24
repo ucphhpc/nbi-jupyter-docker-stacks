@@ -1,0 +1,25 @@
+FROM {{ parent }}
+LABEL MAINTAINER="Sebastian Larsen Prehn <slp@erda.dk>
+ARG PACKAGE_TIMEOUT=60
+
+USER root
+
+# Setup default timeout of installing packages
+RUN echo "[global]" > /etc/pip.conf \
+    && echo "timeout=$PACKAGE_TIMEOUT" >> /etc/pip.conf
+
+WORKDIR /tmp
+
+USER $NB_UID
+
+RUN mamba config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
+ENV PYTHON3_PATH=$CONDA_DIR/envs/python3
+
+# Install ROOT packages, etc.
+RUN conda install root -c conda-forge
+
+USER root
+WORKDIR "${HOME}"
+
+# Ensure that container Runs as
+USER $NB_UID

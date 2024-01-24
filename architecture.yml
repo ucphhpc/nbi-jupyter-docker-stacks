@@ -175,3 +175,10 @@ architecture:
         JULIA_MAJOR_VERSION: "1.10"
         JULIA_MINOR_VERSION: "0"
         JULIA_DOWNLOAD_MD5: c16f16304cac9af1501ae71c02cb4d1e
+   root-notebook:
+     dev:
+       parent:
+         owner: ucphhpc
+         image: python-notebook
+         tag: dev
+         pipeline_dependent: true
