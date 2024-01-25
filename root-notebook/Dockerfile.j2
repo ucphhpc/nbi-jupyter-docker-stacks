@@ -12,10 +12,12 @@ WORKDIR /tmp
 
 USER $NB_UID
 
-RUN mamba config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
-ENV PYTHON3_PATH=$CONDA_DIR/envs/python3
-
-# Install ROOT packages, etc.
+# Install ROOT
+COPY environment.yml /tmp/
+RUN mamba env update -n python3 -f environment.yml \
+    && mamba clean --all -f -y \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 RUN conda install root -c conda-forge
 
 USER root
