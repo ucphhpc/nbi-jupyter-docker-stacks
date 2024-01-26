@@ -3,5 +3,4 @@ channels:
   - conda-forge
 dependencies:
   - root
-  - g++
 channel_priority: strict
