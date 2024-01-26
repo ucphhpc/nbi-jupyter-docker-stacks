@@ -18,9 +18,7 @@ RUN mamba env update -n python3 -f environment.yml \
     && mamba clean --all -f -y \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
-RUN conda install root -c conda-forge
 
-USER root
 WORKDIR "${HOME}"
 
 # Ensure that container Runs as
