@@ -1,5 +1,0 @@
-name: root-notebook
-channels:
-  - root
-dependencies:
-  - g++
