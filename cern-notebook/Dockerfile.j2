@@ -1,0 +1,25 @@
+FROM {{ parent }}
+LABEL MAINTAINER="Sebastian Larsen Prehn <slp@erda.dk>
+ARG PACKAGE_TIMEOUT=60
+
+USER root
+
+# Setup default timeout of installing packages
+RUN echo "[global]" > /etc/pip.conf \
+    && echo "timeout=$PACKAGE_TIMEOUT" >> /etc/pip.conf
+
+WORKDIR /tmp
+
+USER $NB_UID
+
+# Install ROOT
+COPY environment.yml /tmp/
+RUN mamba env update -n python3 -f environment.yml \
+    && mamba clean --all -f -y \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
+
+WORKDIR "${HOME}"
+
+# Ensure that container Runs as
+USER $NB_UID

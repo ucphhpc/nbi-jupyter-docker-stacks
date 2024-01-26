@@ -5,10 +5,10 @@ import nbformat
 
 cur_path = os.path.abspath(".")
 notebooks_path = os.path.join(cur_path, "notebooks")
-kernels = ["julia-1.10"]
+kernels = ["python3"]
 
 
-def _notebook_run(path, kernel="julia-1.10", timeout=300):
+def _notebook_run(path, kernel="python3", timeout=300):
     """Execute a notebook via nbconvert and collect output.
     :returns (parsed nb object, execution errors)
     """
@@ -39,6 +39,7 @@ def _notebook_run(path, kernel="julia-1.10", timeout=300):
         for output in cell["outputs"]
         if output.output_type == "error"
     ]
+
     return nb, errors
 
 

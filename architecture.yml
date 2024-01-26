@@ -172,13 +172,20 @@ architecture:
         tag: dev
         pipeline_dependent: true
       parameters:
-        JULIA_MAJOR_VERSION: 1.9
-        JULIA_MINOR_VERSION: 4
-        JULIA_DOWNLOAD_MD5: 3503c6bc79c48b4e13178155ebe9cae5
+        JULIA_MAJOR_VERSION: "1.10"
+        JULIA_MINOR_VERSION: "0"
+        JULIA_DOWNLOAD_MD5: c16f16304cac9af1501ae71c02cb4d1e
   julia-datascience-notebook:
     dev:
       parent:
         owner: ucphhpc
         image: julia-notebook
+        tag: dev
+        pipeline_dependent: true
+  cern-notebook:
+    dev:
+      parent:
+        owner: ucphhpc
+        image: datascience-notebook
         tag: dev
         pipeline_dependent: true
