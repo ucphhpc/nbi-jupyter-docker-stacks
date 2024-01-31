@@ -1,0 +1,6 @@
+name: cern-notebook
+channels:
+  - conda-forge
+dependencies:
+  - root
+channel_priority: strict

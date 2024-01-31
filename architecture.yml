@@ -213,3 +213,10 @@ architecture:
         JULIA_MAJOR_VERSION: "1.10"
         JULIA_MINOR_VERSION: "0"
         JULIA_DOWNLOAD_MD5: c16f16304cac9af1501ae71c02cb4d1e
+  cern-notebook:
+    latest:
+      parent:
+        owner: ucphhpc
+        image: datascience-notebook
+        tag: latest
+        pipeline_dependent: true
