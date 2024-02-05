@@ -133,4 +133,6 @@ USER root
 # As an exception, run as root,
 # Remember to use supervisord start-notebook.sh to
 # de-escalate privileges to $NB_UID:$NB_GID
-CMD ["/usr/bin/supervisord"]
+# We need to overwrite https://github.com/jupyter/docker-stacks/blob/ce08d9e3483fdc8bc661ef0f33ee888d0b434fcd/images/docker-stacks-foundation/Dockerfile#L130
+# to ensure that supervisord starts before jupyter
+ENTRYPOINT ["tini", "-g", "--", "/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
