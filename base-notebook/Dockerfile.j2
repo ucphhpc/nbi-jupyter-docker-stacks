@@ -42,6 +42,7 @@ RUN apt-get update \
     rclone \
     rsync \
     screen \
+    supervisor \
     tar \
     texlive \
     texlive-latex-extra \
@@ -153,6 +154,17 @@ RUN chmod +x /usr/local/bin/update_kernel_spec.py
 # 	&& tar -xvf code-server.tar.gz -C /usr/local --strip-components=1 \
 # 	&& rm -rf code-server.tar.gz
 
+# Prepare supervisord state dirs
+RUN mkdir -p /var/log/supervisord /var/run/supervisord \
+    && chown $NB_UID:$NB_GID /var/log/supervisord \
+    && chown $NB_UID:$NB_GID /var/run/supervisord \
+    && chmod 775 /var/log/supervisord \
+    && chmod 775 /var/run/supervisord
+
+COPY supervisord.conf /etc/supervisor/supervisord.conf
+RUN chown $NB_UID:$NB_GID /etc/supervisor/supervisord.conf \
+    && chmod 775 /etc/supervisor/supervisord.conf
+
 USER $NB_UID
 WORKDIR "${HOME}"
 
@@ -163,3 +175,7 @@ RUN cat ~/welcome.txt >> ~/.bashrc \
 
 # Ensure that container runs as the notebook user
 USER $NB_UID
+
+# We need to overwrite https://github.com/jupyter/docker-stacks/blob/ce08d9e3483fdc8bc661ef0f33ee888d0b434fcd/images/docker-stacks-foundation/Dockerfile#L130
+# to ensure that supervisord starts before jupyter
+ENTRYPOINT ["tini", "-g", "--", "/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
