@@ -36,8 +36,8 @@ architecture:
         tag: dev
         pipeline_dependent: true
       parameters:
-        SLURM_VERSION: 22.05.9
-        SLURM_DOWNLOAD_MD5: 72100ba296730ef88c6d8c9992300005
+        SLURM_VERSION: 22.05.11
+        SLURM_DOWNLOAD_MD5: 44647df647e63dfbfc07dc4d35c3262e
   python-cuda-notebook:
     dev:
       parent:
