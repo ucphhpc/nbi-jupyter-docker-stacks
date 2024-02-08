@@ -21,10 +21,10 @@ def get_pipelines(notebooks):
     return pipelines
 
 
-def get_common_environment(pipelines):
+def get_common_environment(pipelines, branch="master"):
     common_environment = {
         "environments": {
-            "notebook_image_dev": {
+            "notebook_image_{}".format(branch): {
                 "environment_variables": {
                     "DOCKERHUB_USERNAME": "{{SECRET:[dockerhub][username]}}",
                     "DOCKERHUB_PASSWORD": "{{SECRET:[dockerhub][password]}}",
@@ -107,6 +107,12 @@ if __name__ == "__main__":
         "--branch", default="master", help="The branch that should be built"
     )
     parser.add_argument(
+        "--tag", default="latest", help="The tag that should be built"
+    )
+    parser.add_argument(
+        "--jupyterlab-version", default="4.0.12", help="The version of jupyterlab"
+    )
+    parser.add_argument(
         "--makefile", default="Makefile", help="The makefile that defines the images"
     )
     args = parser.parse_args()
@@ -114,6 +120,8 @@ if __name__ == "__main__":
     architecture_name = args.architecture_name
     config_name = args.config_name
     branch = args.branch
+    tag = args.tag
+    jupyterlab_version = args.jupyterlab_version
     makefile = args.makefile
 
     # Load the architecture file
@@ -137,7 +145,7 @@ if __name__ == "__main__":
     pipelines = get_pipelines(notebooks)
 
     # GOCD environment
-    common_environments = get_common_environment(pipelines)
+    common_environments = get_common_environment(pipelines, branch=branch)
 
     # Common GOCD pipeline params
     common_pipeline_attributes = get_common_pipeline()
@@ -246,6 +254,13 @@ if __name__ == "__main__":
                 )
             else:
                 materials = get_materials(notebook)
+            
+            extra_tag = ""
+            if "publish_details" in build_data:
+                if "extra_tag" in build_data["publish_details"]:
+                    extra_tag = build_data["publish_details"]["extra_tag"]
+            if not extra_tag:
+                extra_tag = "{}-{}".format(jupyterlab_version, tag)
 
             notebook_version_name = "{}-{}".format(notebook, version)
             notebook_pipeline = {
@@ -256,7 +271,7 @@ if __name__ == "__main__":
                     "NOTEBOOK_PIPELINE": notebook_version_name,
                     "DEFAULT_TAG": version,
                     "COMMIT_TAG": "GO_REVISION_UCPHHPC_IMAGES",
-                    "EXTRA_TAG": "",
+                    "EXTRA_TAG": extra_tag,
                     "SRC_DIRECTORY": REPO_NAME,
                     "TEST_DIRECTORY": REPO_NAME,
                     "PUSH_DIRECTORY": "publish-docker-scripts",
