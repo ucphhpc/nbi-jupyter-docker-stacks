@@ -62,6 +62,9 @@ architecture:
       parameters:
         SLURM_VERSION: 22.05.11
         SLURM_DOWNLOAD_MD5: 44647df647e63dfbfc07dc4d35c3262e
+        OPENMPI_MAJOR_VERSION: 4.1
+        OPENMPI_MINOR_VERSION: 6
+        OPENMPI_DOWNLOAD_MD5: c9b1c974cfc23c77c0fbdb965cd58a1c
     22.05.11:
       parent:
         owner: ucphhpc
@@ -71,6 +74,9 @@ architecture:
       parameters:
         SLURM_VERSION: 22.05.11
         SLURM_DOWNLOAD_MD5: 44647df647e63dfbfc07dc4d35c3262e
+        OPENMPI_MAJOR_VERSION: 4.1
+        OPENMPI_MINOR_VERSION: 6
+        OPENMPI_DOWNLOAD_MD5: c9b1c974cfc23c77c0fbdb965cd58a1c
     4.0.12:
       parent:
         owner: ucphhpc
@@ -80,6 +86,9 @@ architecture:
       parameters:
         SLURM_VERSION: 22.05.11
         SLURM_DOWNLOAD_MD5: 44647df647e63dfbfc07dc4d35c3262e
+        OPENMPI_MAJOR_VERSION: 4.1
+        OPENMPI_MINOR_VERSION: 6
+        OPENMPI_DOWNLOAD_MD5: c9b1c974cfc23c77c0fbdb965cd58a1c
   python-cuda-notebook:
     latest:
       parent:
