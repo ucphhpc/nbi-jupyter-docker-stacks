@@ -85,6 +85,7 @@ RUN cd \
     && rm -f openmpi.tar.bz2
 
 ENV PATH="/opt/openmpi-${OPENMPI_VERSION}/bin:${PATH}"
+ENV LD_LIBRARY_PATH="/opt/openmpi-${OPENMPI_VERSION}/lib:${LD_LIBRARY_PATH}"
 
 # Munge
 # Required directories
