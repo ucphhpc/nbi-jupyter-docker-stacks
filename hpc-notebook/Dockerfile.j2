@@ -64,15 +64,11 @@ RUN mamba config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 COPY environment.yml /tmp/
 RUN mamba env update -n python3 -f environment.yml \
-    && mamba clean --all -f -y \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
+    && mamba clean --all -f -y
 
 COPY requirements.txt /tmp/
 RUN mamba run -n python3 pip install -r requirements.txt \
-    && mamba clean -y --all \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
+    && mamba clean -y --all
 
 WORKDIR "${HOME}"
 
