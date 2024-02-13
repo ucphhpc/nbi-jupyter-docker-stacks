@@ -86,6 +86,8 @@ RUN cd \
 
 ENV PATH="/opt/openmpi-${OPENMPI_VERSION}/bin:${PATH}"
 ENV LD_LIBRARY_PATH="/opt/openmpi-${OPENMPI_VERSION}/lib:${LD_LIBRARY_PATH}"
+# Update the Python3 environment path to include the OpenMPI path
+RUN mamba run -n python3 python3 /usr/local/bin/update_kernel_spec.py python3 --env-kwargs PATH=$PATH
 
 # Munge
 # Required directories
@@ -147,7 +149,7 @@ RUN chown $NB_UID:$NB_GID /etc/supervisor/supervisord.conf \
 WORKDIR "${HOME}"
 
 # Ensure that the common MPI library is loaded
-ENV LD_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu/:${LD_LIBRARY_PATH}"
+ENV LD_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH}"
 
 USER root
 # As an exception, run as root,
