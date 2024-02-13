@@ -112,18 +112,14 @@ RUN jupyterlab_pip3 install git+https://github.com/ucphhpc/modi-helper-scripts.g
 # Install packages for python3 envs
 COPY requirements.txt /tmp/
 RUN mamba run -n python3 pip install -r requirements.txt \
-    && mamba clean -y --all \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
+    && mamba clean -y --all
 
 # Add cling kernel
 # https://github.com/QuantStack/xeus-cling
 COPY environment.yml /tmp/
 RUN mamba env create -n cling -f environment.yml \
     && mamba clean --all -f -y \
-    && rm -fr /tmp/tmp* \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
+    && rm -fr /tmp/tmp*
 
 ENV CXX_PATH=$CONDA_DIR/envs/cling
 RUN cp -R $CXX_PATH/share/jupyter/kernels/* $CONDA_DIR/share/jupyter/kernels/
