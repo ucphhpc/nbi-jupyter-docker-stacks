@@ -4,6 +4,7 @@ iminuit
 ipywidgets
 numpy
 pandas
+pyarrow
 pymc
 scipy
 seaborn

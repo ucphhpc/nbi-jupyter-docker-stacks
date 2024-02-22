@@ -43,6 +43,7 @@ dependencies:
    - numpy
    - palettable
    - pandas
+   - pyarrow
    - panel
    - plotly
    - python-blosc

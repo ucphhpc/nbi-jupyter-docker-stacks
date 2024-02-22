@@ -21,6 +21,7 @@ numba
 numdifftools
 opencv-python
 pandas
+pyarrow
 pillow
 pims
 pomegranate
