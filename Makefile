@@ -2,8 +2,7 @@
 .PHONY: installcheck uninstallcheck test test-all push push-all
 
 OWNER:=ucphhpc
-TAG:=dev
-JUPYTERLAB_VERSION:=4.0.12
+TAG:=latest
 PACKAGE_TIMEOUT:=600
 ALL_IMAGES:=base-notebook python-notebook statistics-notebook r-notebook slurm-notebook python-cuda-notebook gpu-notebook datascience-notebook chemistry-notebook fenics-notebook qsharp-notebook hpc-notebook hpc-ocean-notebook hpc-gpu-notebook ocean-notebook geo-notebook bio-notebook bio-bigdata-notebook bio-bsa-notebook sme-notebook jwst-notebook julia-notebook cern-notebook 
 
@@ -18,7 +17,7 @@ help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 init:
-	. $(VENV)/activate; python3 init-notebooks.py --branch dev --tag $(TAG) --jupyterlab-version $(JUPYTERLAB_VERSION)
+	. $(VENV)/activate; python3 init-notebooks.py --branch master --tag $(TAG)
 
 clean:
 	rm -fr .env

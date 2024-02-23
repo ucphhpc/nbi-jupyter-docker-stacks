@@ -20,9 +20,7 @@ USER $NB_UID
 
 COPY requirements.txt /tmp/
 RUN mamba run -n python3 pip install -r requirements.txt \
-    && mamba clean -y --all \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
+    && mamba clean -y --all
 
 WORKDIR "${HOME}"
 # As an exception, run as root,
