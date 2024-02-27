@@ -17,7 +17,7 @@ To ensure that the nessesary libraries are installed to generate the Notebooks, 
 and install the associated requiremnets::
 
 	username@hostname:~/jupyter/nbi-jupyter-docker-stacks$ python3 -m virtualenv venv
-	username@hostname:~/jupyter/nbi-jupyter-docker-stacks$ source venv
+	username@hostname:~/jupyter/nbi-jupyter-docker-stacks$ source venv/bin/activate
 	(venv) username@hostname:~/jupyter/nbi-jupyter-docker-stacks$ pip install -r requirements.txt
 
 Afterwards, you should now be able to use the ``init-notebooks.py`` script to generate template and render the Jinja2 template files::
