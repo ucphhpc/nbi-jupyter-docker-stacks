@@ -86,13 +86,7 @@ RUN mamba install -n python3 hstcal \
     && fix-permissions /home/$NB_USER
 
 # Patch for photutils / drizzlepac
-COPY photutils.patch /tmp/
 RUN mamba run -n python3 pip install drizzlepac photutils --upgrade \
-    && mamba clean --all -f -y \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
-
-RUN mamba run -n python3 python /tmp/photutils.patch \
     && mamba clean --all -f -y \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
@@ -105,6 +99,7 @@ RUN mamba run -n python3 pip install pandeia.engine
 
 # MIRAGE
 RUN mamba run -n python3 pip install mirage grismconf nircam_gsim
+RUN mamba run -n python3 pip install shapely==1.8.5
     
 WORKDIR "${HOME}"
 
