@@ -13,7 +13,13 @@ Getting Started
 Before any of the images can be built, the Dockerfiles for each Notebook has to be generated first.
 The reason for this is that by default each notebook defined by a `Jinja2 <https://jinja2docs.readthedocs.io/en/stable/>`__ template.
 
-To ensure that the nessesary libraries are installed to generate the Notebooks, we recommend that you create a virtual environment
+This entire process can also be simplified by simply executing ``make`` in the root directory, which will create an initial Python virtual environment and use the current `architecture.yml` file setup to generate the Dockerfiles and the associated GOCD configuration::
+
+	make
+
+Alternatively, you can also setup the environment manually with the following steps.
+
+To start with, you should ensure that the nessesary libraries are installed to generate the Notebooks, we recommend that you create a virtual environment
 and install the associated requiremnets::
 
 	username@hostname:~/jupyter/nbi-jupyter-docker-stacks$ python3 -m virtualenv venv
@@ -43,10 +49,6 @@ The GOCD ``1.gocd.yml`` configuration file is used to automatically build and te
 pipelines as part of the UCPH CI/CD infrastructure.
 
 The Notebooks and the associated GOCD configuration file are generated based on the definitions specified in the ``architecture.yml`` file.
-
-This entire process can also be simplified by simply executing ``make`` in the root directory, which will create an initial Python virtual environment and use the current `architecture.yml` file setup to generate the Dockerfiles and the associated GOCD configuration::
-
-	make
 
 --------
 Building
