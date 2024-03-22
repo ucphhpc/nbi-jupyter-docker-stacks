@@ -122,8 +122,8 @@ RUN mamba run -n base pip3 install \
 
 # Don't activate the base environment by default
 # This is instead set via the DEFAULT_CONDA_ENVIRONMENT environment variable
-RUN mamba init \
-    && mamba config --set auto_activate_base false
+RUN conda init \
+    && conda config --set auto_activate_base false
 
 # Disable the JupyterLab news announcements
 # https://jupyterlab.readthedocs.io/en/stable/privacy_policies.html
