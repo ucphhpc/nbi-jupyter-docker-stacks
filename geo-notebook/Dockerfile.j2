@@ -12,7 +12,7 @@ WORKDIR /tmp
 
 USER $NB_UID
 
-RUN mamba config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
+RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 # Python3: use mamba since several geo packages are only packaged there
 COPY environment.yml /tmp/

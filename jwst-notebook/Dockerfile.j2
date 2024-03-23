@@ -42,7 +42,7 @@ WORKDIR /tmp
 
 USER $NB_UID
 
-RUN mamba config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
+RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 # Proj4 is required for cartopy
 COPY environment.yml /tmp/

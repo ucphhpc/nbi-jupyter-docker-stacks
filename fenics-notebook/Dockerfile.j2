@@ -21,7 +21,7 @@ USER $NB_UID
 
 ENV PKG_CONFIG_PATH=$PYTHON3_PATH/lib/pkgconfig
 
-RUN mamba config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
+RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 # Clone the python3 enviornment into fenicsx to enable the installation
 # of two seperate fenics installations, namely the old fenics and the new fenicsx
