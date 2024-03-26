@@ -38,6 +38,9 @@ architecture:
       parameters:
         SLURM_VERSION: 22.05.11
         SLURM_DOWNLOAD_MD5: 44647df647e63dfbfc07dc4d35c3262e
+        OPENMPI_MAJOR_VERSION: 5.0
+        OPENMPI_MINOR_VERSION: 2
+        OPENMPI_DOWNLOAD_MD5: 047ea0985b79d30d5a24ee72cbf5f4bf
   python-cuda-notebook:
     dev:
       parent:

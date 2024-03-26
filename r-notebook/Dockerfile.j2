@@ -98,7 +98,7 @@ RUN mamba install -yq -n r \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-RUN mamba config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
+RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 ENV PYTHON3_PATH=$CONDA_DIR/envs/python3
 
 # Freetype is in the incorrect directory for some old libraries
