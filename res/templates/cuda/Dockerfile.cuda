@@ -13,7 +13,7 @@ ARG CUDNN_VERSION=9
 
 ENV CUDA_VERSION=${CUDA_VERSION}
 ENV CUDA_PATH="/usr/local/cuda"
-ENV CUDA_11_0_PATH="/usr/local/cuda-${CUDA_VERSION}"
+ENV CUDA_VERSION_PATH="/usr/local/cuda-${CUDA_VERSION}"
 
 # Install the CUDA keyring for automating the signature public key rotation
 # as per https://developer.nvidia.com/blog/updating-the-cuda-linux-gpg-repository-key/
