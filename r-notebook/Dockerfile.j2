@@ -131,6 +131,7 @@ RUN echo "PATH=\"$R_PATH/bin:$PATH\"" >> /home/$NB_USER/.bashrc \
     && ln -s /usr/lib/rstudio-server/bin/rserver /usr/local/bin/rserver \
     && ln -s $R_PATH/bin/R /usr/local/bin/R
 RUN python3 /usr/local/bin/update_kernel_spec.py ir --env-kwargs PATH=$R_PATH/bin:$PATH
+RUN echo "rsession-ld-library-path=/opt/conda/lib" >> /etc/rstudio/rserver.conf
 
 # Rstudio version 1.4 has permissions problems as per.
 # https://community.rstudio.com/t/permissions-related-to-upgrade-to-rstudio-server-open-source-1-4/94256/3
