@@ -134,6 +134,10 @@ RUN python3 /usr/local/bin/update_kernel_spec.py ir --env-kwargs PATH=$R_PATH/bi
 RUN chown -R $NB_USER:$NB_GID /var/lib/rstudio-server \
     && chown -R $NB_USER:$NB_GID /etc/rstudio
 
+# Fix LD library path for RStudio
+# https://github.com/rstudio/rstudio/issues/14060#issuecomment-1911329450
+RUN echo "rsession-ld-library-path=/opt/conda/lib" >> /etc/rstudio/rserver.conf
+
 # https://github.com/jupyterhub/jupyter-rsession-proxy
 # The rsession-proxy has to know whether version 1.4 is used
 ENV RSESSION_PROXY_RSTUDIO_1_4=True
