@@ -2,7 +2,7 @@ astropy
 git+https://github.com/fmfn/BayesianOptimization
 bokeh
 Bottleneck
-cartopy==0.21.0
+cartopy
 cython
 datashader
 graphviz
