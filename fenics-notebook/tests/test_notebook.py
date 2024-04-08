@@ -43,9 +43,14 @@ def _notebook_run(path, kernel="python3", timeout=300):
     return nb, errors
 
 
-def test_notebooks():
+def test_notebooks(notebook_path, kernel="python3"):
     for f_notebook in os.listdir(notebooks_path):
-        for kernel in kernels:
+        if f_notebook.startswith("fenics"):
+            _, errors = _notebook_run(
+                os.path.join(notebooks_path, f_notebook), kernel=kernel
+            )
+            assert errors == []
+        if f_notebook.startswith("fenicsx"):
             _, errors = _notebook_run(
                 os.path.join(notebooks_path, f_notebook), kernel=kernel
             )

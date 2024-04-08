@@ -4,4 +4,4 @@ channels:
 dependencies:
   - fenics-dolfinx
   - mpich
-  - pyvista==0.43.3
+  - pyvista
