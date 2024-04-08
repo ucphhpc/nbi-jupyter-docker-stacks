@@ -43,7 +43,7 @@ def _notebook_run(path, kernel="python3", timeout=300):
     return nb, errors
 
 
-def test_notebooks(notebook_path, kernel="python3"):
+def test_notebooks(notebooks_path, kernel="python3"):
     for f_notebook in os.listdir(notebooks_path):
         if f_notebook.startswith("fenics"):
             _, errors = _notebook_run(
