@@ -5,7 +5,7 @@ architecture:
       parent:
         owner: quay.io/jupyter
         image: base-notebook
-        tag: lab-4.0.12
+        tag: lab-4.1.5
         pipeline_dependent: false
   python-notebook:
     dev:
