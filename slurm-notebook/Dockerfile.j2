@@ -3,7 +3,12 @@ LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 
 ARG SLURM_VERSION={{ SLURM_VERSION }}
 ARG SLURM_DOWNLOAD_MD5={{ SLURM_DOWNLOAD_MD5 }}
-ARG SLURM_DOWNLOAD_URL="https://download.schedmd.com/slurm/slurm-$SLURM_VERSION.tar.bz2"
+ARG SLURM_DOWNLOAD_URL="https://download.schedmd.com/slurm/slurm-${SLURM_VERSION}.tar.bz2"
+ARG OPENMPI_MAJOR_VERSION={{ OPENMPI_MAJOR_VERSION }}
+ARG OPENMPI_MINOR_VERSION={{ OPENMPI_MINOR_VERSION }}
+ARG OPENMPI_VERSION={{ OPENMPI_MAJOR_VERSION }}.{{ OPENMPI_MINOR_VERSION }}
+ARG OPENMPI_DOWNLOAD_MD5={{ OPENMPI_DOWNLOAD_MD5 }}
+ARG OPENMPI_DOWNLOAD_URL="https://download.open-mpi.org/release/open-mpi/v${OPENMPI_MAJOR_VERSION}/openmpi-${OPENMPI_VERSION}.tar.bz2"
 ARG PACKAGE_TIMEOUT=60
 
 USER root
@@ -35,11 +40,9 @@ RUN apt-get update \
     libhdf5-doc \
     libmunge-dev \
     libnss-ldap \
-    libopenmpi-dev \
     libpam-ldap \
     libslurm-dev \
     munge \
-    openmpi-bin \
     python3-h5py \
     supervisor \
     tcsh \
@@ -58,8 +61,8 @@ WORKDIR /tmp
 RUN sed -i "s/\/\* #undef H5_NO_DEPRECATED_SYMBOLS \*\//#undef H5_NO_DEPRECATED_SYMBOLS/g" /usr/include/hdf5/serial/H5pubconf.h
 
 RUN cd \
-    && wget -O slurm.tar.bz2 "$SLURM_DOWNLOAD_URL" \
-    && echo "$SLURM_DOWNLOAD_MD5" slurm.tar.bz2 | md5sum -c - \
+    && wget -O slurm.tar.bz2 "${SLURM_DOWNLOAD_URL}" \
+    && echo "${SLURM_DOWNLOAD_MD5}" slurm.tar.bz2 | md5sum -c - \
     && mkdir -p /usr/local/src/slurm \
     && tar jxf slurm.tar.bz2 -C /usr/local/src/slurm --strip-components=1 \
     && cd /usr/local/src/slurm \
@@ -69,6 +72,24 @@ RUN cd \
     && cd \
     && rm -f slurm.tar.bz2
 
+# OpenMPI
+RUN cd \
+    && wget -O openmpi.tar.bz2 "${OPENMPI_DOWNLOAD_URL}" \
+    && echo "${OPENMPI_DOWNLOAD_MD5}" openmpi.tar.bz2 | md5sum -c - \
+    && mkdir -p /opt/openmpi-${OPENMPI_VERSION} \
+    && tar jxf openmpi.tar.bz2 -C /opt/openmpi-${OPENMPI_VERSION} --strip-components=1 \
+    && cd /opt/openmpi-${OPENMPI_VERSION} \
+    && ./configure --prefix=/opt/openmpi-${OPENMPI_VERSION} \
+    && make install \
+    && cd \
+    && rm -f openmpi.tar.bz2
+
+ENV PATH="/opt/openmpi-${OPENMPI_VERSION}/bin:${PATH}"
+ENV LD_LIBRARY_PATH="/opt/openmpi-${OPENMPI_VERSION}/lib:${LD_LIBRARY_PATH}"
+# Update the Python3 environment path to include the OpenMPI path
+RUN mamba run -n python3 python3 /usr/local/bin/update_kernel_spec.py python3 --env-kwargs PATH=$PATH
+
+# Munge
 # Required directories
 RUN mkdir -p /var/run/munge \
     && chown -R munge:munge /var/run/munge \
@@ -91,18 +112,14 @@ RUN jupyterlab_pip3 install git+https://github.com/ucphhpc/modi-helper-scripts.g
 # Install packages for python3 envs
 COPY requirements.txt /tmp/
 RUN mamba run -n python3 pip install -r requirements.txt \
-    && mamba clean -y --all \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
+    && mamba clean -y --all
 
 # Add cling kernel
 # https://github.com/QuantStack/xeus-cling
 COPY environment.yml /tmp/
 RUN mamba env create -n cling -f environment.yml \
     && mamba clean --all -f -y \
-    && rm -fr /tmp/tmp* \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
+    && rm -fr /tmp/tmp*
 
 ENV CXX_PATH=$CONDA_DIR/envs/cling
 RUN cp -R $CXX_PATH/share/jupyter/kernels/* $CONDA_DIR/share/jupyter/kernels/
@@ -126,11 +143,14 @@ RUN chown $NB_UID:$NB_GID /etc/supervisor/supervisord.conf \
     && chmod 775 /etc/supervisor/supervisord.conf
 
 WORKDIR "${HOME}"
+
 # Ensure that the common MPI library is loaded
-ENV LD_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu/:${LD_LIBRARY_PATH}"
+ENV LD_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH}"
 
 USER root
 # As an exception, run as root,
 # Remember to use supervisord start-notebook.sh to
 # de-escalate privileges to $NB_UID:$NB_GID
-CMD ["/usr/bin/supervisord"]
+# We need to overwrite https://github.com/jupyter/docker-stacks/blob/ce08d9e3483fdc8bc661ef0f33ee888d0b434fcd/images/docker-stacks-foundation/Dockerfile#L130
+# to ensure that supervisord starts before jupyter
+ENTRYPOINT ["tini", "-g", "--", "/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
