@@ -1,0 +1,19 @@
+FROM {{ parent }}
+LABEL MAINTAINER="Sebastian Larsen Prehn <slp@erda.dk>"
+ARG PACKAGE_TIMEOUT=60
+
+USER root
+
+# Setup default timeout of installing packages
+RUN echo "[global]" > /etc/pip.conf \
+    && echo "timeout=${PACKAGE_TIMEOUT}" >> /etc/pip.conf
+
+WORKDIR /tmp/
+
+COPY packages.jl /tmp/
+RUN julia packages.jl
+
+WORKDIR "${HOME}"
+
+# Ensure that container Runs as
+USER $NB_UID
