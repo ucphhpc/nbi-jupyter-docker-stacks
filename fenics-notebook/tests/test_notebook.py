@@ -5,7 +5,6 @@ import nbformat
 
 cur_path = os.path.abspath(".")
 notebooks_path = os.path.join(cur_path, "notebooks")
-kernels = ["python3"]
 
 
 def _notebook_run(path, kernel="python3", timeout=300):
@@ -45,8 +44,13 @@ def _notebook_run(path, kernel="python3", timeout=300):
 
 def test_notebooks():
     for f_notebook in os.listdir(notebooks_path):
-        for kernel in kernels:
+        if f_notebook.startswith("fenics"):
             _, errors = _notebook_run(
-                os.path.join(notebooks_path, f_notebook), kernel=kernel
+                os.path.join(notebooks_path, f_notebook), kernel="fenics"
+            )
+            assert errors == []
+        if f_notebook.startswith("fenicsx"):
+            _, errors = _notebook_run(
+                os.path.join(notebooks_path, f_notebook), kernel="fenicsx"
             )
             assert errors == []

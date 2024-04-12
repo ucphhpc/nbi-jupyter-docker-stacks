@@ -18,7 +18,7 @@ dependencies:
    - datashader
    - distributed
    - eofs
-   - esmpy<8.4
+   - esmpy
    - fastparquet
    - flake8
    - gdal
@@ -43,6 +43,7 @@ dependencies:
    - numpy
    - palettable
    - pandas
+   - pyarrow
    - panel
    - plotly
    - python-blosc

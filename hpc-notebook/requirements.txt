@@ -1,4 +1,4 @@
 h5py
-jax==0.4.3
-jaxlib==0.4.3
+jax==0.4.26
+jaxlib==0.4.26
 papermill
