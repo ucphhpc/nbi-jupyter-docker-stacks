@@ -221,8 +221,8 @@ architecture:
       parameters:
         nvhome: /opt/nvidia/hpc_sdk
         target: Linux_x86_64
-        major_version: 24
-        minor_version: 3
+        version_major: 24
+        version_minor: 3
         nvcudadir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.3/cuda"
         nvcompdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.3/compilers"
         nvmathdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.3/math_libs"
@@ -239,8 +239,8 @@ architecture:
       parameters:
         nvhome: /opt/nvidia/hpc_sdk
         target: Linux_x86_64
-        major_version: 24
-        minor_version: 3
+        version_major: 24
+        version_minor: 3
         nvcudadir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.3/cuda"
         nvcompdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.3/compilers"
         nvmathdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.3/math_libs"
@@ -257,8 +257,8 @@ architecture:
       parameters:
         nvhome: /opt/nvidia/hpc_sdk
         target: Linux_x86_64
-        major_version: 24
-        minor_version: 3
+        version_major: 24
+        version_minor: 3
         nvcudadir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.3/cuda"
         nvcompdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.3/compilers"
         nvmathdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.3/math_libs"
