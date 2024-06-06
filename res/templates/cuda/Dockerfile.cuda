@@ -74,3 +74,9 @@ USER $NB_UID
 COPY requirements.txt /tmp/
 RUN mamba run -n python3 pip install -r /tmp/requirements.txt \
     && mamba clean --all -f -y
+
+# Set the CUDNN_PATH and include it to the LD_LIBRARY_PATH such
+# that tensorflow can correctly open the required libraries
+# to discover the host GPU devices
+ENV CUDNN_PATH=$PYTHON3_PATH/lib/python3.11/site-packages/nvidia/cudnn
+ENV LD_LIBRARY_PATH="${CUDNN_PATH}/lib:${LD_LIBRARY_PATH}"
