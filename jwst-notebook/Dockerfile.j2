@@ -42,7 +42,7 @@ WORKDIR /tmp
 
 USER $NB_UID
 
-RUN mamba config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
+RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 # Proj4 is required for cartopy
 COPY environment.yml /tmp/
@@ -60,7 +60,7 @@ RUN mamba run -n python3 pip install -r requirements.txt
 RUN git clone https://github.com/gbrammer/grizli.git
 
 WORKDIR /tmp/grizli
-RUN git checkout tags/1.7
+RUN git checkout tags/1.11.2
 RUN mamba env update -n python3 -f environment.yml \
     && mamba clean --all -f -y \
     && fix-permissions $CONDA_DIR \
@@ -78,21 +78,15 @@ RUN mamba run -n python3 pip install . -r requirements.txt
 WORKDIR /tmp/
    
 # Conda install hstcal
-RUN mamba config --add channels http://ssb.stsci.edu/astroconda 
-RUN mamba config --add channels conda-forge
+RUN conda config --add channels http://ssb.stsci.edu/astroconda 
+RUN conda config --add channels conda-forge
 RUN mamba install -n python3 hstcal \
     && mamba clean --all -f -y \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
 # Patch for photutils / drizzlepac
-COPY photutils.patch /tmp/
 RUN mamba run -n python3 pip install drizzlepac photutils --upgrade \
-    && mamba clean --all -f -y \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
-
-RUN mamba run -n python3 python /tmp/photutils.patch \
     && mamba clean --all -f -y \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
@@ -105,6 +99,7 @@ RUN mamba run -n python3 pip install pandeia.engine
 
 # MIRAGE
 RUN mamba run -n python3 pip install mirage grismconf nircam_gsim
+RUN mamba run -n python3 pip install shapely==1.8.5
     
 WORKDIR "${HOME}"
 

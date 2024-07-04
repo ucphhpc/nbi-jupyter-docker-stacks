@@ -1,14 +1,14 @@
 FROM {{ parent }}
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
-ARG RSTUDIO_VERSION=2023.06.1-524
-ARG SHINY_VERSION=1.5.20.1002
+ARG RSTUDIO_VERSION=2023.12.1-402
+ARG SHINY_VERSION=1.5.21.1012
 ARG UBUNTU_VERSION=18.04
 ARG UBUNTU_DISTRO=jammy
 ARG RSTUDIO_ARCH=amd64
 ARG SHINY_ARCH=x86_64
 ARG KERAS_VERSION=2.13.0
-ARG TENSORFLOW_VERSION=2.14.0
+ARG TENSORFLOW_VERSION=2.15.0
 
 USER root
 
@@ -16,11 +16,8 @@ USER root
 RUN echo "[global]" > /etc/pip.conf \
     && echo "timeout=$PACKAGE_TIMEOUT" >> /etc/pip.conf
 
-# Ubuntu 22.04 does not come with libssl1.1 which is required by rstudio server
 RUN apt-get update \
     && apt-get install -y libterm-readline-gnu-perl \
-    && wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb -O /tmp/libssl1.1.deb \
-    && dpkg -i /tmp/libssl1.1.deb \
     && apt-get clean \
     && rm -fr /var/lib/apt/lists/*
 
@@ -42,7 +39,7 @@ WORKDIR /tmp
 
 USER $NB_UID
 
-RUN mamba config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
+RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 # Provide rstudio and shiny launcher icons
 RUN jupyterlab_pip3 install jupyter-rsession-proxy \
@@ -75,7 +72,6 @@ RUN mamba install -yq -n r \
     'r-htmltools=0.*' \
     'r-htmlwidgets=1.*' \
     'r-irkernel=1.*' \
-    'r-keras=2.*' \
     'r-leaps=3.*' \
     'r-nycflights13=1.0*' \
     'r-pheatmap=1.0*' \
@@ -101,7 +97,7 @@ RUN mamba install -yq -n r \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-RUN mamba config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
+RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 ENV PYTHON3_PATH=$CONDA_DIR/envs/python3
 
 # Freetype is in the incorrect directory for some old libraries
@@ -131,6 +127,10 @@ RUN echo "PATH=\"$R_PATH/bin:$PATH\"" >> /home/$NB_USER/.bashrc \
     && ln -s /usr/lib/rstudio-server/bin/rserver /usr/local/bin/rserver \
     && ln -s $R_PATH/bin/R /usr/local/bin/R
 RUN python3 /usr/local/bin/update_kernel_spec.py ir --env-kwargs PATH=$R_PATH/bin:$PATH
+
+# Fix LD library path for RStudio
+# https://github.com/rstudio/rstudio/issues/14060#issuecomment-1911329450
+RUN echo "rsession-ld-library-path=/opt/conda/lib" >> /etc/rstudio/rserver.conf
 
 # Rstudio version 1.4 has permissions problems as per.
 # https://community.rstudio.com/t/permissions-related-to-upgrade-to-rstudio-server-open-source-1-4/94256/3

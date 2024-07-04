@@ -3,17 +3,17 @@ WORKDIR /tmp
 ARG CUDA_OS_DIST=ubuntu2204
 ARG CUDA_KEYRING_VERSION=1.0-1
 ARG CUDA_CPU=x86_64
-ARG CUDA_MAJOR_VERSION=11
-ARG CUDA_MIN_VERSION=8
+ARG CUDA_MAJOR_VERSION=12
+ARG CUDA_MIN_VERSION=3
 ARG CUDA_VERSION=${CUDA_MAJOR_VERSION}.${CUDA_MIN_VERSION}
-ARG CUDA_PKG_VERSION=11-8
+ARG CUDA_PKG_VERSION=12-3
 
-ARG NCCL_VERSION=2.16.5
-ARG CUDNN_VERSION=8.9.1.23-1+cuda${CUDA_VERSION}
+ARG NCCL_VERSION=2.20.3
+ARG CUDNN_VERSION=9
 
 ENV CUDA_VERSION=${CUDA_VERSION}
 ENV CUDA_PATH="/usr/local/cuda"
-ENV CUDA_11_0_PATH="/usr/local/cuda-${CUDA_VERSION}"
+ENV CUDA_VERSION_PATH="/usr/local/cuda-${CUDA_VERSION}"
 
 # Install the CUDA keyring for automating the signature public key rotation
 # as per https://developer.nvidia.com/blog/updating-the-cuda-linux-gpg-repository-key/
@@ -50,8 +50,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # CUDNN
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libcudnn8=${CUDNN_VERSION} \
-    && apt-mark hold libcudnn8 && \
+    cudnn${CUDNN_VERSION}-cuda-${CUDA_MAJOR_VERSION} && \
     rm -rf /var/lib/apt/lists/*
 
 # Add CUDA symlink and missing symlink for libcusolver
@@ -75,3 +74,9 @@ USER $NB_UID
 COPY requirements.txt /tmp/
 RUN mamba run -n python3 pip install -r /tmp/requirements.txt \
     && mamba clean --all -f -y
+
+# Set the CUDNN_PATH and include it to the LD_LIBRARY_PATH such
+# that tensorflow can correctly open the required libraries
+# to discover the host GPU devices
+ENV CUDNN_PATH=$PYTHON3_PATH/lib/python3.11/site-packages/nvidia/cudnn
+ENV LD_LIBRARY_PATH="${CUDNN_PATH}/lib:${LD_LIBRARY_PATH}"

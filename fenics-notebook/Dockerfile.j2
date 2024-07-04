@@ -21,37 +21,42 @@ USER $NB_UID
 
 ENV PKG_CONFIG_PATH=$PYTHON3_PATH/lib/pkgconfig
 
-RUN mamba config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
+RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 # Clone the python3 enviornment into fenicsx to enable the installation
 # of two seperate fenics installations, namely the old fenics and the new fenicsx
-RUN mamba create --name fenicsx --clone python3
+RUN mamba create --name fenics
+ENV FENICS_PATH=$CONDA_DIR/envs/fenics
 
 COPY environment.yml /tmp/
-RUN mamba env update -n python3 -f environment.yml \
+RUN mamba env update -n fenics -f environment.yml \
     && mamba clean --all -f -y \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
 COPY requirements.txt /tmp/
-RUN mamba run -n python3 pip install -r requirements.txt \
+RUN mamba run -n fenics pip install -r requirements.txt \
     && mamba clean --all -f -y \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
+# Add the fenicsx kernel to Jupyter
+RUN mamba run -n fenics python -m ipykernel install --user --name=fenics
 
+RUN mamba create --name fenicsx
 ENV FENICSX_PATH=$CONDA_DIR/envs/fenicsx
+
 COPY environment-fenicsx.yml /tmp/
 RUN mamba env update -n fenicsx -f /tmp/environment-fenicsx.yml \
     && mamba run -n fenicsx pip install -r requirements.txt \
     && mamba clean --all -f -y \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
-
 # Add the fenicsx kernel to Jupyter
 RUN mamba run -n fenicsx python -m ipykernel install --user --name=fenicsx
 
 # Ensure that the pkg config can be found in in the Jupyter kernels
 RUN mamba run -n python3 python3 /usr/local/bin/update_kernel_spec.py python3 --env-kwargs PATH=$PYTHON3_PATH/bin:$PATH \
+    && mamba run -n fenics python3 /usr/local/bin/update_kernel_spec.py fenics --env-kwargs PATH=$FENICS_PATH/bin:$PATH \
     && mamba run -n fenicsx python3 /usr/local/bin/update_kernel_spec.py fenicsx --env-kwargs PATH=$FENICSX_PATH/bin:$PATH
 
 WORKDIR "${HOME}"

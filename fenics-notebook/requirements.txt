@@ -1,2 +1,4 @@
 gmsh
 pygmsh
+matplotlib
+ipykernel

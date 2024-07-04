@@ -12,7 +12,7 @@ USER $NB_UID
 
 WORKDIR /tmp
 
-RUN mamba config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
+RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 ENV PYTHON3_PATH=$CONDA_DIR/envs/python3
 
 # Install diffpy into python2 env

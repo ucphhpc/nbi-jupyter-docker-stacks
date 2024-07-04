@@ -5,13 +5,13 @@ architecture:
       parent:
         owner: quay.io/jupyter
         image: base-notebook
-        tag: lab-4.0.12
+        tag: lab-4.1.5
         pipeline_dependent: false
-    4.0.12:
+    4.1.5:
       parent:
         owner: quay.io/jupyter
         image: base-notebook
-        tag: lab-4.0.12
+        tag: lab-4.1.5
         pipeline_dependent: false
   python-notebook:
     latest:
@@ -20,11 +20,11 @@ architecture:
         image: base-notebook
         tag: latest
         pipeline_dependent: true
-    4.0.12:
+    4.1.5:
       parent:
         owner: ucphhpc
         image: base-notebook
-        tag: 4.0.12
+        tag: 4.1.5
         pipeline_dependent: true
   statistics-notebook:
     latest:
@@ -33,11 +33,11 @@ architecture:
         image: python-notebook
         tag: latest
         pipeline_dependent: true
-    4.0.12:
+    4.1.5:
       parent:
         owner: ucphhpc
         image: python-notebook
-        tag: 4.0.12
+        tag: 4.1.5
         pipeline_dependent: true
   r-notebook:
     latest:
@@ -46,11 +46,11 @@ architecture:
         image: python-notebook
         tag: latest
         pipeline_dependent: true
-    4.0.12:
+    4.1.5:
       parent:
         owner: ucphhpc
         image: python-notebook
-        tag: 4.0.12
+        tag: 4.1.5
         pipeline_dependent: true
   slurm-notebook:
     latest:
@@ -62,9 +62,9 @@ architecture:
       parameters:
         SLURM_VERSION: 22.05.11
         SLURM_DOWNLOAD_MD5: 44647df647e63dfbfc07dc4d35c3262e
-        OPENMPI_MAJOR_VERSION: 4.1
-        OPENMPI_MINOR_VERSION: 6
-        OPENMPI_DOWNLOAD_MD5: c9b1c974cfc23c77c0fbdb965cd58a1c
+        OPENMPI_MAJOR_VERSION: 5.0
+        OPENMPI_MINOR_VERSION: 2
+        OPENMPI_DOWNLOAD_MD5: 047ea0985b79d30d5a24ee72cbf5f4bf
     22.05.11:
       parent:
         owner: ucphhpc
@@ -74,21 +74,21 @@ architecture:
       parameters:
         SLURM_VERSION: 22.05.11
         SLURM_DOWNLOAD_MD5: 44647df647e63dfbfc07dc4d35c3262e
-        OPENMPI_MAJOR_VERSION: 4.1
-        OPENMPI_MINOR_VERSION: 6
-        OPENMPI_DOWNLOAD_MD5: c9b1c974cfc23c77c0fbdb965cd58a1c
-    4.0.12:
+        OPENMPI_MAJOR_VERSION: 5.0
+        OPENMPI_MINOR_VERSION: 2
+        OPENMPI_DOWNLOAD_MD5: 047ea0985b79d30d5a24ee72cbf5f4bf
+    4.1.5:
       parent:
         owner: ucphhpc
         image: python-notebook
-        tag: 4.0.12
+        tag: 4.1.5
         pipeline_dependent: true
       parameters:
         SLURM_VERSION: 22.05.11
         SLURM_DOWNLOAD_MD5: 44647df647e63dfbfc07dc4d35c3262e
-        OPENMPI_MAJOR_VERSION: 4.1
-        OPENMPI_MINOR_VERSION: 6
-        OPENMPI_DOWNLOAD_MD5: c9b1c974cfc23c77c0fbdb965cd58a1c
+        OPENMPI_MAJOR_VERSION: 5.0
+        OPENMPI_MINOR_VERSION: 2
+        OPENMPI_DOWNLOAD_MD5: 047ea0985b79d30d5a24ee72cbf5f4bf
   python-cuda-notebook:
     latest:
       parent:
@@ -99,11 +99,11 @@ architecture:
       extra_template: res/templates/cuda/Dockerfile.cuda
       extra_template_files:
         - res/templates/cuda/requirements.txt
-    4.0.12:
+    4.1.5:
       parent:
         owner: ucphhpc
         image: python-notebook
-        tag: 4.0.12
+        tag: 4.1.5
         pipeline_dependent: true
       extra_template: res/templates/cuda/Dockerfile.cuda
       extra_template_files:
@@ -115,11 +115,11 @@ architecture:
         image: python-cuda-notebook
         tag: latest
         pipeline_dependent: true
-    4.0.12:
+    4.1.5:
       parent:
         owner: ucphhpc
         image: python-cuda-notebook
-        tag: 4.0.12
+        tag: 4.1.5
         pipeline_dependent: true
   datascience-notebook:
     latest:
@@ -128,11 +128,11 @@ architecture:
         image: python-notebook
         tag: latest
         pipeline_dependent: true
-    4.0.12:
+    4.1.5:
       parent:
         owner: ucphhpc
         image: python-notebook
-        tag: 4.0.12
+        tag: 4.1.5
         pipeline_dependent: true
   chemistry-notebook:
     latest:
@@ -141,11 +141,11 @@ architecture:
         image: base-notebook
         tag: latest
         pipeline_dependent: true
-    4.0.12:
+    4.1.5:
       parent:
         owner: ucphhpc
         image: base-notebook
-        tag: 4.0.12
+        tag: 4.1.5
         pipeline_dependent: true
   fenics-notebook:
     latest:
@@ -154,11 +154,11 @@ architecture:
         image: python-notebook
         tag: latest
         pipeline_dependent: true
-    4.0.12:
+    4.1.5:
       parent:
         owner: ucphhpc
         image: python-notebook
-        tag: 4.0.12
+        tag: 4.1.5
         pipeline_dependent: true
   qsharp-notebook:
     latest:
@@ -167,11 +167,11 @@ architecture:
         image: python-notebook
         tag: latest
         pipeline_dependent: true
-    4.0.12:
+    4.1.5:
       parent:
         owner: ucphhpc
         image: python-notebook
-        tag: 4.0.12
+        tag: 4.1.5
         pipeline_dependent: true
   hpc-notebook:
     latest:
@@ -186,11 +186,11 @@ architecture:
         image: slurm-notebook
         tag: 22.05.11
         pipeline_dependent: true
-    4.0.12:
+    4.1.5:
       parent:
         owner: ucphhpc
         image: slurm-notebook
-        tag: 4.0.12
+        tag: 4.1.5
         pipeline_dependent: true
   hpc-ocean-notebook:
     latest:
@@ -205,11 +205,11 @@ architecture:
         image: slurm-notebook
         tag: 22.05.11
         pipeline_dependent: true
-    4.0.12:
+    4.1.5:
       parent:
         owner: ucphhpc
         image: slurm-notebook
-        tag: 4.0.12
+        tag: 4.1.5
         pipeline_dependent: true
   hpc-gpu-notebook:
     latest:
@@ -221,11 +221,12 @@ architecture:
       parameters:
         nvhome: /opt/nvidia/hpc_sdk
         target: Linux_x86_64
-        version: 22.2
-        nvcudadir: "/opt/nvidia/hpc_sdk/Linux_x86_64/22.2/cuda"
-        nvcompdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/22.2/compilers"
-        nvmathdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/22.2/math_libs"
-        nvcommdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/22.2/opt/nvidia/hpc_sdk/Linux_x86_64/22.2/comm_libs"
+        version_major: 24
+        version_minor: 3
+        nvcudadir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.3/cuda"
+        nvcompdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.3/compilers"
+        nvmathdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.3/math_libs"
+        nvcommdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.3/opt/nvidia/hpc_sdk/Linux_x86_64/24.3/comm_libs"
       extra_template: res/templates/cuda/Dockerfile.cuda
       extra_template_files:
         - res/templates/cuda/requirements.txt
@@ -238,28 +239,30 @@ architecture:
       parameters:
         nvhome: /opt/nvidia/hpc_sdk
         target: Linux_x86_64
-        version: 22.2
-        nvcudadir: "/opt/nvidia/hpc_sdk/Linux_x86_64/22.2/cuda"
-        nvcompdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/22.2/compilers"
-        nvmathdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/22.2/math_libs"
-        nvcommdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/22.2/opt/nvidia/hpc_sdk/Linux_x86_64/22.2/comm_libs"
+        version_major: 24
+        version_minor: 3
+        nvcudadir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.3/cuda"
+        nvcompdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.3/compilers"
+        nvmathdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.3/math_libs"
+        nvcommdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.3/opt/nvidia/hpc_sdk/Linux_x86_64/24.3/comm_libs"
       extra_template: res/templates/cuda/Dockerfile.cuda
       extra_template_files:
         - res/templates/cuda/requirements.txt
-    4.0.12:
+    4.1.5:
       parent:
         owner: ucphhpc
         image: hpc-notebook
-        tag: 4.0.12
+        tag: 4.1.5
         pipeline_dependent: true
       parameters:
         nvhome: /opt/nvidia/hpc_sdk
         target: Linux_x86_64
-        version: 22.2
-        nvcudadir: "/opt/nvidia/hpc_sdk/Linux_x86_64/22.2/cuda"
-        nvcompdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/22.2/compilers"
-        nvmathdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/22.2/math_libs"
-        nvcommdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/22.2/opt/nvidia/hpc_sdk/Linux_x86_64/22.2/comm_libs"
+        version_major: 24
+        version_minor: 3
+        nvcudadir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.3/cuda"
+        nvcompdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.3/compilers"
+        nvmathdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.3/math_libs"
+        nvcommdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.3/opt/nvidia/hpc_sdk/Linux_x86_64/24.3/comm_libs"
       extra_template: res/templates/cuda/Dockerfile.cuda
       extra_template_files:
         - res/templates/cuda/requirements.txt
@@ -270,11 +273,11 @@ architecture:
         image: datascience-notebook
         tag: latest
         pipeline_dependent: true
-    4.0.12:
+    4.1.5:
       parent:
         owner: ucphhpc
         image: datascience-notebook
-        tag: 4.0.12
+        tag: 4.1.5
         pipeline_dependent: true
   geo-notebook:
     latest:
@@ -283,11 +286,11 @@ architecture:
         image: python-notebook
         tag: latest
         pipeline_dependent: true
-    4.0.12:
+    4.1.5:
       parent:
         owner: ucphhpc
         image: python-notebook
-        tag: 4.0.12
+        tag: 4.1.5
         pipeline_dependent: true
   bio-notebook:
     latest:
@@ -296,11 +299,11 @@ architecture:
         image: r-notebook
         tag: latest
         pipeline_dependent: true
-    4.0.12:
+    4.1.5:
       parent:
         owner: ucphhpc
         image: r-notebook
-        tag: 4.0.12
+        tag: 4.1.5
         pipeline_dependent: true
   bio-bigdata-notebook:
     latest:
@@ -309,11 +312,11 @@ architecture:
         image: r-notebook
         tag: latest
         pipeline_dependent: true
-    4.0.12:
+    4.1.5:
       parent:
         owner: ucphhpc
         image: r-notebook
-        tag: 4.0.12
+        tag: 4.1.5
         pipeline_dependent: true
   bio-bsa-notebook:
     latest:
@@ -322,11 +325,11 @@ architecture:
         image: r-notebook
         tag: latest
         pipeline_dependent: true
-    4.0.12:
+    4.1.5:
       parent:
         owner: ucphhpc
         image: r-notebook
-        tag: 4.0.12
+        tag: 4.1.5
         pipeline_dependent: true
   sme-notebook:
     latest:
@@ -335,11 +338,11 @@ architecture:
         image: base-notebook
         tag: latest
         pipeline_dependent: true
-    4.0.12:
+    4.1.5:
       parent:
         owner: ucphhpc
         image: base-notebook
-        tag: 4.0.12
+        tag: 4.1.5
         pipeline_dependent: true
   jwst-notebook:
     latest:
@@ -348,11 +351,11 @@ architecture:
         image: python-notebook
         tag: latest
         pipeline_dependent: true
-    4.0.12:
+    4.1.5:
       parent:
         owner: ucphhpc
         image: python-notebook
-        tag: 4.0.12
+        tag: 4.1.5
         pipeline_dependent: true
   julia-notebook:
     latest:
@@ -365,11 +368,11 @@ architecture:
         JULIA_MAJOR_VERSION: "1.10"
         JULIA_MINOR_VERSION: "0"
         JULIA_DOWNLOAD_MD5: c16f16304cac9af1501ae71c02cb4d1e
-    4.0.12:
+    4.1.5:
       parent:
         owner: ucphhpc
         image: base-notebook
-        tag: 4.0.12
+        tag: 4.1.5
         pipeline_dependent: true
       parameters:
         JULIA_MAJOR_VERSION: "1.10"
@@ -389,9 +392,9 @@ architecture:
         image: datascience-notebook
         tag: latest
         pipeline_dependent: true
-    4.0.12:
+    4.1.5:
       parent:
         owner: ucphhpc
         image: datascience-notebook
-        tag: 4.0.12
+        tag: 4.1.5
         pipeline_dependent: true

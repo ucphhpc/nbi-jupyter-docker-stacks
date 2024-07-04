@@ -13,7 +13,7 @@ WORKDIR /tmp
 # Run container as
 USER $NB_UID
 
-RUN mamba config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
+RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 COPY environment.yml /tmp/
 RUN mamba env update -n python3 -f environment.yml \

@@ -1,3 +1,4 @@
 name: jwst-notebook
 dependencies:
-  - proj4
+  - proj
+  - proj-data
