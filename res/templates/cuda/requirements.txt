@@ -4,7 +4,7 @@
 # cumbersome fixes. https://github.com/keras-team/keras/issues/17422
 # Instead we pin to tensorflow 2.10.0 for now until they fix this.
 tensorflow==2.16.1
-torch==2.0.0
+torch==2.2.0
 torchvision==0.15.1
 torchtext==0.15.1
 torchaudio==2.0.1
