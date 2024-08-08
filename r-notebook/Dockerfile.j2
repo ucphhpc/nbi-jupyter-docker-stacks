@@ -1,8 +1,10 @@
 FROM {{ parent }}
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
-ARG RSTUDIO_VERSION=2023.12.1-402
-ARG SHINY_VERSION=1.5.21.1012
+ARG RSTUDIO_VERSION=2024.04.2-764
+ARG RSTUDIO_SHA256=d8ffb8e5c2dadb1c74df037c291a5585e595d978b3aec48a4a94a970e04a947d
+ARG SHINY_VERSION=1.5.22.1017
+ARG SHINY_SHA256=0fa40054f038de464a26f3f8c40180a072228454762b7a12ed50568b3256c236
 ARG UBUNTU_VERSION=18.04
 ARG UBUNTU_DISTRO=jammy
 ARG RSTUDIO_ARCH=amd64
@@ -27,7 +29,9 @@ RUN apt-get update \
 RUN apt-get update \
     && apt-get install -y fonts-dejavu lmodern cm-super unixodbc unixodbc-dev \
     && wget https://download2.rstudio.org/server/${UBUNTU_DISTRO}/${RSTUDIO_ARCH}/rstudio-server-${RSTUDIO_VERSION}-${RSTUDIO_ARCH}.deb -O /tmp/rstudio-server.deb \
+    && echo "${RSTUDIO_SHA256} /tmp/rstudio-server.deb" | sha256sum -c - \
     && wget https://download3.rstudio.org/ubuntu-${UBUNTU_VERSION}/${SHINY_ARCH}/shiny-server-${SHINY_VERSION}-${RSTUDIO_ARCH}.deb -O /tmp/shiny-server.deb \
+    && echo "${SHINY_SHA256} /tmp/shiny-server.deb" | sha256sum -c - \
     && apt-get install -y --no-install-recommends /tmp/rstudio-server.deb /tmp/shiny-server.deb \
     && rm /tmp/rstudio-server.deb /tmp/shiny-server.deb \
     && apt-get clean \
