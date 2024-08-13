@@ -1,5 +1,5 @@
 environments:
-  notebook_image_master:
+  notebook_image_lab-4.2.4:
     environment_variables:
       DOCKERHUB_PASSWORD: '{{SECRET:[dockerhub][password]}}'
       DOCKERHUB_USERNAME: '{{SECRET:[dockerhub][username]}}'
@@ -42,7 +42,7 @@ pipelines:
         password: '{{SECRET:[github][access_token]}}'
         username: ${GIT_USER}
       ucphhpc_images:
-        branch: master
+        branch: lab-4.2.4
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
     parameters:
@@ -72,7 +72,7 @@ pipelines:
         password: '{{SECRET:[github][access_token]}}'
         username: ${GIT_USER}
       ucphhpc_images:
-        branch: master
+        branch: lab-4.2.4
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_bio-bigdata-notebook:
@@ -103,7 +103,7 @@ pipelines:
         password: '{{SECRET:[github][access_token]}}'
         username: ${GIT_USER}
       ucphhpc_images:
-        branch: master
+        branch: lab-4.2.4
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_bio-bsa-notebook:
@@ -134,7 +134,7 @@ pipelines:
         password: '{{SECRET:[github][access_token]}}'
         username: ${GIT_USER}
       ucphhpc_images:
-        branch: master
+        branch: lab-4.2.4
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_bio-notebook:
@@ -165,7 +165,7 @@ pipelines:
         password: '{{SECRET:[github][access_token]}}'
         username: ${GIT_USER}
       ucphhpc_images:
-        branch: master
+        branch: lab-4.2.4
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_cern-notebook:
@@ -196,7 +196,7 @@ pipelines:
         password: '{{SECRET:[github][access_token]}}'
         username: ${GIT_USER}
       ucphhpc_images:
-        branch: master
+        branch: lab-4.2.4
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_chemistry-notebook:
@@ -227,7 +227,7 @@ pipelines:
         password: '{{SECRET:[github][access_token]}}'
         username: ${GIT_USER}
       ucphhpc_images:
-        branch: master
+        branch: lab-4.2.4
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_datascience-notebook:
@@ -258,7 +258,7 @@ pipelines:
         password: '{{SECRET:[github][access_token]}}'
         username: ${GIT_USER}
       ucphhpc_images:
-        branch: master
+        branch: lab-4.2.4
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_fenics-notebook:
@@ -289,7 +289,7 @@ pipelines:
         password: '{{SECRET:[github][access_token]}}'
         username: ${GIT_USER}
       ucphhpc_images:
-        branch: master
+        branch: lab-4.2.4
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_geo-notebook:
@@ -320,7 +320,7 @@ pipelines:
         password: '{{SECRET:[github][access_token]}}'
         username: ${GIT_USER}
       ucphhpc_images:
-        branch: master
+        branch: lab-4.2.4
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_gpu-notebook:
@@ -351,7 +351,7 @@ pipelines:
         password: '{{SECRET:[github][access_token]}}'
         username: ${GIT_USER}
       ucphhpc_images:
-        branch: master
+        branch: lab-4.2.4
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_hpc-gpu-notebook:
@@ -382,7 +382,7 @@ pipelines:
         password: '{{SECRET:[github][access_token]}}'
         username: ${GIT_USER}
       ucphhpc_images:
-        branch: master
+        branch: lab-4.2.4
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_hpc-notebook:
@@ -413,7 +413,7 @@ pipelines:
         password: '{{SECRET:[github][access_token]}}'
         username: ${GIT_USER}
       ucphhpc_images:
-        branch: master
+        branch: lab-4.2.4
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_hpc-ocean-notebook:
@@ -444,7 +444,7 @@ pipelines:
         password: '{{SECRET:[github][access_token]}}'
         username: ${GIT_USER}
       ucphhpc_images:
-        branch: master
+        branch: lab-4.2.4
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_julia-notebook:
@@ -475,7 +475,7 @@ pipelines:
         password: '{{SECRET:[github][access_token]}}'
         username: ${GIT_USER}
       ucphhpc_images:
-        branch: master
+        branch: lab-4.2.4
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_jwst-notebook:
@@ -506,7 +506,7 @@ pipelines:
         password: '{{SECRET:[github][access_token]}}'
         username: ${GIT_USER}
       ucphhpc_images:
-        branch: master
+        branch: lab-4.2.4
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_ocean-notebook:
@@ -537,7 +537,7 @@ pipelines:
         password: '{{SECRET:[github][access_token]}}'
         username: ${GIT_USER}
       ucphhpc_images:
-        branch: master
+        branch: lab-4.2.4
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_python-cuda-notebook:
@@ -568,7 +568,7 @@ pipelines:
         password: '{{SECRET:[github][access_token]}}'
         username: ${GIT_USER}
       ucphhpc_images:
-        branch: master
+        branch: lab-4.2.4
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_python-notebook:
@@ -599,7 +599,7 @@ pipelines:
         password: '{{SECRET:[github][access_token]}}'
         username: ${GIT_USER}
       ucphhpc_images:
-        branch: master
+        branch: lab-4.2.4
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_qsharp-notebook:
@@ -630,7 +630,7 @@ pipelines:
         password: '{{SECRET:[github][access_token]}}'
         username: ${GIT_USER}
       ucphhpc_images:
-        branch: master
+        branch: lab-4.2.4
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_r-notebook:
@@ -661,7 +661,7 @@ pipelines:
         password: '{{SECRET:[github][access_token]}}'
         username: ${GIT_USER}
       ucphhpc_images:
-        branch: master
+        branch: lab-4.2.4
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_slurm-notebook:
@@ -692,7 +692,7 @@ pipelines:
         password: '{{SECRET:[github][access_token]}}'
         username: ${GIT_USER}
       ucphhpc_images:
-        branch: master
+        branch: lab-4.2.4
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_sme-notebook:
@@ -723,7 +723,7 @@ pipelines:
         password: '{{SECRET:[github][access_token]}}'
         username: ${GIT_USER}
       ucphhpc_images:
-        branch: master
+        branch: lab-4.2.4
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_statistics-notebook:
