@@ -72,7 +72,6 @@ RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 # Update mamba, npm, yarn
 RUN mamba update --quiet -n base conda \
     && npm i -g agentkeepalive \
-    && npm i -g npm \
     && npm i -g yarn \
     && mamba clean --all -f -y \
     && npm cache clean --force \
