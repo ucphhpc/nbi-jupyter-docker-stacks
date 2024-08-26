@@ -1,6 +1,4 @@
 name: r-notebook
 dependencies:
-# Until the latest supported version of tensorflow for R
-# reached >= 2.16.0, 3.12 is not supported
-  - python=3.11
+  - python=3.12
   - ipykernel
