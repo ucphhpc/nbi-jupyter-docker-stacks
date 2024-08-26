@@ -4,7 +4,7 @@ dependencies:
    - autopep8
    - bokeh
    - bqplot
-   - cartopy
+   - cartopy==0.22.0
    - cdo
    - cftime
    - click
