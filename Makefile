@@ -3,7 +3,7 @@
 
 OWNER:=ucphhpc
 TAG:=latest
-BRANCH:=lab-4.2.4
+BRANCH:=master
 PACKAGE_TIMEOUT:=600
 ALL_IMAGES:=base-notebook python-notebook statistics-notebook r-notebook slurm-notebook python-cuda-notebook gpu-notebook datascience-notebook chemistry-notebook fenics-notebook qsharp-notebook hpc-notebook hpc-ocean-notebook hpc-gpu-notebook ocean-notebook geo-notebook bio-notebook bio-bigdata-notebook bio-bsa-notebook sme-notebook jwst-notebook julia-notebook cern-notebook 
 
