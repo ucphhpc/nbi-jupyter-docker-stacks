@@ -42,7 +42,6 @@ seaborn
 six
 statsmodels
 sympy
-tensorflow-addons
 tqdm
 trackpy
 umap-learn
