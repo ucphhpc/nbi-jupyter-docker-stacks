@@ -72,7 +72,6 @@ RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 # Update mamba, npm, yarn
 RUN mamba update --quiet -n base conda \
     && npm i -g agentkeepalive \
-    && npm i -g npm \
     && npm i -g yarn \
     && mamba clean --all -f -y \
     && npm cache clean --force \
@@ -85,33 +84,16 @@ RUN mamba update --quiet -n base conda \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-# jupyter/base-notebook no longer provides pip
-RUN mamba install --quiet --yes \
-    pip \
+# Lab dependencies
+COPY environment.yml /tmp/
+RUN mamba env update -n base -f environment.yml \
     && mamba clean --all -f -y \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-# Notebook/Lab dependencies
-# dedupe, resolve duplicates packages
-# https://ipyleaflet.readthedocs.io/en/latest/installation.html#using-conda
-# jupyter-widgets/jupyterlab-manager and matplotlib is for ipympl support which is labs
-# replacement for notebook plots
-# https://github.com/yuvipanda/jupyter-launcher-shortcuts
-RUN mamba run -n base pip3 install \
-    black \
-    bqplot \
-    facets-overview \
-    nbconvert[webpdf] \
-    jupyter-resource-usage \
-    jupyter-server-proxy \
-    jupyterlab-git \
-    jupyterlab-widgets \
-    jupyterlab-code-formatter \
-    ipyleaflet \
-    ipympl \
-    ipywidgets \
-    && mamba clean -y -f --all \
+COPY requirements.txt /tmp/
+RUN mamba run -n base pip install -r requirements.txt \
+    && mamba clean --all -f -y \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 

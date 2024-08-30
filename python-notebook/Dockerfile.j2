@@ -23,12 +23,6 @@ RUN mamba env create -n python3 -f environment.yml \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-COPY requirements.txt /tmp/
-RUN mamba run -n python3 pip install -r requirements.txt \
-    && mamba clean --all -f -y \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
-
 # Add the python3 environment to the jupyter kernel path
 RUN mamba run -n python3 python3 /usr/local/bin/update_kernel_spec.py python3 --env-kwargs PATH=$PYTHON3_PATH/bin:$PATH
 
