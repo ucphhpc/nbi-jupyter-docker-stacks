@@ -1,0 +1,13 @@
+name: base
+dependencies:
+  - python=3.11
+  - pip
+  - black
+  - bqplot
+  - ipyleaflet
+  - ipywidgets
+  - ipympl
+  - nbconvert-webpdf
+  - jupyter-resource-usage
+  - jupyter-server-proxy
+  - jupyterlab-git
