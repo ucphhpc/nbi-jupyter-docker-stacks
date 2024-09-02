@@ -139,8 +139,10 @@ RUN echo "rsession-ld-library-path=/opt/conda/lib" >> /etc/rstudio/rserver.conf
 
 # Rstudio version 1.4 has permissions problems as per.
 # https://community.rstudio.com/t/permissions-related-to-upgrade-to-rstudio-server-open-source-1-4/94256/3
+# Also ensure that the user owns everything inside the home directory
 RUN chown -R $NB_USER:$NB_GID /var/lib/rstudio-server \
-    && chown -R $NB_USER:$NB_GID /etc/rstudio
+    && chown -R $NB_USER:$NB_GID /etc/rstudio \
+    && chown -R $NB_USER:$NB_GID ${HOME}
 
 # https://github.com/jupyterhub/jupyter-rsession-proxy
 # The rsession-proxy has to know whether version 1.4 is used
