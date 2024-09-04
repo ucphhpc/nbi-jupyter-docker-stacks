@@ -41,6 +41,12 @@ RUN mamba install -qy -n r \
     'r-reshape2' \
     'r-stringr' \
     'r-pscl' \
+    && mamba clean --all -f -y \
+    && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()' \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
+
+RUN mamba install -qy -n r \
     'r-statmod' \
     'r-picante' \
     'r-nlme' \
