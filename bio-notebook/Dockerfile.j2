@@ -119,7 +119,7 @@ ENV PATH="$R_PATH/bin:$PATH"
 ENV TAR="/bin/tar"
 # install tmp r packages
 COPY ./res /opt/res
-RUN $R_PATH/bin/Rscript /opt/res/*.R
+RUN mamba run -n r $R_PATH/bin/Rscript /opt/res/*.R
 
 WORKDIR "${HOME}"
 

@@ -30,9 +30,7 @@ RUN mamba install -yq -n r \
     && fix-permissions /home/$NB_USER
 
 COPY ./res /opt/res
-RUN $R_PATH/bin/Rscript /opt/res/*.R
-
-RUN mamba install -c bioconda -n r bioconductor-xcms -yq 
+RUN mamba run -n r $R_PATH/bin/Rscript /opt/res/*.R
 
 RUN mamba install -yq -n r \
     'r-magick' \

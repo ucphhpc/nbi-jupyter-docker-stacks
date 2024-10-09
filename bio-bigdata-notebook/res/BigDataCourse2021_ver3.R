@@ -36,6 +36,3 @@ BiocManager::install("pcaMethods",update = TRUE, ask = FALSE, force = TRUE)
 BiocManager::install("apeglm", update = TRUE, ask = FALSE, force = TRUE)
 # Added additional packages based on requests made in ticket #31641
 BiocManager::install("GWENA", update = TRUE, ask = FALSE, force = TRUE)
-
-library(devtools)
-devtools::install_github("JoeRothwell/pcpr2", force = TRUE, upgrade = "never")
