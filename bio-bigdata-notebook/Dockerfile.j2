@@ -30,7 +30,9 @@ RUN mamba install -yq -n r \
     && fix-permissions /home/$NB_USER
 
 COPY ./res /opt/res
-RUN mamba run -n r $R_PATH/bin/Rscript /opt/res/*.R
+
+RUN mamba run -n r Rscript /opt/res/BigDataCourse2021_ver3.R
+RUN mamba run -n r $R_PATH/bin/Rscript /opt/res/pcpr2.R
 
 RUN mamba install -yq -n r \
     'r-magick' \
