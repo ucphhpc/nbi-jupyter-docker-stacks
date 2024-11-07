@@ -1,0 +1,39 @@
+name: bio-notebook
+dependencies:
+  - r-FactoMineR
+  - r-factoextra
+  - r-fastICA
+  - r-ggplot2
+  - r-gridExtra
+  - r-vegan
+  - r-alluvial
+  - r-ade4
+  - r-lsmeans
+  - r-eulerr
+  - r-tibble
+  - r-readxl
+  - r-plyr
+  - r-dplyr
+  - r-reshape2
+  - r-stringr
+  - r-pscl
+  - r-statmod
+  - r-picante
+  - r-nlme
+  - r-lme4
+  - r-cowplot
+  - r-doParallel
+  - r-doSNOW
+  - r-pROC
+  - r-ape
+  - r-minpack.lm
+  - r-hexbin
+  - r-pheatmap
+  - r-tidyr
+  - r-magick
+  - r-magrittr
+  - r-corpcor
+  - r-rmarkdown
+  - r-tinytex
+channels:
+  - conda-forge

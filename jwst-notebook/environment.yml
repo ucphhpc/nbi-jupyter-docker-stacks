@@ -2,3 +2,5 @@ name: jwst-notebook
 dependencies:
   - proj
   - proj-data
+channels:
+  - conda-forge

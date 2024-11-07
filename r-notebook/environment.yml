@@ -2,3 +2,5 @@ name: r-notebook
 dependencies:
   - python=3.11
   - ipykernel
+channels:
+  - conda-forge

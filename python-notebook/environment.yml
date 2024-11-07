@@ -5,3 +5,5 @@ dependencies:
   - ipympl
   - ipyleaflet
   - matplotlib
+channels:
+  - conda-forge

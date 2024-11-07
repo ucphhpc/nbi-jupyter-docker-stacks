@@ -1,3 +1,5 @@
 name: datascience-notebook
 dependencies:
   - proj4
+channels:
+  - conda-forge

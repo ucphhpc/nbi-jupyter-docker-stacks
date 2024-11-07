@@ -1,7 +1,6 @@
 name: fenics-notebook
-channels:
-  - conda-forge
-  - fenics
 dependencies:
   - fenics
   - gmsh
+channels:
+  - conda-forge

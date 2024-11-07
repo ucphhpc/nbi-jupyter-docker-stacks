@@ -1,0 +1,7 @@
+name: bio-bigdata-notebook
+dependencies:
+  - r-FactoMineR
+  - r-factoextra
+  - r-magick
+channels:
+  - conda-forge

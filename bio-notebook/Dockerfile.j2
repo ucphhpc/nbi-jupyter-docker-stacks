@@ -23,48 +23,8 @@ USER $NB_UID
 RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 # Standard CRAN packages, etc.
-RUN mamba install -qy -n r \
-    'r-FactoMineR' \
-    'r-factoextra' \
-    'r-fastICA' \
-    'r-ggplot2' \
-    'r-gridExtra' \
-    'r-vegan' \
-    'r-alluvial' \
-    'r-ade4' \
-    'r-lsmeans' \
-    'r-eulerr' \
-    'r-tibble' \
-    'r-readxl' \
-    'r-plyr' \
-    'r-dplyr' \
-    'r-reshape2' \
-    'r-stringr' \
-    'r-pscl' \
-    && mamba clean --all -f -y \
-    && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()' \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
-
-RUN mamba install -qy -n r \
-    'r-statmod' \
-    'r-picante' \
-    'r-nlme' \
-    'r-lme4' \
-    'r-cowplot' \
-    'r-doParallel' \
-    'r-doSNOW' \
-    'r-pROC' \
-    'r-ape' \
-    'r-minpack.lm' \
-    'r-hexbin' \
-    'r-pheatmap' \
-    'r-tidyr' \
-    'r-magick' \
-    'r-magrittr' \
-    'r-corpcor' \
-    'r-rmarkdown' \
-    'r-tinytex' \
+COPY environment.yml /tmp/
+RUN mamba install -qy -n r -f /tmp/environement.yml \
     && mamba clean --all -f -y \
     && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()' \
     && fix-permissions $CONDA_DIR \
@@ -75,32 +35,8 @@ RUN mamba install -qy -n r \
 # Removed 'cutadapt' via conda  for now and moved it to pypi installation
 # via the requirements.txt file. This is because the current version does not support
 # Python 3.11 (https://bioconda.github.io/recipes/cutadapt/README.html)
-RUN mamba install -qy -c bioconda -n r \
-    'r-phytools' \
-    'bioconductor-deseq2' \
-    'bioconductor-biobase' \
-    'bioconductor-tximport' \
-    'bioconductor-sva' \
-    'bioconductor-preprocesscore' \
-    'bioconductor-edaseq' \
-    'bioconductor-msa' \
-    'bioconductor-phyloseq' \
-    'bioconductor-dada2' \
-    'bioconductor-edgeR' \
-    'bioconductor-metagenomeSeq' \
-    'bioconductor-limma' \
-    'bioconductor-Biostrings' \
-    'bioconductor-biocinstaller' \
-    'bioconductor-dada2' \
-    'bioconductor-vsn' \
-    'bioconductor-multtest' \
-    'bioconductor-xcms' \
-    'bioconductor-biocparallel' \
-    'bioconductor-camera' \
-    'bioconductor-pcamethods' \
-    'bioconductor-apeglm' \
-    'mafft' \
-    'fasttree' \
+COPY environment-bio.yml /tmp/
+RUN mamba install -qy -n r -f /tmp/environment-bio.yml \
     && mamba clean --all -f -y \
     && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()' \
     && fix-permissions $CONDA_DIR \

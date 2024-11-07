@@ -11,3 +11,5 @@ dependencies:
   - jupyter-resource-usage
   - jupyter-server-proxy
   - jupyterlab-git
+channels:
+  - conda-forge
