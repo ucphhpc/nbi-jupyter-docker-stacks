@@ -4,7 +4,7 @@ COPY tests /app/tests
 WORKDIR /app/tests
 
 # base pip is for pip
-RUN jupyterlab_pip install -r requirements.txt
+RUN jupyterlab_pip install -r /app/tests/requirements.txt
 
 USER root
 

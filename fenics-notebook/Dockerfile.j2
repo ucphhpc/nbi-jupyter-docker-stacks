@@ -29,13 +29,13 @@ RUN mamba create --name fenics
 ENV FENICS_PATH=$CONDA_DIR/envs/fenics
 
 COPY environment.yml /tmp/
-RUN mamba env update -n fenics -f environment.yml \
+RUN mamba env update -n fenics -f /tmp/environment.yml \
     && mamba clean --all -f -y \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
 COPY requirements.txt /tmp/
-RUN mamba run -n fenics pip install -r requirements.txt \
+RUN mamba run -n fenics pip install -r /tmp/requirements.txt \
     && mamba clean --all -f -y \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
@@ -47,7 +47,7 @@ ENV FENICSX_PATH=$CONDA_DIR/envs/fenicsx
 
 COPY environment-fenicsx.yml /tmp/
 RUN mamba env update -n fenicsx -f /tmp/environment-fenicsx.yml \
-    && mamba run -n fenicsx pip install -r requirements.txt \
+    && mamba run -n fenicsx pip install -r /tmp/requirements.txt \
     && mamba clean --all -f -y \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER

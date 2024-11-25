@@ -63,11 +63,11 @@ USER $NB_UID
 RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 COPY environment.yml /tmp/
-RUN mamba env update -n python3 -f environment.yml \
+RUN mamba env update -n python3 -f /tmp/environment.yml \
     && mamba clean --all -f -y
 
 COPY requirements.txt /tmp/
-RUN mamba run -n python3 pip install -r requirements.txt \
+RUN mamba run -n python3 pip install -r /tmp/requirements.txt \
     && mamba clean -y --all
 
 WORKDIR "${HOME}"

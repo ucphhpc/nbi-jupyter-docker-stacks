@@ -111,13 +111,13 @@ RUN jupyterlab_pip3 install git+https://github.com/ucphhpc/modi-helper-scripts.g
 
 # Install packages for python3 envs
 COPY requirements.txt /tmp/
-RUN mamba run -n python3 pip install -r requirements.txt \
+RUN mamba run -n python3 pip install -r /tmp/requirements.txt \
     && mamba clean -y --all
 
 # Add cling kernel
 # https://github.com/QuantStack/xeus-cling
 COPY environment.yml /tmp/
-RUN mamba env create -n cling -f environment.yml \
+RUN mamba env create -n cling -f /tmp/environment.yml \
     && mamba clean --all -f -y \
     && rm -fr /tmp/tmp*
 

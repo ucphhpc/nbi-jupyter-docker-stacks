@@ -22,7 +22,7 @@ ENV TAR="/bin/tar"
 
 # install r packages
 COPY environment.yml /tmp/
-RUN mamba install -yq -n r -f environment.yml \
+RUN mamba env update -q -n r -f /tmp/environment.yml \
     && mamba clean --all -f -y \
     && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()' \
     && fix-permissions $CONDA_DIR \

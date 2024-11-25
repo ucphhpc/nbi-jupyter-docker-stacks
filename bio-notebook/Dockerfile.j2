@@ -24,7 +24,7 @@ RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 # Standard CRAN packages, etc.
 COPY environment.yml /tmp/
-RUN mamba install -qy -n r -f /tmp/environment.yml \
+RUN mamba env update -q -n r -f /tmp/environment.yml \
     && mamba clean --all -f -y \
     && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()' \
     && fix-permissions $CONDA_DIR \
@@ -36,14 +36,14 @@ RUN mamba install -qy -n r -f /tmp/environment.yml \
 # via the requirements.txt file. This is because the current version does not support
 # Python 3.11 (https://bioconda.github.io/recipes/cutadapt/README.html)
 COPY environment-bio.yml /tmp/
-RUN mamba install -qy -n r -f /tmp/environment-bio.yml \
+RUN mamba env update -q -n r -f /tmp/environment-bio.yml \
     && mamba clean --all -f -y \
     && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()' \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
 COPY requirements.txt /tmp/
-RUN mamba run -n r pip install -r requirements.txt \
+RUN mamba run -n r pip install -r /tmp/requirements.txt \
     && mamba clean --all -f -y \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER

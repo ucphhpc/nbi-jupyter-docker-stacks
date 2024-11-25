@@ -23,7 +23,7 @@ RUN mamba create -n python3 python=3.7 \
 # Install diffpy into python2 env
 # diffpy also provides pyobjcrust
 COPY environment.yml /tmp/
-RUN mamba env update -n python3 -f environment.yml \
+RUN mamba env update -n python3 -f /tmp/environment.yml \
     && mamba run -n python3 python -m ipykernel install --user --name=python3 \
     && mamba clean --all -f -y \
     && fix-permissions $CONDA_DIR \
@@ -33,7 +33,7 @@ RUN mamba env update -n python3 -f environment.yml \
 USER $NB_UID
 
 COPY requirements.txt /tmp/
-RUN mamba run -n python3 pip install -r requirements.txt \
+RUN mamba run -n python3 pip install -r /tmp/requirements.txt \
     && mamba clean --all -f -y \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
