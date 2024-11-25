@@ -3,6 +3,8 @@ auto_update_conda: false
 show_channel_urls: true
 channels:
   - conda-forge
+# https://github.com/mamba-org/mamba/issues/2972
+  - nodefaults
 remote_read_timeout_secs: 600.0
 auto_activate_base: false
 channel_priority: strict
