@@ -5,5 +5,5 @@ netCDF4
 numpy
 scipy
 tensorflow
-veros
+veros>=1.5.0
 xarray

@@ -1,1 +1,1 @@
-veros
+veros>=1.5.0
