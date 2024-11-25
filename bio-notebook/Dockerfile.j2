@@ -24,7 +24,7 @@ RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 # Standard CRAN packages, etc.
 COPY environment.yml /tmp/
-RUN mamba install -qy -n r -f /tmp/environement.yml \
+RUN mamba install -qy -n r -f /tmp/environment.yml \
     && mamba clean --all -f -y \
     && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()' \
     && fix-permissions $CONDA_DIR \
