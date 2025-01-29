@@ -1,0 +1,5 @@
+ipykernel
+ipympl
+ipyleaflet
+matplotlib
+siphash24
