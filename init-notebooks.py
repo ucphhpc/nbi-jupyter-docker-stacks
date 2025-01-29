@@ -42,10 +42,7 @@ def get_common_pipeline():
         "label_template": "${COUNT}",
         "lock_behaviour": "none",
         # Run on the 1st at 00:00 of every month
-        "timer": {
-            "spec": "0 0 0 1 * ?",
-            "only_on_changes": "no"
-        },
+        "timer": {"spec": "0 0 0 1 * ?", "only_on_changes": "no"},
         "display_order": -1,
         "template": "notebook_image",
     }
@@ -106,9 +103,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--branch", default="master", help="The branch that should be built"
     )
-    parser.add_argument(
-        "--tag", default="latest", help="The tag that should be built"
-    )
+    parser.add_argument("--tag", default="latest", help="The tag that should be built")
     parser.add_argument(
         "--makefile", default="Makefile", help="The makefile that defines the images"
     )
