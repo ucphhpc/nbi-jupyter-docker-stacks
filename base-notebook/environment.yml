@@ -1,6 +1,6 @@
 name: base
 dependencies:
-  - python=3.11
+  - python=3.12
   - pip
   - black
   - bqplot
