@@ -17,7 +17,6 @@ RUN apt-get update \
     libboost-program-options-dev \
     zlib1g-dev \
     libsigsegv-dev \
-    freeglut3 \
     freeglut3-dev \
     libxmu-dev \
     libxi-dev \
@@ -30,10 +29,10 @@ RUN apt-get update \
     environment-modules \
     tcl \
     procps \
-    clang-12 \
-    llvm-12 \
-    libomp5-12 \
-    libomp-12-dev \
+    clang-14 \
+    llvm-14 \
+    libomp5-14 \
+    libomp-14-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
