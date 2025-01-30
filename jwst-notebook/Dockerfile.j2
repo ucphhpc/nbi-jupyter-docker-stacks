@@ -90,39 +90,38 @@ RUN mamba run -n python3 pip install drizzlepac photutils --upgrade \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-# JWST tools
-RUN mamba run -n python3 pip install jwst-backgrounds
-RUN mamba run -n python3 pip install jwst-gtvt
-RUN mamba run -n python3 pip install jdaviz
-RUN mamba run -n python3 pip install pandeia.engine
+# JWST tools and MIRAGE
+RUN mamba run -n python3 pip install jwst-backgrounds \
+    jwst-gtvt \
+    jdaviz \
+    pandeia.engine
 
 # MIRAGE
-RUN mamba run -n python3 pip install mirage grismconf nircam_gsim
-RUN mamba run -n python3 pip install shapely==1.8.5
-    
+RUN mamba run -n python3 pip install git+https://github.com/spacetelescope/mirage.git#a3af9bea3f627a7a11777b98c3b330256f580367 \
+    grismconf \
+    nircam_gsim \
+    shapely
+
 WORKDIR "${HOME}"
 
 # FSPS
 RUN git clone https://github.com/cconroy20/fsps.git fsps_home
 RUN cd fsps_home/src && make
-ENV SPS_HOME /home/${NB_USER}/fsps_home
+ENV SPS_HOME=${HOME}/fsps_home
 
 # Compile python-fsps
 # Padova + lores BASEL models much faster
 RUN FFLAGS="-DMIST=0 -DPADOVA=1 -DMILES=0 -DBASEL=1" mamba run -n python3 pip install fsps --no-binary fsps
 
 # Environment variables
-ENV JWST_DATA /home/${NB_USER}/work/JWST/Simulations/MirageGabe
-ENV CRDS_SERVER_URL https://jwst-crds.stsci.edu 
-ENV CRDS_PATH /home/${NB_USER}/crds_cache 
-ENV MIRAGE_DATA ${JWST_DATA}/MIRAGE_DATA 
-ENV WEBBPSF_PATH ${JWST_DATA}/webbpsf-data 
-ENV GRIZLI /home/${NB_USER}/work/DAWN/Science/JWST/Software 
-ENV iref ${GRIZLI}/iref/
-ENV jref ${GRIZLI}/jref/
+ENV JWST_DATA=${HOME}/work/JWST/Simulations/MirageGabe
+ENV CRDS_SERVER_URL=https://jwst-crds.stsci.edu
+ENV CRDS_PATH=${HOME}/crds_cache
+ENV MIRAGE_DATA=${JWST_DATA}/MIRAGE_DATA
+ENV WEBBPSF_PATH=${JWST_DATA}/webbpsf-data
+ENV GRIZLI=${HOME}/work/DAWN/Science/JWST/Software
+ENV iref=${GRIZLI}/iref/
+ENV jref=${GRIZLI}/jref/
 
 # Run container as
 USER $NB_UID
-
-
-
