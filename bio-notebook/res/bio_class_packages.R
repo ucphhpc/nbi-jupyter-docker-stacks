@@ -14,6 +14,7 @@ install.packages(c(
     "eulerr",
     "tibble",
     "readxl",
+    "fasttree",
     "RColorBrewer",
     "plyr",
     "dplyr",
@@ -32,7 +33,8 @@ install.packages(c(
     "minpack.lm",
     "ips",
     "BiocManager",
-    "multicomp"
+    "multicomp",
+    "mafft"
 ), repos='http://mirrors.dotsrc.org/cran/')
 
 ## BioConductor packages.
@@ -43,7 +45,12 @@ BiocManager::install(c(
     "edgeR",
     "metagenomeSeq",
     "limma",
-    "Biostrings"
+    "Biostrings",
+    "tximport",
+    "sva",
+    "preprocesscore",
+    "edaseq",
+    "biocinstaller"
 ), update = FALSE)
 
 library(devtools);

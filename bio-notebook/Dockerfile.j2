@@ -30,18 +30,9 @@ RUN mamba env update -q -n r -f /tmp/environment.yml \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-# NOTE: install BioConductor packages requested e.g. in erda ticket #18198 and #25320
-## BioConductor packages, etc.
 # Removed 'cutadapt' via conda  for now and moved it to pypi installation
 # via the requirements.txt file. This is because the current version does not support
 # Python 3.11 (https://bioconda.github.io/recipes/cutadapt/README.html)
-COPY environment-bio.yml /tmp/
-RUN mamba env update -q -n r -f /tmp/environment-bio.yml \
-    && mamba clean --all -f -y \
-    && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()' \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
-
 COPY requirements.txt /tmp/
 RUN mamba run -n r pip install -r /tmp/requirements.txt \
     && mamba clean --all -f -y \
@@ -50,6 +41,7 @@ RUN mamba run -n r pip install -r /tmp/requirements.txt \
 
 ENV PATH="$R_PATH/bin:$PATH"
 
+# NOTE: install BioConductor packages requested e.g. in erda ticket #18198 and #25320
 # NOTE: install extras directly from github and CRAN as requested in erda ticket #18198
 # IMPORTANT: R defaults to unpack with non-existant /bin/gtar so we overrride
 ENV TAR="/bin/tar"
