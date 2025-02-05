@@ -245,12 +245,12 @@ architecture:
       parameters:
         nvhome: /opt/nvidia/hpc_sdk
         target: Linux_x86_64
-        nvhpc_version_major: 24
-        nvhpc_version_minor: 5
-        nvcudadir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.5/cuda"
-        nvcompdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.5/compilers"
-        nvmathdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.5/math_libs"
-        nvcommdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.5/opt/nvidia/hpc_sdk/Linux_x86_64/24.5/comm_libs"
+        nvhpc_version_major: 25
+        nvhpc_version_minor: 1
+        nvcudadir: "/opt/nvidia/hpc_sdk/Linux_x86_64/25.1/cuda"
+        nvcompdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/25.1/compilers"
+        nvmathdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/25.1/math_libs"
+        nvcommdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/25.1/opt/nvidia/hpc_sdk/Linux_x86_64/25.1/comm_libs"
       extra_template: res/templates/cuda/Dockerfile.cuda
       extra_template_files:
         - res/templates/cuda/requirements.txt
@@ -263,12 +263,12 @@ architecture:
       parameters:
         nvhome: /opt/nvidia/hpc_sdk
         target: Linux_x86_64
-        nvhpc_version_major: 24
-        nvhpc_version_minor: 5
-        nvcudadir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.5/cuda"
-        nvcompdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.5/compilers"
-        nvmathdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.5/math_libs"
-        nvcommdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.5/opt/nvidia/hpc_sdk/Linux_x86_64/24.5/comm_libs"
+        nvhpc_version_major: 25
+        nvhpc_version_minor: 1
+        nvcudadir: "/opt/nvidia/hpc_sdk/Linux_x86_64/25.1/cuda"
+        nvcompdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/25.1/compilers"
+        nvmathdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/25.1/math_libs"
+        nvcommdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/25.1/opt/nvidia/hpc_sdk/Linux_x86_64/25.1/comm_libs"
       extra_template: res/templates/cuda/Dockerfile.cuda
       extra_template_files:
         - res/templates/cuda/requirements.txt
@@ -281,12 +281,12 @@ architecture:
       parameters:
         nvhome: /opt/nvidia/hpc_sdk
         target: Linux_x86_64
-        nvhpc_version_major: 24
-        nvhpc_version_minor: 5
-        nvcudadir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.5/cuda"
-        nvcompdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.5/compilers"
-        nvmathdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.5/math_libs"
-        nvcommdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.5/opt/nvidia/hpc_sdk/Linux_x86_64/24.5/comm_libs"
+        nvhpc_version_major: 25
+        nvhpc_version_minor: 1
+        nvcudadir: "/opt/nvidia/hpc_sdk/Linux_x86_64/25.1/cuda"
+        nvcompdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/25.1/compilers"
+        nvmathdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/25.1/math_libs"
+        nvcommdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/25.1/opt/nvidia/hpc_sdk/Linux_x86_64/25.1/comm_libs"
       extra_template: res/templates/cuda/Dockerfile.cuda
       extra_template_files:
         - res/templates/cuda/requirements.txt
@@ -299,12 +299,12 @@ architecture:
       parameters:
         nvhome: /opt/nvidia/hpc_sdk
         target: Linux_x86_64
-        nvhpc_version_major: 24
-        nvhpc_version_minor: 5
-        nvcudadir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.5/cuda"
-        nvcompdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.5/compilers"
-        nvmathdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.5/math_libs"
-        nvcommdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/24.5/opt/nvidia/hpc_sdk/Linux_x86_64/24.5/comm_libs"
+        nvhpc_version_major: 25
+        nvhpc_version_minor: 1
+        nvcudadir: "/opt/nvidia/hpc_sdk/Linux_x86_64/25.1/cuda"
+        nvcompdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/25.1/compilers"
+        nvmathdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/25.1/math_libs"
+        nvcommdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/25.1/opt/nvidia/hpc_sdk/Linux_x86_64/25.1/comm_libs"
       extra_template: res/templates/cuda/Dockerfile.cuda
       extra_template_files:
         - res/templates/cuda/requirements.txt
