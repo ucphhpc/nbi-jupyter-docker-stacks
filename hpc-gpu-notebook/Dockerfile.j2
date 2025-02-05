@@ -12,7 +12,7 @@ USER root
 RUN echo 'deb [trusted=yes] https://developer.download.nvidia.com/hpc-sdk/ubuntu/amd64 /' | tee /etc/apt/sources.list.d/nvhpc.list \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
-    nvhpc-{{ version_major }}-{{ version_minor }}-cuda-multi \
+    nvhpc-{{ nvhpc_version_major }}-{{ nvhpc_version_minor }}-cuda-multi \
     && apt-get clean \
     && rm -fr /var/lib/apt/lists/*
 
