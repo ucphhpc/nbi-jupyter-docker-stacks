@@ -58,6 +58,8 @@ environments:
     - julia-notebook-4.2.6
     - cern-notebook-latest
     - cern-notebook-4.2.6
+    - cmis-notebook-latest
+    - cmis-notebook-4.2.6
 format_version: 10
 pipelines:
   base-notebook-4.2.6:
@@ -423,6 +425,68 @@ pipelines:
       EXTRA_TAG: ''
       NOTEBOOK: chemistry-notebook
       NOTEBOOK_PIPELINE: chemistry-notebook-latest
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: nbi-jupyter-docker-stacks
+      TEST_DIRECTORY: nbi-jupyter-docker-stacks
+    template: notebook_image
+    timer: *id001
+  cmis-notebook-4.2.6:
+    display_order: -1
+    group: notebook_image
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: master
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_cmis-notebook:
+        pipeline: base-notebook-4.2.6
+        stage: push
+    parameters:
+      ARGS: ''
+      COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
+      DEFAULT_TAG: 4.2.6
+      EXTRA_TAG: ''
+      NOTEBOOK: cmis-notebook
+      NOTEBOOK_PIPELINE: cmis-notebook-4.2.6
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: nbi-jupyter-docker-stacks
+      TEST_DIRECTORY: nbi-jupyter-docker-stacks
+    template: notebook_image
+    timer: *id001
+  cmis-notebook-latest:
+    display_order: -1
+    group: notebook_image
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: master
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_cmis-notebook:
+        pipeline: base-notebook-latest
+        stage: push
+    parameters:
+      ARGS: ''
+      COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
+      DEFAULT_TAG: latest
+      EXTRA_TAG: ''
+      NOTEBOOK: cmis-notebook
+      NOTEBOOK_PIPELINE: cmis-notebook-latest
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
