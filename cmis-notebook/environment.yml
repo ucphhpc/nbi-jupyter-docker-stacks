@@ -1,0 +1,13 @@
+name: cmis-notebook
+dependencies:
+  - python=3.9
+  - ipympl
+  - meshplot
+  - wildmeshing
+  - matplotlib
+  - scipy
+  - numpy
+  - igl
+  - jupyter
+channels:
+  - conda-forge

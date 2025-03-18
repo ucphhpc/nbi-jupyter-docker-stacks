@@ -433,3 +433,16 @@ architecture:
         image: datascience-notebook
         tag: 4.2.6
         pipeline_dependent: true
+  cmis-notebook:
+    latest:
+      parent:
+        owner: ucphhpc
+        image: python-notebook
+        tag: latest
+        pipeline_dependent: true
+    4.2.6:
+      parent:
+        owner: ucphhpc
+        image: python-notebook
+        tag: 4.2.6
+        pipeline_dependent: true
