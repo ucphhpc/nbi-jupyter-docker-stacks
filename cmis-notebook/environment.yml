@@ -3,12 +3,13 @@ dependencies:
   - python=3.9
   - ipykernel
   - ipympl
+  - ipyleaflet
+  - matplotlib
   - meshplot
   - wildmeshing
-  - matplotlib
+  - ipywidgets
   - scipy
   - numpy
   - igl
-  - jupyter
 channels:
   - conda-forge
