@@ -1,6 +1,7 @@
 name: cmis-notebook
 dependencies:
   - python=3.9
+  - ipykernel
   - ipympl
   - meshplot
   - wildmeshing

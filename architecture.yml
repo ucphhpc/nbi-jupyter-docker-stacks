@@ -437,12 +437,12 @@ architecture:
     latest:
       parent:
         owner: ucphhpc
-        image: python-notebook
+        image: base-notebook
         tag: latest
         pipeline_dependent: true
     4.2.6:
       parent:
         owner: ucphhpc
-        image: python-notebook
+        image: base-notebook
         tag: 4.2.6
         pipeline_dependent: true

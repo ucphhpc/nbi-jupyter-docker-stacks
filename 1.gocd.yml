@@ -447,7 +447,7 @@ pipelines:
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_cmis-notebook:
-        pipeline: python-notebook-4.2.6
+        pipeline: base-notebook-4.2.6
         stage: push
     parameters:
       ARGS: ''
@@ -478,7 +478,7 @@ pipelines:
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_cmis-notebook:
-        pipeline: python-notebook-latest
+        pipeline: base-notebook-latest
         stage: push
     parameters:
       ARGS: ''
