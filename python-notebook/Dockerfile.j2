@@ -30,7 +30,6 @@ RUN mamba run -n python3 python3 -m ensurepip --upgrade \
 # Add the python3 environment to the jupyter kernel path
 RUN mamba run -n python3 python3 /usr/local/bin/update_kernel_spec.py python3 --env-kwargs PATH=$PYTHON3_PATH/bin:$PATH
 
-USER root
 WORKDIR "${HOME}"
 
 # Ensure that container Runs as

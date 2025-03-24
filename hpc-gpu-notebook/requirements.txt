@@ -1,7 +1,7 @@
 # https://www.tensorflow.org/install/source#gpu
 # https://github.com/pytorch/pytorch/wiki/PyTorch-Versions
-tensorflow==2.17.0
-torch==2.3.0
-torchvision==0.18.0
+tensorflow==2.19.0
+torch==2.6.0
+torchvision==0.21.0
 torchtext==0.18.0
-torchaudio==2.3.0
+torchaudio==2.6.0
