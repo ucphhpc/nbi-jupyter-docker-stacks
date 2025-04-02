@@ -9,9 +9,7 @@ ARG UBUNTU_VERSION=18.04
 ARG UBUNTU_DISTRO=jammy
 ARG RSTUDIO_ARCH=amd64
 ARG SHINY_ARCH=x86_64
-ARG KERAS_VERSION=2.15.0
-ARG R_TENSORFLOW_VERSION=2.16.0
-ARG PYTHON_TENSORFLOW_VERSION=2.16.2
+ARG PYTHON_TENSORFLOW_VERSION=2.19.0
 
 USER root
 
@@ -76,21 +74,16 @@ ENV PYTHON3_PATH=$CONDA_DIR/envs/python3
 # Freetype is in the incorrect directory for some old libraries
 RUN ln -s $R_PATH/include/freetype2/freetype $R_PATH/include/
 
-# install tmp r packages
-COPY ./res /opt/res
-# RUN mamba run -n r Rscript /opt/res/keras_package.R
-# Install kera and tensorflow
-RUN mamba install -yq -n r \
-    "r-keras=${KERAS_VERSION}" \
-    "r-tensorflow=${R_TENSORFLOW_VERSION}" \
-    && mamba clean --all -f -y \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
-
+# Install keras and tensorflow
 # Install the python tensorflow module for the R environment
 RUN $R_PATH/bin/pip install \
     tensorflow==${PYTHON_TENSORFLOW_VERSION} \
     && fix-permissions $CONDA_DIR
+
+# They both rely on reticulate to discover python
+ENV RETICULATE_PYTHON=${R_PATH}/bin/python
+COPY ./res /opt/res
+RUN mamba run -n r Rscript /opt/res/keras_package.R
 
 USER root
 
@@ -108,9 +101,9 @@ RUN echo "rsession-ld-library-path=/opt/conda/lib" >> /etc/rstudio/rserver.conf
 # Rstudio version 1.4 has permissions problems as per.
 # https://community.rstudio.com/t/permissions-related-to-upgrade-to-rstudio-server-open-source-1-4/94256/3
 # Also ensure that the user owns everything inside the home directory
-RUN chown -R $NB_USER:$NB_GID /var/lib/rstudio-server \
-    && chown -R $NB_USER:$NB_GID /etc/rstudio \
-    && chown -R $NB_USER:$NB_GID ${HOME}
+RUN chown -R ${NB_UID}:${NB_GID} /var/lib/rstudio-server \
+    && chown -R ${NB_UID}:${NB_GID} /etc/rstudio \
+    && chown -R ${NB_UID}:${NB_GID} ${HOME}
 
 # https://github.com/jupyterhub/jupyter-rsession-proxy
 # The rsession-proxy has to know whether version 1.4 is used
