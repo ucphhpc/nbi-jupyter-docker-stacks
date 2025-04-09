@@ -17,7 +17,6 @@ RUN apt-get update \
     libboost-program-options-dev \
     zlib1g-dev \
     libsigsegv-dev \
-    freeglut3 \
     freeglut3-dev \
     libxmu-dev \
     libxi-dev \
@@ -30,10 +29,10 @@ RUN apt-get update \
     environment-modules \
     tcl \
     procps \
-    clang-12 \
-    llvm-12 \
-    libomp5-12 \
-    libomp-12-dev \
+    clang-14 \
+    llvm-14 \
+    libomp5-14 \
+    libomp-14-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -63,11 +62,11 @@ USER $NB_UID
 RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 COPY environment.yml /tmp/
-RUN mamba env update -n python3 -f environment.yml \
+RUN mamba env update -n python3 -f /tmp/environment.yml \
     && mamba clean --all -f -y
 
 COPY requirements.txt /tmp/
-RUN mamba run -n python3 pip install -r requirements.txt \
+RUN mamba run -n python3 pip install -r /tmp/requirements.txt \
     && mamba clean -y --all
 
 WORKDIR "${HOME}"

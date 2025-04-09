@@ -2,3 +2,5 @@ name: hpc-notebook
 dependencies:
   - ffmpeg
   - imagemagick
+channels:
+  - conda-forge

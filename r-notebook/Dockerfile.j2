@@ -1,14 +1,15 @@
 FROM {{ parent }}
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
-ARG RSTUDIO_VERSION=2023.12.1-402
-ARG SHINY_VERSION=1.5.21.1012
+ARG RSTUDIO_VERSION=2024.04.2-764
+ARG RSTUDIO_SHA256=d8ffb8e5c2dadb1c74df037c291a5585e595d978b3aec48a4a94a970e04a947d
+ARG SHINY_VERSION=1.5.22.1017
+ARG SHINY_SHA256=0fa40054f038de464a26f3f8c40180a072228454762b7a12ed50568b3256c236
 ARG UBUNTU_VERSION=18.04
 ARG UBUNTU_DISTRO=jammy
 ARG RSTUDIO_ARCH=amd64
 ARG SHINY_ARCH=x86_64
-ARG KERAS_VERSION=2.13.0
-ARG TENSORFLOW_VERSION=2.15.0
+ARG PYTHON_TENSORFLOW_VERSION=2.19.0
 
 USER root
 
@@ -27,7 +28,9 @@ RUN apt-get update \
 RUN apt-get update \
     && apt-get install -y fonts-dejavu lmodern cm-super unixodbc unixodbc-dev \
     && wget https://download2.rstudio.org/server/${UBUNTU_DISTRO}/${RSTUDIO_ARCH}/rstudio-server-${RSTUDIO_VERSION}-${RSTUDIO_ARCH}.deb -O /tmp/rstudio-server.deb \
+    && echo "${RSTUDIO_SHA256} /tmp/rstudio-server.deb" | sha256sum -c - \
     && wget https://download3.rstudio.org/ubuntu-${UBUNTU_VERSION}/${SHINY_ARCH}/shiny-server-${SHINY_VERSION}-${RSTUDIO_ARCH}.deb -O /tmp/shiny-server.deb \
+    && echo "${SHINY_SHA256} /tmp/shiny-server.deb" | sha256sum -c - \
     && apt-get install -y --no-install-recommends /tmp/rstudio-server.deb /tmp/shiny-server.deb \
     && rm /tmp/rstudio-server.deb /tmp/shiny-server.deb \
     && apt-get clean \
@@ -51,47 +54,15 @@ RUN jupyterlab_pip3 install jupyter-rsession-proxy \
 
 # Create R environement
 COPY environment.yml /tmp/
-RUN mamba env create -n r -f environment.yml \
+RUN mamba env create -n r -f /tmp/environment.yml \
     && mamba run -n r $R_PATH/bin/python -m ipykernel install --user --name=ir \
     && mamba clean --all -f -y \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
 # Create R environment
-RUN mamba install -yq -n r \
-    'gxx_linux-64' \
-    'libgfortran' \
-    'r-base=4.3.*' \
-    'r-boot=1.*' \
-    'r-caret=6.*' \
-    'r-crayon=1.*' \
-    'r-devtools=2.*' \
-    'r-e1071=1.*' \
-    'r-forecast=8.*' \
-    'r-hexbin=1.*' \
-    'r-htmltools=0.*' \
-    'r-htmlwidgets=1.*' \
-    'r-irkernel=1.*' \
-    'r-leaps=3.*' \
-    'r-nycflights13=1.0*' \
-    'r-pheatmap=1.0*' \
-    'r-plyr=1.8*' \
-    'r-randomforest=4.7*' \
-    'r-RColorBrewer=1.*' \
-    'r-rcurl=1.*' \
-    'r-readr=2.*' \
-    'r-reshape2=1.*' \
-    'r-rjson=0.*' \
-    'r-rmarkdown=2.*' \
-    'r-rocr=1.*' \
-    'r-rodbc=1.*' \
-    'r-rsqlite=2.*' \
-    'r-rtsne=0.*' \
-    'r-shiny=1.*' \
-    'r-sparklyr=1.*' \
-    'r-tidyverse=2.*' \
-    'r-v8=4.*' \
-    'unixodbc=2.3.*' \
+COPY environment-r.yml /tmp/
+RUN mamba env update -n r -f /tmp/environment-r.yml \
     && mamba clean --all -f -y \
     && $R_PATH/bin/R -e 'IRkernel::installspec()' \
     && fix-permissions $CONDA_DIR \
@@ -103,21 +74,16 @@ ENV PYTHON3_PATH=$CONDA_DIR/envs/python3
 # Freetype is in the incorrect directory for some old libraries
 RUN ln -s $R_PATH/include/freetype2/freetype $R_PATH/include/
 
-# install tmp r packages
-COPY ./res /opt/res
-# RUN mamba run -n r Rscript /opt/res/keras_package.R
-# Install kera and tensorflow
-RUN mamba install -yq -n r \
-    "r-keras=${KERAS_VERSION}" \
-    "r-tensorflow=${TENSORFLOW_VERSION}" \
-    && mamba clean --all -f -y \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
-
+# Install keras and tensorflow
 # Install the python tensorflow module for the R environment
 RUN $R_PATH/bin/pip install \
-    tensorflow==${TENSORFLOW_VERSION} \
+    tensorflow==${PYTHON_TENSORFLOW_VERSION} \
     && fix-permissions $CONDA_DIR
+
+# They both rely on reticulate to discover python
+ENV RETICULATE_PYTHON=${R_PATH}/bin/python
+COPY ./res /opt/res
+RUN mamba run -n r Rscript /opt/res/keras_package.R
 
 USER root
 
@@ -134,8 +100,10 @@ RUN echo "rsession-ld-library-path=/opt/conda/lib" >> /etc/rstudio/rserver.conf
 
 # Rstudio version 1.4 has permissions problems as per.
 # https://community.rstudio.com/t/permissions-related-to-upgrade-to-rstudio-server-open-source-1-4/94256/3
-RUN chown -R $NB_USER:$NB_GID /var/lib/rstudio-server \
-    && chown -R $NB_USER:$NB_GID /etc/rstudio
+# Also ensure that the user owns everything inside the home directory
+RUN chown -R ${NB_UID}:${NB_GID} /var/lib/rstudio-server \
+    && chown -R ${NB_UID}:${NB_GID} /etc/rstudio \
+    && chown -R ${NB_UID}:${NB_GID} ${HOME}
 
 # https://github.com/jupyterhub/jupyter-rsession-proxy
 # The rsession-proxy has to know whether version 1.4 is used

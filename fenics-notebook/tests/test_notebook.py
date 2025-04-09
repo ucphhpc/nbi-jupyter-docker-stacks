@@ -49,8 +49,8 @@ def test_notebooks():
                 os.path.join(notebooks_path, f_notebook), kernel="fenics"
             )
             assert errors == []
-        if f_notebook.startswith("fenicsx"):
+        if f_notebook.startswith("firedrake"):
             _, errors = _notebook_run(
-                os.path.join(notebooks_path, f_notebook), kernel="fenicsx"
+                os.path.join(notebooks_path, f_notebook), kernel="firedrake"
             )
             assert errors == []

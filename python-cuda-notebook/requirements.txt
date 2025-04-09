@@ -1,10 +1,7 @@
 # https://www.tensorflow.org/install/source#gpu
 # https://github.com/pytorch/pytorch/wiki/PyTorch-Versions
-# Tensorflow > 2.10.0 has issues with the PATH setup that needs
-# cumbersome fixes. https://github.com/keras-team/keras/issues/17422
-# Instead we pin to tensorflow 2.10.0 for now until they fix this.
-tensorflow==2.16.1
-torch==2.0.0
-torchvision==0.15.1
-torchtext==0.15.1
-torchaudio==2.0.1
+tensorflow==2.19.0
+torch==2.6.0
+torchvision==0.21.0
+torchtext==0.18.0
+torchaudio==2.6.0

@@ -1,7 +1,7 @@
 name: chemistry-notebook
-channels:
-  - diffpy
-  - defaults
 dependencies:
   - diffpy-cmi
   - ipykernel
+channels:
+  - diffpy
+  - conda-forge

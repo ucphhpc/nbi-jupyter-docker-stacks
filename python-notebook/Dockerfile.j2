@@ -17,22 +17,19 @@ ENV PYTHON3_PATH=$CONDA_DIR/envs/python3
 
 # Create user python3 environement
 COPY environment.yml /tmp/
-RUN mamba env create -n python3 -f environment.yml \
+RUN mamba env create -n python3 -f /tmp/environment.yml \
     && mamba run -n python3 python -m ipykernel install --user --name=python3 \
     && mamba clean --all -f -y \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-COPY requirements.txt /tmp/
-RUN mamba run -n python3 pip install -r requirements.txt \
-    && mamba clean --all -f -y \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
+# Upgrade pip to the latest version
+RUN mamba run -n python3 python3 -m ensurepip --upgrade \
+    && mamba run -n python3 pip install --upgrade setuptools
 
 # Add the python3 environment to the jupyter kernel path
 RUN mamba run -n python3 python3 /usr/local/bin/update_kernel_spec.py python3 --env-kwargs PATH=$PYTHON3_PATH/bin:$PATH
 
-USER root
 WORKDIR "${HOME}"
 
 # Ensure that container Runs as

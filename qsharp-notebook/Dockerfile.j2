@@ -2,17 +2,10 @@ FROM {{ parent }}
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
 
-USER root
+WORKDIR /tmp
 
-RUN apt-get update \
-	&& apt-get install -yq dotnet6 \
-	&& apt-get clean \
-	&& rm -fr /var/lib/apt/lists/*
-
-USER $NB_USER
-
-RUN dotnet tool install -g Microsoft.Quantum.IQSharp \
-	&& $HOME/.dotnet/tools/dotnet-iqsharp install --user
+COPY requirements.txt /tmp/
+RUN mamba run -n python3 pip install -r /tmp/requirements.txt
 
 WORKDIR "${HOME}"
 

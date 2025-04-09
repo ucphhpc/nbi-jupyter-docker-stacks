@@ -14,7 +14,7 @@ USER $NB_UID
 
 # Install ROOT
 COPY environment.yml /tmp/
-RUN mamba env update -n python3 -f environment.yml \
+RUN mamba env update -n python3 -f /tmp/environment.yml \
     && mamba clean --all -f -y \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER

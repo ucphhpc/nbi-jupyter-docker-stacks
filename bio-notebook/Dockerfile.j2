@@ -23,80 +23,19 @@ USER $NB_UID
 RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
 # Standard CRAN packages, etc.
-RUN mamba install -qy -n r \
-    'r-FactoMineR' \
-    'r-factoextra' \
-    'r-fastICA' \
-    'r-ggplot2' \
-    'r-gridExtra' \
-    'r-vegan' \
-    'r-alluvial' \
-    'r-ade4' \
-    'r-lsmeans' \
-    'r-eulerr' \
-    'r-tibble' \
-    'r-readxl' \
-    'r-plyr' \
-    'r-dplyr' \
-    'r-reshape2' \
-    'r-stringr' \
-    'r-pscl' \
-    'r-statmod' \
-    'r-picante' \
-    'r-nlme' \
-    'r-lme4' \
-    'r-cowplot' \
-    'r-doParallel' \
-    'r-doSNOW' \
-    'r-pROC' \
-    'r-ape' \
-    'r-minpack.lm' \
-    'r-hexbin' \
-    'r-pheatmap' \
-    'r-tidyr' \
-    'r-magick' \
-    'r-magrittr' \
-    'r-corpcor' \
-    'r-rmarkdown' \
-    'r-tinytex' \
+COPY environment.yml /tmp/
+RUN mamba env update -q -n r -f /tmp/environment.yml \
     && mamba clean --all -f -y \
     && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()' \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-# NOTE: install BioConductor packages requested e.g. in erda ticket #18198 and #25320
-## BioConductor packages, etc.
 # Removed 'cutadapt' via conda  for now and moved it to pypi installation
 # via the requirements.txt file. This is because the current version does not support
 # Python 3.11 (https://bioconda.github.io/recipes/cutadapt/README.html)
-RUN mamba install -qy -c bioconda -n r \
-    'r-phytools' \
-    'bioconductor-deseq2' \
-    'bioconductor-biobase' \
-    'bioconductor-tximport' \
-    'bioconductor-sva' \
-    'bioconductor-preprocesscore' \
-    'bioconductor-edaseq' \
-    'bioconductor-msa' \
-    'bioconductor-phyloseq' \
-    'bioconductor-dada2' \
-    'bioconductor-edgeR' \
-    'bioconductor-metagenomeSeq' \
-    'bioconductor-limma' \
-    'bioconductor-Biostrings' \
-    'bioconductor-biocinstaller' \
-    'bioconductor-dada2' \
-    'bioconductor-vsn' \
-    'bioconductor-multtest' \
-    'bioconductor-xcms' \
-    'bioconductor-biocparallel' \
-    'bioconductor-camera' \
-    'bioconductor-pcamethods' \
-    'bioconductor-apeglm' \
-    'mafft' \
-    'fasttree' \
+COPY requirements.txt /tmp/
+RUN mamba run -n r pip install -r /tmp/requirements.txt \
     && mamba clean --all -f -y \
-    && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()' \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
@@ -108,12 +47,13 @@ RUN mamba run -n r pip install -r requirements.txt \
 
 ENV PATH="$R_PATH/bin:$PATH"
 
+# NOTE: install BioConductor packages requested e.g. in erda ticket #18198 and #25320
 # NOTE: install extras directly from github and CRAN as requested in erda ticket #18198
 # IMPORTANT: R defaults to unpack with non-existant /bin/gtar so we overrride
 ENV TAR="/bin/tar"
 # install tmp r packages
 COPY ./res /opt/res
-RUN $R_PATH/bin/Rscript /opt/res/*.R
+RUN mamba run -n r $R_PATH/bin/Rscript /opt/res/*.R
 
 WORKDIR "${HOME}"
 

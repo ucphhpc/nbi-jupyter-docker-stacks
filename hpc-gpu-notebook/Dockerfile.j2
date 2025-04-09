@@ -12,13 +12,13 @@ USER root
 RUN echo 'deb [trusted=yes] https://developer.download.nvidia.com/hpc-sdk/ubuntu/amd64 /' | tee /etc/apt/sources.list.d/nvhpc.list \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
-    nvhpc-{{ version_major }}-{{ version_minor }}-cuda-multi \
+    nvhpc-{{ nvhpc_version_major }}-{{ nvhpc_version_minor }}-cuda-multi \
     && apt-get clean \
     && rm -fr /var/lib/apt/lists/*
 
 # Setup the Nvidia HPC Compiler environment vars
 ENV NVHPC="{{ nvhome }}"
-ENV NVHPC_ROOT="{{ nvhome }}/{{ target }}/{{ version_major }}.{{ version_minor }}"
+ENV NVHPC_ROOT="{{ nvhome }}/{{ target }}/{{ nvhpc_version_major }}.{{ nvhpc_version_minor }}"
 ENV PATH="{{ nvcompdir }}/extras/qd/bin:{{ nvcompdir }}/bin:{{ nvcudadir }}/bin:$PATH"
 
 ENV LD_LIBRARY_PATH="{{ nvcommdir }}/nvshmem/lib:{{ nvcommdir }}/nccl/lib:{{ nvmathdir }}/lib64:{{ nvcompdir }}/lib:{{ nvcompdir }}/extras/qd/lib:{{ nvcudadir }}/extras/CUPTI/lib64:{{ nvcudadir }}/lib64"

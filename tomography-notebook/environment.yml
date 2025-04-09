@@ -1,5 +1,5 @@
 name: tomography-notebook
-channels:
-  - astra-toolbox/label/dev
 dependencies:
   - astra-toolbox
+channels:
+  - astra-toolbox/label/dev

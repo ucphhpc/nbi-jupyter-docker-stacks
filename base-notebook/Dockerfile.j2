@@ -62,6 +62,9 @@ RUN apt-get update \
 ENV CONDA_DIR=/opt/conda
 ENV JUPYTER_PATH=$CONDA_DIR/envs/jupyter
 
+COPY res/.condarc /home/${NB_USER}/.condarc
+COPY res/.condarc ${CONDA_DIR}/.condarc
+
 RUN chown $NB_UID:$NB_GID -R /tmp /home/$NB_USER $CONDA_DIR
 
 USER $NB_UID
@@ -69,49 +72,16 @@ WORKDIR /tmp
 
 RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
-# Update mamba, npm, yarn
-RUN mamba update --quiet -n base conda \
-    && npm i -g agentkeepalive \
-    && npm i -g npm \
-    && npm i -g yarn \
-    && mamba clean --all -f -y \
-    && npm cache clean --force \
-    && rm -fr /home/$NB_USER/.yarn \
-    && rm -fr /home/$NB_USER/.npm \
-    && rm -fr /home/$NB_USER/.node \
-    && rm -fr /home/$NB_USER/.npmrc \
-    && rm -fr /home/$NB_USER/.cache \
-    && rm -rf /tmp/* \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
-
-# jupyter/base-notebook no longer provides pip
-RUN mamba install --quiet --yes \
-    pip \
+# Lab dependencies
+COPY environment.yml /tmp/
+RUN mamba env update -n base -f /tmp/environment.yml \
     && mamba clean --all -f -y \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
-# Notebook/Lab dependencies
-# dedupe, resolve duplicates packages
-# https://ipyleaflet.readthedocs.io/en/latest/installation.html#using-conda
-# jupyter-widgets/jupyterlab-manager and matplotlib is for ipympl support which is labs
-# replacement for notebook plots
-# https://github.com/yuvipanda/jupyter-launcher-shortcuts
-RUN mamba run -n base pip3 install \
-    black \
-    bqplot \
-    facets-overview \
-    nbconvert[webpdf] \
-    jupyter-resource-usage \
-    jupyter-server-proxy \
-    jupyterlab-git \
-    jupyterlab-widgets \
-    jupyterlab-code-formatter \
-    ipyleaflet \
-    ipympl \
-    ipywidgets \
-    && mamba clean -y -f --all \
+COPY requirements.txt /tmp/
+RUN mamba run -n base pip install -r /tmp/requirements.txt \
+    && mamba clean --all -f -y \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
@@ -158,17 +128,6 @@ RUN chmod +x /usr/local/bin/update_kernel_spec.py
 # 	&& tar -xvf code-server.tar.gz -C /usr/local --strip-components=1 \
 # 	&& rm -rf code-server.tar.gz
 
-# Prepare supervisord state dirs
-RUN mkdir -p /var/log/supervisord /var/run/supervisord \
-    && chown $NB_UID:$NB_GID /var/log/supervisord \
-    && chown $NB_UID:$NB_GID /var/run/supervisord \
-    && chmod 775 /var/log/supervisord \
-    && chmod 775 /var/run/supervisord
-
-COPY supervisord.conf /etc/supervisor/supervisord.conf
-RUN chown $NB_UID:$NB_GID /etc/supervisor/supervisord.conf \
-    && chmod 775 /etc/supervisor/supervisord.conf
-
 USER $NB_UID
 WORKDIR "${HOME}"
 
@@ -179,7 +138,3 @@ RUN cat ~/welcome.txt >> ~/.bashrc \
 
 # Ensure that container runs as the notebook user
 USER $NB_UID
-
-# We need to overwrite https://github.com/jupyter/docker-stacks/blob/ce08d9e3483fdc8bc661ef0f33ee888d0b434fcd/images/docker-stacks-foundation/Dockerfile#L130
-# to ensure that supervisord starts before jupyter
-ENTRYPOINT ["tini", "-g", "--", "/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]

@@ -1,0 +1,11 @@
+name: bio-bsa-notebook
+dependencies:
+  - "bwa"
+  - "emboss"
+  - "blast"
+  - "clustalw"
+  - "fastqc"
+  - "samtools"
+  - "hmmer"
+channels:
+  - bioconda
