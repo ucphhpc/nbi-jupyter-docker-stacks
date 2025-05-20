@@ -1,6 +1,7 @@
 FROM {{ parent }}
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
+ARG FIREDRAKE_RELEASE_VERSION=Firedrake_20250218.0
 
 USER root
 
@@ -45,7 +46,7 @@ RUN mamba run -n fenics python -m ipykernel install --user --name=fenics
 ENV FIREDRAKE_PATH=/opt/firedrake
 USER root
 RUN apt-get update \
-    && curl -O https://raw.githubusercontent.com/firedrakeproject/firedrake/master/scripts/firedrake-install \
+    && curl -O https://raw.githubusercontent.com/firedrakeproject/firedrake/${FIREDRAKE_RELEASE_VERSION}/scripts/firedrake-install \
     && echo "y" | mamba run -n python3 python3 /tmp/firedrake-install --venv-name ${FIREDRAKE_PATH} --disable-ssh --no-vtk --minimal-petsc \
     && fix-permissions ${FIREDRAKE_PATH} \
     && fix-permissions /home/$NB_USER
