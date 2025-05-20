@@ -1,5 +1,5 @@
 astropy
-git+https://github.com/fmfn/BayesianOptimization
+git+https://github.com/bayesian-optimization/BayesianOptimization@v2.0.4
 bokeh
 Bottleneck
 cartopy==0.22.0
