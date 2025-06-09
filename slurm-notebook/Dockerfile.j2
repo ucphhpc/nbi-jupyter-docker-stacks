@@ -161,6 +161,9 @@ WORKDIR "${HOME}"
 
 # Ensure that the common MPI library is loaded
 ENV LD_LIBRARY_PATH="/usr/lib/x86_64-linux-gnu:${LD_LIBRARY_PATH}"
+# Environment variable that can be used to specify
+# start-notebook.py arguments when it is launched by supervisord
+ENV NOTEBOOK_START_ARGUMENTS=""
 
 USER root
 # As an exception, run as root,
