@@ -373,6 +373,19 @@ architecture:
         image: r-notebook
         tag: 4.3.6
         pipeline_dependent: true
+  tropical-crop-notebook:
+    latest:
+      parent:
+        owner: ucphhpc
+        image: r-notebook
+        tag: latest
+        pipeline_dependent: true
+    4.3.6:
+      parent:
+        owner: ucphhpc
+        image: r-notebook
+        tag: 4.3.6
+        pipeline_dependent: true
   sme-notebook:
     latest:
       parent:
