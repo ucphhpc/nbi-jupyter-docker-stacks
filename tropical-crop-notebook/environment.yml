@@ -1,0 +1,5 @@
+name: tropical-crop-notebook
+dependencies:
+  - r-nloptr
+channels:
+  - conda-forge

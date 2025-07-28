@@ -50,6 +50,8 @@ environments:
     - bio-bigdata-notebook-4.3.6
     - bio-bsa-notebook-latest
     - bio-bsa-notebook-4.3.6
+    - tropical-crop-notebook-latest
+    - tropical-crop-notebook-4.3.6
     - sme-notebook-latest
     - sme-notebook-4.3.6
     - jwst-notebook-latest
@@ -1789,6 +1791,68 @@ pipelines:
       EXTRA_TAG: ''
       NOTEBOOK: statistics-notebook
       NOTEBOOK_PIPELINE: statistics-notebook-latest
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: nbi-jupyter-docker-stacks
+      TEST_DIRECTORY: nbi-jupyter-docker-stacks
+    template: notebook_image
+    timer: *id001
+  tropical-crop-notebook-4.3.6:
+    display_order: -1
+    group: notebook_image
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: master
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_tropical-crop-notebook:
+        pipeline: r-notebook-4.3.6
+        stage: push
+    parameters:
+      ARGS: ''
+      COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
+      DEFAULT_TAG: 4.3.6
+      EXTRA_TAG: ''
+      NOTEBOOK: tropical-crop-notebook
+      NOTEBOOK_PIPELINE: tropical-crop-notebook-4.3.6
+      PUSH_DIRECTORY: publish-docker-scripts
+      SRC_DIRECTORY: nbi-jupyter-docker-stacks
+      TEST_DIRECTORY: nbi-jupyter-docker-stacks
+    template: notebook_image
+    timer: *id001
+  tropical-crop-notebook-latest:
+    display_order: -1
+    group: notebook_image
+    label_template: ${COUNT}
+    lock_behaviour: none
+    materials:
+      publish_docker_git:
+        branch: main
+        destination: publish-docker-scripts
+        git: https://github.com/rasmunk/publish-docker-scripts.git
+        password: '{{SECRET:[github][access_token]}}'
+        username: ${GIT_USER}
+      ucphhpc_images:
+        branch: master
+        destination: nbi-jupyter-docker-stacks
+        git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
+      upstream_tropical-crop-notebook:
+        pipeline: r-notebook-latest
+        stage: push
+    parameters:
+      ARGS: ''
+      COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
+      DEFAULT_TAG: latest
+      EXTRA_TAG: ''
+      NOTEBOOK: tropical-crop-notebook
+      NOTEBOOK_PIPELINE: tropical-crop-notebook-latest
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks

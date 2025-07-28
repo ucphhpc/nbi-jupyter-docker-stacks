@@ -1,0 +1,28 @@
+FROM {{ parent }}
+LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
+ARG PACKAGE_TIMEOUT=60
+
+USER root
+
+# Setup default timeout of installing packages
+RUN echo "[global]" > /etc/pip.conf \
+    && echo "timeout=$PACKAGE_TIMEOUT" >> /etc/pip.conf
+
+# NOTE: install extras directly from github and CRAN as requested in erda ticket #18198
+# IMPORTANT: R defaults to unpack with non-existant /bin/gtar so we overrride
+ENV TAR="/bin/tar"
+
+COPY environment.yml /tmp/
+RUN mamba env update -q -n r -f /tmp/environment.yml \
+    && mamba clean --all -f -y \
+    && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()' \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
+
+COPY ./res /opt/res
+RUN mamba run -n r Rscript /opt/res/tropical_crop_packages.R
+
+WORKDIR "${HOME}"
+
+# Run container as
+USER $NB_UID
