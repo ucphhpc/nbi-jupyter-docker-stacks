@@ -65,7 +65,10 @@ RUN add-apt-repository -y ppa:apptainer/ppa \
     && apt-get install -y --no-install-recommends \
     apptainer \
     && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/* \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER \
+    && chown -R ${NB_UID}:${NB_GID} /home/$NB_USER
 
 WORKDIR /tmp
 
@@ -102,7 +105,9 @@ RUN cd \
 ENV PATH="/opt/openmpi-${OPENMPI_VERSION}/bin:${PATH}"
 ENV LD_LIBRARY_PATH="/opt/openmpi-${OPENMPI_VERSION}/lib:${LD_LIBRARY_PATH}"
 # Update the Python3 environment path to include the OpenMPI path
-RUN mamba run -n python3 python3 /usr/local/bin/update_kernel_spec.py python3 --env-kwargs PATH=$PATH
+RUN mamba run -n python3 python3 /usr/local/bin/update_kernel_spec.py python3 --env-kwargs PATH=$PATH \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 # Munge
 # Required directories
@@ -112,10 +117,10 @@ RUN mkdir -p /var/run/munge \
     && chmod -R 770 /var/log/munge
 
 RUN mkdir -p /var/spool/slurmd \
-    && chown slurm:slurm /var/spool/slurmd \
+    && chown -R slurm:slurm /var/spool/slurmd \
     && chmod 775 /var/spool/slurmd
 
-USER $NB_UID
+USER ${NB_UID}
 
 RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 ENV CLING_PATH=$CONDA_DIR/envs/cling
@@ -148,13 +153,13 @@ USER root
 
 # Prepare supervisord state dirs
 RUN mkdir -p /var/log/supervisord /var/run/supervisord \
-    && chown $NB_UID:$NB_GID /var/log/supervisord \
-    && chown $NB_UID:$NB_GID /var/run/supervisord \
+    && chown -R ${NB_UID}:${NB_GID} /var/log/supervisord \
+    && chown -R ${NB_UID}:${NB_GID} /var/run/supervisord \
     && chmod 775 /var/log/supervisord \
     && chmod 775 /var/run/supervisord
 
 COPY supervisord.conf /etc/supervisor/supervisord.conf
-RUN chown $NB_UID:$NB_GID /etc/supervisor/supervisord.conf \
+RUN chown ${NB_UID}:${NB_GID} /etc/supervisor/supervisord.conf \
     && chmod 775 /etc/supervisor/supervisord.conf
 
 WORKDIR "${HOME}"
@@ -168,7 +173,7 @@ ENV NOTEBOOK_START_ARGUMENTS=""
 USER root
 # As an exception, run as root,
 # Remember to use supervisord start-notebook.sh to
-# de-escalate privileges to $NB_UID:$NB_GID
+# de-escalate privileges to ${NB_UID}:${NB_GID}
 # We need to overwrite https://github.com/jupyter/docker-stacks/blob/ce08d9e3483fdc8bc661ef0f33ee888d0b434fcd/images/docker-stacks-foundation/Dockerfile#L130
 # to ensure that supervisord starts before jupyter
 ENTRYPOINT ["tini", "-g", "--", "/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
