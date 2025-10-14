@@ -5,7 +5,7 @@ import nbformat
 
 cur_path = os.path.abspath(".")
 notebooks_path = os.path.join(cur_path, "notebooks")
-kernels = ["julia-1.10"]
+kernels = ["julia-1.12"]
 
 
 def _notebook_run(path, kernel="julia-1.10", timeout=300):
