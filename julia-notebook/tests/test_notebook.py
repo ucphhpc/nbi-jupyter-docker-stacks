@@ -3,12 +3,13 @@ import subprocess
 import tempfile
 import nbformat
 
+JULIA_KERNEL = "julia-1.12"
 cur_path = os.path.abspath(".")
 notebooks_path = os.path.join(cur_path, "notebooks")
-kernels = ["julia-1.12"]
+kernels = [JULIA_KERNEL]
 
 
-def _notebook_run(path, kernel="julia-1.12", timeout=300):
+def _notebook_run(path, kernel=JULIA_KERNEL, timeout=300):
     """Execute a notebook via nbconvert and collect output.
     :returns (parsed nb object, execution errors)
     """
