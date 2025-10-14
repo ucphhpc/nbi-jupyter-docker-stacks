@@ -472,9 +472,9 @@ architecture:
         tag: 4.3.6
         pipeline_dependent: true
       parameters:
-        JULIA_MAJOR_VERSION: "1.10"
+        JULIA_MAJOR_VERSION: "1.12"
         JULIA_MINOR_VERSION: "0"
-        JULIA_DOWNLOAD_MD5: c16f16304cac9af1501ae71c02cb4d1e
+        JULIA_DOWNLOAD_MD5: 0cfa46afccdc6e0e711317e1abbf1aef
   cern-notebook:
     latest:
       parent:
