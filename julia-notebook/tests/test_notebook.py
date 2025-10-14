@@ -8,7 +8,7 @@ notebooks_path = os.path.join(cur_path, "notebooks")
 kernels = ["julia-1.12"]
 
 
-def _notebook_run(path, kernel="julia-1.10", timeout=300):
+def _notebook_run(path, kernel="julia-1.12", timeout=300):
     """Execute a notebook via nbconvert and collect output.
     :returns (parsed nb object, execution errors)
     """
