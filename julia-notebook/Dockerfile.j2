@@ -14,7 +14,7 @@ ENV JULIA_PATH=/opt/julia
 # Set `JULIA_CPU_TARGET` to same value as default Julia builds, to ensure we
 # don't specialise pkgimages to the current host CPU:
 # https://github.com/JuliaCI/julia-buildkite/blob/f70c9abc11abbf8c373c0cb9f8a7f8e3b165cced/utilities/build_envs.sh#L24-L31
-ENV JULIA_CPU_TARGET="generic;sandybridge,-xsaveopt,clone_all;haswell,-rdrnd,base(1)"
+ENV JULIA_CPU_TARGET="generic;icelake-server,clone_all;znver3,clone_all;znver2,clone_all;skylake-avx512,clone_all"
 
 USER root
 
