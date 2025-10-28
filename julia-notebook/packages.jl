@@ -1,6 +1,7 @@
 using Pkg
 
 dependencies = [
+    "IJulia",
     "Oscar",
     "HomotopyContinuation",
     "DifferentialEquations",

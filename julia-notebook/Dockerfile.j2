@@ -10,6 +10,12 @@ ARG PACKAGE_TIMEOUT=60
 
 ENV JULIA_PATH=/opt/julia
 
+# From https://discourse.julialang.org/t/unexpected-precompilation-in-binder-based-on-docker-image/114473/2
+# Set `JULIA_CPU_TARGET` to same value as default Julia builds, to ensure we
+# don't specialise pkgimages to the current host CPU:
+# https://github.com/JuliaCI/julia-buildkite/blob/f70c9abc11abbf8c373c0cb9f8a7f8e3b165cced/utilities/build_envs.sh#L24-L31
+ENV JULIA_CPU_TARGET="generic;sandybridge,-xsaveopt,clone_all;haswell,-rdrnd,base(1)"
+
 USER root
 
 # Setup default timeout of installing packages
@@ -28,9 +34,6 @@ RUN wget -O julia.tar.gz "${JULIA_DOWNLOAD_URL}" \
 USER $NB_UID
 # Update the general PATH to also include the julia bin
 ENV PATH=${JULIA_PATH}/bin:${PATH}
-
-# Install IJulia (installed separately)
-RUN julia -e 'using Pkg; Pkg.add("IJulia")'
 
 # A few core packages
 COPY packages.jl /tmp/
