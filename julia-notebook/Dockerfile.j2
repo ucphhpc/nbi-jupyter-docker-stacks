@@ -35,7 +35,7 @@ USER $NB_UID
 # Update the general PATH to also include the julia bin
 ENV PATH=${JULIA_PATH}/bin:${PATH}
 
-# A few core packages
+# Install custom packages
 COPY packages.jl /tmp/
 RUN julia packages.jl
 
