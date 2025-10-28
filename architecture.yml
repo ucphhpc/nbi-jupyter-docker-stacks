@@ -462,9 +462,9 @@ architecture:
         tag: latest
         pipeline_dependent: true
       parameters:
-        JULIA_MAJOR_VERSION: "1.12"
-        JULIA_MINOR_VERSION: "1"
-        JULIA_DOWNLOAD_MD5: 14afe6b370eaffe69d869e200abee349
+        JULIA_MAJOR_VERSION: "1.10"
+        JULIA_MINOR_VERSION: "10"
+        JULIA_DOWNLOAD_MD5: cdfcabb03bd8a09684b602aa25735371
     4.3.6:
       parent:
         owner: ucphhpc
@@ -472,9 +472,9 @@ architecture:
         tag: 4.3.6
         pipeline_dependent: true
       parameters:
-        JULIA_MAJOR_VERSION: "1.12"
-        JULIA_MINOR_VERSION: "1"
-        JULIA_DOWNLOAD_MD5: 14afe6b370eaffe69d869e200abee349
+        JULIA_MAJOR_VERSION: "1.10"
+        JULIA_MINOR_VERSION: "10"
+        JULIA_DOWNLOAD_MD5: cdfcabb03bd8a09684b602aa25735371
   cern-notebook:
     latest:
       parent:
