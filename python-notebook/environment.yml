@@ -1,6 +1,6 @@
 name: python-notebook
 dependencies:
-  - python=3.12
+  - python=3.13
   - ipykernel
   - ipympl
   - ipyleaflet

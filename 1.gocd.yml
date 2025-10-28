@@ -5,70 +5,70 @@ environments:
       DOCKERHUB_USERNAME: '{{SECRET:[dockerhub][username]}}'
     pipelines:
     - base-notebook-latest
-    - base-notebook-4.3.6
+    - base-notebook-4.4.10
     - python-notebook-latest
-    - python-notebook-4.3.6
+    - python-notebook-4.4.10
     - statistics-notebook-latest
-    - statistics-notebook-4.3.6
+    - statistics-notebook-4.4.10
     - r-notebook-latest
-    - r-notebook-4.3.6
+    - r-notebook-4.4.10
     - slurm-notebook-latest
     - slurm-notebook-23.11.11
     - slurm-notebook-24.05.8
     - slurm-notebook-24.11.6
-    - slurm-notebook-4.3.6
+    - slurm-notebook-4.4.10
     - python-cuda-notebook-latest
-    - python-cuda-notebook-4.3.6
+    - python-cuda-notebook-4.4.10
     - gpu-notebook-latest
-    - gpu-notebook-4.3.6
+    - gpu-notebook-4.4.10
     - datascience-notebook-latest
-    - datascience-notebook-4.3.6
+    - datascience-notebook-4.4.10
     - chemistry-notebook-latest
-    - chemistry-notebook-4.3.6
+    - chemistry-notebook-4.4.10
     - fenics-notebook-latest
-    - fenics-notebook-4.3.6
+    - fenics-notebook-4.4.10
     - qsharp-notebook-latest
-    - qsharp-notebook-4.3.6
+    - qsharp-notebook-4.4.10
     - hpc-notebook-latest
     - hpc-notebook-23.11.11
     - hpc-notebook-24.05.8
     - hpc-notebook-24.11.6
-    - hpc-notebook-4.3.6
+    - hpc-notebook-4.4.10
     - hpc-ocean-notebook-latest
     - hpc-ocean-notebook-23.11.11
     - hpc-ocean-notebook-24.05.8
     - hpc-ocean-notebook-24.11.6
-    - hpc-ocean-notebook-4.3.6
+    - hpc-ocean-notebook-4.4.10
     - hpc-gpu-notebook-latest
     - hpc-gpu-notebook-23.11.11
     - hpc-gpu-notebook-24.05.8
     - hpc-gpu-notebook-24.11.6
-    - hpc-gpu-notebook-4.3.6
+    - hpc-gpu-notebook-4.4.10
     - ocean-notebook-latest
-    - ocean-notebook-4.3.6
+    - ocean-notebook-4.4.10
     - geo-notebook-latest
-    - geo-notebook-4.3.6
+    - geo-notebook-4.4.10
     - bio-notebook-latest
-    - bio-notebook-4.3.6
+    - bio-notebook-4.4.10
     - bio-bigdata-notebook-latest
-    - bio-bigdata-notebook-4.3.6
+    - bio-bigdata-notebook-4.4.10
     - bio-bsa-notebook-latest
-    - bio-bsa-notebook-4.3.6
+    - bio-bsa-notebook-4.4.10
     - tropical-crop-notebook-latest
-    - tropical-crop-notebook-4.3.6
+    - tropical-crop-notebook-4.4.10
     - sme-notebook-latest
-    - sme-notebook-4.3.6
+    - sme-notebook-4.4.10
     - jwst-notebook-latest
-    - jwst-notebook-4.3.6
+    - jwst-notebook-4.4.10
     - julia-notebook-latest
-    - julia-notebook-4.3.6
+    - julia-notebook-4.4.10
     - cern-notebook-latest
-    - cern-notebook-4.3.6
+    - cern-notebook-4.4.10
     - cmis-notebook-latest
-    - cmis-notebook-4.3.6
+    - cmis-notebook-4.4.10
 format_version: 10
 pipelines:
-  base-notebook-4.3.6:
+  base-notebook-4.4.10:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -87,10 +87,10 @@ pipelines:
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 4.3.6
+      DEFAULT_TAG: 4.4.10
       EXTRA_TAG: ''
       NOTEBOOK: base-notebook
-      NOTEBOOK_PIPELINE: base-notebook-4.3.6
+      NOTEBOOK_PIPELINE: base-notebook-4.4.10
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -126,7 +126,7 @@ pipelines:
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
     timer: *id001
-  bio-bigdata-notebook-4.3.6:
+  bio-bigdata-notebook-4.4.10:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -143,15 +143,15 @@ pipelines:
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_bio-bigdata-notebook:
-        pipeline: r-notebook-4.3.6
+        pipeline: r-notebook-4.4.10
         stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 4.3.6
+      DEFAULT_TAG: 4.4.10
       EXTRA_TAG: ''
       NOTEBOOK: bio-bigdata-notebook
-      NOTEBOOK_PIPELINE: bio-bigdata-notebook-4.3.6
+      NOTEBOOK_PIPELINE: bio-bigdata-notebook-4.4.10
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -188,7 +188,7 @@ pipelines:
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
     timer: *id001
-  bio-bsa-notebook-4.3.6:
+  bio-bsa-notebook-4.4.10:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -205,15 +205,15 @@ pipelines:
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_bio-bsa-notebook:
-        pipeline: r-notebook-4.3.6
+        pipeline: r-notebook-4.4.10
         stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 4.3.6
+      DEFAULT_TAG: 4.4.10
       EXTRA_TAG: ''
       NOTEBOOK: bio-bsa-notebook
-      NOTEBOOK_PIPELINE: bio-bsa-notebook-4.3.6
+      NOTEBOOK_PIPELINE: bio-bsa-notebook-4.4.10
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -250,7 +250,7 @@ pipelines:
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
     timer: *id001
-  bio-notebook-4.3.6:
+  bio-notebook-4.4.10:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -267,15 +267,15 @@ pipelines:
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_bio-notebook:
-        pipeline: r-notebook-4.3.6
+        pipeline: r-notebook-4.4.10
         stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 4.3.6
+      DEFAULT_TAG: 4.4.10
       EXTRA_TAG: ''
       NOTEBOOK: bio-notebook
-      NOTEBOOK_PIPELINE: bio-notebook-4.3.6
+      NOTEBOOK_PIPELINE: bio-notebook-4.4.10
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -312,7 +312,7 @@ pipelines:
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
     timer: *id001
-  cern-notebook-4.3.6:
+  cern-notebook-4.4.10:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -329,15 +329,15 @@ pipelines:
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_cern-notebook:
-        pipeline: datascience-notebook-4.3.6
+        pipeline: datascience-notebook-4.4.10
         stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 4.3.6
+      DEFAULT_TAG: 4.4.10
       EXTRA_TAG: ''
       NOTEBOOK: cern-notebook
-      NOTEBOOK_PIPELINE: cern-notebook-4.3.6
+      NOTEBOOK_PIPELINE: cern-notebook-4.4.10
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -374,7 +374,7 @@ pipelines:
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
     timer: *id001
-  chemistry-notebook-4.3.6:
+  chemistry-notebook-4.4.10:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -391,15 +391,15 @@ pipelines:
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_chemistry-notebook:
-        pipeline: base-notebook-4.3.6
+        pipeline: base-notebook-4.4.10
         stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 4.3.6
+      DEFAULT_TAG: 4.4.10
       EXTRA_TAG: ''
       NOTEBOOK: chemistry-notebook
-      NOTEBOOK_PIPELINE: chemistry-notebook-4.3.6
+      NOTEBOOK_PIPELINE: chemistry-notebook-4.4.10
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -436,7 +436,7 @@ pipelines:
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
     timer: *id001
-  cmis-notebook-4.3.6:
+  cmis-notebook-4.4.10:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -453,15 +453,15 @@ pipelines:
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_cmis-notebook:
-        pipeline: base-notebook-4.3.6
+        pipeline: base-notebook-4.4.10
         stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 4.3.6
+      DEFAULT_TAG: 4.4.10
       EXTRA_TAG: ''
       NOTEBOOK: cmis-notebook
-      NOTEBOOK_PIPELINE: cmis-notebook-4.3.6
+      NOTEBOOK_PIPELINE: cmis-notebook-4.4.10
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -498,7 +498,7 @@ pipelines:
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
     timer: *id001
-  datascience-notebook-4.3.6:
+  datascience-notebook-4.4.10:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -515,15 +515,15 @@ pipelines:
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_datascience-notebook:
-        pipeline: python-notebook-4.3.6
+        pipeline: python-notebook-4.4.10
         stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 4.3.6
+      DEFAULT_TAG: 4.4.10
       EXTRA_TAG: ''
       NOTEBOOK: datascience-notebook
-      NOTEBOOK_PIPELINE: datascience-notebook-4.3.6
+      NOTEBOOK_PIPELINE: datascience-notebook-4.4.10
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -560,7 +560,7 @@ pipelines:
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
     timer: *id001
-  fenics-notebook-4.3.6:
+  fenics-notebook-4.4.10:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -577,15 +577,15 @@ pipelines:
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_fenics-notebook:
-        pipeline: python-notebook-4.3.6
+        pipeline: python-notebook-4.4.10
         stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 4.3.6
+      DEFAULT_TAG: 4.4.10
       EXTRA_TAG: ''
       NOTEBOOK: fenics-notebook
-      NOTEBOOK_PIPELINE: fenics-notebook-4.3.6
+      NOTEBOOK_PIPELINE: fenics-notebook-4.4.10
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -622,7 +622,7 @@ pipelines:
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
     timer: *id001
-  geo-notebook-4.3.6:
+  geo-notebook-4.4.10:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -639,15 +639,15 @@ pipelines:
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_geo-notebook:
-        pipeline: python-notebook-4.3.6
+        pipeline: python-notebook-4.4.10
         stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 4.3.6
+      DEFAULT_TAG: 4.4.10
       EXTRA_TAG: ''
       NOTEBOOK: geo-notebook
-      NOTEBOOK_PIPELINE: geo-notebook-4.3.6
+      NOTEBOOK_PIPELINE: geo-notebook-4.4.10
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -684,7 +684,7 @@ pipelines:
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
     timer: *id001
-  gpu-notebook-4.3.6:
+  gpu-notebook-4.4.10:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -701,15 +701,15 @@ pipelines:
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_gpu-notebook:
-        pipeline: python-cuda-notebook-4.3.6
+        pipeline: python-cuda-notebook-4.4.10
         stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 4.3.6
+      DEFAULT_TAG: 4.4.10
       EXTRA_TAG: ''
       NOTEBOOK: gpu-notebook
-      NOTEBOOK_PIPELINE: gpu-notebook-4.3.6
+      NOTEBOOK_PIPELINE: gpu-notebook-4.4.10
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -839,7 +839,7 @@ pipelines:
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
     timer: *id001
-  hpc-gpu-notebook-4.3.6:
+  hpc-gpu-notebook-4.4.10:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -856,15 +856,15 @@ pipelines:
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_hpc-gpu-notebook:
-        pipeline: hpc-notebook-4.3.6
+        pipeline: hpc-notebook-4.4.10
         stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 4.3.6
+      DEFAULT_TAG: 4.4.10
       EXTRA_TAG: ''
       NOTEBOOK: hpc-gpu-notebook
-      NOTEBOOK_PIPELINE: hpc-gpu-notebook-4.3.6
+      NOTEBOOK_PIPELINE: hpc-gpu-notebook-4.4.10
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -994,7 +994,7 @@ pipelines:
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
     timer: *id001
-  hpc-notebook-4.3.6:
+  hpc-notebook-4.4.10:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -1011,15 +1011,15 @@ pipelines:
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_hpc-notebook:
-        pipeline: slurm-notebook-4.3.6
+        pipeline: slurm-notebook-4.4.10
         stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 4.3.6
+      DEFAULT_TAG: 4.4.10
       EXTRA_TAG: ''
       NOTEBOOK: hpc-notebook
-      NOTEBOOK_PIPELINE: hpc-notebook-4.3.6
+      NOTEBOOK_PIPELINE: hpc-notebook-4.4.10
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -1149,7 +1149,7 @@ pipelines:
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
     timer: *id001
-  hpc-ocean-notebook-4.3.6:
+  hpc-ocean-notebook-4.4.10:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -1166,15 +1166,15 @@ pipelines:
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_hpc-ocean-notebook:
-        pipeline: slurm-notebook-4.3.6
+        pipeline: slurm-notebook-4.4.10
         stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 4.3.6
+      DEFAULT_TAG: 4.4.10
       EXTRA_TAG: ''
       NOTEBOOK: hpc-ocean-notebook
-      NOTEBOOK_PIPELINE: hpc-ocean-notebook-4.3.6
+      NOTEBOOK_PIPELINE: hpc-ocean-notebook-4.4.10
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -1211,7 +1211,7 @@ pipelines:
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
     timer: *id001
-  julia-notebook-4.3.6:
+  julia-notebook-4.4.10:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -1228,15 +1228,15 @@ pipelines:
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_julia-notebook:
-        pipeline: base-notebook-4.3.6
+        pipeline: base-notebook-4.4.10
         stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 4.3.6
+      DEFAULT_TAG: 4.4.10
       EXTRA_TAG: ''
       NOTEBOOK: julia-notebook
-      NOTEBOOK_PIPELINE: julia-notebook-4.3.6
+      NOTEBOOK_PIPELINE: julia-notebook-4.4.10
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -1273,7 +1273,7 @@ pipelines:
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
     timer: *id001
-  jwst-notebook-4.3.6:
+  jwst-notebook-4.4.10:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -1290,15 +1290,15 @@ pipelines:
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_jwst-notebook:
-        pipeline: python-notebook-4.3.6
+        pipeline: python-notebook-4.4.10
         stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 4.3.6
+      DEFAULT_TAG: 4.4.10
       EXTRA_TAG: ''
       NOTEBOOK: jwst-notebook
-      NOTEBOOK_PIPELINE: jwst-notebook-4.3.6
+      NOTEBOOK_PIPELINE: jwst-notebook-4.4.10
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -1335,7 +1335,7 @@ pipelines:
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
     timer: *id001
-  ocean-notebook-4.3.6:
+  ocean-notebook-4.4.10:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -1352,15 +1352,15 @@ pipelines:
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_ocean-notebook:
-        pipeline: datascience-notebook-4.3.6
+        pipeline: datascience-notebook-4.4.10
         stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 4.3.6
+      DEFAULT_TAG: 4.4.10
       EXTRA_TAG: ''
       NOTEBOOK: ocean-notebook
-      NOTEBOOK_PIPELINE: ocean-notebook-4.3.6
+      NOTEBOOK_PIPELINE: ocean-notebook-4.4.10
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -1397,7 +1397,7 @@ pipelines:
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
     timer: *id001
-  python-cuda-notebook-4.3.6:
+  python-cuda-notebook-4.4.10:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -1414,15 +1414,15 @@ pipelines:
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_python-cuda-notebook:
-        pipeline: python-notebook-4.3.6
+        pipeline: python-notebook-4.4.10
         stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 4.3.6
+      DEFAULT_TAG: 4.4.10
       EXTRA_TAG: ''
       NOTEBOOK: python-cuda-notebook
-      NOTEBOOK_PIPELINE: python-cuda-notebook-4.3.6
+      NOTEBOOK_PIPELINE: python-cuda-notebook-4.4.10
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -1459,7 +1459,7 @@ pipelines:
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
     timer: *id001
-  python-notebook-4.3.6:
+  python-notebook-4.4.10:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -1476,15 +1476,15 @@ pipelines:
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_python-notebook:
-        pipeline: base-notebook-4.3.6
+        pipeline: base-notebook-4.4.10
         stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 4.3.6
+      DEFAULT_TAG: 4.4.10
       EXTRA_TAG: ''
       NOTEBOOK: python-notebook
-      NOTEBOOK_PIPELINE: python-notebook-4.3.6
+      NOTEBOOK_PIPELINE: python-notebook-4.4.10
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -1521,7 +1521,7 @@ pipelines:
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
     timer: *id001
-  qsharp-notebook-4.3.6:
+  qsharp-notebook-4.4.10:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -1538,15 +1538,15 @@ pipelines:
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_qsharp-notebook:
-        pipeline: python-notebook-4.3.6
+        pipeline: python-notebook-4.4.10
         stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 4.3.6
+      DEFAULT_TAG: 4.4.10
       EXTRA_TAG: ''
       NOTEBOOK: qsharp-notebook
-      NOTEBOOK_PIPELINE: qsharp-notebook-4.3.6
+      NOTEBOOK_PIPELINE: qsharp-notebook-4.4.10
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -1583,7 +1583,7 @@ pipelines:
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
     timer: *id001
-  r-notebook-4.3.6:
+  r-notebook-4.4.10:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -1600,15 +1600,15 @@ pipelines:
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_r-notebook:
-        pipeline: python-notebook-4.3.6
+        pipeline: python-notebook-4.4.10
         stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 4.3.6
+      DEFAULT_TAG: 4.4.10
       EXTRA_TAG: ''
       NOTEBOOK: r-notebook
-      NOTEBOOK_PIPELINE: r-notebook-4.3.6
+      NOTEBOOK_PIPELINE: r-notebook-4.4.10
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -1738,7 +1738,7 @@ pipelines:
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
     timer: *id001
-  slurm-notebook-4.3.6:
+  slurm-notebook-4.4.10:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -1755,15 +1755,15 @@ pipelines:
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_slurm-notebook:
-        pipeline: python-notebook-4.3.6
+        pipeline: python-notebook-4.4.10
         stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 4.3.6
+      DEFAULT_TAG: 4.4.10
       EXTRA_TAG: ''
       NOTEBOOK: slurm-notebook
-      NOTEBOOK_PIPELINE: slurm-notebook-4.3.6
+      NOTEBOOK_PIPELINE: slurm-notebook-4.4.10
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -1800,7 +1800,7 @@ pipelines:
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
     timer: *id001
-  sme-notebook-4.3.6:
+  sme-notebook-4.4.10:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -1817,15 +1817,15 @@ pipelines:
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_sme-notebook:
-        pipeline: base-notebook-4.3.6
+        pipeline: base-notebook-4.4.10
         stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 4.3.6
+      DEFAULT_TAG: 4.4.10
       EXTRA_TAG: ''
       NOTEBOOK: sme-notebook
-      NOTEBOOK_PIPELINE: sme-notebook-4.3.6
+      NOTEBOOK_PIPELINE: sme-notebook-4.4.10
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -1862,7 +1862,7 @@ pipelines:
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
     timer: *id001
-  statistics-notebook-4.3.6:
+  statistics-notebook-4.4.10:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -1879,15 +1879,15 @@ pipelines:
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_statistics-notebook:
-        pipeline: python-notebook-4.3.6
+        pipeline: python-notebook-4.4.10
         stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 4.3.6
+      DEFAULT_TAG: 4.4.10
       EXTRA_TAG: ''
       NOTEBOOK: statistics-notebook
-      NOTEBOOK_PIPELINE: statistics-notebook-4.3.6
+      NOTEBOOK_PIPELINE: statistics-notebook-4.4.10
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
@@ -1924,7 +1924,7 @@ pipelines:
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
     template: notebook_image
     timer: *id001
-  tropical-crop-notebook-4.3.6:
+  tropical-crop-notebook-4.4.10:
     display_order: -1
     group: notebook_image
     label_template: ${COUNT}
@@ -1941,15 +1941,15 @@ pipelines:
         destination: nbi-jupyter-docker-stacks
         git: https://github.com/ucphhpc/nbi-jupyter-docker-stacks.git
       upstream_tropical-crop-notebook:
-        pipeline: r-notebook-4.3.6
+        pipeline: r-notebook-4.4.10
         stage: push
     parameters:
       ARGS: ''
       COMMIT_TAG: GO_REVISION_UCPHHPC_IMAGES
-      DEFAULT_TAG: 4.3.6
+      DEFAULT_TAG: 4.4.10
       EXTRA_TAG: ''
       NOTEBOOK: tropical-crop-notebook
-      NOTEBOOK_PIPELINE: tropical-crop-notebook-4.3.6
+      NOTEBOOK_PIPELINE: tropical-crop-notebook-4.4.10
       PUSH_DIRECTORY: publish-docker-scripts
       SRC_DIRECTORY: nbi-jupyter-docker-stacks
       TEST_DIRECTORY: nbi-jupyter-docker-stacks
