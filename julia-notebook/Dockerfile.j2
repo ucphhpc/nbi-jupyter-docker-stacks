@@ -7,6 +7,7 @@ ARG JULIA_VERSION={{ JULIA_MAJOR_VERSION }}.{{ JULIA_MINOR_VERSION }}
 ARG JULIA_DOWNLOAD_MD5={{ JULIA_DOWNLOAD_MD5 }}
 ARG JULIA_DOWNLOAD_URL="https://julialang-s3.julialang.org/bin/linux/x64/${JULIA_MAJOR_VERSION}/julia-${JULIA_VERSION}-linux-x86_64.tar.gz"
 ARG PACKAGE_TIMEOUT=60
+ARG JULIA_CPU_TARGET={{ JULIA_CPU_TARGET | default('generic')}}
 
 ENV JULIA_PATH=/opt/julia
 
@@ -14,7 +15,7 @@ ENV JULIA_PATH=/opt/julia
 # Set `JULIA_CPU_TARGET` to same value as default Julia builds, to ensure we
 # don't specialise pkgimages to the current host CPU:
 # https://github.com/JuliaCI/julia-buildkite/blob/f70c9abc11abbf8c373c0cb9f8a7f8e3b165cced/utilities/build_envs.sh#L24-L31
-ENV JULIA_CPU_TARGET="generic;icelake-server,clone_all;znver3,clone_all;znver2,clone_all;skylake-avx512,clone_all"
+ENV JULIA_CPU_TARGET=${JULIA_CPU_TARGET}
 
 USER root
 
