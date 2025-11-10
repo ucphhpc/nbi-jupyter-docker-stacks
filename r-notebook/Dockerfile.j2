@@ -1,15 +1,15 @@
 FROM {{ parent }}
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
-ARG RSTUDIO_VERSION=2024.04.2-764
-ARG RSTUDIO_SHA256=d8ffb8e5c2dadb1c74df037c291a5585e595d978b3aec48a4a94a970e04a947d
-ARG SHINY_VERSION=1.5.22.1017
-ARG SHINY_SHA256=0fa40054f038de464a26f3f8c40180a072228454762b7a12ed50568b3256c236
-ARG UBUNTU_VERSION=18.04
-ARG UBUNTU_DISTRO=jammy
+ARG RSTUDIO_VERSION=2025.09.2-418
+ARG RSTUDIO_SHA256=ce891a6ca0430201b47677e3ccae86f55f1c17136a105a2d8b109a88b9fdcd79
+ARG RSTUDIO_UBUNTU_DISTRO=jammy
 ARG RSTUDIO_ARCH=amd64
+ARG SHINY_VERSION=1.5.23.1030
+ARG SHINY_SHA256=4a3d063a06ccd1b6c53eb1d7f4fb59965bced10d1c5c87e8c476b58dd6fd35ee
+ARG SHINY_UBUNTU_VERSION=20.04
 ARG SHINY_ARCH=x86_64
-ARG PYTHON_TENSORFLOW_VERSION=2.19.0
+ARG PYTHON_TENSORFLOW_VERSION=2.20.0
 
 USER root
 
@@ -22,14 +22,16 @@ RUN apt-get update \
     && apt-get clean \
     && rm -fr /var/lib/apt/lists/*
 
+RUN touch /etc/init.d/shiny-server.conf
+
 # R-Studio install - with some extra fonts for LaTeX PDF generation
 # https://www.rstudio.com/products/rstudio/download-server/debian-ubuntu/
 # https://www.rstudio.com/products/shiny/download-server/ubuntu/
 RUN apt-get update \
     && apt-get install -y fonts-dejavu lmodern cm-super unixodbc unixodbc-dev \
-    && wget https://download2.rstudio.org/server/${UBUNTU_DISTRO}/${RSTUDIO_ARCH}/rstudio-server-${RSTUDIO_VERSION}-${RSTUDIO_ARCH}.deb -O /tmp/rstudio-server.deb \
+    && wget https://download2.rstudio.org/server/${RSTUDIO_UBUNTU_DISTRO}/${RSTUDIO_ARCH}/rstudio-server-${RSTUDIO_VERSION}-${RSTUDIO_ARCH}.deb -O /tmp/rstudio-server.deb \
     && echo "${RSTUDIO_SHA256} /tmp/rstudio-server.deb" | sha256sum -c - \
-    && wget https://download3.rstudio.org/ubuntu-${UBUNTU_VERSION}/${SHINY_ARCH}/shiny-server-${SHINY_VERSION}-${RSTUDIO_ARCH}.deb -O /tmp/shiny-server.deb \
+    && wget https://download3.rstudio.org/ubuntu-${SHINY_UBUNTU_VERSION}/${SHINY_ARCH}/shiny-server-${SHINY_VERSION}-${RSTUDIO_ARCH}.deb -O /tmp/shiny-server.deb \
     && echo "${SHINY_SHA256} /tmp/shiny-server.deb" | sha256sum -c - \
     && apt-get install -y --no-install-recommends /tmp/rstudio-server.deb /tmp/shiny-server.deb \
     && rm /tmp/rstudio-server.deb /tmp/shiny-server.deb \
