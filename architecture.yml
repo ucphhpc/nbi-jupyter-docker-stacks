@@ -158,19 +158,6 @@ architecture:
         image: python-notebook
         tag: 4.4.10
         pipeline_dependent: true
-  chemistry-notebook:
-    latest:
-      parent:
-        owner: ucphhpc
-        image: base-notebook
-        tag: latest
-        pipeline_dependent: true
-    4.4.10:
-      parent:
-        owner: ucphhpc
-        image: base-notebook
-        tag: 4.4.10
-        pipeline_dependent: true
   fenics-notebook:
     latest:
       parent:
