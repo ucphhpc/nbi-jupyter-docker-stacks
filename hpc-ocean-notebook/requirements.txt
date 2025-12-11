@@ -1,9 +1,9 @@
 botorch
-jax==0.4.31
-jaxlib==0.4.31
+jax
+jaxlib
 netCDF4
 numpy
 scipy
 tensorflow
-veros>=1.5.0
+veros
 xarray
