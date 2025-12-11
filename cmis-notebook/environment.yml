@@ -6,7 +6,6 @@ dependencies:
   - ipyleaflet
   - matplotlib
   - meshplot
-  - wildmeshing
   - ipywidgets
   - scipy
   - numpy
