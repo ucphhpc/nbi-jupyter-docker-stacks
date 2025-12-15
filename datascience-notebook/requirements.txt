@@ -27,7 +27,6 @@ pyarrow
 pillow
 pims
 pomegranate
-pydotplus
 pymc
 pyproj
 PyQt5

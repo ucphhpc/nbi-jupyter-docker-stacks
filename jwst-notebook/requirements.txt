@@ -28,7 +28,6 @@ pyarrow
 pillow
 pims
 pomegranate
-pydotplus
 pyparsing
 pymc
 pyproj

@@ -27,7 +27,6 @@ pillow
 pims
 pomegranate
 pydot
-pydotplus
 pymc
 pyproj
 PyQt5
