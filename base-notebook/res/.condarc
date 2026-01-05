@@ -6,7 +6,7 @@ channels:
 # https://github.com/mamba-org/mamba/issues/2972
   - nodefaults
 remote_read_timeout_secs: 600.0
-auto_activate_base: false
+auto_activate: false
 channel_priority: strict
 default_channels:
   - https://anaconda.org

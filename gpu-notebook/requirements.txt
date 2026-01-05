@@ -1,14 +1,15 @@
 astropy
-git+https://github.com/fmfn/BayesianOptimization
+pysimdjson
+bayesian-optimization
 bokeh
 Bottleneck
 cython
 datashader
 graphviz
 h5py
-git+https://github.com/scikit-learn-contrib/hdbscan
-jax==0.4.31
-jaxlib==0.4.31
+hdbscan
+jax
+jaxlib
 joblib
 lightgbm
 mlxtend
@@ -26,7 +27,6 @@ pillow
 pims
 pomegranate
 pydot
-pydotplus
 pymc
 pyproj
 PyQt5
@@ -35,9 +35,11 @@ recordclass
 ruamel.yaml
 ruptures
 scikit-image
-scikit-learn
+# hdbscan does not support 1.8 yet due to
+# https://github.com/scikit-learn-contrib/hdbscan/issues/695
+scikit-learn>=0.20,<1.8
 scikit-optimize
-scipy
+scipy>=1.0
 seaborn
 six
 statsmodels

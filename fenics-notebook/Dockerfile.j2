@@ -1,13 +1,13 @@
 FROM {{ parent }}
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 ARG PACKAGE_TIMEOUT=60
-ARG FIREDRAKE_RELEASE_VERSION=Firedrake_20250218.0
+ARG FIREDRAKE_RELEASE_VERSION=2025.10.2
 
 USER root
 
 # Setup default timeout of installing packages
 RUN echo "[global]" > /etc/pip.conf \
-    && echo "timeout=$PACKAGE_TIMEOUT" >> /etc/pip.conf
+    && echo "timeout=${PACKAGE_TIMEOUT}" >> /etc/pip.conf
 
 RUN apt-get update \
     && apt-get install -yq --no-install-recommends \
@@ -22,45 +22,63 @@ USER $NB_UID
 
 ENV PKG_CONFIG_PATH=$PYTHON3_PATH/lib/pkgconfig
 
-RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
+RUN conda config --set remote_read_timeout_secs ${PACKAGE_TIMEOUT}
 
 # Clone the python3 enviornment into fenicsx to enable the installation
 # of two seperate fenics installations, namely the old fenics and the new fenicsx
 RUN mamba create --name fenics
-ENV FENICS_PATH=$CONDA_DIR/envs/fenics
+ENV FENICS_PATH=${CONDA_DIR}/envs/fenics
 
 COPY environment.yml /tmp/
 RUN mamba env update -n fenics -f /tmp/environment.yml \
     && mamba clean --all -f -y \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
+    && fix-permissions ${CONDA_DIR} \
+    && fix-permissions /home/${NB_USER}
 
 COPY requirements.txt /tmp/
 RUN mamba run -n fenics pip install -r /tmp/requirements.txt \
     && mamba clean --all -f -y \
-    && fix-permissions $CONDA_DIR \
-    && fix-permissions /home/$NB_USER
+    && fix-permissions ${CONDA_DIR} \
+    && fix-permissions /home/${NB_USER}
 # Add the fenicsx kernel to Jupyter
 RUN mamba run -n fenics python -m ipykernel install --user --name=fenics
 
-ENV FIREDRAKE_PATH=/opt/firedrake
+# Create the firedrake environment
+ENV FIREDRAKE_VENV_NAME=firedrake
+ENV FIREDRAKE_PATH=${CONDA_DIR}/envs/${FIREDRAKE_VENV_NAME}
+RUN mamba env create --name ${FIREDRAKE_VENV_NAME} python=3.13
+
 USER root
-RUN apt-get update \
-    && curl -O https://raw.githubusercontent.com/firedrakeproject/firedrake/${FIREDRAKE_RELEASE_VERSION}/scripts/firedrake-install \
-    && echo "y" | mamba run -n python3 python3 /tmp/firedrake-install --venv-name ${FIREDRAKE_PATH} --disable-ssh --no-vtk --minimal-petsc \
-    && fix-permissions ${FIREDRAKE_PATH} \
-    && fix-permissions /home/$NB_USER
+# https://www.firedrakeproject.org/install.html#id15
+RUN wget https://github.com/firedrakeproject/firedrake/archive/refs/tags/${FIREDRAKE_RELEASE_VERSION}.tar.gz \
+    && tar -xvf ${FIREDRAKE_RELEASE_VERSION}.tar.gz \
+    && cd firedrake-${FIREDRAKE_RELEASE_VERSION}/scripts \
+    && apt-get update \
+    && apt-get install $(python3 firedrake-configure --show-system-packages) -yq --no-install-recommends \
+    && git clone --branch $(python3 firedrake-configure --show-petsc-version) https://gitlab.com/petsc/petsc.git \
+    && chown -R ${NB_UID}:${NB_GID} /tmp/firedrake-${FIREDRAKE_RELEASE_VERSION} \
+    && cd petsc \
+    && python3 ../firedrake-configure --show-petsc-configure-options | xargs -L1 ./configure \
+    && make PETSC_DIR=/tmp/firedrake-${FIREDRAKE_RELEASE_VERSION}/scripts/petsc PETSC_ARCH=arch-firedrake-default all \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -fr /tmp/tmp*
+
+USER ${NB_UID}
+RUN cd /tmp/firedrake-${FIREDRAKE_RELEASE_VERSION}/scripts \
+    && export $(python3 firedrake-configure --show-env) \
+    && cd .. \
+    && mamba run -n ${FIREDRAKE_VENV_NAME} pip install --no-binary h5py .
 
 USER $NB_UID
-
 COPY requirements-firedrake.txt /tmp/
-RUN ${FIREDRAKE_PATH}/bin/pip3 install -r /tmp/requirements-firedrake.txt \
-    && ${FIREDRAKE_PATH}/bin/python3 -m ipykernel install --user --name=firedrake
+RUN mamba run -n ${FIREDRAKE_VENV_NAME} pip3 install -r /tmp/requirements-firedrake.txt \
+    && mamba run -n ${FIREDRAKE_VENV_NAME} python3 -m ipykernel install --user --name=firedrake
 
-# # Ensure that the pkg config can be found in in the Jupyter kernels
+# Ensure that the pkg config can be found in in the Jupyter kernels
 RUN mamba run -n python3 python3 /usr/local/bin/update_kernel_spec.py python3 --env-kwargs PATH=$PYTHON3_PATH/bin:$PATH \
     && mamba run -n fenics python3 /usr/local/bin/update_kernel_spec.py fenics --env-kwargs PATH=$FENICS_PATH/bin:$PATH \
-    && ${FIREDRAKE_PATH}/bin/python3 /usr/local/bin/update_kernel_spec.py firedrake --env-kwargs PATH=$FIREDRAKE_PATH/bin:$PATH
+    && mamba run -n ${FIREDRAKE_VENV_NAME} python3 /usr/local/bin/update_kernel_spec.py firedrake --env-kwargs PATH=$FIREDRAKE_PATH/bin:$PATH
 
 WORKDIR "${HOME}"
 

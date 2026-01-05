@@ -14,6 +14,12 @@ USER $NB_UID
 
 RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
 
+# Add the required ipyvuetify to the python environment that runs the JupyterLab instance
+RUN mamba run -n base jupyterlab_pip3 install ipyvuetify \
+    && mamba clean --all -f -y \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
+
 # Python3: use mamba since several geo packages are only packaged there
 COPY environment.yml /tmp/
 RUN mamba env update -n python3 -f /tmp/environment.yml \

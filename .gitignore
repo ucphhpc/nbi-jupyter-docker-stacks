@@ -114,3 +114,5 @@ nohup.out
 */Dockerfile.*
 !*/Dockerfile.j2
 !*/Dockerfile.test
+
+test_outputs/

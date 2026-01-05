@@ -23,6 +23,13 @@ RUN mamba env create -n python3 -f /tmp/environment.yml \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
+# Install wildmeshing
+COPY requirements.txt /tmp/
+RUN mamba run -n python3 pip install -r /tmp/requirements.txt \
+    && mamba clean -y --all \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
+
 # Upgrade pip to the latest version
 RUN mamba run -n python3 python3 -m ensurepip --upgrade \
     && mamba run -n python3 pip install --upgrade setuptools
