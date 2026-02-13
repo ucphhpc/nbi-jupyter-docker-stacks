@@ -3,5 +3,6 @@ dependencies:
   - fenics-dolfinx
   - mpich
   - pyvista
+  - xarray
 channels:
   - conda-forge

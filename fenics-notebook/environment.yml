@@ -2,5 +2,6 @@ name: fenics-notebook
 dependencies:
   - fenics
   - gmsh
+  - xarray
 channels:
   - conda-forge
