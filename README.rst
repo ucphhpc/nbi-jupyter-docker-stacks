@@ -11,11 +11,11 @@ Getting Started
 ---------------
 
 If you just want to use one of our prebuilt published images, you can pull them directly from `DockerHub <https://hub.docker.com/u/ucphhpc>`_ with `Docker <https://www.docker.com/get-started/>`_.
-For instance, if you would like to run the `datascience-notebook`, you can retrieve it via:
+For instance, if you would like to run the `datascience-notebook`, you can retrieve it via::
 
 	docker pull ucphhpc/datascience-notebook:latest
 
-After the download is complete, you can start it on your own machine via:
+After the download is complete, you can start it on your own machine via::
 
 	docker run -p 8888:8888 -it ucphhpc/datascience-notebook:latest
 
