@@ -23,6 +23,9 @@ We follow the configuration provided by the default JupyterLab installation and 
 Since we inherit from the `jupyter/base-notebook <https://quay.io/repository/jupyter/base-notebook>`_ its general `configuration methods <https://jupyter-docker-stacks.readthedocs.io/en/latest/using/common.html#common-features>`_
 can be applied to our images as well.
 
+All of our published images follow the `ucphhpc/<notebook_name>-notebook:<image_tag/jupyterlab_version>` format.
+Each of the available <notebook_name> images are based on their corresponding folder in the repository tree.
+
 ------------------------
 Building Images Yourself
 ------------------------
