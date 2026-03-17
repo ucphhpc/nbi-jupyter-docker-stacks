@@ -10,6 +10,24 @@ Deployed notebooks are published at `DockerHub <https://hub.docker.com/u/ucphhpc
 Getting Started
 ---------------
 
+If you just want to use one of our prebuilt published images, you can pull them directly from `DockerHub <https://hub.docker.com/u/ucphhpc>`_ with `Docker <https://www.docker.com/get-started/>`_.
+For instance, if you would like to run the `datascience-notebook`, you can retrieve it via:
+
+	docker pull ucphhpc/datascience-notebook:latest
+
+After the download is complete, you can start it on your own machine via:
+
+	docker run -p 8888:8888 -it ucphhpc/datascience-notebook:latest
+
+We follow the configuration provided by the default JupyterLab installation and therefore expected the daemon to expose and listen on port 8888.
+Since we inherit from the `jupyter/base-notebook <https://quay.io/repository/jupyter/base-notebook>`_ its general `configuration methods <https://jupyter-docker-stacks.readthedocs.io/en/latest/using/common.html#common-features>`_
+can be applied to our images as well.
+
+------------------------
+Building Images Yourself
+------------------------
+
+
 Before any of the images can be built, the Dockerfiles for each Notebook has to be generated first.
 The reason for this is that by default each notebook defined by a `Jinja2 <https://jinja2docs.readthedocs.io/en/stable/>`__ template.
 
