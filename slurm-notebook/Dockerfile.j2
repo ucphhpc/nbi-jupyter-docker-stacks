@@ -2,7 +2,7 @@ FROM {{ parent }}
 LABEL MAINTAINER="Rasmus Munk <rasmus.munk@nbi.ku.dk>"
 
 ARG SLURM_VERSION={{ SLURM_VERSION }}
-ARG SLURM_DOWNLOAD_MD5={{ SLURM_DOWNLOAD_MD5 }}
+ARG SLURM_DOWNLOAD_SHA256={{ SLURM_DOWNLOAD_SHA256 }}
 ARG SLURM_DOWNLOAD_URL="https://download.schedmd.com/slurm/slurm-${SLURM_VERSION}.tar.bz2"
 ARG OPENMPI_MAJOR_VERSION={{ OPENMPI_MAJOR_VERSION }}
 ARG OPENMPI_MINOR_VERSION={{ OPENMPI_MINOR_VERSION }}
@@ -80,7 +80,7 @@ RUN sed -i "s/\/\* #undef H5_NO_DEPRECATED_SYMBOLS \*\//#undef H5_NO_DEPRECATED_
 
 RUN cd \
     && wget -O slurm.tar.bz2 "${SLURM_DOWNLOAD_URL}" \
-    && echo "${SLURM_DOWNLOAD_MD5}" slurm.tar.bz2 | md5sum -c - \
+    && echo "${SLURM_DOWNLOAD_SHA256}" slurm.tar.bz2 | sha256sum -c - \
     && mkdir -p /usr/local/src/slurm \
     && tar jxf slurm.tar.bz2 -C /usr/local/src/slurm --strip-components=1 \
     && cd /usr/local/src/slurm \

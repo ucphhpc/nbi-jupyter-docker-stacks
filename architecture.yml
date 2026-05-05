@@ -60,11 +60,11 @@ architecture:
         tag: latest
         pipeline_dependent: true
       parameters:
-        SLURM_VERSION: 23.11.11
-        SLURM_DOWNLOAD_MD5: 71caa5a1c7222a635c3b0e8e4f90700f
-        OPENMPI_MAJOR_VERSION: 5.0
-        OPENMPI_MINOR_VERSION: 8
-        OPENMPI_DOWNLOAD_MD5: 22ba6092cca432bfca4e3e783d428160
+        SLURM_VERSION: 25.05.6
+        SLURM_DOWNLOAD_SHA256: 6a2e8ef05e1fc8ef392cb87de860afe6642561f0fbd3d681b1fcfcd340c73f39
+        OPENMPI_MAJOR_VERSION: 4.1
+        OPENMPI_MINOR_VERSION: 1
+        OPENMPI_DOWNLOAD_MD5: 9aa7cb64a8b1a773cac719e700d5bb2a
     23.11.11:
       parent:
         owner: ucphhpc
@@ -73,7 +73,7 @@ architecture:
         pipeline_dependent: true
       parameters:
         SLURM_VERSION: 23.11.11
-        SLURM_DOWNLOAD_MD5: 71caa5a1c7222a635c3b0e8e4f90700f
+        SLURM_DOWNLOAD_SHA256: 71caa5a1c7222a635c3b0e8e4f90700f
         OPENMPI_MAJOR_VERSION: 5.0
         OPENMPI_MINOR_VERSION: 8
         OPENMPI_DOWNLOAD_MD5: 22ba6092cca432bfca4e3e783d428160
@@ -85,7 +85,7 @@ architecture:
         pipeline_dependent: true
       parameters:
         SLURM_VERSION: 24.05.8
-        SLURM_DOWNLOAD_MD5: 6e016065238c8b668f756cf07c1b5f72
+        SLURM_DOWNLOAD_SHA256: 6e016065238c8b668f756cf07c1b5f72
         OPENMPI_MAJOR_VERSION: 5.0
         OPENMPI_MINOR_VERSION: 8
         OPENMPI_DOWNLOAD_MD5: 22ba6092cca432bfca4e3e783d428160
@@ -97,10 +97,22 @@ architecture:
         pipeline_dependent: true
       parameters:
         SLURM_VERSION: 24.11.6
-        SLURM_DOWNLOAD_MD5: 599cac4c38697be27bcb002cd4b4c084
+        SLURM_DOWNLOAD_SHA256: 599cac4c38697be27bcb002cd4b4c084
         OPENMPI_MAJOR_VERSION: 5.0
         OPENMPI_MINOR_VERSION: 8
         OPENMPI_DOWNLOAD_MD5: 22ba6092cca432bfca4e3e783d428160
+    25.05.6:
+      parent:
+        owner: ucphhpc
+        image: python-notebook
+        tag: latest
+        pipeline_dependent: true
+      parameters:
+        SLURM_VERSION: 25.05.6
+        SLURM_DOWNLOAD_SHA256: 6a2e8ef05e1fc8ef392cb87de860afe6642561f0fbd3d681b1fcfcd340c73f39
+        OPENMPI_MAJOR_VERSION: 4.1
+        OPENMPI_MINOR_VERSION: 1
+        OPENMPI_DOWNLOAD_MD5: 9aa7cb64a8b1a773cac719e700d5bb2a
     4.4.10:
       parent:
         owner: ucphhpc
@@ -108,11 +120,11 @@ architecture:
         tag: 4.4.10
         pipeline_dependent: true
       parameters:
-        SLURM_VERSION: 23.11.11
-        SLURM_DOWNLOAD_MD5: 71caa5a1c7222a635c3b0e8e4f90700f
-        OPENMPI_MAJOR_VERSION: 5.0
-        OPENMPI_MINOR_VERSION: 8
-        OPENMPI_DOWNLOAD_MD5: 22ba6092cca432bfca4e3e783d428160
+        SLURM_VERSION: 25.05.6
+        SLURM_DOWNLOAD_SHA256: 6a2e8ef05e1fc8ef392cb87de860afe6642561f0fbd3d681b1fcfcd340c73f39
+        OPENMPI_MAJOR_VERSION: 4.1
+        OPENMPI_MINOR_VERSION: 1
+        OPENMPI_DOWNLOAD_MD5: 9aa7cb64a8b1a773cac719e700d5bb2a
   python-cuda-notebook:
     latest:
       parent:
@@ -209,6 +221,12 @@ architecture:
         image: slurm-notebook
         tag: 24.11.6
         pipeline_dependent: true
+    25.05.6:
+      parent:
+        owner: ucphhpc
+        image: slurm-notebook
+        tag: 25.05.6
+        pipeline_dependent: true
     4.4.10:
       parent:
         owner: ucphhpc
@@ -239,6 +257,12 @@ architecture:
         owner: ucphhpc
         image: slurm-notebook
         tag: 24.11.6
+        pipeline_dependent: true
+    25.05.6:
+      parent:
+        owner: ucphhpc
+        image: slurm-notebook
+        tag: 25.05.6
         pipeline_dependent: true
     4.4.10:
       parent:
@@ -306,6 +330,24 @@ architecture:
         owner: ucphhpc
         image: hpc-notebook
         tag: 24.11.6
+        pipeline_dependent: true
+      parameters:
+        nvhome: /opt/nvidia/hpc_sdk
+        target: Linux_x86_64
+        nvhpc_version_major: 25
+        nvhpc_version_minor: 1
+        nvcudadir: "/opt/nvidia/hpc_sdk/Linux_x86_64/25.1/cuda"
+        nvcompdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/25.1/compilers"
+        nvmathdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/25.1/math_libs"
+        nvcommdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/25.1/opt/nvidia/hpc_sdk/Linux_x86_64/25.1/comm_libs"
+      extra_template: res/templates/cuda/Dockerfile.cuda
+      extra_template_files:
+        - res/templates/cuda/requirements.txt
+    25.05.6:
+      parent:
+        owner: ucphhpc
+        image: hpc-notebook
+        tag: 25.05.6
         pipeline_dependent: true
       parameters:
         nvhome: /opt/nvidia/hpc_sdk
