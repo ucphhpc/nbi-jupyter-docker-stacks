@@ -492,8 +492,8 @@ architecture:
         pipeline_dependent: true
       parameters:
         JULIA_MAJOR_VERSION: "1.10"
-        JULIA_MINOR_VERSION: "10"
-        JULIA_DOWNLOAD_MD5: cdfcabb03bd8a09684b602aa25735371
+        JULIA_MINOR_VERSION: "11"
+        JULIA_DOWNLOAD_MD5: 1d807b525d37709894e7016301392d5d
         JULIA_CPU_TARGET: generic;icelake-server,clone_all;znver3,clone_all;znver2,clone_all;skylake-avx512,clone_all
     4.4.10:
       parent:
@@ -503,8 +503,8 @@ architecture:
         pipeline_dependent: true
       parameters:
         JULIA_MAJOR_VERSION: "1.10"
-        JULIA_MINOR_VERSION: "10"
-        JULIA_DOWNLOAD_MD5: cdfcabb03bd8a09684b602aa25735371
+        JULIA_MINOR_VERSION: "11"
+        JULIA_DOWNLOAD_MD5: 1d807b525d37709894e7016301392d5d
         JULIA_CPU_TARGET: generic;icelake-server,clone_all;znver3,clone_all;znver2,clone_all;skylake-avx512,clone_all
   cern-notebook:
     latest:
