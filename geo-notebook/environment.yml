@@ -20,7 +20,7 @@ dependencies:
    - esmpy
    - fastparquet
    - flake8
-   - geoai
+   - geoai<=0.23.0
    - gdal
    - geoviews
    - graphviz
@@ -28,6 +28,7 @@ dependencies:
    - hvplot
    - iris
    - jedi
+   - leafmap<=0.57.10
    - libsodium
    - lmfit
    - lz4
