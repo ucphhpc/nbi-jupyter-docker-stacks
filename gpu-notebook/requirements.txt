@@ -46,7 +46,6 @@ statsmodels
 sympy
 tqdm
 trackpy
-umap-learn
 uncertainties
 xarray
 xgboost
