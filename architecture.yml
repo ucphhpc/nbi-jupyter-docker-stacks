@@ -89,6 +89,18 @@ architecture:
         OPENMPI_MAJOR_VERSION: 4.1
         OPENMPI_MINOR_VERSION: 1
         OPENMPI_DOWNLOAD_MD5: 9aa7cb64a8b1a773cac719e700d5bb2a
+    25.11.5:
+      parent:
+        owner: ucphhpc
+        image: python-notebook
+        tag: latest
+        pipeline_dependent: true
+      parameters:
+        SLURM_VERSION: 25.11.5
+        SLURM_DOWNLOAD_SHA256: c95361df00a035571c101834cd3988c224a38c4a3c8c67252aedb7527d447277
+        OPENMPI_MAJOR_VERSION: 4.1
+        OPENMPI_MINOR_VERSION: 1
+        OPENMPI_DOWNLOAD_MD5: 9aa7cb64a8b1a773cac719e700d5bb2a
     4.4.10:
       parent:
         owner: ucphhpc
@@ -192,6 +204,12 @@ architecture:
         image: slurm-notebook
         tag: 25.05.6
         pipeline_dependent: true
+    25.11.5:
+      parent:
+        owner: ucphhpc
+        image: slurm-notebook
+        tag: 25.11.5
+        pipeline_dependent: true
     4.4.10:
       parent:
         owner: ucphhpc
@@ -217,6 +235,12 @@ architecture:
         owner: ucphhpc
         image: slurm-notebook
         tag: 25.05.6
+        pipeline_dependent: true
+    25.11.5:
+      parent:
+        owner: ucphhpc
+        image: slurm-notebook
+        tag: 25.11.5
         pipeline_dependent: true
     4.4.10:
       parent:
@@ -266,6 +290,24 @@ architecture:
         owner: ucphhpc
         image: hpc-notebook
         tag: 25.05.6
+        pipeline_dependent: true
+      parameters:
+        nvhome: /opt/nvidia/hpc_sdk
+        target: Linux_x86_64
+        nvhpc_version_major: 25
+        nvhpc_version_minor: 1
+        nvcudadir: "/opt/nvidia/hpc_sdk/Linux_x86_64/25.1/cuda"
+        nvcompdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/25.1/compilers"
+        nvmathdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/25.1/math_libs"
+        nvcommdir: "/opt/nvidia/hpc_sdk/Linux_x86_64/25.1/opt/nvidia/hpc_sdk/Linux_x86_64/25.1/comm_libs"
+      extra_template: res/templates/cuda/Dockerfile.cuda
+      extra_template_files:
+        - res/templates/cuda/requirements.txt
+    25.11.5:
+      parent:
+        owner: ucphhpc
+        image: hpc-notebook
+        tag: 25.11.5
         pipeline_dependent: true
       parameters:
         nvhome: /opt/nvidia/hpc_sdk
