@@ -5,13 +5,13 @@ architecture:
       parent:
         owner: quay.io/jupyter
         image: base-notebook
-        tag: lab-4.4.10
+        tag: lab-4.5.8
         pipeline_dependent: false
-    4.4.10:
+    4.5.8:
       parent:
         owner: quay.io/jupyter
         image: base-notebook
-        tag: lab-4.4.10
+        tag: lab-4.5.8
         pipeline_dependent: false
   python-notebook:
     latest:
@@ -20,11 +20,11 @@ architecture:
         image: base-notebook
         tag: latest
         pipeline_dependent: true
-    4.4.10:
+    4.5.8:
       parent:
         owner: ucphhpc
         image: base-notebook
-        tag: 4.4.10
+        tag: 4.5.8
         pipeline_dependent: true
   statistics-notebook:
     latest:
@@ -33,11 +33,11 @@ architecture:
         image: python-notebook
         tag: latest
         pipeline_dependent: true
-    4.4.10:
+    4.5.8:
       parent:
         owner: ucphhpc
         image: python-notebook
-        tag: 4.4.10
+        tag: 4.5.8
         pipeline_dependent: true
   r-notebook:
     latest:
@@ -46,11 +46,11 @@ architecture:
         image: python-notebook
         tag: latest
         pipeline_dependent: true
-    4.4.10:
+    4.5.8:
       parent:
         owner: ucphhpc
         image: python-notebook
-        tag: 4.4.10
+        tag: 4.5.8
         pipeline_dependent: true
   slurm-notebook:
     latest:
@@ -101,11 +101,11 @@ architecture:
         OPENMPI_MAJOR_VERSION: 4.1
         OPENMPI_MINOR_VERSION: 1
         OPENMPI_DOWNLOAD_MD5: 9aa7cb64a8b1a773cac719e700d5bb2a
-    4.4.10:
+    4.5.8:
       parent:
         owner: ucphhpc
         image: python-notebook
-        tag: 4.4.10
+        tag: 4.5.8
         pipeline_dependent: true
       parameters:
         SLURM_VERSION: 25.05.6
@@ -123,11 +123,11 @@ architecture:
       extra_template: res/templates/cuda/Dockerfile.cuda
       extra_template_files:
         - res/templates/cuda/requirements.txt
-    4.4.10:
+    4.5.8:
       parent:
         owner: ucphhpc
         image: python-notebook
-        tag: 4.4.10
+        tag: 4.5.8
         pipeline_dependent: true
       extra_template: res/templates/cuda/Dockerfile.cuda
       extra_template_files:
@@ -139,11 +139,11 @@ architecture:
         image: python-cuda-notebook
         tag: latest
         pipeline_dependent: true
-    4.4.10:
+    4.5.8:
       parent:
         owner: ucphhpc
         image: python-cuda-notebook
-        tag: 4.4.10
+        tag: 4.5.8
         pipeline_dependent: true
   datascience-notebook:
     latest:
@@ -152,11 +152,11 @@ architecture:
         image: python-notebook
         tag: latest
         pipeline_dependent: true
-    4.4.10:
+    4.5.8:
       parent:
         owner: ucphhpc
         image: python-notebook
-        tag: 4.4.10
+        tag: 4.5.8
         pipeline_dependent: true
   fenics-notebook:
     latest:
@@ -165,11 +165,11 @@ architecture:
         image: python-notebook
         tag: latest
         pipeline_dependent: true
-    4.4.10:
+    4.5.8:
       parent:
         owner: ucphhpc
         image: python-notebook
-        tag: 4.4.10
+        tag: 4.5.8
         pipeline_dependent: true
   qsharp-notebook:
     latest:
@@ -178,11 +178,11 @@ architecture:
         image: python-notebook
         tag: latest
         pipeline_dependent: true
-    4.4.10:
+    4.5.8:
       parent:
         owner: ucphhpc
         image: python-notebook
-        tag: 4.4.10
+        tag: 4.5.8
         pipeline_dependent: true
   hpc-notebook:
     latest:
@@ -210,11 +210,11 @@ architecture:
         image: slurm-notebook
         tag: 25.11.5
         pipeline_dependent: true
-    4.4.10:
+    4.5.8:
       parent:
         owner: ucphhpc
         image: slurm-notebook
-        tag: 4.4.10
+        tag: 4.5.8
         pipeline_dependent: true
   hpc-ocean-notebook:
     latest:
@@ -242,11 +242,11 @@ architecture:
         image: slurm-notebook
         tag: 25.11.5
         pipeline_dependent: true
-    4.4.10:
+    4.5.8:
       parent:
         owner: ucphhpc
         image: slurm-notebook
-        tag: 4.4.10
+        tag: 4.5.8
         pipeline_dependent: true
   hpc-gpu-notebook:
     latest:
@@ -321,11 +321,11 @@ architecture:
       extra_template: res/templates/cuda/Dockerfile.cuda
       extra_template_files:
         - res/templates/cuda/requirements.txt
-    4.4.10:
+    4.5.8:
       parent:
         owner: ucphhpc
         image: hpc-notebook
-        tag: 4.4.10
+        tag: 4.5.8
         pipeline_dependent: true
       parameters:
         nvhome: /opt/nvidia/hpc_sdk
@@ -346,11 +346,11 @@ architecture:
         image: datascience-notebook
         tag: latest
         pipeline_dependent: true
-    4.4.10:
+    4.5.8:
       parent:
         owner: ucphhpc
         image: datascience-notebook
-        tag: 4.4.10
+        tag: 4.5.8
         pipeline_dependent: true
   geo-notebook:
     latest:
@@ -359,11 +359,11 @@ architecture:
         image: python-notebook
         tag: latest
         pipeline_dependent: true
-    4.4.10:
+    4.5.8:
       parent:
         owner: ucphhpc
         image: python-notebook
-        tag: 4.4.10
+        tag: 4.5.8
         pipeline_dependent: true
   bio-notebook:
     latest:
@@ -372,11 +372,11 @@ architecture:
         image: r-notebook
         tag: latest
         pipeline_dependent: true
-    4.4.10:
+    4.5.8:
       parent:
         owner: ucphhpc
         image: r-notebook
-        tag: 4.4.10
+        tag: 4.5.8
         pipeline_dependent: true
   bio-bigdata-notebook:
     latest:
@@ -385,11 +385,11 @@ architecture:
         image: r-notebook
         tag: latest
         pipeline_dependent: true
-    4.4.10:
+    4.5.8:
       parent:
         owner: ucphhpc
         image: r-notebook
-        tag: 4.4.10
+        tag: 4.5.8
         pipeline_dependent: true
   bio-bsa-notebook:
     latest:
@@ -398,11 +398,11 @@ architecture:
         image: r-notebook
         tag: latest
         pipeline_dependent: true
-    4.4.10:
+    4.5.8:
       parent:
         owner: ucphhpc
         image: r-notebook
-        tag: 4.4.10
+        tag: 4.5.8
         pipeline_dependent: true
   tropical-crop-notebook:
     latest:
@@ -411,11 +411,11 @@ architecture:
         image: r-notebook
         tag: latest
         pipeline_dependent: true
-    4.4.10:
+    4.5.8:
       parent:
         owner: ucphhpc
         image: r-notebook
-        tag: 4.4.10
+        tag: 4.5.8
         pipeline_dependent: true
   sme-notebook:
     latest:
@@ -424,11 +424,11 @@ architecture:
         image: base-notebook
         tag: latest
         pipeline_dependent: true
-    4.4.10:
+    4.5.8:
       parent:
         owner: ucphhpc
         image: base-notebook
-        tag: 4.4.10
+        tag: 4.5.8
         pipeline_dependent: true
   jwst-notebook:
     latest:
@@ -437,11 +437,11 @@ architecture:
         image: python-notebook
         tag: latest
         pipeline_dependent: true
-    4.4.10:
+    4.5.8:
       parent:
         owner: ucphhpc
         image: python-notebook
-        tag: 4.4.10
+        tag: 4.5.8
         pipeline_dependent: true
   julia-notebook:
     latest:
@@ -455,11 +455,11 @@ architecture:
         JULIA_MINOR_VERSION: "11"
         JULIA_DOWNLOAD_MD5: 1d807b525d37709894e7016301392d5d
         JULIA_CPU_TARGET: generic;icelake-server,clone_all;znver3,clone_all;znver2,clone_all;skylake-avx512,clone_all
-    4.4.10:
+    4.5.8:
       parent:
         owner: ucphhpc
         image: base-notebook
-        tag: 4.4.10
+        tag: 4.5.8
         pipeline_dependent: true
       parameters:
         JULIA_MAJOR_VERSION: "1.10"
@@ -473,11 +473,11 @@ architecture:
         image: datascience-notebook
         tag: latest
         pipeline_dependent: true
-    4.4.10:
+    4.5.8:
       parent:
         owner: ucphhpc
         image: datascience-notebook
-        tag: 4.4.10
+        tag: 4.5.8
         pipeline_dependent: true
   cmis-notebook:
     latest:
@@ -486,9 +486,9 @@ architecture:
         image: base-notebook
         tag: latest
         pipeline_dependent: true
-    4.4.10:
+    4.5.8:
       parent:
         owner: ucphhpc
         image: base-notebook
-        tag: 4.4.10
+        tag: 4.5.8
         pipeline_dependent: true
