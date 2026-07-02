@@ -3,5 +3,6 @@ dependencies:
   - fenics
   - gmsh
   - xarray
+  - pip
 channels:
   - conda-forge
