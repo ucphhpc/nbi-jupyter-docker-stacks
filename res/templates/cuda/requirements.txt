@@ -2,5 +2,5 @@
 # https://github.com/pytorch/pytorch/wiki/PyTorch-Versions
 tensorflow==2.21.0
 torch==2.13.0
-torchvision==0.27.1
+torchvision==0.28.0
 torchaudio==2.11.0
