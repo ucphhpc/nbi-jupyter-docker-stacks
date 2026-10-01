@@ -3,7 +3,6 @@
 # Provided by #21911: Update Bio Notebook on ERDA jupyter
 
 install.packages(c(
-    "devtools",
     "ggplot2",
     "phytools",
     "gridExtra",
@@ -53,13 +52,12 @@ BiocManager::install(c(
     "biocinstaller"
 ), update = FALSE)
 
-library(devtools);
 options(unzip = "internal");
 ## GitHub packages.
-devtools::install_github("Russel88/DAtest", force = TRUE, upgrade = "never")
-devtools::install_github("Russel88/MicEco", force = TRUE, upgrade = "never")
-devtools::install_github("Russel88/COEF", force = TRUE, upgrade = "never")
-install_github("DanielSprockett/reltools", force = TRUE);
+remotes::install_github("Russel88/DAtest", force = TRUE, upgrade = "never")
+remotes::install_github("Russel88/MicEco", force = TRUE, upgrade = "never")
+remotes::install_github("Russel88/COEF", force = TRUE, upgrade = "never")
+remotes::install_github("DanielSprockett/reltools", force = TRUE);
 
 pkgs <- list(
     "phytools",

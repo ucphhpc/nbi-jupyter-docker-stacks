@@ -17,6 +17,7 @@ dependencies:
   - r-reshape2
   - r-stringr
   - r-pscl
+  - r-remotes
   - r-statmod
   - r-picante
   - r-nlme
