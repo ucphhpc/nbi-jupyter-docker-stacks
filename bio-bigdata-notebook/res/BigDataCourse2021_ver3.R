@@ -20,12 +20,12 @@ install.packages(c(
     "corpcor",
     "rmarkdown",
     "tinytex"
-), repos='http://mirrors.dotsrc.org/cran/')
+), repos=c("https://cloud.r-project.org", "https://mirrors.dotsrc.org/cran/"))
 tinytex::install_tinytex(force=TRUE)
 
 # Installing packages from Bioconductor
 if (!requireNamespace("BiocManager", quietly = TRUE))
-    install.packages("BiocManager", repos='http://mirrors.dotsrc.org/cran/')
+    install.packages("BiocManager", repos=c("https://cloud.r-project.org", "https://mirrors.dotsrc.org/cran/"))
 
 library(BiocManager)
 BiocManager::install("tximport", update = TRUE, ask = FALSE, force = TRUE)
