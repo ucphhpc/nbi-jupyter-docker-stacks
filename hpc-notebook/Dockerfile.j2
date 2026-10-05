@@ -29,10 +29,9 @@ RUN apt-get update \
     environment-modules \
     tcl \
     procps \
-    clang-14 \
-    llvm-14 \
-    libomp5-14 \
-    libomp-14-dev \
+    clang \
+    llvm \
+    libomp-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
