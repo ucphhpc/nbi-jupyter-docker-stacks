@@ -6,6 +6,7 @@ dependencies:
   - r-ggplot2
   - r-gridExtra
   - r-vegan
+  - r-remotes
   - r-alluvial
   - r-ade4
   - r-lsmeans
