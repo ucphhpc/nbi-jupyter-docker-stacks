@@ -3,5 +3,6 @@ dependencies:
   - r-FactoMineR
   - r-factoextra
   - r-magick
+  - r-remotes
 channels:
   - conda-forge
