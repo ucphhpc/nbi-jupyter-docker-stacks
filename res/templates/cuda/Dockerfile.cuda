@@ -25,7 +25,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     # Update nvidia GPG key
     && rm -f /etc/apt/sources.list.d/cuda.list \
     && rm -f /etc/apt/sources.list.d/nvidia-ml.list \
-    && apt-key del 7fa2af80 \
     && apt-get update && apt-get install -y --no-install-recommends wget \
     && wget https://developer.download.nvidia.com/compute/cuda/repos/${CUDA_OS_DIST}/${CUDA_CPU}/cuda-keyring_${CUDA_KEYRING_VERSION}_all.deb \
     && echo "${CUDA_KEYRING_SHA256} cuda-keyring_${CUDA_KEYRING_VERSION}_all.deb" | sha256sum -c - \

@@ -2,11 +2,10 @@ name: r-notebook
 dependencies:
   - gxx_linux-64
   - libgfortran
-  - r-base=4.3.*
+  - r-base=4.4.*
   - r-boot=1.*
   - r-caret=6.*
   - r-crayon=1.*
-  - r-devtools=2.*
   - r-e1071=1.*
   - r-forecast=8.*
   - r-hexbin=1.*
