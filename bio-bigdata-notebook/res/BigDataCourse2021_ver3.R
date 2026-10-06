@@ -28,7 +28,7 @@ if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager", repos=c("https://cloud.r-project.org", "https://mirrors.dotsrc.org/cran/"))
 
 library(BiocManager)
-BiocManager::install(version = "3.19")
+BiocManager::install(version = "3.20")
 BiocManager::install(c(
     "tximport",
     "sva",
@@ -52,5 +52,5 @@ BiocManager::install(c(
     "apeglm",
 # Added additional packages based on requests made in ticket #31641
     "GWENA"
-), update = True, ask = FALSE, force = TRUE)
+), update=TRUE, ask = FALSE, force = TRUE)
 
