@@ -1,0 +1,27 @@
+name: bio-bigdata-notebook
+dependencies:
+  - bioconductor-tximport
+  - bioconductor-sva
+  - bioconductor-preprocesscore
+  - bioconductor-edaseq
+  - bioconductor-msa
+  - bioconductor-phyloseq
+  - bioconductor-edger
+  - bioconductor-metagenomeseq
+  - bioconductor-limma
+  - bioconductor-biostrings
+  - bioconductor-biocinstaller
+  - bioconductor-deseq2
+  - bioconductor-dada2
+  - bioconductor-vsn
+  - bioconductor-multtest
+  - bioconductor-xcms
+  - bioconductor-biocparallel
+  - bioconductor-camera
+  - bioconductor-pcamethods
+  - bioconductor-apeglm
+# Added additional packages based on requests made in ticket #31641
+  - bioconductor-gwena
+channels:
+  - conda-forge
+  - bioconda

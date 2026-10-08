@@ -20,6 +20,12 @@ RUN apt-get update \
 # IMPORTANT: R defaults to unpack with non-existant /bin/gtar so we overrride
 ENV TAR="/bin/tar"
 
+WORKDIR /tmp
+
+USER $NB_UID
+
+RUN conda config --set remote_read_timeout_secs $PACKAGE_TIMEOUT
+
 # install r packages
 COPY environment.yml /tmp/
 RUN mamba env update -q -n r -f /tmp/environment.yml \
@@ -28,10 +34,24 @@ RUN mamba env update -q -n r -f /tmp/environment.yml \
     && fix-permissions $CONDA_DIR \
     && fix-permissions /home/$NB_USER
 
+COPY bioconductor.yml /tmp/
+RUN mamba env update -q -n r -f /tmp/bioconductor.yml \
+    && mamba clean --all -f -y \
+    && /opt/conda/envs/r/bin/R -e 'IRkernel::installspec()' \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
+
 COPY ./res /opt/res
 
-RUN mamba run -n r Rscript /opt/res/BigDataCourse2021_ver3.R
-RUN mamba run -n r $R_PATH/bin/Rscript /opt/res/pcpr2.R
+RUN mamba run -n r Rscript /opt/res/BigDataCourse2021_ver3.R \
+    && mamba clean --all -f -y \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
+
+RUN mamba run -n r $R_PATH/bin/Rscript /opt/res/pcpr2.R \
+    && mamba clean --all -f -y \
+    && fix-permissions $CONDA_DIR \
+    && fix-permissions /home/$NB_USER
 
 WORKDIR "${HOME}"
 

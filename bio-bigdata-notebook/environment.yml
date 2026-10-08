@@ -4,5 +4,19 @@ dependencies:
   - r-factoextra
   - r-magick
   - r-remotes
+  - r-circlize
+  - r-ggplot2
+  - r-pheatmap
+  - r-plyr
+  - r-plotly
+  - r-phytools
+  - r-dplyr
+  - r-tidyr
+  - r-magrittr
+  - r-gridExtra
+  - r-corpcor
+  - r-rmarkdown
+  - r-tinytex
+  - r-biocmanager
 channels:
   - conda-forge
