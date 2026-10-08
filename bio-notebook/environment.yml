@@ -29,7 +29,6 @@ dependencies:
   - r-pROC
   - r-ape
   - r-minpack.lm
-  - r-hexbin
   - r-pheatmap
   - r-tidyr
   - r-magick
