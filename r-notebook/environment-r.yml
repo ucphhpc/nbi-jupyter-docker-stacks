@@ -2,7 +2,7 @@ name: r-notebook
 dependencies:
   - gxx_linux-64
   - libgfortran
-  - r-base=4.4.*
+  - r-base=4.5.*
   - r-boot=1.*
   - r-caret=6.*
   - r-crayon=1.*
@@ -30,7 +30,8 @@ dependencies:
   - r-shiny=1.*
   - r-sparklyr=1.*
   - r-tidyverse=2.*
-  - r-v8=4.*
+  - r-v8=8.*
   - unixodbc=2.3.*
+  - zlib
 channels:
   - conda-forge
