@@ -18,5 +18,7 @@ dependencies:
   - r-rmarkdown
   - r-tinytex
   - r-biocmanager
+  # required for devtools
+  - libgit2
 channels:
   - conda-forge
