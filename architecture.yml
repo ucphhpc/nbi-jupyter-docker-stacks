@@ -417,19 +417,6 @@ architecture:
         image: r-notebook
         tag: 4.6.4
         pipeline_dependent: true
-  sme-notebook:
-    latest:
-      parent:
-        owner: ucphhpc
-        image: base-notebook
-        tag: latest
-        pipeline_dependent: true
-    4.6.4:
-      parent:
-        owner: ucphhpc
-        image: base-notebook
-        tag: 4.6.4
-        pipeline_dependent: true
   jwst-notebook:
     latest:
       parent:
