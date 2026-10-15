@@ -6,7 +6,6 @@ dependencies:
   - r-ggplot2
   - r-gridExtra
   - r-vegan
-  - r-remotes
   - r-alluvial
   - r-ade4
   - r-lsmeans
@@ -21,6 +20,7 @@ dependencies:
   - r-remotes
   - r-statmod
   - r-picante
+  - r-phytools
   - r-nlme
   - r-lme4
   - r-cowplot
@@ -36,5 +36,7 @@ dependencies:
   - r-corpcor
   - r-rmarkdown
   - r-tinytex
+  - mafft
+  - r-biocmanager
 channels:
   - conda-forge
