@@ -1,0 +1,16 @@
+name: bio-bigdata-notebook
+dependencies:
+  - bioconductor-tximport
+  - bioconductor-sva
+  - bioconductor-preprocesscore
+  - bioconductor-edaseq
+  - bioconductor-msa
+  - bioconductor-phyloseq
+  - bioconductor-edger
+  - bioconductor-metagenomeseq
+  - bioconductor-biostrings
+  - bioconductor-biocinstaller
+  - bioconductor-dada2
+channels:
+  - conda-forge
+  - bioconda
