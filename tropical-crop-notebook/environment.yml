@@ -1,5 +1,8 @@
 name: tropical-crop-notebook
 dependencies:
   - r-nloptr
+  - r-remotes
+  # required for devtools
+  - libgit2
 channels:
   - conda-forge

@@ -17,8 +17,10 @@ dependencies:
   - r-reshape2
   - r-stringr
   - r-pscl
+  - r-remotes
   - r-statmod
   - r-picante
+  - r-phytools
   - r-nlme
   - r-lme4
   - r-cowplot
@@ -27,7 +29,6 @@ dependencies:
   - r-pROC
   - r-ape
   - r-minpack.lm
-  - r-hexbin
   - r-pheatmap
   - r-tidyr
   - r-magick
@@ -35,5 +36,7 @@ dependencies:
   - r-corpcor
   - r-rmarkdown
   - r-tinytex
+  - mafft
+  - r-biocmanager
 channels:
   - conda-forge

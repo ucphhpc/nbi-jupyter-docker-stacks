@@ -1,6 +1,6 @@
 
 # CRAN packages
-install.packages("keras3", repos="https://mirrors.dotsrc.org/cran/")
+install.packages("keras3", repos=c("https://cloud.r-project.org", "https://mirrors.dotsrc.org/cran/"))
 library(keras3)
 
 # install_keras uses reticulate to discover the Python environment

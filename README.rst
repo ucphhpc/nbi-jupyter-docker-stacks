@@ -58,7 +58,6 @@ Afterwards, you should now be able to use the ``init-notebooks.py`` script to ge
 	Generated the file: bio-notebook/Dockerfile.latest
 	Generated the file: bio-bigdata-notebook/Dockerfile.latest
 	Generated the file: bio-bsa-notebook/Dockerfile.latest
-	Generated the file: sme-notebook/Dockerfile.latest
 	Generated the file: jwst-notebook/Dockerfile.latest
 	Generated a new GOCD config in: ...jupyter/nbi-jupyter-docker-stacks/1.gocd.yml
 	Generated a new Makefile in: .../jupyter/nbi-jupyter-docker-stacks/Makefile

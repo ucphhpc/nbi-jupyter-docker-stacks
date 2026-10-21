@@ -20,7 +20,7 @@ dependencies:
    - esmpy
    - fastparquet
    - flake8
-   - geoai<=0.23.0
+   - geoai<=0.30.0
    - gdal
    - geoviews
    - graphviz
@@ -64,5 +64,6 @@ dependencies:
    - xesmf
    - zarr
    - zict
+   - mapclassify
 channels:
   - conda-forge
