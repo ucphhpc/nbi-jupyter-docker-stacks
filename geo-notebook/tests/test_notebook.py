@@ -46,7 +46,14 @@ def _notebook_run(path, kernel="python3", timeout=300):
 def test_notebooks():
     for f_notebook in os.listdir(notebooks_path):
         for kernel in kernels:
+            timeout = 300
+            if f_notebook.startswith("car_detection"):
+                # Extracting cars from the underlying image using the model
+                # can take a long time on a limited system such as a CI job.
+                timeout = 900
             _, errors = _notebook_run(
-                os.path.join(notebooks_path, f_notebook), kernel=kernel
+                os.path.join(notebooks_path, f_notebook),
+                kernel=kernel,
+                timeout=timeout
             )
             assert errors == []
