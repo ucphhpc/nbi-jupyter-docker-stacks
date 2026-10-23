@@ -1,7 +1,8 @@
 name: base
 dependencies:
   - python=3.13
-  - pip
+  - pip>=26.2.2
+  - certifi>=2026.10.19
   - black
   - bqplot
   - ipyleaflet

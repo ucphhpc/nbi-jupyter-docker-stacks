@@ -20,6 +20,7 @@ RUN echo "[global]" > /etc/pip.conf \
 
 RUN apt-get update \
     && apt-get install -yq --no-install-recommends \
+    ca-certificates \
     autoconf \
     automake \
     bzip2 \

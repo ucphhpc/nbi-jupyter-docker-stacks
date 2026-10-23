@@ -5,7 +5,10 @@ import nbformat
 from subprocess import Popen, PIPE, STDOUT
 
 cur_path = os.path.abspath(".")
-notebooks_path = os.path.join(cur_path, "notebooks")
+notebooks_directories = [
+    os.path.join(cur_path, "notebooks"),
+    os.path.join(cur_path, "notebooks", "versions")
+]
 kernels = ["python3"]
 
 
@@ -56,10 +59,14 @@ def _notebook_run(path, kernel="python3", timeout=300):
 
 
 def test_notebooks():
-    for f_notebook in os.listdir(notebooks_path):
-        print("Testing notebook: {}".format(f_notebook))
-        for kernel in kernels:
-            _, errors = _notebook_run(
-                os.path.join(notebooks_path, f_notebook), kernel=kernel
-            )
-            assert errors == []
+    for notebooks_dir in notebooks_directories:
+        for f_notebook in os.listdir(notebooks_dir):
+            if not f_notebook.endswith(".ipynb"):
+                continue
+
+            print("Testing notebook: {}".format(f_notebook))
+            for kernel in kernels:
+                _, errors = _notebook_run(
+                    os.path.join(notebooks_dir, f_notebook), kernel=kernel
+                )
+                assert errors == []
