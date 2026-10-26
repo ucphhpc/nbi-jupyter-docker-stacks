@@ -20,10 +20,15 @@ help:
 init:
 	. $(VENV)/activate; python3 init-notebooks.py --branch ${BRANCH} --tag $(TAG)
 
-clean:
+clean: clean-notebooks
 	rm -fr .env
 	rm -fr .pytest_cache
 	rm -fr tests/__pycache__
+
+.PHONY: clean-notebooks
+clean-notebooks:
+# Find all none template Dockerfiles and remove them
+	@find . -name "Dockerfile*" -not -path "*.j2" -not -path "*.cuda" | xargs rm -f
 
 build/%:
 	docker build --rm --force-rm -t $(OWNER)/$(notdir $@):$(TAG) -f ./$(notdir $@)/Dockerfile.${TAG} --build-arg PACKAGE_TIMEOUT=${PACKAGE_TIMEOUT} ${ARGS} ./$(notdir $@)
