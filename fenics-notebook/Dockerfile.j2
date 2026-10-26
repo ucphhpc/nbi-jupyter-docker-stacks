@@ -44,9 +44,14 @@ RUN mamba run -n fenics pip install -r /tmp/requirements.txt \
 RUN mamba run -n fenics python -m ipykernel install --user --name=fenics
 
 # Create the firedrake environment
+COPY environment-firedrake.yml /tmp/
 ENV FIREDRAKE_VENV_NAME=firedrake
 ENV FIREDRAKE_PATH=${CONDA_DIR}/envs/${FIREDRAKE_VENV_NAME}
-RUN mamba env create --name ${FIREDRAKE_VENV_NAME} python=3.13
+RUN mamba env create --name ${FIREDRAKE_VENV_NAME} \
+    && mamba env update -n ${FIREDRAKE_VENV_NAME} -f /tmp/environment-firedrake.yml \
+    && mamba clean --all -y \
+    && fix-permissions ${CONDA_DIR} \
+    && fix-permissions /home/${NB_USER}
 
 USER root
 # https://www.firedrakeproject.org/install.html#id15
@@ -71,9 +76,8 @@ RUN cd /tmp/firedrake-${FIREDRAKE_RELEASE_VERSION}/scripts \
     && mamba run -n ${FIREDRAKE_VENV_NAME} pip install --no-binary h5py .
 
 USER $NB_UID
-COPY requirements-firedrake.txt /tmp/
-RUN mamba run -n ${FIREDRAKE_VENV_NAME} pip3 install -r /tmp/requirements-firedrake.txt \
-    && mamba run -n ${FIREDRAKE_VENV_NAME} python3 -m ipykernel install --user --name=firedrake
+# Add the firedrake kernel to Jupyter
+RUN mamba run -n ${FIREDRAKE_VENV_NAME} python3 -m ipykernel install --user --name=firedrake
 
 # Ensure that the pkg config can be found in in the Jupyter kernels
 RUN mamba run -n python3 python3 /usr/local/bin/update_kernel_spec.py python3 --env-kwargs PATH=$PYTHON3_PATH/bin:$PATH \

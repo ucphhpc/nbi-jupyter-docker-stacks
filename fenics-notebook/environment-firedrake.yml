@@ -1,0 +1,13 @@
+name: fenics-notebook
+dependencies:
+  - python=3.13
+  - pip>=26.2.2
+  - certifi>=2026.10.19
+  - ipykernel
+  - ipympl
+  - ipyleaflet
+  - matplotlib
+  - siphash24
+  - xarray
+channels:
+  - conda-forge

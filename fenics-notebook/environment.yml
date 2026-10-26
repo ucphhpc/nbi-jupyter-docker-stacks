@@ -3,6 +3,7 @@ dependencies:
   - fenics
   - gmsh
   - xarray
-  - pip
+  - pip>=26.2.2
+  - certifi>=2026.10.19
 channels:
   - conda-forge
