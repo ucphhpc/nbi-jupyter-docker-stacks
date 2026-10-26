@@ -73,7 +73,7 @@ endif
 .PHONY: venv
 venv:
 	$(PY) -m venv $(VENV_NAME)
-	$(VENV)/python -m pip install --upgrade pip setuptools wheel
+	$(VENV)/python -m pip install --upgrade pip>=26.2.2 setuptools wheel
 
 .PHONY: venv-clean
 venv-clean:
